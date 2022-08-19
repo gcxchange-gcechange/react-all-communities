@@ -3,8 +3,8 @@
     "isCreatingSolution": true,
     "environment": "spo",
     "version": "1.10.0",
-    "libraryName": "My-Communities",
-    "libraryId": "da7eafe2-f2ec-486f-99d8-d36fba06a2bf",
+    "libraryName": "All-Communities",
+    "libraryId": "ee52dd3d-51d0-44e4-bc47-98bfdd06b00f",
     "packageManager": "npm",
     "isDomainIsolated": false,
     "componentType": "webpart"
