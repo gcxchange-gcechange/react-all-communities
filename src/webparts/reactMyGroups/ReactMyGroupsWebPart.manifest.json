@@ -1,6 +1,6 @@
 {
   "$schema": "https://developer.microsoft.com/json-schemas/spfx/client-side-web-part-manifest.schema.json",
-  "id": "1b857fd9-5268-4112-8241-da46dd8d9d53",
+  "id": "f7cdea9d-4904-4e7b-990a-6e4f69f13db8",
   "alias": "ReactMyGroupsWebPart",
   "componentType": "WebPart",
   "supportsThemeVariants": true,
@@ -19,13 +19,13 @@
 
   "preconfiguredEntries": [
     {
-      "groupId": "5c03119e-3074-46fd-976b-c60198311f70", // Other
+      "groupId": "997af934-e0b4-40b8-8953-8412f5402cc4", // Other
       "group": { "default": "Other" },
-      "title": { "default": "My Communities" },
-      "description": { "default": "My Communities description" },
+      "title": { "default": "All Communities" },
+      "description": { "default": "All Communities description" },
       "officeFabricIconFontName": "Page",
       "properties": {
-        "description": "My Communities",
+        "description": "All Communities",
         "sort": "DateCreation",
         "numberPerPage": 4
       }
