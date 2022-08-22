@@ -110,6 +110,7 @@ export class ReactMyGroups extends React.Component<IReactMyGroupsProps, IReactMy
       });
 
       this._getGroupLinks(groups);
+
     });
   }
 

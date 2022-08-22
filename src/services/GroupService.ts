@@ -23,7 +23,7 @@ export class GroupServiceManager {
         .getClient()
         .then((client: MSGraphClient) => {
           client
-          .api("/groups/$/microsoft.graph.group?$filter=groupTypes/any(a:a eq 'unified')")
+          .api("/groups/$/microsoft.graph.group?$filter=groupTypes/any(c:c+eq+'Unified')")
           //.api("/me/memberOf/$/microsoft.graph.group?$filter=groupTypes/any(a:a eq 'unified')")
           .get((error: any, groups: IGroupCollection, rawResponse: any) => {
            console.log("MY GROUPS "+JSON.stringify(groups));
@@ -49,6 +49,8 @@ export class GroupServiceManager {
   public getGroupLinks(groups: IGroup): Promise<any> {
 
     return new Promise<any>((resolve, reject) => {
+
+
       try {
         this.context.msGraphClientFactory
         .getClient()
@@ -56,7 +58,7 @@ export class GroupServiceManager {
           client
           .api(`/groups/${groups.id}/sites/root/weburl`)
           .get((error: any, group: any, rawResponse: any) => {
-            console.log("GROUPLINKS",JSON.stringify(group));
+            console.log("GROUPLINKS",JSON.stringify(groups));
             resolve(group);
           });
         });
@@ -90,7 +92,7 @@ export class GroupServiceManager {
           });
         });
       } catch(error) {
-        console.error(error);
+        console.error("ERROR",error);
       }
     });
   }
