@@ -1,10 +1,11 @@
 export interface IGroup {
-  id: string;
+  id: any;
   displayName: string;
-  description: string;
+  description?: string;
   url?: string;
 }
 
 export interface IGroupCollection {
   value: IGroup[];
+
 }

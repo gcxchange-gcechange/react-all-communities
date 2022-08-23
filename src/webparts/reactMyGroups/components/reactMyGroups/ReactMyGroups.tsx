@@ -64,14 +64,15 @@ export class ReactMyGroups extends React.Component<IReactMyGroupsProps, IReactMy
     :
     <div>
     <div className={styles.groupsContainer}>
-      {this.props.layout == 'Compact' ?
+    <GroupList groups={pagedItems} onRenderItem={(item: any, index: number) => this._onRenderItem(item, index)}/>
+      {/* {this.props.layout == 'Compact' ?
         <GroupList groups={pagedItems} onRenderItem={(item: any, index: number) => this._onRenderItem(item, index)}/>
       :
         this.props.layout == 'Grid' ?
         <GridLayout sort={this.props.sort} items={pagedItems} onRenderGridItem={(item: any, finalSize: ISize, isCompact: boolean) => this._onRenderGridItem(item, finalSize, isCompact)}/>
         :
           <ListLayout sort={this.props.sort} items={pagedItems} onRenderListItem={(item: any, finalSize: ISize, isCompact: boolean) => this._onRenderListItem(item, finalSize, isCompact)}/>
-      }
+      } */}
                   {this.props.toggleSeeAll ?
                   <div>
                     <Paging
@@ -103,7 +104,6 @@ export class ReactMyGroups extends React.Component<IReactMyGroupsProps, IReactMy
 
   public _getGroups = (): void => {
     GroupService.getGroups().then(groups => {
-      console.log("GROUPS - 1", groups);
 
       this.setState({
         groups: groups
@@ -114,38 +114,59 @@ export class ReactMyGroups extends React.Component<IReactMyGroupsProps, IReactMy
     });
   }
 
-
   public _getGroupLinks = (groups: any): void => {
-    GroupService.getGroupLinksBatch(groups).then(groupUrls => {
-      this.setState(prevState => ({
-        groups: prevState.groups.map(group => group.id !== null ? {...group, url: groupUrls[group.id]} : group)
-      }));
-    });
-
-    this._getGroupMembers(groups);
-  }
-
-  public _getGroupMembers = (groups: any): void => {
-    GroupService.getGroupMembersBatch(groups).then(groupMembers => {
-      this.setState(prevState => ({
-        groups: prevState.groups.map(group => group.id !== null ? {...group, members: groupMembers[group.id]} : group)
-      }));
-    });
-
+    groups.map(groupItem => (
+      GroupService.getGroupLinks(groupItem).then(groupurl => {
+        // console.log(groupurl.value);
+        this.setState(prevState => ({
+          groups: prevState.groups.map(group => group.id === groupItem.id ? {...group, url: groupurl.value} : group)
+        }));
+      })
+    ));
     this._getGroupThumbnails(groups);
   }
 
-  public _getGroupThumbnails = (groups: any): void => {
-    GroupService.getGroupThumbnailsBatch(groups).then(grouptbs => {
-      this.setState(prevState => ({
-        groups: prevState.groups.map(group => group.id !== null ? {...group, thumbnail: "data:image/jpeg;base64," + grouptbs[group.id], color: "#0078d4"} : group)
-      }));
-    });
+  // public _getGroupLinks = (groups: any): void => {
+  //   GroupService.getGroupLinks(groups).then(groupUrls => {
 
-    this.setState({
-      isLoading: false
-    });
+  //     this.setState(prevState => ({
+  //       groups: prevState.groups.map(group => group.id !== null ? {...group, url: groupUrls[group.id]} : group)
+  //     }));
+  //   });
+
+  //   this._getGroupThumbnails(groups);
+  // }
+
+  // public _getGroupMembers = (groups: any): void => {
+  //   GroupService.getGroupMembersBatch(groups).then(groupMembers => {
+  //     this.setState(prevState => ({
+  //       groups: prevState.groups.map(group => group.id !== null ? {...group, members: groupMembers[group.id]} : group)
+  //     }));
+  //   });
+
+  //   this._getGroupThumbnails(groups);
+  // }
+  public _getGroupThumbnails = (groups: any): void => {
+    groups.map(groupItem => (
+      GroupService.getGroupThumbnails(groupItem).then(grouptb => {
+        console.log(grouptb);
+        this.setState(prevState => ({
+          groups: prevState.groups.map(group => group.id === groupItem.id ? {...group, thumbnail: grouptb} : group)
+        }));
+      })
+    ));
   }
+  // public _getGroupThumbnails = (groups: any): void => {
+  //   GroupService.getGroupThumbnails(groups).then(grouptbs => {
+  //     this.setState(prevState => ({
+  //       groups: prevState.groups.map(group => group.id !== null ? {...group, thumbnail: "data:image/jpeg;base64," + grouptbs[group.id], color: "#0078d4"} : group)
+  //     }));
+  //   });
+
+  //   this.setState({
+  //     isLoading: false
+  //   });
+  // }
 
   private _onRenderItem = (item: any, index: number): JSX.Element => {
     return (
@@ -162,40 +183,40 @@ export class ReactMyGroups extends React.Component<IReactMyGroupsProps, IReactMy
     );
   }
 
-  private _onRenderGridItem = (item: any, finalSize: ISize, isCompact: boolean): JSX.Element => {
+  // private _onRenderGridItem = (item: any, finalSize: ISize, isCompact: boolean): JSX.Element => {
 
-    return (
-      <div className={styles.siteCard}>
-      <a href={item.url}>
-        <div className={styles.cardBanner}>
-          <div className={styles.topBanner} style={{backgroundColor: item.color}}></div>
-          <img className={styles.bannerImg} src={item.thumbnail} alt={`${this.strings.altImgLogo} ${item.displayName}`} />
-          <div className={styles.cardTitle}>{item.displayName}</div>
-        </div>
-      </a>
-    </div>
-    );
-  }
+  //   return (
+  //     <div className={styles.siteCard}>
+  //     <a href={item.url}>
+  //       <div className={styles.cardBanner}>
+  //         <div className={styles.topBanner} style={{backgroundColor: item.color}}></div>
+  //         <img className={styles.bannerImg} src={item.thumbnail} alt={`${this.strings.altImgLogo} ${item.displayName}`} />
+  //         <div className={styles.cardTitle}>{item.displayName}</div>
+  //       </div>
+  //     </a>
+  //   </div>
+  //   );
+  // }
 
-  private _onRenderListItem = (item: any, finalSize: ISize, isCompact: boolean): JSX.Element => {
+  // private _onRenderListItem = (item: any, finalSize: ISize, isCompact: boolean): JSX.Element => {
 
-    return (
-        <div className={styles.siteCardList}>
-        <a className="community-list-item" href={item.url}>
-           <div className={styles.cardBannerList}>
-                <div className={styles.articleFlex} style={{'width':'60px'}}>
-                   <img className={styles.bannerImgList} src={item.thumbnail} alt={`${this.strings.altImgLogo} ${item.displayName}`} />
-                </div>
-                <div className={`${styles.articleFlex} ${styles.secondSection}`}>
-                  <div className={styles.cardTitleList}>{item.displayName}</div>
-                  <div className={styles.cardDescription}>{item.description}</div>
-                <div className={styles.members}>{item.members} {this.strings.members}</div>
-              </div>
-              </div>
-            </a>
-          </div>
-          );
-        }
+  //   return (
+  //       <div className={styles.siteCardList}>
+  //       <a className="community-list-item" href={item.url}>
+  //          <div className={styles.cardBannerList}>
+  //               <div className={styles.articleFlex} style={{'width':'60px'}}>
+  //                  <img className={styles.bannerImgList} src={item.thumbnail} alt={`${this.strings.altImgLogo} ${item.displayName}`} />
+  //               </div>
+  //               <div className={`${styles.articleFlex} ${styles.secondSection}`}>
+  //                 <div className={styles.cardTitleList}>{item.displayName}</div>
+  //                 <div className={styles.cardDescription}>{item.description}</div>
+  //               <div className={styles.members}>{item.members} {this.strings.members}</div>
+  //             </div>
+  //             </div>
+  //           </a>
+  //         </div>
+  //         );
+  // }
 
 
    private _onPageUpdate = (pageNumber: number): void => {

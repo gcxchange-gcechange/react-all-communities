@@ -1,4 +1,5 @@
 import * as MicrosoftGroup from '@microsoft/microsoft-graph-types';
+//import {IGroup} from '../../../../models/IGroup';
 
 export interface IReactMyGroupsState {
   groups: MicrosoftGroup.Group[];
