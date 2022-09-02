@@ -196,7 +196,7 @@ export class ReactMyGroups extends React.Component<IReactMyGroupsProps, IReactMy
                 <li className={` ${styles.cardBannerList} `}>
                   <div style={{display: 'flex'}}><Icon iconName="Market" className={styles.addIcon} />
                   <a>
-                    <p><strong>TEST {item.members}</strong></p>
+                    <p><strong></strong></p>
                   </a>
                   </div>
                 </li>
