@@ -2,32 +2,22 @@ declare interface IReactMyGroupsWebPartStrings {
   PropertyPaneDescription: string;
   BasicGroupName: string;
   DescriptionFieldLabel: string;
-  altImgLogo: string;
-  pagPrev: string;
-  pagNext: string;
+  seeAllLink: string;
   setTitleEn: string;
   setTitleFr: string;
   setPageNum: string;
-  setLayoutOpt: string;
-  setSortOpt: string;
-  userLang: string;
-  gridIcon: string;
-  compactIcon: string;
-  dateCreation: string;
-  alphabetical: string;
-  showmore: string;
-  showless: string;
-  members:string;
-  seeAllLink: string;
-  seeAll: string;
-  seeAllLabel: string;
-  ListIcon: string;
-  createCommLink: string;
-  createComm: string;
   seeAllToggle: string;
   seeAllOn: string;
-  seeAllOff:string;
-  loadingState: string;
+  seeAllOff: string;
+  setSortOpt: string;
+  dateCreation: string;
+  compactIcon: string;
+  setLayoutOpt: string;
+  gridIcon: string;
+  compactIcon: string;
+  listIcon: string;
+  groups: string;
+  alphabetical: string;
 }
 
 declare module 'ReactMyGroupsWebPartStrings' {

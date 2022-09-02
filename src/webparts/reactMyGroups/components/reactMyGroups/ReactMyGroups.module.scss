@@ -94,12 +94,18 @@
 
   .cardBanner {
     position: relative;
-    height: 144px;
+    // height: 144px;
     padding-top: 40px;
     width: 100%;
   }
+  .cardBanner2 {
+    position: relative;
+    // height: 144px;
+    padding-top: 5px;
+    width: 100%;
+  }
 
-  .members{
+  .groups{
     color:#6B6B6B;
     font-size: 12px;
     bottom: 0px;
@@ -303,16 +309,19 @@
   .groupsContainer{
     clear:both;
   }
-  .createComm{
-    clear:both;
-    margin-bottom: 5%;
-    text-decoration-line: underline;
-  }
+  // .createComm{
+  //   clear:both;
+  //   margin-bottom: 5%;
+  //   text-decoration-line: underline;
+  // }
   .addIcon{
-    color: #106ebe;
+    color: #020202;
     font-weight: bold;
     font-size:12px;
     padding-right: 1%;
+    background: rgb(172, 171, 170);
+    border-radius: 50%;
+    padding: 10px;
   }
   .seeAll{
     float:right;

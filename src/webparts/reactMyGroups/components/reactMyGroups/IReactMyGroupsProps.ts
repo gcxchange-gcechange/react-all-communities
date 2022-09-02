@@ -9,7 +9,6 @@ export interface IReactMyGroupsProps {
   sort: string;
   numberPerPage: number;
   toggleSeeAll: boolean;
-  spHttpClient: SPHttpClient;
   themeVariant: IReadonlyTheme | undefined;
   prefLang: string;
 }
