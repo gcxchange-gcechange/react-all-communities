@@ -118,17 +118,22 @@ export class ReactMyGroups extends React.Component<IReactMyGroupsProps, IReactMy
     });
   }
 
+
   public _getGroupLinks = (groups: any): void => {
     groups.map( groupItem => (
-      GroupService.getGroupLinks(groupItem).then(groupUrl => {
-        this.setState(prevState => ({
-          groups: prevState.groups.map(group => group.id !== null ? {...group, url: groupUrl } : group)
+     GroupService.getGroupLinks(groupItem).then(groupUrl => {
+       //change the state
 
-        }));
-      })
+       this.setState(prevState => ({
+         groups: prevState.groups.map(group => group.id === groupItem.id ? {...group, url: groupUrl} : group)
+
+       }));
+
+     })
     ));
-    this._getGroupThumbnails(groups);
-  }
+   this._getGroupThumbnails(groups);
+ }
+
 
   // public _getGroupActivity = (groups: any): void => {
   //   groups.map(groupItem => (
@@ -179,6 +184,7 @@ export class ReactMyGroups extends React.Component<IReactMyGroupsProps, IReactMy
   }
 
   private _onRenderGridItem = (item: any, finalSize: ISize, isCompact: boolean): JSX.Element => {
+    console.log("GRIDITEM", item)
     return (
       <div className={styles.siteCard}>
           <a href={item.url}>
