@@ -40,10 +40,9 @@ export default class ReactMyGroupsWebPart extends BaseClientSideWebPart<IReactMy
         numberPerPage: this.properties.numberPerPage,
         sort: this.properties.sort,
         themeVariant: this._themeVariant,
-
-
       }
     );
+
 
     ReactDom.render(element, this.domElement);
   }
