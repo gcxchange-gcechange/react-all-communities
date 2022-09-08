@@ -39,9 +39,9 @@ export class GroupServiceManager {
         .then((client: MSGraphClient) => {
           client
           .api(`/groups/${groups.id}/sites/root/weburl`)
-          .get((error: any, group: any, rawResponse: any) => {
-            console.log("LINKS", group);
-            resolve(group);
+          .get((error: any, group: IGroupCollection, rawResponse: any) => {
+            //console.log("LINKS2", group.value);
+            resolve(group.value);
           });
         });
       } catch(error) {
@@ -49,6 +49,25 @@ export class GroupServiceManager {
       }
     });
   }
+
+  // public getGroupLinks(groups: IGroup): Promise<any> {
+  //   return new Promise<any>((resolve, reject) => {
+  //     try {
+  //       this.context.msGraphClientFactory
+  //       .getClient()
+  //       .then((client: MSGraphClient) => {
+  //         client
+  //         .api(`/groups/${groups.id}/sites/root/weburl`)
+  //         .get((error: any, group: any, rawResponse: any) => {
+  //           console.log("LINKS", group);
+  //           resolve(group);
+  //         });
+  //       });
+  //     } catch(error) {
+  //       console.error(error);
+  //     }
+  //   });
+  // }
 
   // public getGroupActivity(groups: IGroup): Promise<any> {
   //   return new Promise<any>((resolve, reject) => {
