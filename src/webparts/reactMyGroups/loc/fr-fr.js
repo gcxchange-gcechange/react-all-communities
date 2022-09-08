@@ -18,7 +18,7 @@ define([], function() {
     "alphabetical": "Alphabétique",
     "showmore": "Montrer plus",
     "showless": "Montrer moins",
-    "members": "membres",
+    "groups": "collectivités",
     "seeAllLink": "Lien pour Afficher tout",
     "seeAll": "Afficher tout",
     "seeAllLabel": "Afficher toutes mes collectivités",
