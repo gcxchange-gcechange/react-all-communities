@@ -17,7 +17,7 @@ import { Icon } from 'office-ui-fabric-react/lib/Icon';
 
 
 
-const colors = ['#0078d4'];
+//const colors = ['#0078d4'];
 
 export class ReactMyGroups extends React.Component<IReactMyGroupsProps, IReactMyGroupsState> {
 
@@ -113,8 +113,8 @@ export class ReactMyGroups extends React.Component<IReactMyGroupsProps, IReactMy
       this.setState({
         groups: groups
       });
-      //this._getGroupLinks(groups);
-      this._getGroupThumbnails(groups);
+      this._getGroupLinks(groups);
+      //this._getGroupThumbnails(groups);
     });
   }
 
@@ -122,13 +122,11 @@ export class ReactMyGroups extends React.Component<IReactMyGroupsProps, IReactMy
     groups.map( groupItem => (
       GroupService.getGroupLinks(groupItem).then(groupUrl => {
         this.setState(prevState => ({
-          groups: prevState.groups.map(group => group.id !== null ? {...group, url: groupUrl[group.id] } : group)
+          groups: prevState.groups.map(group => group.id !== null ? {...group, url: groupUrl } : group)
 
         }));
       })
     ));
-
-
     this._getGroupThumbnails(groups);
   }
 
