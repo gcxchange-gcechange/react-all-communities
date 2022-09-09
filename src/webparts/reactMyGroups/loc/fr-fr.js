@@ -24,7 +24,7 @@ define([], function() {
     "seeAllLabel": "Afficher toutes mes collectivités",
     "ListIcon": "Liste",
     "createCommLink": "Lien pour créer une collectivité",
-    "createComm": "Créez une collectivité",
+    "addCommLink": "Créez une collectivité",
     "seeAllToggle": "Ce webpart est pour la page Afficher tout",
     "seeAllOn": "Oui",
     "seeAllOff": "Non",
