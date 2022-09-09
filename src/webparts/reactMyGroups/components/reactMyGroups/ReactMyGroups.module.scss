@@ -315,21 +315,26 @@
   //   text-decoration-line: underline;
   // }
   .addIcon{
-    color: #020202;
+    color: #069;
     font-weight: bold;
     font-size:12px;
     padding-right: 1%;
-    background: rgb(172, 171, 170);
-    border-radius: 50%;
-    padding: 10px;
+    background: transparent;
+    // border-radius: 50%;
+    // padding: 10px;
   }
-  .seeAll{
-    float:right;
+ .seeAll{
+
+    display: flex;
+    flex-direction: row-reverse;
+
   }
 
-  .addComm {
-    float: left;
+  .addComm{
+    flex-grow:.1;
   }
+
+
 
 
 }

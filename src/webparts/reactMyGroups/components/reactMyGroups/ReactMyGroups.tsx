@@ -67,8 +67,10 @@ export class ReactMyGroups extends React.Component<IReactMyGroupsProps, IReactMy
     return (
       <div className={ styles.reactMyGroups }  >
         <div className={styles.title} role="heading" aria-level={2}>{(this.strings.userLang == "FR"? this.props.titleFr : this.props.titleEn)} </div>
-        <div className={styles.seeAll}>{this.props.toggleSeeAll == false && <a aria-label={this.strings.seeAllLabel} href={this.props.seeAllLink}>{this.strings.seeAll}</a>}</div>
-        <div className= {styles.addComm}><Icon iconName='Add' className={styles.addIcon}/><a href={this.props.addCommLink}>{this.strings.addCommLink}</a></div>
+
+        <div className={styles.seeAll}>{this.props.toggleSeeAll == false && <a aria-label={this.strings.seeAllLabel} href={this.props.seeAllLink}>{this.strings.seeAll}</a>}
+        <a className={styles.addComm} href={this.props.addCommLink}><Icon iconName='Add' className={styles.addIcon}/>{this.strings.addCommLink}</a>
+        </div>
           {this.state.isLoading ?
             <Spinner label={this.strings.loadingState}/>
                 :
