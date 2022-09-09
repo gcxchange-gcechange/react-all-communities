@@ -3,6 +3,7 @@ import { IReadonlyTheme } from '@microsoft/sp-component-base';
 
 export interface IReactMyGroupsProps {
   seeAllLink:string;
+  addCommLink: string;
   titleEn: string;
   titleFr: string;
   layout: string;

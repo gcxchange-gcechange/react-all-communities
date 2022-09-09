@@ -25,7 +25,8 @@ define([], function() {
     "ListIcon" : "List",
     "pagePrev" : "Previous",
     "pageNext" : "Next",
-    "groups" : "Group"
+    "groups" : "Group",
+    "addCommLink": "add a Community"
 
 
 

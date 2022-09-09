@@ -68,6 +68,7 @@ export class ReactMyGroups extends React.Component<IReactMyGroupsProps, IReactMy
       <div className={ styles.reactMyGroups }  >
         <div className={styles.title} role="heading" aria-level={2}>{(this.strings.userLang == "FR"? this.props.titleFr : this.props.titleEn)} </div>
         <div className={styles.seeAll}>{this.props.toggleSeeAll == false && <a aria-label={this.strings.seeAllLabel} href={this.props.seeAllLink}>{this.strings.seeAll}</a>}</div>
+        <div className= {styles.addComm}><Icon iconName='Add' className={styles.addIcon}/><a href={this.props.addCommLink}>{this.strings.addCommLink}</a></div>
           {this.state.isLoading ?
             <Spinner label={this.strings.loadingState}/>
                 :
@@ -184,7 +185,7 @@ export class ReactMyGroups extends React.Component<IReactMyGroupsProps, IReactMy
   }
 
   private _onRenderGridItem = (item: any, finalSize: ISize, isCompact: boolean): JSX.Element => {
-    console.log("GRIDITEM", item)
+    // console.log("GRIDITEM", item)
     return (
       <div className={styles.siteCard}>
           <a href={item.url}>

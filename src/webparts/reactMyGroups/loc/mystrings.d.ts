@@ -18,6 +18,7 @@ declare interface IReactMyGroupsWebPartStrings {
   listIcon: string;
   groups: string;
   alphabetical: string;
+  addCommLink: string;
 }
 
 declare module 'ReactMyGroupsWebPartStrings' {
