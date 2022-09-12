@@ -8,7 +8,10 @@
     "isDomainIsolated": false,
     "skipFeatureDeployment": true,
     "webApiPermissionRequests": [
-
+      {
+        "resource": "Microsoft Graph",
+        "scope": "Group.Read.All"
+      },
       {
         "resource": "Microsoft Graph",
         "scope": "User.Read.All"
