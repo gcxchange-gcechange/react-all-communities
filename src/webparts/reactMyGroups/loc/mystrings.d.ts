@@ -2,7 +2,6 @@ declare interface IReactMyGroupsWebPartStrings {
   PropertyPaneDescription: string;
   BasicGroupName: string;
   DescriptionFieldLabel: string;
-  seeAllLink: string;
   setTitleEn: string;
   setTitleFr: string;
   setPageNum: string;
