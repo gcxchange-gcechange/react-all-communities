@@ -2,7 +2,6 @@ import { SPHttpClient } from '@microsoft/sp-http';
 import { IReadonlyTheme } from '@microsoft/sp-component-base';
 
 export interface IReactMyGroupsProps {
-  seeAllLink:string;
   addCommLink: string;
   titleEn: string;
   titleFr: string;
