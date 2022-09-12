@@ -10,7 +10,7 @@ import { ThemeProvider, ThemeChangedEventArgs, IReadonlyTheme } from '@microsoft
 
 
 export interface IReactMyGroupsWebPartProps {
-  seeAllLink: string;
+
   addCommLink: string;
   titleEn: string;
   titleFr: string;
@@ -32,7 +32,7 @@ export default class ReactMyGroupsWebPart extends BaseClientSideWebPart<IReactMy
     const element: React.ReactElement<IReactMyGroupsProps > = React.createElement(
       ReactMyGroups,
       {
-        seeAllLink: this.properties.seeAllLink,
+
         addCommLink: this.properties.addCommLink,
         titleEn: this.properties.titleEn,
         titleFr: this.properties.titleFr,
@@ -101,9 +101,6 @@ export default class ReactMyGroupsWebPart extends BaseClientSideWebPart<IReactMy
                   ]
                 }),
 
-                PropertyPaneTextField('seeAllLink', {
-                  label: strings.seeAllLink
-                }),
 
                 PropertyPaneTextField('addCommLink', {
                   label: strings.addCommLink

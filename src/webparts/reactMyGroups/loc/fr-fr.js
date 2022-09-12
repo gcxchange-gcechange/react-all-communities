@@ -19,7 +19,6 @@ define([], function() {
     "showmore": "Montrer plus",
     "showless": "Montrer moins",
     "groups": "collectivités",
-    "seeAllLink": "Lien pour Afficher tout",
     "seeAll": "Afficher tout",
     "seeAllLabel": "Afficher toutes mes collectivités",
     "ListIcon": "Liste",
