@@ -185,8 +185,10 @@ export class ReactMyGroups extends React.Component<IReactMyGroupsProps, IReactMy
   }
 
   private _onRenderGridItem = (item: any, finalSize: ISize, isCompact: boolean): JSX.Element => {
-    // console.log("GRIDITEM", item)
+    console.log("GRIDITEM", item)
     return (
+      <div>
+        {item.url ?
       <div className={styles.siteCard}>
           <a href={item.url}>
             <div className={styles.cardBanner}>
@@ -196,6 +198,7 @@ export class ReactMyGroups extends React.Component<IReactMyGroupsProps, IReactMy
               <p className={styles.groups}>{this.strings.groups} </p>
             </div>
           </a>
+
           <div className={` ${styles.secondSection} ${styles.cardBanner2}`}>
             <ul className={`${styles.groups} ${styles.articleFlex}`}>
                 <li className={` ${styles.cardBannerList} `}>
@@ -207,7 +210,8 @@ export class ReactMyGroups extends React.Component<IReactMyGroupsProps, IReactMy
                 </li>
             </ul>
           </div>
-
+      </div>
+      : ''}
       </div>
     );
   }
