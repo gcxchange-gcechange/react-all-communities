@@ -7,7 +7,6 @@ define([], function() {
     "altImgLogo":"Logo of",
     "setTitleEn": "Title in English",
     "setTitleFr": "Title in French",
-    "seeAllLink": "Link for see all",
     "seeAll" : "See all",
     "seeAllLabel": "See all of my communities",
     "seeAllToggle": "This webpart is for the see all page",
@@ -26,7 +25,8 @@ define([], function() {
     "pagePrev" : "Previous",
     "pageNext" : "Next",
     "groups" : "Group",
-    "addCommLink": "Create a community"
+    "addCommLink": "Create a community",
+    "link": "link"
 
 
 

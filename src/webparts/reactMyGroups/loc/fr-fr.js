@@ -22,7 +22,7 @@ define([], function() {
     "seeAll": "Afficher tout",
     "seeAllLabel": "Afficher toutes mes collectivités",
     "ListIcon": "Liste",
-    "createCommLink": "Lien pour créer une collectivité",
+    "link": "Lien pour",
     "addCommLink": "Créez une collectivité",
     "seeAllToggle": "Ce webpart est pour la page Afficher tout",
     "seeAllOn": "Oui",
