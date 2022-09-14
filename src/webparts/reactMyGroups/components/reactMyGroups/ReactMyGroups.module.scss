@@ -339,5 +339,11 @@
   .addComm a:hover {
    text-decoration: underline;
   }
+  .hidden {
+    display: none;
+    opacity: 0;
+    visibility: none;
+    z-index: -1;
+  }
 
 }
