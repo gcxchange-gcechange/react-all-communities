@@ -5,7 +5,7 @@ import styles from './GridLayout.module.scss';
 import { FocusZone } from 'office-ui-fabric-react/lib/FocusZone';
 import { List } from 'office-ui-fabric-react/lib/List';
 import { IRectangle, ISize } from 'office-ui-fabric-react/lib/Utilities';
-import { Spinner } from 'office-ui-fabric-react';
+import { Spinner, TagItemSuggestion } from 'office-ui-fabric-react';
 
 import { IGridLayoutProps, IGridLayoutState } from './GridLayout.types';
 
@@ -71,23 +71,21 @@ export class GridLayout extends React.Component<IGridLayoutProps, IGridLayoutSta
   }
 
   private _onRenderCell = (item: any, index: number | undefined): JSX.Element => {
-   // console.log(item.displayName);
+
     const isCompact: boolean = this._isCompact;
     const cellPadding: number = index % this._columnCount !== this._columnCount - 1 && !isCompact ? PADDING : 0;
     const finalSize: ISize = { width: this._columnWidth, height: this._rowHeight };
     const cellWidth: number = isCompact ? this._columnWidth + PADDING : this._columnWidth - PADDING;
     let _totalPages = Math.ceil(item.length / 2);
     return (
-      <div
-      className={styles.rendergrid}
-        style={{
-          width: `${cellWidth}px`,
-          marginRight: `${cellPadding}px`
-        }}
-      >
+      <>
+      {item.url &&
+        <div className={styles.rendergrid} style={{ width: `${cellWidth}px`, marginRight: `${cellPadding}px`}}>
           {this.props.onRenderGridItem(item, finalSize, isCompact)}
 
-      </div>
+        </div>
+      }
+      </>
     );
   }
 }
