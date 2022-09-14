@@ -28,7 +28,5 @@ define([], function() {
     "addCommLink": "Create a community",
     "link": "link"
 
-
-
   }
 });
