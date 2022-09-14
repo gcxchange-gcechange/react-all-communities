@@ -129,8 +129,8 @@ export class ReactMyGroups extends React.Component<IReactMyGroupsProps, IReactMy
          groups: prevState.groups.map(group => group.id === groupItem.id ? {...group, url: groupUrl} : group)
 
        }));
-
      })
+
     ));
    this._getGroupThumbnails(groups);
  }
@@ -157,7 +157,6 @@ export class ReactMyGroups extends React.Component<IReactMyGroupsProps, IReactMy
         this.setState(prevState => ({
           groups: prevState.groups.map(group => group.id === groupItem.id ? {...group, thumbnail: grouptb, color: "#0078d4"} : group)
         }));
-
       })
     ));
     console.log('Set False');
@@ -181,15 +180,14 @@ export class ReactMyGroups extends React.Component<IReactMyGroupsProps, IReactMy
           </div>
         </a>
       </div>
+
     );
   }
 
   private _onRenderGridItem = (item: any, finalSize: ISize, isCompact: boolean): JSX.Element => {
     console.log("GRIDITEM", item)
     return (
-      <div>
-        {item.url ?
-      <div className={styles.siteCard}>
+      <div className={styles.siteCard } >
           <a href={item.url}>
             <div className={styles.cardBanner}>
               <div className={styles.topBanner} style={{backgroundColor: item.color}}></div>
@@ -211,8 +209,7 @@ export class ReactMyGroups extends React.Component<IReactMyGroupsProps, IReactMy
             </ul>
           </div>
       </div>
-      : ''}
-      </div>
+
     );
   }
 
