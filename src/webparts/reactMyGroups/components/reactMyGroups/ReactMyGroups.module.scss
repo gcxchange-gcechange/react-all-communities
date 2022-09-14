@@ -323,10 +323,6 @@
     // border-radius: 50%;
     // padding: 10px;
   }
-//  .seeAll{
-//     display: flex;
-//     flex-direction: row-reverse;
-//   }
 
   .addComm{
     display: flex;
@@ -339,11 +335,6 @@
   .addComm a:hover {
    text-decoration: underline;
   }
-  .hidden {
-    display: none;
-    opacity: 0;
-    visibility: none;
-    z-index: -1;
-  }
+
 
 }
