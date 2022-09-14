@@ -185,7 +185,6 @@ export class ReactMyGroups extends React.Component<IReactMyGroupsProps, IReactMy
   }
 
   private _onRenderGridItem = (item: any, finalSize: ISize, isCompact: boolean): JSX.Element => {
-    console.log("GRIDITEM", item)
     return (
       <div className={styles.siteCard } >
           <a href={item.url}>
