@@ -80,12 +80,12 @@ export class GridLayout extends React.Component<IGridLayoutProps, IGridLayoutSta
     return (
       <>
       {console.log("Index", index)}
-      {item.url ?
-        <div className={styles.rendergrid} >
+      {!!item.url &&
+        <div className={styles.rendergrid}  >
           {this.props.onRenderGridItem(item, finalSize, isCompact)}
 
         </div>
-      : null }
+      }
       </>
     );
   }
