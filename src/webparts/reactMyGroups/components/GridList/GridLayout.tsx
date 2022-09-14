@@ -79,12 +79,13 @@ export class GridLayout extends React.Component<IGridLayoutProps, IGridLayoutSta
     let _totalPages = Math.ceil(item.length / 2);
     return (
       <>
-      {item.url &&
+      {console.log("Index", index)}
+      {item.url ?
         <div className={styles.rendergrid} style={{ width: `${cellWidth}px`, marginRight: `${cellPadding}px`}}>
           {this.props.onRenderGridItem(item, finalSize, isCompact)}
 
         </div>
-      }
+      : null }
       </>
     );
   }
