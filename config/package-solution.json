@@ -13,6 +13,7 @@
         "resource": "Microsoft Graph",
         "scope": "User.Read.All"
       }
+
     ]
   },
   "paths": {
