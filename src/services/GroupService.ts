@@ -39,17 +39,13 @@ export class GroupServiceManager {
         .then((client: MSGraphClient) => {
           client
           .api(`/groups/${groups.id}/sites/root/weburl`)
-          .get((error: any, groups: any, rawResponse: any) => {
-             console.log("LINKS1", groups.value);
-              if(error) {
-                reject(error);
-              }
-              resolve(groups.value);
-
+          .get((error: any, group: IGroupCollection, rawResponse: any) => {
+            console.log("LINKS2", group.value);
+            resolve(group.value);
           });
         });
       } catch(error) {
-        console.log("Error", error)
+        console.error(error);
       }
     });
   }
