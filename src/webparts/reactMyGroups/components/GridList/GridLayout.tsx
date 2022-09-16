@@ -30,13 +30,19 @@ export class GridLayout extends React.Component<IGridLayoutProps, IGridLayoutSta
 
   public render(): React.ReactElement<IGridLayoutProps> {
 
+
+const items = this.props.items.filter(group => {
+  return group.hasOwnProperty('url');
+})
+console.log("filteredItems", items);
+
     return (
       <div role="group" aria-label={this.props.ariaLabel}>
          <FocusZone>
           <List
             role="presentation"
             className={styles.gridLayout}
-            items={this.props.items}
+            items={items}
             getItemCountForPage={this._getItemCountForPage}
             getPageHeight={this._getPageHeight}
             onRenderCell={this._onRenderCell}
@@ -45,10 +51,9 @@ export class GridLayout extends React.Component<IGridLayoutProps, IGridLayoutSta
         </FocusZone>
       </div>
     );
+
   }
 
-  public componentDidMount = (): void => {
-  }
 
   private _getItemCountForPage = (itemIndex: number, surfaceRect: IRectangle): number => {
     if (itemIndex === 0) {
@@ -77,16 +82,18 @@ export class GridLayout extends React.Component<IGridLayoutProps, IGridLayoutSta
     const finalSize: ISize = { width: this._columnWidth, height: this._rowHeight };
     // const cellWidth: number = isCompact ? this._columnWidth + PADDING : this._columnWidth - PADDING;
     let _totalPages = Math.ceil(item.length / 2);
-    return (
-      <>
-      {console.log("Index", index)}
-      {!!item.url &&
-        <div className={styles.rendergrid}  >
-          {this.props.onRenderGridItem(item, finalSize, isCompact)}
 
-        </div>
-      }
-      </>
-    );
-  }
+
+
+      return (
+          <div className={styles.rendergrid} >
+
+            {this.props.onRenderGridItem(item, finalSize, isCompact)}
+
+          </div>
+
+      );
+    }
+
+
 }

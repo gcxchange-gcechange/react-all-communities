@@ -130,8 +130,8 @@ export class ReactMyGroups extends React.Component<IReactMyGroupsProps, IReactMy
 
        }));
      })
-
     ));
+
    this._getGroupThumbnails(groups);
  }
 
@@ -167,7 +167,7 @@ export class ReactMyGroups extends React.Component<IReactMyGroupsProps, IReactMy
   }
 
 
-
+//Compact Render Item
   private _onRenderItem = (item: any, index: number): JSX.Element => {
     return (
       <div className={styles.compactContainer}>
@@ -185,36 +185,41 @@ export class ReactMyGroups extends React.Component<IReactMyGroupsProps, IReactMy
   }
 
   private _onRenderGridItem = (item: any, finalSize: ISize, isCompact: boolean): JSX.Element => {
-    return (
-      <div className={styles.siteCard } >
-          <a href={item.url}>
-            <div className={styles.cardBanner}>
-              <div className={styles.topBanner} style={{backgroundColor: item.color}}></div>
-              <img className={styles.bannerImg} src={item.thumbnail} alt={`${this.strings.altImgLogo} ${item.displayName} `}/>
-              <div className={styles.cardTitle}>{item.displayName}</div>
-              <p className={styles.groups}>{this.strings.groups} </p>
-            </div>
-          </a>
 
-          <div className={` ${styles.secondSection} ${styles.cardBanner2}`}>
-            <ul className={`${styles.groups} ${styles.articleFlex}`}>
-                <li className={` ${styles.cardBannerList} `}>
-                  <div style={{display: 'flex'}}><Icon iconName="Market" className={styles.addIcon} />
-                  <a>
-                    <p><strong></strong></p>
-                  </a>
-                  </div>
-                </li>
-            </ul>
-          </div>
-      </div>
+   return (
 
-    );
-  }
+     <div className={styles.siteCard } >
+         <a href={item.url}>
+           <div className={styles.cardBanner}>
+             <div className={styles.topBanner} style={{backgroundColor: item.color}}></div>
+             <img className={styles.bannerImg} src={item.thumbnail} alt={`${this.strings.altImgLogo} ${item.displayName} `}/>
+             <div className={styles.cardTitle}>{item.displayName}</div>
+             <p className={styles.groups}>{this.strings.groups} </p>
+           </div>
+         </a>
+
+         <div className={` ${styles.secondSection} ${styles.cardBanner2}`}>
+           <ul className={`${styles.groups} ${styles.articleFlex}`}>
+               <li className={` ${styles.cardBannerList} `}>
+                 <div style={{display: 'flex'}}><Icon iconName="Market" className={styles.addIcon} />
+                 <a>
+                   <p><strong></strong></p>
+                 </a>
+                 </div>
+               </li>
+           </ul>
+         </div>
+     </div>
+
+   );
+ }
+
+
 
   private _onRenderListItem = (item: any, finalSize: ISize, isCompact: boolean): JSX.Element => {
 
     return (
+
         <div className={styles.siteCardList}>
         <a className="community-list-item" href={item.url}>
            <div className={styles.cardBannerList}>
@@ -229,6 +234,7 @@ export class ReactMyGroups extends React.Component<IReactMyGroupsProps, IReactMy
               </div>
             </a>
           </div>
+
           );
         }
 
