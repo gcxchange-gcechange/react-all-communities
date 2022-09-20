@@ -15,7 +15,13 @@ export class GroupList extends React.Component<IGroupListProps, {}> {
   private _columnWidth: number;
   private _rowHeight: number;
 
+
+
   public render(): React.ReactElement<IGroupListProps> {
+
+    const items = this.props.groups.filter(group => {
+      return group.hasOwnProperty('url');
+    });
 
     return (
       <div role="group">
@@ -25,7 +31,7 @@ export class GroupList extends React.Component<IGroupListProps, {}> {
         >
           <List
             className={styles.compactLayout}
-            items={this.props.groups}
+            items={items}
             getItemCountForPage={this._getItemCountForPage}
             getPageHeight={this._getPageHeight}
             onRenderCell={this._onRenderCell}

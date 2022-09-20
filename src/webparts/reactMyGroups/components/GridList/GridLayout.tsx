@@ -33,8 +33,8 @@ export class GridLayout extends React.Component<IGridLayoutProps, IGridLayoutSta
 
 const items = this.props.items.filter(group => {
   return group.hasOwnProperty('url');
-})
-console.log("filteredItems", items);
+});
+
 
     return (
       <div role="group" aria-label={this.props.ariaLabel}>
@@ -62,7 +62,7 @@ console.log("filteredItems", items);
         this._columnCount = 1;
         this._columnWidth = surfaceRect.width;
       } else {
-        this._columnCount = Math.ceil(surfaceRect.width / (MAX_ROW_HEIGHT));
+        this._columnCount = Math.round(surfaceRect.width / (MAX_ROW_HEIGHT));
         this._columnWidth = Math.max(MIN_WIDTH, Math.floor(surfaceRect.width / this._columnCount) + Math.floor(PADDING / this._columnCount));
         this._rowHeight = this._columnWidth;
       }

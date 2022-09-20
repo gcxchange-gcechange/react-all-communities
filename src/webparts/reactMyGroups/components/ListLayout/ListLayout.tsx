@@ -30,13 +30,14 @@ export class ListLayout extends React.Component<IListLayoutProps, IListLayoutSta
 
   public render(): React.ReactElement<IListLayoutProps> {
 
+
     return (
       <div role="group" aria-label={this.props.ariaLabel}>
          <FocusZone>
           <List
             role="presentation"
             className={styles.listLayout}
-            items={this.props.items}
+            items={this.props.items.filter(group => { return group.hasOwnProperty('url')})}
             getItemCountForPage={this._getItemCountForPage}
             getPageHeight={this._getPageHeight}
             onRenderCell={this._onRenderCell}
@@ -71,7 +72,7 @@ export class ListLayout extends React.Component<IListLayoutProps, IListLayoutSta
   }
 
   private _onRenderCell = (item: any, index: number | undefined): JSX.Element => {
-   // console.log(item.displayName);    
+   // console.log(item.displayName);
     const isCompact: boolean = this._isCompact;
     const cellPadding: number = index % this._columnCount !== this._columnCount - 1 && !isCompact ? PADDING : 0;
     const finalSize: ISize = { width: this._columnWidth, height: this._rowHeight };
