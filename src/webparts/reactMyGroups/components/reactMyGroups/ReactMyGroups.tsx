@@ -17,6 +17,7 @@ import { Icon } from 'office-ui-fabric-react/lib/Icon';
 
 
 
+
 //const colors = ['#0078d4'];
 
 export class ReactMyGroups extends React.Component<IReactMyGroupsProps, IReactMyGroupsState> {
@@ -30,7 +31,8 @@ export class ReactMyGroups extends React.Component<IReactMyGroupsProps, IReactMy
       currentPage: 1,
       pagelimit: 0,
       showless: false,
-      pageSeeAll: false
+      pageSeeAll: false,
+
     };
 
   }
@@ -52,23 +54,26 @@ export class ReactMyGroups extends React.Component<IReactMyGroupsProps, IReactMy
     const { currentPage } = this.state;
 
     //if on see all page, only show 20 at the time
-    if(this.props.toggleSeeAll){
-      maxEvents = 20;
-    }
-    if (true && totalItems > 0 && totalItems > maxEvents) {
+    // if(this.props.toggleSeeAll){
+    //   maxEvents = 50;
+    // }
+    // if (true && totalItems > 0 && totalItems > maxEvents) {
 
-      const pageStartAt: number = maxEvents * (currentPage - 1);
-      const pageEndAt: number = (maxEvents * currentPage);
+    //   const pageStartAt: number = maxEvents * (currentPage - 1);
+    //   const pageEndAt: number = (maxEvents * currentPage);
 
-      pagedItems = pagedItems.slice(pageStartAt, pageEndAt);
-      showPages = true;
-    }
+    //   pagedItems = pagedItems.slice(pageStartAt, pageEndAt);
+    //   showPages = true;
+    // }
+
+
 
     return (
+
       <div className={ styles.reactMyGroups }  >
         <div className={styles.title} role="heading" aria-level={2}>{(this.strings.userLang == "FR"? this.props.titleFr : this.props.titleEn)} </div>
-        <div className={styles.addComm}><Icon iconName='Add' className={styles.addIcon}/><a aria-label={this.strings.seeAllLabel} href={this.props.addCommLink}>{this.strings.addCommLink}</a></div>
 
+        <div className={styles.addComm}><Icon iconName='Add' className={styles.addIcon}/><a aria-label={this.strings.seeAllLabel} href={this.props.addCommLink}>{this.strings.addCommLink}</a></div>
           {this.state.isLoading ?
             <Spinner label={this.strings.loadingState}/>
                 :
@@ -82,19 +87,19 @@ export class ReactMyGroups extends React.Component<IReactMyGroupsProps, IReactMy
                   :
                   <ListLayout sort={ this.props.sort } items={ pagedItems } onRenderListItem={(item: any, finalSize: ISize, isCompact: boolean) => this._onRenderListItem(item, finalSize, isCompact)}/>
                 }
-                    { this.props.toggleSeeAll?
+                    {/* { this.props.toggleSeeAll?
                     <div>
                         <Paging
                           showPageNumber={ true }
                           currentPage = { currentPage }
-                          itemsCountPerPage={ 21 }
+                          itemsCountPerPage={ 50 }
                           totalItems={ totalItems }
                           onPageUpdate={ this._onPageUpdate }
                           nextButtonLabel={ this.strings.pagNext }
                           previousButtonLabel={ this.strings.pagPrev }
                         />
                     </div> : ""
-                    }
+                    } */}
                 </div>
               </div>
           }
@@ -129,9 +134,9 @@ export class ReactMyGroups extends React.Component<IReactMyGroupsProps, IReactMy
          groups: prevState.groups.map(group => group.id === groupItem.id ? {...group, url: groupUrl} : group)
 
        }));
-
      })
     ));
+
    this._getGroupThumbnails(groups);
  }
 
@@ -157,7 +162,6 @@ export class ReactMyGroups extends React.Component<IReactMyGroupsProps, IReactMy
         this.setState(prevState => ({
           groups: prevState.groups.map(group => group.id === groupItem.id ? {...group, thumbnail: grouptb, color: "#0078d4"} : group)
         }));
-
       })
     ));
     console.log('Set False');
@@ -168,7 +172,7 @@ export class ReactMyGroups extends React.Component<IReactMyGroupsProps, IReactMy
   }
 
 
-
+//Compact Render Item
   private _onRenderItem = (item: any, index: number): JSX.Element => {
     return (
       <div className={styles.compactContainer}>
@@ -181,40 +185,46 @@ export class ReactMyGroups extends React.Component<IReactMyGroupsProps, IReactMy
           </div>
         </a>
       </div>
+
     );
   }
 
   private _onRenderGridItem = (item: any, finalSize: ISize, isCompact: boolean): JSX.Element => {
-    // console.log("GRIDITEM", item)
-    return (
-      <div className={styles.siteCard}>
-          <a href={item.url}>
-            <div className={styles.cardBanner}>
-              <div className={styles.topBanner} style={{backgroundColor: item.color}}></div>
-              <img className={styles.bannerImg} src={item.thumbnail} alt={`${this.strings.altImgLogo} ${item.displayName} `}/>
-              <div className={styles.cardTitle}>{item.displayName}</div>
-              <p className={styles.groups}>{this.strings.groups} </p>
-            </div>
-          </a>
-          <div className={` ${styles.secondSection} ${styles.cardBanner2}`}>
-            <ul className={`${styles.groups} ${styles.articleFlex}`}>
-                <li className={` ${styles.cardBannerList} `}>
-                  <div style={{display: 'flex'}}><Icon iconName="Market" className={styles.addIcon} />
-                  <a>
-                    <p><strong></strong></p>
-                  </a>
-                  </div>
-                </li>
-            </ul>
-          </div>
 
-      </div>
-    );
-  }
+   return (
+
+     <div className={styles.siteCard } >
+         <a href={item.url}>
+           <div className={styles.cardBanner}>
+             <div className={styles.topBanner} style={{backgroundColor: item.color}}></div>
+             <img className={styles.bannerImg} src={item.thumbnail} alt={`${this.strings.altImgLogo} ${item.displayName} `}/>
+             <div className={styles.cardTitle}>{item.displayName}</div>
+             <p className={styles.groups}>{this.strings.groups} </p>
+           </div>
+         </a>
+
+         <div className={` ${styles.secondSection} ${styles.cardBanner2}`}>
+           <ul className={`${styles.groups} ${styles.articleFlex}`}>
+               <li className={` ${styles.cardBannerList} `}>
+                 <div style={{display: 'flex'}}><Icon iconName="Market" className={styles.addIcon} />
+                 <a>
+                   <p><strong></strong></p>
+                 </a>
+                 </div>
+               </li>
+           </ul>
+         </div>
+     </div>
+
+   );
+ }
+
+
 
   private _onRenderListItem = (item: any, finalSize: ISize, isCompact: boolean): JSX.Element => {
 
     return (
+
         <div className={styles.siteCardList}>
         <a className="community-list-item" href={item.url}>
            <div className={styles.cardBannerList}>
@@ -229,6 +239,7 @@ export class ReactMyGroups extends React.Component<IReactMyGroupsProps, IReactMy
               </div>
             </a>
           </div>
+
           );
         }
 
