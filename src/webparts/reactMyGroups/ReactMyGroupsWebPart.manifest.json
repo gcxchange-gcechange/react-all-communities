@@ -26,8 +26,8 @@
       "officeFabricIconFontName": "Page",
       "properties": {
         "description": "All Communities",
-        "sort": "DateCreation",
-        "numberPerPage": 4
+        "sort": "DateCreation"
+        // "numberPerPage": 4
       }
     }
   ]
