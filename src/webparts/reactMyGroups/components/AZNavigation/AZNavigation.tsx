@@ -1,6 +1,7 @@
 import * as React from 'react';
 import { IAZNavigationProps } from './IAZNavigationProps';
 import  styles from './AZNavigation.module.scss';
+import { ActionButton, FocusZone } from 'office-ui-fabric-react';
 
 
 export class AZNavigation extends React.Component<IAZNavigationProps> {
@@ -34,7 +35,9 @@ export class AZNavigation extends React.Component<IAZNavigationProps> {
       <div className={styles.charContainer}>
         {combinedIndex.map((letter) => {
           return(
-          <div key={letter} className={styles.letter}>{letter}</div>
+            <FocusZone>
+              <ActionButton key={letter} className={styles.letter} >{letter}</ActionButton>
+            </FocusZone>
           );
         })}
 
