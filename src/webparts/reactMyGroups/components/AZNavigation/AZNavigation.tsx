@@ -22,14 +22,24 @@ export class AZNavigation extends React.Component<IAZNavigationProps> {
    let abcChars = arrayAtoZ();
 
   // Combine both ABC and # symbol arrays
-   const combinedIndex = [...abcChars, ...numSym];
 
-   console.log(combinedIndex);
+    const combinedIndex = [...abcChars, ...numSym];
+
+
+
+
 
     return (
-      <div  className={styles.charContainer}>
-        {combinedIndex}
+
+      <div className={styles.charContainer}>
+        {combinedIndex.map((letter) => {
+          return(
+          <div key={letter} className={styles.letter}>{letter}</div>
+          );
+        })}
+
       </div>
+
     );
   }
 }
