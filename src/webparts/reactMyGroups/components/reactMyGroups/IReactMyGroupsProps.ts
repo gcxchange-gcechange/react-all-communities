@@ -12,4 +12,5 @@ export interface IReactMyGroupsProps {
   toggleSeeAll: boolean;
   themeVariant: IReadonlyTheme | undefined;
   prefLang: string;
+
 }

@@ -13,6 +13,7 @@ import { IReadonlyTheme } from '@microsoft/sp-component-base';
 import { Paging } from '../paging/Paging';
 import { ListLayout } from '../ListLayout';
 import { Icon } from 'office-ui-fabric-react/lib/Icon';
+import { AZNavigation } from '../AZNavigation/AZNavigation';
 
 
 
@@ -72,7 +73,7 @@ export class ReactMyGroups extends React.Component<IReactMyGroupsProps, IReactMy
 
       <div className={ styles.reactMyGroups }  >
         <div className={styles.title} role="heading" aria-level={2}>{(this.strings.userLang == "FR"? this.props.titleFr : this.props.titleEn)} </div>
-
+        <AZNavigation/>
         <div className={styles.addComm}><Icon iconName='Add' className={styles.addIcon}/><a aria-label={this.strings.seeAllLabel} href={this.props.addCommLink}>{this.strings.addCommLink}</a></div>
           {this.state.isLoading ?
             <Spinner label={this.strings.loadingState}/>

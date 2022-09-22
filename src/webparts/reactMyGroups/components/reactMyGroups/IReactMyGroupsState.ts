@@ -8,4 +8,5 @@ export interface IReactMyGroupsState {
   pagelimit: number;
   showless: boolean;
   pageSeeAll: boolean;
+
 }

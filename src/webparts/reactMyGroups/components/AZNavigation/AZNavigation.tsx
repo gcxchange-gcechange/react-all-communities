@@ -4,7 +4,10 @@ import  styles from './AZNavigation.module.scss';
 
 
 export class AZNavigation extends React.Component<IAZNavigationProps> {
+
+
   public render(): React.ReactElement<IAZNavigationProps> {
+
 
   //Create # symbol array
     let numberArray = () => {
@@ -25,7 +28,7 @@ export class AZNavigation extends React.Component<IAZNavigationProps> {
 
     return (
       <div  className={styles.charContainer}>
-        items={combinedIndex}
+        {combinedIndex}
       </div>
     );
   }
