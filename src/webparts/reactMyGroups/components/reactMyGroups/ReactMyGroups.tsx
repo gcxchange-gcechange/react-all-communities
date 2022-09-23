@@ -34,6 +34,7 @@ export class ReactMyGroups extends React.Component<IReactMyGroupsProps, IReactMy
       showless: false,
       pageSeeAll: false,
 
+
     };
 
   }
@@ -74,7 +75,7 @@ export class ReactMyGroups extends React.Component<IReactMyGroupsProps, IReactMy
       <div className={ styles.reactMyGroups }  >
         <div className={styles.title} role="heading" aria-level={2}>{(this.strings.userLang == "FR"? this.props.titleFr : this.props.titleEn)} </div>
         <div className={styles.addComm}><Icon iconName='Add' className={styles.addIcon}/><a aria-label={this.strings.seeAllLabel} href={this.props.addCommLink}>{this.strings.addCommLink}</a></div>
-        <AZNavigation/>
+        <AZNavigation items={pagedItems}/>
           {this.state.isLoading ?
             <Spinner label={this.strings.loadingState}/>
                 :

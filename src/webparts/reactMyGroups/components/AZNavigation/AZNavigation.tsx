@@ -1,14 +1,24 @@
 import * as React from 'react';
-import { IAZNavigationProps } from './IAZNavigationProps';
+import { IAZNavigationProps} from './IAZNavigationProps';
 import  styles from './AZNavigation.module.scss';
-import { ActionButton, FocusZone } from 'office-ui-fabric-react';
+import { ActionButton, FocusZone, ILabelStyles, initializeIcons, IPivotStyles, IStyleSet, TagItem } from 'office-ui-fabric-react';
+import { IAZNavigationState } from './IAZNavigationState';
+import { Pivot, PivotItem, Label, PivotLinkFormat} from 'office-ui-fabric-react';
 
 
-export class AZNavigation extends React.Component<IAZNavigationProps> {
+export class AZNavigation extends React.Component<IAZNavigationProps, IAZNavigationState> {
+
+  constructor(props: IAZNavigationProps) {
+    super(props);
+    this.state = {
+      isLoading: true
+    };
+  }
 
 
   public render(): React.ReactElement<IAZNavigationProps> {
 
+    console.log("PROPS",this.props.items);
 
   //Create # symbol array
     let numberArray = () => {
@@ -24,25 +34,37 @@ export class AZNavigation extends React.Component<IAZNavigationProps> {
 
   // Combine both ABC and # symbol arrays
 
-    const combinedIndex = [...abcChars, ...numSym];
+
+    const combinedIndex = [...abcChars, ...numSym ];
 
 
 
 
 
+    const pivotStyles: Partial<IStyleSet<IPivotStyles>> ={
+        link:{
+        padding: '2px',
+        fontWeight: 'bold'
+      },
+
+      linkIsSelected:{
+        padding: '2px',
+        color: 'blue'
+      }
+    };
     return (
 
-      <div className={styles.charContainer}>
-        {combinedIndex.map((letter) => {
-          return(
-            <FocusZone>
-              <ActionButton key={letter} className={styles.letter} >{letter}</ActionButton>
-            </FocusZone>
-          );
-        })}
-
-      </div>
+        <Pivot styles={pivotStyles}>
+          {combinedIndex.map((letter) => {
+            return (
+              <PivotItem
+               headerText={letter}
+               headerButtonProps={{'data-title': 'Letter'}}/>
+            );
+          })}
+          </Pivot>
 
     );
   }
+
 }

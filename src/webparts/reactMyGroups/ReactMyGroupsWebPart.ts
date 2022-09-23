@@ -43,6 +43,7 @@ export default class ReactMyGroupsWebPart extends BaseClientSideWebPart<IReactMy
         sort: this.properties.sort,
         themeVariant: this._themeVariant,
 
+
       }
     );
 
