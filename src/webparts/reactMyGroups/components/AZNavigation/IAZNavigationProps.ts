@@ -1,11 +1,12 @@
 export interface IAZNavigationProps {
-  // IndexKey:string;
-  // selectedKey: string;
+
+  selectedLetter: string;
   // onIndexSelect: (index: string) => void;
   // onSearch: (searchQuery: string) => void;
   // onClearSearch: () => void;
 
-  items: any[];
+
+  onClickEvent:(letter: string) => void;
 
   // currentPage: number;
   // nextButtonLabel: string;

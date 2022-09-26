@@ -3,22 +3,28 @@ import { IAZNavigationProps} from './IAZNavigationProps';
 import  styles from './AZNavigation.module.scss';
 import { ActionButton, FocusZone, ILabelStyles, initializeIcons, IPivotStyles, IStyleSet, TagItem } from 'office-ui-fabric-react';
 import { IAZNavigationState } from './IAZNavigationState';
-import { Pivot, PivotItem, Label, PivotLinkFormat} from 'office-ui-fabric-react';
+import { Pivot, PivotItem} from 'office-ui-fabric-react';
 
 
 export class AZNavigation extends React.Component<IAZNavigationProps, IAZNavigationState> {
 
-  constructor(props: IAZNavigationProps) {
-    super(props);
-    this.state = {
-      isLoading: true
-    };
+  // constructor(props: IAZNavigationProps) {
+  //   super(props);
+  //   this.state = {
+  //     isLoading: true
+  //   };
+  // }
+
+   //Handle the click event
+  private _handleClick = (item?: PivotItem, event?: React.MouseEvent<HTMLElement>): void => {
+    console.log("item", this.props.onClickEvent(item.props.headerText));
+    this.props.onClickEvent(item.props.headerText);
   }
+
 
 
   public render(): React.ReactElement<IAZNavigationProps> {
 
-    console.log("PROPS",this.props.items);
 
   //Create # symbol array
     let numberArray = () => {
@@ -38,9 +44,7 @@ export class AZNavigation extends React.Component<IAZNavigationProps, IAZNavigat
     const combinedIndex = [...abcChars, ...numSym ];
 
 
-
-
-
+   //Change the styles for the letters
     const pivotStyles: Partial<IStyleSet<IPivotStyles>> ={
         link:{
         padding: '2px',
@@ -52,14 +56,17 @@ export class AZNavigation extends React.Component<IAZNavigationProps, IAZNavigat
         color: 'blue'
       }
     };
+
+
     return (
 
-        <Pivot styles={pivotStyles}>
+        <Pivot styles={pivotStyles} onLinkClick={this._handleClick} selectedKey={this.props.selectedLetter}>
           {combinedIndex.map((letter) => {
             return (
               <PivotItem
                headerText={letter}
-               headerButtonProps={{'data-title': 'Letter'}}/>
+               headerButtonProps={{'data-title': 'Letter'}}
+              />
             );
           })}
           </Pivot>

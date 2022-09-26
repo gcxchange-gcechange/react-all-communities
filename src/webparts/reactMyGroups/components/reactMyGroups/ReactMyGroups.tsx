@@ -14,6 +14,7 @@ import { Paging } from '../paging/Paging';
 import { ListLayout } from '../ListLayout';
 import { Icon } from 'office-ui-fabric-react/lib/Icon';
 import { AZNavigation } from '../AZNavigation/AZNavigation';
+import { PivotItem } from 'office-ui-fabric-react';
 
 
 
@@ -33,6 +34,8 @@ export class ReactMyGroups extends React.Component<IReactMyGroupsProps, IReactMy
       pagelimit: 0,
       showless: false,
       pageSeeAll: false,
+      selectedLetter: 'A',
+
 
 
     };
@@ -40,6 +43,14 @@ export class ReactMyGroups extends React.Component<IReactMyGroupsProps, IReactMy
   }
 
   public strings = SelectLanguage(this.props.prefLang);
+
+
+  private _handleClickEvent = (letter: string) => {
+    this.setState({
+      selectedLetter: letter
+    });
+    console.log("letter", letter, this.state);
+  }
 
   public render(): React.ReactElement<IReactMyGroupsProps> {
 
@@ -69,13 +80,12 @@ export class ReactMyGroups extends React.Component<IReactMyGroupsProps, IReactMy
     // }
 
 
-
     return (
 
       <div className={ styles.reactMyGroups }  >
         <div className={styles.title} role="heading" aria-level={2}>{(this.strings.userLang == "FR"? this.props.titleFr : this.props.titleEn)} </div>
         <div className={styles.addComm}><Icon iconName='Add' className={styles.addIcon}/><a aria-label={this.strings.seeAllLabel} href={this.props.addCommLink}>{this.strings.addCommLink}</a></div>
-        <AZNavigation items={pagedItems}/>
+        <AZNavigation selectedLetter={this.props.selectedLetter} onClickEvent={this._handleClickEvent}/>
           {this.state.isLoading ?
             <Spinner label={this.strings.loadingState}/>
                 :

@@ -20,6 +20,7 @@ export interface IReactMyGroupsWebPartProps {
   numberPerPage: number;
   sort: string;
   themeVariant: IReadonlyTheme | undefined;
+  selectedLetter: string;
 
 }
 
@@ -42,6 +43,7 @@ export default class ReactMyGroupsWebPart extends BaseClientSideWebPart<IReactMy
         numberPerPage: this.properties.numberPerPage,
         sort: this.properties.sort,
         themeVariant: this._themeVariant,
+        selectedLetter: this.properties.selectedLetter
 
 
       }
