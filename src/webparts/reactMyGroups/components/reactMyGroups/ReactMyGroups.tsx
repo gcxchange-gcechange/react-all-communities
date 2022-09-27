@@ -168,38 +168,8 @@ export class ReactMyGroups extends React.Component<IReactMyGroupsProps, IReactMy
   }
 
 
-  // const selectedLetter = this.state.selectedLetter;
-
-  //   const firstLetter = groups.map(groupItem => {
-  //    return  groupItem.displayName.charAt(0);
-  //   })
-
-
-
-  //   console.log("selected", selectedLetter);
-
-
-
-
-  //Compact Render Item
-  // private _onRenderItem = (item: any, index: number): JSX.Element => {
-  //   return (
-  //     <div className={styles.compactContainer}>
-  //       <a className={styles.compactA} href={item.url}>
-  //         <div className={styles.compactWrapper}>
-  //           <img className={styles.compactBanner} src={item.thumbnail} alt={`${this.strings.altImgLogo} ${item.displayName}`} />
-  //           <div className={styles.compactDetails}>
-  //             <div className={styles.compactTitle}>{item.displayName}</div>
-  //           </div>
-  //         </div>
-  //       </a>
-  //     </div>
-
-  //   );
-  // }
 
   private _onRenderGridItem = (item: any, finalSize: ISize, isCompact: boolean): JSX.Element => {
-
 
 
    return (
@@ -231,28 +201,6 @@ export class ReactMyGroups extends React.Component<IReactMyGroupsProps, IReactMy
  }
 
 
-
-  // private _onRenderListItem = (item: any, finalSize: ISize, isCompact: boolean): JSX.Element => {
-
-  //   return (
-
-  //       <div className={styles.siteCardList}>
-  //       <a className="community-list-item" href={item.url}>
-  //          <div className={styles.cardBannerList}>
-  //               <div className={styles.articleFlex} style={{'width':'60px'}}>
-  //                  <img className={styles.bannerImgList} src={item.thumbnail} alt={`${this.strings.altImgLogo} ${item.displayName}`} />
-  //               </div>
-  //               <div className={`${styles.articleFlex} ${styles.secondSection}`}>
-  //                 <div className={styles.cardTitleList}>{item.displayName}</div>
-  //                 <div className={styles.cardDescription}>{item.description}</div>
-
-  //             </div>
-  //             </div>
-  //           </a>
-  //         </div>
-
-  //         );
-  //       }
 
   private _onPageUpdate = (pageNumber: number): void => {
     this.setState({
