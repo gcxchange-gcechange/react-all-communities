@@ -23,8 +23,12 @@ export interface IGridLayoutProps {
    */
   onRenderGridItem: (item: any, finalSize: ISize, isCompact: boolean) => JSX.Element;
 
+  // selectedLetter: string;
+
 }
 
 export interface IGridLayoutState {
   isLoading?: boolean;
+  // selectedLetter: string;
+
 }

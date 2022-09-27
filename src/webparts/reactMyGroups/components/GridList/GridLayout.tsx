@@ -8,6 +8,7 @@ import { IRectangle, ISize } from 'office-ui-fabric-react/lib/Utilities';
 import { Spinner, TagItemSuggestion } from 'office-ui-fabric-react';
 
 import { IGridLayoutProps, IGridLayoutState } from './GridLayout.types';
+import { groups } from 'ReactMyGroupsWebPartStrings';
 
 const ROWS_PER_PAGE: number = +styles.rowsPerPage;
 const MAX_ROW_HEIGHT: number = +styles.maxWidth;
@@ -20,20 +21,40 @@ export class GridLayout extends React.Component<IGridLayoutProps, IGridLayoutSta
   constructor(props: IGridLayoutProps) {
     super(props);
     this.state = {
-      isLoading: true
+      isLoading: true,
+      // selectedLetter: ' '
     };
+
   }
   private _columnCount: number;
   private _columnWidth: number;
   private _rowHeight: number;
   private _isCompact: boolean;
 
+  // public _handleClickEvent = (letter: string) => {
+  //   this.setState({
+  //     selectedLetter: letter
+  //    },
+  //     function () {
+  //       this.render(letter);
+  //     });
+
+  // }
+
+
+
   public render(): React.ReactElement<IGridLayoutProps> {
 
 
-const items = this.props.items.filter(group => {
-  return group.hasOwnProperty('url');
-});
+
+    // const selectedLetter = this.state.selectedLetter;
+    // console.log("selLetter1", selectedLetter);
+
+
+    const items = this.props.items.filter(group => {
+      return group.hasOwnProperty('url');
+    });
+
 
 
     return (

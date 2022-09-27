@@ -39,15 +39,14 @@ export class ReactMyGroups extends React.Component<IReactMyGroupsProps, IReactMy
   public strings = SelectLanguage(this.props.prefLang);
 
 
-  public _handleClickEvent = (letter: string) => {
+  public handleClickEvent = (letter: string) => {
     this.setState({
       selectedLetter: letter
-     });
-    //   function () {
-    //     this._onRenderGridItem(letter);
-    //   });
+    },
+      function () {
+        this._getGroups(letter);
+      });
 
-    // console.log("letter", letter, this.state);
   }
 
 
@@ -87,13 +86,13 @@ export class ReactMyGroups extends React.Component<IReactMyGroupsProps, IReactMy
       <div className={ styles.reactMyGroups }  >
         <div className={styles.title} role="heading" aria-level={2}>{(this.strings.userLang == "FR"? this.props.titleFr : this.props.titleEn)} </div>
         <div className={styles.addComm}><Icon iconName='Add' className={styles.addIcon}/><a aria-label={this.strings.seeAllLabel} href={this.props.addCommLink}>{this.strings.addCommLink}</a></div>
-        <AZNavigation selectedLetter={this.props.selectedLetter} onClickEvent={this._handleClickEvent}/>
+        <AZNavigation selectedLetter={this.props.selectedLetter} onClickEvent={this.handleClickEvent}/>
           {this.state.isLoading ?
             <Spinner label={this.strings.loadingState}/>
                 :
               <div>
                 <div className = {styles.groupsContainer}>
-                  <GridLayout selectedLetter={this.props.selectedLetter} sort={ this.props.sort } items= { pagedItems } onRenderGridItem={(item: any, finalSize: ISize, isCompact: boolean) => this._onRenderGridItem(item, finalSize, isCompact)}/>
+                  <GridLayout  sort={ this.props.sort } items= { pagedItems } onRenderGridItem={(item: any, finalSize: ISize, isCompact: boolean) => this._onRenderGridItem(item, finalSize, isCompact)}/>
                 </div>
               </div>
           }
@@ -102,15 +101,15 @@ export class ReactMyGroups extends React.Component<IReactMyGroupsProps, IReactMy
   }
 
   public componentDidMount (): void {
-    this._getGroups();
+    this._getGroups(this.props.selectedLetter);
     this.setState({
-      selectedLetter: this.props.selectedLetter,
-      // pagelimit: this.props.numberPerPage
+     selectedLetter: this.props.selectedLetter,
+
     });
   }
 
-  public _getGroups = (): void => {
-    GroupService.getGroups().then(groups => {
+  public _getGroups = (selectedIndex: string): void => {
+    GroupService.getGroups(selectedIndex).then(groups => {
       this.setState({
         groups: groups
       });

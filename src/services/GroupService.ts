@@ -5,6 +5,7 @@ import { IGroup, IGroupCollection } from "../models";
 import { GraphRequest } from "@microsoft/microsoft-graph-client";
 
 
+
 export class GroupServiceManager {
   public context: WebPartContext;
 
@@ -12,14 +13,15 @@ export class GroupServiceManager {
     this.context = context;
   }
 
-  public getGroups(): Promise<MicrosoftGraph.Group[]> {
+  public getGroups(selectedIndex: string): Promise<MicrosoftGraph.Group[]> {
     return new Promise<MicrosoftGraph.Group[]>((resolve, reject) => {
+
       try {
         this.context.msGraphClientFactory
         .getClient()
         .then((client: MSGraphClient) => {
           client
-          .api("/groups?$filter=groupTypes/any(c:c+eq+'Unified')")
+          .api(`/groups?$filter=groupTypes/any(c:c+eq+'Unified')&$filter=startsWith(displayName,'${selectedIndex}')`)
           .get((error: any, groups: IGroupCollection, rawResponse: any) => {
             console.log("GROUPS", groups.value);
             resolve(groups.value);
