@@ -8,12 +8,6 @@ import { Pivot, PivotItem} from 'office-ui-fabric-react';
 
 export class AZNavigation extends React.Component<IAZNavigationProps, IAZNavigationState> {
 
-  // constructor(props: IAZNavigationProps) {
-  //   super(props);
-  //   this.state = {
-  //     isLoading: true
-  //   };
-  // }
 
    //Handle the click event
   public _handleClick = (item?: PivotItem): void => {
