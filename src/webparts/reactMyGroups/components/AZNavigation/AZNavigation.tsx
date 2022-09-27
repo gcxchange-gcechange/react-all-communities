@@ -1,7 +1,7 @@
 import * as React from 'react';
 import { IAZNavigationProps} from './IAZNavigationProps';
 import  styles from './AZNavigation.module.scss';
-import { ActionButton, FocusZone, ILabelStyles, initializeIcons, IPivotStyles, IStyleSet, TagItem } from 'office-ui-fabric-react';
+import { IPivotStyles, IStyleSet} from 'office-ui-fabric-react';
 import { IAZNavigationState } from './IAZNavigationState';
 import { Pivot, PivotItem} from 'office-ui-fabric-react';
 
@@ -16,8 +16,8 @@ export class AZNavigation extends React.Component<IAZNavigationProps, IAZNavigat
   // }
 
    //Handle the click event
-  private _handleClick = (item?: PivotItem, event?: React.MouseEvent<HTMLElement>): void => {
-    console.log("item", this.props.onClickEvent(item.props.headerText));
+  public _handleClick = (item?: PivotItem): void => {
+    //console.log("item", this.props.onClickEvent(item.props.headerText));
     this.props.onClickEvent(item.props.headerText);
   }
 

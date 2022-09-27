@@ -6,7 +6,7 @@ import GroupService from '../../../../services/GroupService';
 import { IReactMyGroupsState } from './IReactMyGroupsState';
 import { GroupList } from '../GroupList';
 import { IGroup } from '../../../../models';
-import { Spinner, ISize, FontSizes } from 'office-ui-fabric-react';
+import { Spinner, ISize, FontSizes, nullRender } from 'office-ui-fabric-react';
 import { GridLayout } from '../GridList';
 import { SelectLanguage } from '../SelectLanguage';
 import { IReadonlyTheme } from '@microsoft/sp-component-base';
@@ -14,13 +14,9 @@ import { Paging } from '../paging/Paging';
 import { ListLayout } from '../ListLayout';
 import { Icon } from 'office-ui-fabric-react/lib/Icon';
 import { AZNavigation } from '../AZNavigation/AZNavigation';
-import { PivotItem } from 'office-ui-fabric-react';
 
 
 
-
-
-//const colors = ['#0078d4'];
 
 export class ReactMyGroups extends React.Component<IReactMyGroupsProps, IReactMyGroupsState> {
 
@@ -37,7 +33,6 @@ export class ReactMyGroups extends React.Component<IReactMyGroupsProps, IReactMy
       selectedLetter: 'A',
 
 
-
     };
 
   }
@@ -45,12 +40,18 @@ export class ReactMyGroups extends React.Component<IReactMyGroupsProps, IReactMy
   public strings = SelectLanguage(this.props.prefLang);
 
 
-  private _handleClickEvent = (letter: string) => {
+  public _handleClickEvent = (letter: string) => {
     this.setState({
       selectedLetter: letter
-    });
-    console.log("letter", letter, this.state);
+     });
+    //   function () {
+    //     this._onRenderGridItem(letter);
+    //   });
+
+    // console.log("letter", letter, this.state);
   }
+
+
 
   public render(): React.ReactElement<IReactMyGroupsProps> {
 
@@ -78,6 +79,8 @@ export class ReactMyGroups extends React.Component<IReactMyGroupsProps, IReactMy
     //   pagedItems = pagedItems.slice(pageStartAt, pageEndAt);
     //   showPages = true;
     // }
+
+
 
 
     return (
@@ -122,7 +125,8 @@ export class ReactMyGroups extends React.Component<IReactMyGroupsProps, IReactMy
   public componentDidMount (): void {
     this._getGroups();
     this.setState({
-      pagelimit: this.props.numberPerPage
+      selectedLetter: this.props.selectedLetter,
+      // pagelimit: this.props.numberPerPage
     });
   }
 
@@ -148,8 +152,8 @@ export class ReactMyGroups extends React.Component<IReactMyGroupsProps, IReactMy
        }));
      })
     ));
+    this._getGroupThumbnails(groups);
 
-   this._getGroupThumbnails(groups);
  }
 
 
@@ -176,6 +180,7 @@ export class ReactMyGroups extends React.Component<IReactMyGroupsProps, IReactMy
         }));
       })
     ));
+
     console.log('Set False');
     this.setState({
       isLoading: false
@@ -184,7 +189,20 @@ export class ReactMyGroups extends React.Component<IReactMyGroupsProps, IReactMy
   }
 
 
-//Compact Render Item
+  // const selectedLetter = this.state.selectedLetter;
+
+  //   const firstLetter = groups.map(groupItem => {
+  //    return  groupItem.displayName.charAt(0);
+  //   })
+
+
+
+  //   console.log("selected", selectedLetter);
+
+
+
+
+  //Compact Render Item
   private _onRenderItem = (item: any, index: number): JSX.Element => {
     return (
       <div className={styles.compactContainer}>
@@ -202,6 +220,8 @@ export class ReactMyGroups extends React.Component<IReactMyGroupsProps, IReactMy
   }
 
   private _onRenderGridItem = (item: any, finalSize: ISize, isCompact: boolean): JSX.Element => {
+
+
 
    return (
 
