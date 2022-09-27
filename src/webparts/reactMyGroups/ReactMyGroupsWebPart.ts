@@ -136,18 +136,18 @@ export default class ReactMyGroupsWebPart extends BaseClientSideWebPart<IReactMy
                       iconProps: { officeFabricIconFontName: "GridViewSmall"},
                       checked: layout === "Grid" ? true : false,
                     },
-                    {
-                      key: "Compact",
-                      text: strings.compactIcon,
-                      iconProps: { officeFabricIconFontName: "BulletedList2"},
-                      checked: layout === "Compact" ? true : false
-                    },
-                    {
-                      key: "List",
-                      text: strings.listIcon,
-                      iconProps: { officeFabricIconFontName: "ViewList"},
-                      checked: layout === "List" ? true : false
-                    }
+                    // {
+                    //   key: "Compact",
+                    //   text: strings.compactIcon,
+                    //   iconProps: { officeFabricIconFontName: "BulletedList2"},
+                    //   checked: layout === "Compact" ? true : false
+                    // },
+                    // {
+                    //   key: "List",
+                    //   text: strings.listIcon,
+                    //   iconProps: { officeFabricIconFontName: "ViewList"},
+                    //   checked: layout === "List" ? true : false
+                    // }
                   ]
                 }),
 
