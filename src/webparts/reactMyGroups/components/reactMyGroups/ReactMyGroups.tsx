@@ -32,7 +32,6 @@ export class ReactMyGroups extends React.Component<IReactMyGroupsProps, IReactMy
       pageSeeAll: false,
       selectedLetter: 'A',
 
-
     };
 
   }
@@ -94,27 +93,7 @@ export class ReactMyGroups extends React.Component<IReactMyGroupsProps, IReactMy
                 :
               <div>
                 <div className = {styles.groupsContainer}>
-                  {this.props.layout == 'Compact' ?
-                  <GroupList groups={ pagedItems } onRenderItem={(item: any, index: number) => this._onRenderItem(item, index)}/>
-                  :
-                  this.props.layout == 'Grid' ?
-                  <GridLayout sort={ this.props.sort } items= { pagedItems } onRenderGridItem={(item: any, finalSize: ISize, isCompact: boolean) => this._onRenderGridItem(item, finalSize, isCompact)}/>
-                  :
-                  <ListLayout sort={ this.props.sort } items={ pagedItems } onRenderListItem={(item: any, finalSize: ISize, isCompact: boolean) => this._onRenderListItem(item, finalSize, isCompact)}/>
-                }
-                    {/* { this.props.toggleSeeAll?
-                    <div>
-                        <Paging
-                          showPageNumber={ true }
-                          currentPage = { currentPage }
-                          itemsCountPerPage={ 50 }
-                          totalItems={ totalItems }
-                          onPageUpdate={ this._onPageUpdate }
-                          nextButtonLabel={ this.strings.pagNext }
-                          previousButtonLabel={ this.strings.pagPrev }
-                        />
-                    </div> : ""
-                    } */}
+                  <GridLayout selectedLetter={this.props.selectedLetter} sort={ this.props.sort } items= { pagedItems } onRenderGridItem={(item: any, finalSize: ISize, isCompact: boolean) => this._onRenderGridItem(item, finalSize, isCompact)}/>
                 </div>
               </div>
           }
@@ -203,21 +182,21 @@ export class ReactMyGroups extends React.Component<IReactMyGroupsProps, IReactMy
 
 
   //Compact Render Item
-  private _onRenderItem = (item: any, index: number): JSX.Element => {
-    return (
-      <div className={styles.compactContainer}>
-        <a className={styles.compactA} href={item.url}>
-          <div className={styles.compactWrapper}>
-            <img className={styles.compactBanner} src={item.thumbnail} alt={`${this.strings.altImgLogo} ${item.displayName}`} />
-            <div className={styles.compactDetails}>
-              <div className={styles.compactTitle}>{item.displayName}</div>
-            </div>
-          </div>
-        </a>
-      </div>
+  // private _onRenderItem = (item: any, index: number): JSX.Element => {
+  //   return (
+  //     <div className={styles.compactContainer}>
+  //       <a className={styles.compactA} href={item.url}>
+  //         <div className={styles.compactWrapper}>
+  //           <img className={styles.compactBanner} src={item.thumbnail} alt={`${this.strings.altImgLogo} ${item.displayName}`} />
+  //           <div className={styles.compactDetails}>
+  //             <div className={styles.compactTitle}>{item.displayName}</div>
+  //           </div>
+  //         </div>
+  //       </a>
+  //     </div>
 
-    );
-  }
+  //   );
+  // }
 
   private _onRenderGridItem = (item: any, finalSize: ISize, isCompact: boolean): JSX.Element => {
 
@@ -253,27 +232,27 @@ export class ReactMyGroups extends React.Component<IReactMyGroupsProps, IReactMy
 
 
 
-  private _onRenderListItem = (item: any, finalSize: ISize, isCompact: boolean): JSX.Element => {
+  // private _onRenderListItem = (item: any, finalSize: ISize, isCompact: boolean): JSX.Element => {
 
-    return (
+  //   return (
 
-        <div className={styles.siteCardList}>
-        <a className="community-list-item" href={item.url}>
-           <div className={styles.cardBannerList}>
-                <div className={styles.articleFlex} style={{'width':'60px'}}>
-                   <img className={styles.bannerImgList} src={item.thumbnail} alt={`${this.strings.altImgLogo} ${item.displayName}`} />
-                </div>
-                <div className={`${styles.articleFlex} ${styles.secondSection}`}>
-                  <div className={styles.cardTitleList}>{item.displayName}</div>
-                  <div className={styles.cardDescription}>{item.description}</div>
+  //       <div className={styles.siteCardList}>
+  //       <a className="community-list-item" href={item.url}>
+  //          <div className={styles.cardBannerList}>
+  //               <div className={styles.articleFlex} style={{'width':'60px'}}>
+  //                  <img className={styles.bannerImgList} src={item.thumbnail} alt={`${this.strings.altImgLogo} ${item.displayName}`} />
+  //               </div>
+  //               <div className={`${styles.articleFlex} ${styles.secondSection}`}>
+  //                 <div className={styles.cardTitleList}>{item.displayName}</div>
+  //                 <div className={styles.cardDescription}>{item.description}</div>
 
-              </div>
-              </div>
-            </a>
-          </div>
+  //             </div>
+  //             </div>
+  //           </a>
+  //         </div>
 
-          );
-        }
+  //         );
+  //       }
 
   private _onPageUpdate = (pageNumber: number): void => {
     this.setState({
