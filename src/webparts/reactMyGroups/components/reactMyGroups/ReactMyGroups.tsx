@@ -38,7 +38,7 @@ export class ReactMyGroups extends React.Component<IReactMyGroupsProps, IReactMy
 
   public handleClickEvent = (letter: string) => {
     this.setState({
-      selectedLetter: letter
+      selectedLetter: this.props.selectedLetter,
     },
       function () {
         this._getGroups(letter);
@@ -81,7 +81,7 @@ export class ReactMyGroups extends React.Component<IReactMyGroupsProps, IReactMy
     return (
 
       <div className={ styles.reactMyGroups }  >
-        <div className={styles.title} role="heading" aria-level={2}>{(this.strings.userLang == "FR"? this.props.titleFr : this.props.titleEn)} </div>
+        {/* <div className={styles.title} role="heading" aria-level={2}>{(this.strings.userLang == "FR"? this.props.titleFr : this.props.titleEn)} </div> */}
         <div className={styles.addComm}><Icon iconName='Add' className={styles.addIcon}/><a aria-label={this.strings.seeAllLabel} href={this.props.addCommLink}>{this.strings.addCommLink}</a></div>
         <AZNavigation selectedLetter={this.props.selectedLetter} onClickEvent={this.handleClickEvent}/>
           {this.state.isLoading ?
@@ -100,10 +100,6 @@ export class ReactMyGroups extends React.Component<IReactMyGroupsProps, IReactMy
   public componentDidMount (): void {
     this._getGroups(this.state.selectedLetter);
 
-    this.setState({
-     selectedLetter: this.props.selectedLetter,
-
-    });
   }
 
   public _getGroups = (letter: string): void => {
@@ -116,11 +112,11 @@ export class ReactMyGroups extends React.Component<IReactMyGroupsProps, IReactMy
   }
 
 
+
   public _getGroupLinks = (groups: any): void => {
     groups.map( groupItem => (
      GroupService.getGroupLinks(groupItem).then(groupUrl => {
        //change the state
-
        this.setState(prevState => ({
          groups: prevState.groups.map(group => group.id === groupItem.id ? {...group, url: groupUrl} : group)
 
@@ -128,8 +124,7 @@ export class ReactMyGroups extends React.Component<IReactMyGroupsProps, IReactMy
      })
     ));
     this._getGroupThumbnails(groups);
-
- }
+  }
 
 
   // public _getGroupActivity = (groups: any): void => {
@@ -156,7 +151,7 @@ export class ReactMyGroups extends React.Component<IReactMyGroupsProps, IReactMy
       })
     ));
 
-    console.log('Set False');
+    //console.log('Set False');
     this.setState({
       isLoading: false
     });
