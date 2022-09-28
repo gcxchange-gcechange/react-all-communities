@@ -13,7 +13,7 @@ export class GroupServiceManager {
     this.context = context;
   }
 
-  public getGroups(selectedIndex: string): Promise<MicrosoftGraph.Group[]> {
+  public getGroups(letter: string): Promise<MicrosoftGraph.Group[]> {
     return new Promise<MicrosoftGraph.Group[]>((resolve, reject) => {
 
       try {
@@ -21,7 +21,7 @@ export class GroupServiceManager {
         .getClient()
         .then((client: MSGraphClient) => {
           client
-          .api(`/groups?$filter=groupTypes/any(c:c+eq+'Unified')&$filter=startsWith(displayName,'${selectedIndex}')`)
+          .api(`/groups?$filter=groupTypes/any(c:c+eq+'Unified')&$filter=startsWith(displayName,'${letter}')`)
           .get((error: any, groups: IGroupCollection, rawResponse: any) => {
             console.log("GROUPS", groups.value);
             resolve(groups.value);

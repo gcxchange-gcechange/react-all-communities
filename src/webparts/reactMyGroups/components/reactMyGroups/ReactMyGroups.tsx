@@ -108,8 +108,8 @@ export class ReactMyGroups extends React.Component<IReactMyGroupsProps, IReactMy
     });
   }
 
-  public _getGroups = (selectedIndex: string): void => {
-    GroupService.getGroups(selectedIndex).then(groups => {
+  public _getGroups = (letter: string): void => {
+    GroupService.getGroups(letter).then(groups => {
       this.setState({
         groups: groups
       });
