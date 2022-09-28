@@ -21,7 +21,7 @@ export class GroupServiceManager {
         .getClient()
         .then((client: MSGraphClient) => {
           client
-          .api(`/groups?$filter=groupTypes/any(c:c+eq+'Unified')&$filter=startsWith(displayName,'${letter}')`)
+          .api(`/groups?$filter=groupTypes/any(c:c+eq+'Unified') and startsWith(displayName,'${letter}')`)
           .get((error: any, groups: IGroupCollection, rawResponse: any) => {
             console.log("GROUPS", groups.value);
             resolve(groups.value);
