@@ -1,17 +1,14 @@
 import * as React from 'react';
 import styles from './ReactMyGroups.module.scss';
 import { IReactMyGroupsProps } from './IReactMyGroupsProps';
-import { escape } from '@microsoft/sp-lodash-subset';
 import GroupService from '../../../../services/GroupService';
 import { IReactMyGroupsState } from './IReactMyGroupsState';
-import { GroupList } from '../GroupList';
 import { IGroup } from '../../../../models';
 import { Spinner, ISize, FontSizes, nullRender } from 'office-ui-fabric-react';
 import { GridLayout } from '../GridList';
 import { SelectLanguage } from '../SelectLanguage';
 import { IReadonlyTheme } from '@microsoft/sp-component-base';
 import { Paging } from '../paging/Paging';
-import { ListLayout } from '../ListLayout';
 import { Icon } from 'office-ui-fabric-react/lib/Icon';
 import { AZNavigation } from '../AZNavigation/AZNavigation';
 
@@ -101,7 +98,8 @@ export class ReactMyGroups extends React.Component<IReactMyGroupsProps, IReactMy
   }
 
   public componentDidMount (): void {
-    this._getGroups(this.props.selectedLetter);
+    this._getGroups(this.state.selectedLetter);
+
     this.setState({
      selectedLetter: this.props.selectedLetter,
 
@@ -114,7 +112,6 @@ export class ReactMyGroups extends React.Component<IReactMyGroupsProps, IReactMy
         groups: groups
       });
       this._getGroupLinks(groups);
-      //this._getGroupThumbnails(groups);
     });
   }
 
