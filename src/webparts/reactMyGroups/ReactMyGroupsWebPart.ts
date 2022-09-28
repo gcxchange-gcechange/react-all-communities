@@ -2,7 +2,7 @@ import * as React from 'react';
 import * as ReactDom from 'react-dom';
 import { Version } from '@microsoft/sp-core-library';
 import { BaseClientSideWebPart } from "@microsoft/sp-webpart-base";
-import { IPropertyPaneConfiguration, PropertyPaneTextField, PropertyPaneChoiceGroup, PropertyPaneDropdown, PropertyPaneToggle } from "@microsoft/sp-property-pane";
+import { IPropertyPaneConfiguration, PropertyPaneTextField, PropertyPaneChoiceGroup, PropertyPaneDropdown, PropertyPaneToggle, PropertyPaneLink } from "@microsoft/sp-property-pane";
 import GroupService from '../../services/GroupService';
 import * as strings from 'ReactMyGroupsWebPartStrings';
 import { ReactMyGroups, IReactMyGroupsProps } from './components';
@@ -12,8 +12,8 @@ import { ThemeProvider, ThemeChangedEventArgs, IReadonlyTheme } from '@microsoft
 export interface IReactMyGroupsWebPartProps {
   link: string;
   addCommLink: string;
-  titleEn: string;
-  titleFr: string;
+  // titleEn: string;
+  // titleFr: string;
   layout: string;
   prefLang: string;
   toggleSeeAll: boolean;
@@ -36,8 +36,8 @@ export default class ReactMyGroupsWebPart extends BaseClientSideWebPart<IReactMy
       {
         link: this.properties.link,
         addCommLink: this.properties.addCommLink,
-        titleEn: this.properties.titleEn,
-        titleFr: this.properties.titleFr,
+        // titleEn: this.properties.titleEn,
+        // titleFr: this.properties.titleFr,
         layout: this.properties.layout,
         prefLang: this.properties.prefLang,
         toggleSeeAll: this.properties.toggleSeeAll,
@@ -108,16 +108,23 @@ export default class ReactMyGroupsWebPart extends BaseClientSideWebPart<IReactMy
 
 
                 PropertyPaneTextField('addCommLink', {
-                  label: `${strings.addCommLink} ${strings.link}`,
+                  label:`${strings.addCommLink}`,
+                  // href: `${strings.addCommLink} ${strings.link}`,
                 }),
 
-                PropertyPaneTextField('titleEN', {
-                  label: strings.setTitleEn,
+                PropertyPaneLink('addCommLink', {
+
+                  href: `${this.properties.addCommLink}` ,
+                  text: `${strings.link}`
                 }),
 
-                PropertyPaneTextField('titleFr', {
-                  label: strings.setTitleFr,
-                }),
+                // PropertyPaneTextField('titleEN', {
+                //   label: strings.setTitleEn,
+                // }),
+
+                // PropertyPaneTextField('titleFr', {
+                //   label: strings.setTitleFr,
+                // }),
 
                 PropertyPaneToggle('toggleSeeAll', {
                   key: 'toggleSeeAll',
