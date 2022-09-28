@@ -48,7 +48,8 @@ export class AZNavigation extends React.Component<IAZNavigationProps, IAZNavigat
 
       linkIsSelected:{
         padding: '2px',
-        color: 'blue'
+        color: 'blue',
+        fontWeight: 'bold'
       }
     };
 
