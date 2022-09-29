@@ -2,7 +2,7 @@ import * as React from 'react';
 import * as ReactDom from 'react-dom';
 import { Version } from '@microsoft/sp-core-library';
 import { BaseClientSideWebPart } from "@microsoft/sp-webpart-base";
-import { IPropertyPaneConfiguration, PropertyPaneTextField, PropertyPaneChoiceGroup, PropertyPaneDropdown, PropertyPaneToggle, PropertyPaneLink } from "@microsoft/sp-property-pane";
+import { IPropertyPaneConfiguration, PropertyPaneTextField, PropertyPaneChoiceGroup, PropertyPaneDropdown, PropertyPaneToggle, PropertyPaneLink, PropertyPaneButton, PropertyPaneButtonType } from "@microsoft/sp-property-pane";
 import GroupService from '../../services/GroupService';
 import * as strings from 'ReactMyGroupsWebPartStrings';
 import { ReactMyGroups, IReactMyGroupsProps } from './components';
@@ -19,7 +19,6 @@ export interface IReactMyGroupsWebPartProps {
   sort: string;
   themeVariant: IReadonlyTheme | undefined;
   selectedLetter: string;
-  url:string;
 
 
 }
@@ -42,8 +41,6 @@ export default class ReactMyGroupsWebPart extends BaseClientSideWebPart<IReactMy
         sort: this.properties.sort,
         themeVariant: this._themeVariant,
         selectedLetter: this.properties.selectedLetter,
-        url:this.properties.url,
-
 
       }
     );
@@ -108,15 +105,6 @@ export default class ReactMyGroupsWebPart extends BaseClientSideWebPart<IReactMy
                 PropertyPaneTextField('addCommLink', {
                   label:`${strings.addCommLink}`,
                   value:`https://`,
-
-                }),
-
-                PropertyPaneLink('url', {
-
-                  href: `${this.properties.addCommLink}` ,
-                  text: 'Create my community',
-                  target:'_blank',
-
                 }),
 
 
