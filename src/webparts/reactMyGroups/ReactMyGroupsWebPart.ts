@@ -12,8 +12,6 @@ import { ThemeProvider, ThemeChangedEventArgs, IReadonlyTheme } from '@microsoft
 export interface IReactMyGroupsWebPartProps {
   link: string;
   addCommLink: string;
-  // titleEn: string;
-  // titleFr: string;
   layout: string;
   prefLang: string;
   toggleSeeAll: boolean;
@@ -21,6 +19,7 @@ export interface IReactMyGroupsWebPartProps {
   sort: string;
   themeVariant: IReadonlyTheme | undefined;
   selectedLetter: string;
+  url:string;
 
 
 }
@@ -36,15 +35,14 @@ export default class ReactMyGroupsWebPart extends BaseClientSideWebPart<IReactMy
       {
         link: this.properties.link,
         addCommLink: this.properties.addCommLink,
-        // titleEn: this.properties.titleEn,
-        // titleFr: this.properties.titleFr,
         layout: this.properties.layout,
         prefLang: this.properties.prefLang,
         toggleSeeAll: this.properties.toggleSeeAll,
         numberPerPage: this.properties.numberPerPage,
         sort: this.properties.sort,
         themeVariant: this._themeVariant,
-        selectedLetter: this.properties.selectedLetter
+        selectedLetter: this.properties.selectedLetter,
+        url:this.properties.url,
 
 
       }
@@ -109,22 +107,18 @@ export default class ReactMyGroupsWebPart extends BaseClientSideWebPart<IReactMy
 
                 PropertyPaneTextField('addCommLink', {
                   label:`${strings.addCommLink}`,
-                  // href: `${strings.addCommLink} ${strings.link}`,
+                  value:`https://`,
+
                 }),
 
-                PropertyPaneLink('addCommLink', {
+                PropertyPaneLink('url', {
 
                   href: `${this.properties.addCommLink}` ,
-                  text: `${strings.link}`
+                  text: 'Create my community',
+                  target:'_blank',
+
                 }),
 
-                // PropertyPaneTextField('titleEN', {
-                //   label: strings.setTitleEn,
-                // }),
-
-                // PropertyPaneTextField('titleFr', {
-                //   label: strings.setTitleFr,
-                // }),
 
                 PropertyPaneToggle('toggleSeeAll', {
                   key: 'toggleSeeAll',
@@ -135,17 +129,6 @@ export default class ReactMyGroupsWebPart extends BaseClientSideWebPart<IReactMy
                 }),
                 numberPerPageOption,
 
-                PropertyPaneChoiceGroup("layout", {
-                  label: strings.setLayoutOpt,
-                  options: [
-                    {
-                      key: "Grid",
-                      text: strings.gridIcon,
-                      iconProps: { officeFabricIconFontName: "GridViewSmall"},
-                      checked: layout === "Grid" ? true : false,
-                    }
-                  ]
-                }),
 
                 PropertyPaneChoiceGroup('sort', {
                   label: strings.setSortOpt,
