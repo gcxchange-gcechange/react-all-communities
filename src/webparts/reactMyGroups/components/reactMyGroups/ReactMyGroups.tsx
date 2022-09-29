@@ -82,7 +82,7 @@ export class ReactMyGroups extends React.Component<IReactMyGroupsProps, IReactMy
 
       <div className={ styles.reactMyGroups }  >
         {/* <div className={styles.title} role="heading" aria-level={2}>{(this.strings.userLang == "FR"? this.props.titleFr : this.props.titleEn)} </div> */}
-        <div className={styles.addComm}><Icon iconName='Add' className={styles.addIcon}/><a aria-label={this.strings.seeAllLabel} href={this.props.addCommLink}>{this.strings.addCommLink}</a></div>
+        <div className={styles.addComm}><Icon iconName='Add' className={styles.addIcon}/><a aria-label={this.strings.seeAllLabel} href={this.props.addCommLink} target='_blank'>{this.strings.addCommLink}</a></div>
         <AZNavigation selectedLetter={this.props.selectedLetter} onClickEvent={this.handleClickEvent}/>
           {this.state.isLoading ?
             <Spinner label={this.strings.loadingState}/>
