@@ -27,7 +27,6 @@
       "properties": {
         "description": "All Communities",
         "sort": "DateCreation"
-        // "numberPerPage": 4
       }
     }
   ]
