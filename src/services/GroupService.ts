@@ -15,16 +15,18 @@ export class GroupServiceManager {
 
   public getGroups(letter: string): Promise<MicrosoftGraph.Group[]> {
     return new Promise<MicrosoftGraph.Group[]>((resolve, reject) => {
-
+    const newLetter:string = letter.replace(/[^A-Z]+/g, '1');
+      console.log(newLetter);
       try {
         this.context.msGraphClientFactory
         .getClient()
         .then((client: MSGraphClient) => {
           client
-          .api(`/groups?$filter=groupTypes/any(c:c+eq+'Unified') and startsWith(displayName,'${letter}')`)
+          .api(`/groups?$filter=groupTypes/any(c:c+eq+'Unified') and startsWith(displayName,'${newLetter}')`)
           .get((error: any, groups: IGroupCollection, rawResponse: any) => {
-            console.log("GROUPS", groups.value);
             resolve(groups.value);
+            console.log("GROUPS", groups.value);
+
           });
         });
       } catch(error) {
@@ -42,15 +44,18 @@ export class GroupServiceManager {
           client
           .api(`/groups/${groups.id}/sites/root/weburl`)
           .get((error: any, group: IGroupCollection, rawResponse: any) => {
-            console.log("LINKS2", group.value);
-            resolve(group.value);
+
+              console.log("LINKS", group.value);
+              resolve(group.value);
+
           });
         });
       } catch(error) {
-        console.error(error);
+        console.error("ERROR",error);
       }
     });
   }
+
 
 
   // public getGroupActivity(groups: IGroup): Promise<any> {
