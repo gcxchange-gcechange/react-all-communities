@@ -25,9 +25,6 @@ define([], function() {
     "groups" : "Group",
     "addCommLink": "Create a community",
     "link": "link",
-    "URL": "Create"
-
-
 
   }
 });

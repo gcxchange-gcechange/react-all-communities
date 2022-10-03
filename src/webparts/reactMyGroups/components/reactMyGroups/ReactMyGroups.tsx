@@ -33,10 +33,20 @@ export class ReactMyGroups extends React.Component<IReactMyGroupsProps, IReactMy
 
   }
 
+  // public  numbers: Array<number> = [1,2,3,4,5,6,7,8,9];
+
   public strings = SelectLanguage(this.props.prefLang);
+
+  // public replaceSymbol() {
+  //   const num = this.props.selectedLetter.replace(/[0-9]+/g, '1');
+  //   if(this.props.selectedLetter === '#') {
+  //     return num
+  //   }
+  // }
 
 
   public handleClickEvent = (letter: string) => {
+
     this.setState({
       selectedLetter: this.props.selectedLetter,
     },
@@ -45,6 +55,7 @@ export class ReactMyGroups extends React.Component<IReactMyGroupsProps, IReactMy
       });
 
   }
+
 
 
 

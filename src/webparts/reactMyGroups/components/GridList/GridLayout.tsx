@@ -22,7 +22,7 @@ export class GridLayout extends React.Component<IGridLayoutProps, IGridLayoutSta
     super(props);
     this.state = {
       isLoading: true,
-      // selectedLetter: ' '
+
     };
 
   }
@@ -31,15 +31,6 @@ export class GridLayout extends React.Component<IGridLayoutProps, IGridLayoutSta
   private _rowHeight: number;
   private _isCompact: boolean;
 
-  // public _handleClickEvent = (letter: string) => {
-  //   this.setState({
-  //     selectedLetter: letter
-  //    },
-  //     function () {
-  //       this.render(letter);
-  //     });
-
-  // }
 
 
 
@@ -47,13 +38,10 @@ export class GridLayout extends React.Component<IGridLayoutProps, IGridLayoutSta
 
 
 
-    // const selectedLetter = this.state.selectedLetter;
-    // console.log("selLetter1", selectedLetter);
-
-
     const items = this.props.items.filter(group => {
       return group.hasOwnProperty('url');
     });
+
 
 
 
@@ -108,7 +96,6 @@ export class GridLayout extends React.Component<IGridLayoutProps, IGridLayoutSta
 
       return (
           <div className={styles.rendergrid} style={{width: `${cellWidth}px`, marginRight: `${cellPadding}px`}} >
-
             {this.props.onRenderGridItem(item, finalSize, isCompact)}
 
           </div>
