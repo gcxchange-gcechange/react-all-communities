@@ -33,16 +33,8 @@ export class ReactMyGroups extends React.Component<IReactMyGroupsProps, IReactMy
 
   }
 
-  // public  numbers: Array<number> = [1,2,3,4,5,6,7,8,9];
 
   public strings = SelectLanguage(this.props.prefLang);
-
-  // public replaceSymbol() {
-  //   const num = this.props.selectedLetter.replace(/[0-9]+/g, '1');
-  //   if(this.props.selectedLetter === '#') {
-  //     return num
-  //   }
-  // }
 
 
   public handleClickEvent = (letter: string) => {
@@ -55,8 +47,6 @@ export class ReactMyGroups extends React.Component<IReactMyGroupsProps, IReactMy
       });
 
   }
-
-
 
 
   public render(): React.ReactElement<IReactMyGroupsProps> {
@@ -73,27 +63,12 @@ export class ReactMyGroups extends React.Component<IReactMyGroupsProps, IReactMy
     let maxEvents: number = this.props.numberPerPage;
     const { currentPage } = this.state;
 
-    //if on see all page, only show 20 at the time
-    // if(this.props.toggleSeeAll){
-    //   maxEvents = 50;
-    // }
-    // if (true && totalItems > 0 && totalItems > maxEvents) {
-
-    //   const pageStartAt: number = maxEvents * (currentPage - 1);
-    //   const pageEndAt: number = (maxEvents * currentPage);
-
-    //   pagedItems = pagedItems.slice(pageStartAt, pageEndAt);
-    //   showPages = true;
-    // }
-
-
-
 
     return (
 
       <div className={ styles.reactMyGroups }  >
         {/* <div className={styles.title} role="heading" aria-level={2}>{(this.strings.userLang == "FR"? this.props.titleFr : this.props.titleEn)} </div> */}
-        <div className={styles.addComm}><Icon iconName='Add' className={styles.addIcon}/><a aria-label={this.strings.seeAllLabel} href={this.props.addCommLink} target='_blank'>{this.strings.addCommLink}</a></div>
+        <div className={styles.addComm}><Icon iconName='Add' className={styles.addIcon}/><a aria-label={this.strings.seeAllLabel} href={this.props.addCommLink} target='_blank'>{(!this.props.commLink ? this.strings.createComm : this.props.commLink)}</a></div>
         <AZNavigation selectedLetter={this.props.selectedLetter} onClickEvent={this.handleClickEvent}/>
           {this.state.isLoading ?
             <Spinner label={this.strings.loadingState}/>
@@ -189,7 +164,7 @@ export class ReactMyGroups extends React.Component<IReactMyGroupsProps, IReactMy
          <div className={` ${styles.secondSection} ${styles.cardBanner2}`}>
            <ul className={`${styles.groups} ${styles.articleFlex}`}>
                <li className={` ${styles.cardBannerList} `}>
-                 <div style={{display: 'flex'}}><Icon iconName="Market" className={styles.addIcon} />
+                 <div style={{display: 'flex'}}>
                  <a>
                    <p><strong></strong></p>
                  </a>

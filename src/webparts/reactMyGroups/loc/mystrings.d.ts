@@ -16,7 +16,8 @@ declare interface IReactMyGroupsWebPartStrings {
   groups: string;
   alphabetical: string;
   addCommLink: string;
-  link: string;
+  commLink: string;
+  createComm: string;
 
 }
 

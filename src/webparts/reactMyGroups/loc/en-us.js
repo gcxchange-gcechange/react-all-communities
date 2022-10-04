@@ -23,8 +23,9 @@ define([], function() {
     "pagePrev" : "Previous",
     "pageNext" : "Next",
     "groups" : "Group",
-    "addCommLink": "Create a community",
-    "link": "link",
+    "addCommLink": "Link for create a community",
+    "commLink": "Modify create a community title",
+    "createComm": "Create a community"
 
   }
 });

@@ -20,11 +20,12 @@ define([], function() {
     "seeAll": "Afficher tout",
     "seeAllLabel": "Afficher toutes mes collectivités",
     "ListIcon": "Liste",
-    "link": "Lien pour",
-    "addCommLink": "Créez une collectivité",
     "seeAllToggle": "Ce webpart est pour la page Afficher tout",
     "seeAllOn": "Oui",
     "seeAllOff": "Non",
-    "loadingState": "Chargement en cours"
+    "loadingState": "Chargement en cours",
+    "addCommLink": "Lien pour créer une collectivité",
+    "commLink": "Modifier créez une collectivité titre",
+    "createComm": "Créez une collectivité",
   }
 });

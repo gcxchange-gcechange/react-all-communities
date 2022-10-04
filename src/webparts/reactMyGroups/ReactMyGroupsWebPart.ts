@@ -10,7 +10,6 @@ import { ThemeProvider, ThemeChangedEventArgs, IReadonlyTheme } from '@microsoft
 
 
 export interface IReactMyGroupsWebPartProps {
-  link: string;
   addCommLink: string;
   layout: string;
   prefLang: string;
@@ -19,6 +18,8 @@ export interface IReactMyGroupsWebPartProps {
   sort: string;
   themeVariant: IReadonlyTheme | undefined;
   selectedLetter: string;
+  commLink: string;
+  createComm: string;
 
 
 }
@@ -32,7 +33,6 @@ export default class ReactMyGroupsWebPart extends BaseClientSideWebPart<IReactMy
     const element: React.ReactElement<IReactMyGroupsProps > = React.createElement(
       ReactMyGroups,
       {
-        link: this.properties.link,
         addCommLink: this.properties.addCommLink,
         layout: this.properties.layout,
         prefLang: this.properties.prefLang,
@@ -41,6 +41,8 @@ export default class ReactMyGroupsWebPart extends BaseClientSideWebPart<IReactMy
         sort: this.properties.sort,
         themeVariant: this._themeVariant,
         selectedLetter: this.properties.selectedLetter,
+        commLink: this.properties.commLink,
+        createComm: this.properties.createComm
 
       }
     );
@@ -66,19 +68,19 @@ export default class ReactMyGroupsWebPart extends BaseClientSideWebPart<IReactMy
   protected getPropertyPaneConfiguration(): IPropertyPaneConfiguration {
     const { layout }  = this.properties;
 
-    let numberPerPageOption: any;
-      //if toggleSeeAll is true disable numberperpage
-      if( this.properties.toggleSeeAll){
-        numberPerPageOption = PropertyPaneTextField('numberPerPage', {
-          label: strings.setPageNum,
-          disabled: true
-        });
-      } else {
-        numberPerPageOption = PropertyPaneTextField('numberPerPage', {
-          label: strings.setPageNum,
-          disabled:false
-        });
-      }
+    // let numberPerPageOption: any;
+    //   //if toggleSeeAll is true disable numberperpage
+    //   if( this.properties.toggleSeeAll){
+    //     numberPerPageOption = PropertyPaneTextField('numberPerPage', {
+    //       label: strings.setPageNum,
+    //       disabled: true
+    //     });
+    //   } else {
+    //     numberPerPageOption = PropertyPaneTextField('numberPerPage', {
+    //       label: strings.setPageNum,
+    //       disabled:false
+    //     });
+    //   }
 
 
     return {
@@ -101,6 +103,12 @@ export default class ReactMyGroupsWebPart extends BaseClientSideWebPart<IReactMy
                   ]
                 }),
 
+                PropertyPaneTextField('commLink', {
+                  label: strings.commLink,
+
+
+
+                }),
 
                 PropertyPaneTextField('addCommLink', {
                   label:`${strings.addCommLink}`,
@@ -108,14 +116,15 @@ export default class ReactMyGroupsWebPart extends BaseClientSideWebPart<IReactMy
                 }),
 
 
-                PropertyPaneToggle('toggleSeeAll', {
-                  key: 'toggleSeeAll',
-                  label: strings.seeAllToggle,
-                  checked: false,
-                  onText: strings.seeAllOn,
-                  offText: strings.seeAllOff,
-                }),
-                numberPerPageOption,
+
+                // PropertyPaneToggle('toggleSeeAll', {
+                //   key: 'toggleSeeAll',
+                //   label: strings.seeAllToggle,
+                //   checked: false,
+                //   onText: strings.seeAllOn,
+                //   offText: strings.seeAllOff,
+                // }),
+                // numberPerPageOption,
 
 
                 PropertyPaneChoiceGroup('sort', {
