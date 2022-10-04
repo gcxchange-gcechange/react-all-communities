@@ -31,6 +31,7 @@ export class GroupServiceManager {
             client
               .api(apiTxt)
               .get((error: any, groups: IGroupCollection, rawResponse: any) => {
+
                 resolve(groups.value);
                 console.log("GROUPS", groups.value);
               });
@@ -43,6 +44,8 @@ export class GroupServiceManager {
 
   public getGroupLinks(groups: IGroup): Promise<any> {
     return new Promise<any>((resolve, reject) => {
+
+      const newGroups: Array<string> = [];
       try {
         this.context.msGraphClientFactory
           .getClient()
@@ -50,8 +53,11 @@ export class GroupServiceManager {
             client
               .api(`/groups/${groups.id}/sites/root/weburl`)
               .get((error: any, group: IGroupCollection, rawResponse: any) => {
-                console.log("LINKS", group.value);
-                resolve(group.value);
+                // console.log("LINKS", group.value);
+                if(error) {
+                  reject(error);
+                }
+                  resolve(group.value);
               });
           });
       } catch (error) {
