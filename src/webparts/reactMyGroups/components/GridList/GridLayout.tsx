@@ -38,8 +38,8 @@ export class GridLayout extends React.Component<IGridLayoutProps, IGridLayoutSta
 
 
 
-    // const items = this.props.items.filter(group => {
-    //   return group.hasOwnProperty('url');
+    // let items = this.props.items.filter(groupData => {
+    //   return groupData.hasOwnProperty('url');
     // });
 
 
