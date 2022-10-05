@@ -2,55 +2,7 @@
 
 .reactMyGroups {
 
-  .compactContainer {
-    margin: 0px 5px 5px;
-    position: relative;
-    display: inline-block;
-    vertical-align: top;
-  }
 
-  .compactA {
-    outline: 0;
-    text-decoration: none;
-    display: block;
-    margin-top: 4px;
-    width: 225px;
-    border: 1px solid transparent;
-    margin-bottom: 8px;
-  }
-
-  .compactWrapper {
-    display: flex;
-    align-items: center;
-    position: relative;
-  }
-
-  .compactBanner {
-    margin-right: 12px;
-    width: 32px;
-    height: 32px;
-    flex-shrink: 0;
-  }
-
-  .compactDetails {
-    overflow: hidden;
-    display: flex;
-    flex-direction: column;
-  }
-
-  .compactTitle {
-    font-size: 14px;
-    font-weight: 600;
-    margin: 6px 0;
-    text-overflow: ellipsis;
-    white-space: nowrap;
-    color: rgb(50,49,48);
-    display: block;
-    margin-block-start: 1em;
-    margin-block-end: 1em;
-    margin-inline-start: 0px;
-    margin-inline-end: 0px;
-  }
 
   .cardContainer{
     outline: transparent;
@@ -340,5 +292,11 @@
    text-decoration: underline;
   }
 
+  .noResults {
+    display: flex;
+    justify-content:space-evenly;
+    font-weight: $ms-font-weight-semibold;
+    margin-top: 50px;
+  }
 
 }
