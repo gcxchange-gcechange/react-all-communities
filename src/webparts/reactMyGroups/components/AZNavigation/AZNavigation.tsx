@@ -42,12 +42,14 @@ export class AZNavigation extends React.Component<IAZNavigationProps, IAZNavigat
    //Change the styles for the letters
     const pivotStyles: Partial<IStyleSet<IPivotStyles>> ={
         link:{
-        padding: '2px',
         fontWeight: 'bold'
       },
 
+      root:{
+        marginBottom: '20px;'
+      },
+
       linkIsSelected:{
-        padding: '2px',
         color: 'blue',
         fontWeight: 'bold'
       }
