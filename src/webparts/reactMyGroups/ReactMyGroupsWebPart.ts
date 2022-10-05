@@ -68,20 +68,6 @@ export default class ReactMyGroupsWebPart extends BaseClientSideWebPart<IReactMy
   protected getPropertyPaneConfiguration(): IPropertyPaneConfiguration {
     const { layout }  = this.properties;
 
-    // let numberPerPageOption: any;
-    //   //if toggleSeeAll is true disable numberperpage
-    //   if( this.properties.toggleSeeAll){
-    //     numberPerPageOption = PropertyPaneTextField('numberPerPage', {
-    //       label: strings.setPageNum,
-    //       disabled: true
-    //     });
-    //   } else {
-    //     numberPerPageOption = PropertyPaneTextField('numberPerPage', {
-    //       label: strings.setPageNum,
-    //       disabled:false
-    //     });
-    //   }
-
 
     return {
       pages: [
@@ -114,17 +100,6 @@ export default class ReactMyGroupsWebPart extends BaseClientSideWebPart<IReactMy
                   label:`${strings.addCommLink}`,
                   value:`https://`,
                 }),
-
-
-
-                // PropertyPaneToggle('toggleSeeAll', {
-                //   key: 'toggleSeeAll',
-                //   label: strings.seeAllToggle,
-                //   checked: false,
-                //   onText: strings.seeAllOn,
-                //   offText: strings.seeAllOff,
-                // }),
-                // numberPerPageOption,
 
 
                 PropertyPaneChoiceGroup('sort', {
