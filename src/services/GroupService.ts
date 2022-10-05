@@ -45,7 +45,6 @@ export class GroupServiceManager {
   public getGroupLinks(groups: IGroup): Promise<any> {
     return new Promise<any>((resolve, reject) => {
 
-      const newGroups: Array<string> = [];
       try {
         this.context.msGraphClientFactory
           .getClient()
