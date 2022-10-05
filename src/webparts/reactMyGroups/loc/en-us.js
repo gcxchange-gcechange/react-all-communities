@@ -25,7 +25,8 @@ define([], function() {
     "groups" : "Group",
     "addCommLink": "Link for create a community",
     "commLink": "Modify create a community title",
-    "createComm": "Create a community"
+    "createComm": "Create a community",
+    "noResultsEN": "No Communites Found"
 
   }
 });

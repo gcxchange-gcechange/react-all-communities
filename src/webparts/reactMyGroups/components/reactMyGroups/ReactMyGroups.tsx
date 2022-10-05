@@ -11,7 +11,7 @@ import { IReadonlyTheme } from '@microsoft/sp-component-base';
 import { Paging } from '../paging/Paging';
 import { Icon } from 'office-ui-fabric-react/lib/Icon';
 import { AZNavigation } from '../AZNavigation/AZNavigation';
-import { groups } from 'ReactMyGroupsWebPartStrings';
+
 
 
 
@@ -60,12 +60,15 @@ export class ReactMyGroups extends React.Component<IReactMyGroupsProps, IReactMy
 
     let pagedItems: any[] = myData;
 
-// filter through groups that are not statuscode 403 and have a url
-    const newPagedItems = pagedItems.filter(group => {
-      return group.hasOwnProperty('url');
+    // filter through groups that are not statuscode 403 and have a url
+    let newPagedItems = pagedItems.filter(groupData => {
+      return groupData.hasOwnProperty('url');
     });
-// total the groups that are not status code 403
-    const totalItems: number = newPagedItems.length;
+
+    // total the groups that are not status code 403
+    let totalItems: number = newPagedItems.length;
+    console.log("total1",totalItems);
+
 
     let showPages: boolean = false;
 
@@ -78,19 +81,19 @@ export class ReactMyGroups extends React.Component<IReactMyGroupsProps, IReactMy
       <div className={ styles.reactMyGroups }  >
         <div className={styles.addComm}><Icon iconName='Add' className={styles.addIcon}/><a aria-label={this.strings.seeAllLabel} href={this.props.addCommLink} target='_blank'>{(!this.props.commLink ? this.strings.createComm : this.props.commLink)}</a></div>
         <AZNavigation selectedLetter={this.props.selectedLetter} onClickEvent={this.handleClickEvent}/>
-          {this.state.isLoading &&
+          {this.state.isLoading  ?
             <Spinner label={this.strings.loadingState}/>
-          }
-          { totalItems  ?
+          :
+            totalItems ?
               <div>
                 <div className = {styles.groupsContainer}>
                   <GridLayout sort={ this.props.sort } items={ newPagedItems } onRenderGridItem={(item: any, finalSize: ISize, isCompact: boolean) => this._onRenderGridItem(item, finalSize, isCompact)}/>
                 </div>
               </div>
-              :
-              <div className = {styles.groupsContainer}>No Results</div>
-  }
+          :
 
+              <div className = {styles.noResults}>{(this.strings.userLang === 'FR'? this.strings.noResultsFR : this.strings.noResultsEN)}</div>
+            }
       </div>
     );
   }

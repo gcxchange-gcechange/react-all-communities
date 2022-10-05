@@ -18,6 +18,8 @@ declare interface IReactMyGroupsWebPartStrings {
   addCommLink: string;
   commLink: string;
   createComm: string;
+  noResultsEN: string;
+  noResultsFR: string;
 
 }
 
