@@ -20,6 +20,7 @@ export interface IReactMyGroupsWebPartProps {
   selectedLetter: string;
   commLink: string;
   createComm: string;
+  numberOfCommunities: number;
 
 
 }
@@ -42,7 +43,8 @@ export default class ReactMyGroupsWebPart extends BaseClientSideWebPart<IReactMy
         themeVariant: this._themeVariant,
         selectedLetter: this.properties.selectedLetter,
         commLink: this.properties.commLink,
-        createComm: this.properties.createComm
+        createComm: this.properties.createComm,
+        numberOfCommunities: this.properties.numberOfCommunities
 
       }
     );
