@@ -122,10 +122,17 @@ export class ReactMyGroups extends React.Component<IReactMyGroupsProps, IReactMy
     groups.map( groupItem => (
      GroupService.getGroupLinksBatch(groupItem).then(groupUrl => {
 
+        if (groupUrl[1].value !== undefined) {
           this.setState(prevState => ({
-           groups: prevState.groups.map(group => group.id === groupItem.id ? {...group, url: groupUrl} : group)
-
-         }));
+            groups: prevState.groups.map(group => group.id === groupItem.id ? {...group, url: groupUrl[1].value} : group)
+          }));
+        }
+        else {
+          
+          this.setState(prevState => ({
+            groups: prevState.groups.splice(prevState.groups.map(g => g.id).indexOf(groupItem.id), 1)
+          }));
+        }
 
           //change the state
 

@@ -90,7 +90,6 @@ export class GroupServiceManager {
                     if(error){
                       Promise.reject(error);
                     }
-                    debugger
                     let responseContent = {};
                     // responseObject.responses.forEach( response => responseContent[response.id] = response.body );
 
@@ -99,10 +98,11 @@ export class GroupServiceManager {
                       if(response.status === 200) {
                        responseContent[response.id] =  response.body;
                       } else if (response.status === 403) {
-                        return null;
+                        resolve({})
                       }
 
-                    })
+                    });
+
                     console.log("RESOLVE",responseContent);
                     resolve(responseContent);
                   });
