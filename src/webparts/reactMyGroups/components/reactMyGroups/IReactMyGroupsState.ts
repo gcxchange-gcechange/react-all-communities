@@ -10,6 +10,7 @@ export interface IReactMyGroupsState {
   pageSeeAll: boolean;
   selectedLetter: string;
   errorMessage: string;
+  numberOfCommunities: number;
 
 
 }
