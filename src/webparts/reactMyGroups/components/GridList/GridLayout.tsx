@@ -87,7 +87,7 @@ export class GridLayout extends React.Component<IGridLayoutProps, IGridLayoutSta
   private _onRenderCell = (item: any, index: number | undefined): JSX.Element => {
 
     const isCompact: boolean = this._isCompact;
-    const cellPadding: number = index % this._columnCount !== this._columnCount - 1 && !isCompact ? PADDING : 0;
+    const cellPadding: number = index % this._columnCount !== this._columnCount - 1  ? PADDING : 0;
     const finalSize: ISize = { width: this._columnWidth, height: this._rowHeight };
     const cellWidth: number = isCompact ? this._columnWidth + PADDING : this._columnWidth - PADDING;
     let _totalPages = Math.ceil(item.length / 2);
