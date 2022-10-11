@@ -14,8 +14,6 @@ import { AZNavigation } from '../AZNavigation/AZNavigation';
 
 
 
-
-
 export class ReactMyGroups extends React.Component<IReactMyGroupsProps, IReactMyGroupsState> {
 
   constructor(props: IReactMyGroupsProps) {
@@ -29,6 +27,7 @@ export class ReactMyGroups extends React.Component<IReactMyGroupsProps, IReactMy
       showless: false,
       pageSeeAll: false,
       selectedLetter: 'A',
+      errorMessage: null
 
     };
 
@@ -37,12 +36,13 @@ export class ReactMyGroups extends React.Component<IReactMyGroupsProps, IReactMy
 
   public strings = SelectLanguage(this.props.prefLang);
 
-
+//Selected Letter by user
   public handleClickEvent = (letter: string) => {
 
     this.setState({
       selectedLetter: this.props.selectedLetter,
     },
+    //functions that renders groups based on user selected letter
       function () {
         this._getGroups(letter);
       });
@@ -61,13 +61,16 @@ export class ReactMyGroups extends React.Component<IReactMyGroupsProps, IReactMy
     let pagedItems: any[] = myData;
 
     // filter through groups that are not statuscode 403 and have a url
+
     let newPagedItems = pagedItems.filter(groupData => {
       return groupData.hasOwnProperty('url');
+
     });
 
     // total the groups that are not status code 403
-    let totalItems: number = newPagedItems.length;
-    console.log("total1",totalItems);
+    let totalItems: number = pagedItems.length;
+    console.log("Tot",totalItems);
+
 
 
     let showPages: boolean = false;
@@ -84,15 +87,15 @@ export class ReactMyGroups extends React.Component<IReactMyGroupsProps, IReactMy
           {this.state.isLoading  ?
             <Spinner label={this.strings.loadingState}/>
           :
-            totalItems ?
+           totalItems ?
               <div>
                 <div className = {styles.groupsContainer}>
-                  <GridLayout sort={ this.props.sort } items={ newPagedItems } onRenderGridItem={(item: any, finalSize: ISize, isCompact: boolean) => this._onRenderGridItem(item, finalSize, isCompact)}/>
+                  <GridLayout sort={ this.props.sort } items={ newPagedItems } onRenderGridItem={(item: any) => this._onRenderGridItem(item)}/>
                 </div>
               </div>
           :
-
-              <div className = {styles.noResults}>{(this.strings.userLang === 'FR'? this.strings.noResultsFR : this.strings.noResultsEN)}</div>
+          <div className = {styles.noResults}>{this.state.errorMessage}</div>
+              // <div className = {styles.noResults}>{(this.strings.userLang === 'FR'? this.strings.noResultsFR : this.strings.noResultsEN)}</div>
             }
       </div>
     );
@@ -103,12 +106,13 @@ export class ReactMyGroups extends React.Component<IReactMyGroupsProps, IReactMy
 
   }
 
-  public _getGroups = (letter: string): void => {
-    GroupService.getGroups(letter).then(groups => {
+
+  public  _getGroups = (letter: string): void => {
+    GroupService.getGroups(letter).then(groupData => {
       this.setState({
-        groups: groups
+        groups: groupData,
       });
-      this._getGroupLinks(groups);
+      this._getGroupLinks(groupData);
     });
   }
 
@@ -116,14 +120,22 @@ export class ReactMyGroups extends React.Component<IReactMyGroupsProps, IReactMy
 
   public _getGroupLinks = (groups: any): void => {
     groups.map( groupItem => (
-     GroupService.getGroupLinks(groupItem).then(groupUrl => {
-       //change the state
-       this.setState(prevState => ({
-         groups: prevState.groups.map(group => group.id === groupItem.id ? {...group, url: groupUrl} : group)
+     GroupService.getGroupLinksBatch(groupItem).then(groupUrl => {
 
-       }));
+          this.setState(prevState => ({
+           groups: prevState.groups.map(group => group.id === groupItem.id ? {...group, url: groupUrl} : group)
+
+         }));
+
+          //change the state
+
+     }).catch(error => {
+      this.setState({
+        errorMessage: "OOPS" + error
+      });
      })
     ));
+
     this._getGroupThumbnails(groups);
   }
 
@@ -151,7 +163,6 @@ export class ReactMyGroups extends React.Component<IReactMyGroupsProps, IReactMy
         }));
       })
     ));
-
     //console.log('Set False');
     this.setState({
       isLoading: false
@@ -161,7 +172,7 @@ export class ReactMyGroups extends React.Component<IReactMyGroupsProps, IReactMy
 
 
 
-  private _onRenderGridItem = (item: any, finalSize: ISize, isCompact: boolean): JSX.Element => {
+  private _onRenderGridItem = (item: any): JSX.Element => {
 
 
    return (
