@@ -9,6 +9,7 @@ export interface IReactMyGroupsState {
   showless: boolean;
   pageSeeAll: boolean;
   selectedLetter: string;
+  errorMessage: string;
 
 
 }
