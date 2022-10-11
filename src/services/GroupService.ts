@@ -42,27 +42,76 @@ export class GroupServiceManager {
     });
   }
 
-  public getGroupLinks(groups: IGroup): Promise<any> {
-    return new Promise<any>((resolve, reject) => {
+  public async getGroupLinks(): Promise<any> {
+    return new Promise<any>(async(resolve, reject) => {
 
       try {
         this.context.msGraphClientFactory
           .getClient()
           .then((client: MSGraphClient) => {
             client
-              .api(`/groups/${groups.id}/sites/root/weburl`)
+              .api(`me/transitiveMemberOf/microsoft.graph.group`)
               .get((error: any, group: IGroupCollection, rawResponse: any) => {
-                // console.log("LINKS", group.value);
+                console.log("LINKS", group.value);
                 if(error) {
-                  reject(error);
+                  Promise.reject(error);
                 }
                   resolve(group.value);
               });
           });
       } catch (error) {
+
         console.error("ERROR", error);
       }
     });
+  }
+
+  public getGroupLinksBatch(groups: any): Promise<any> {
+    let requestBody = {
+
+      "requests": [
+
+          {
+            "id": "1",
+            "method": "GET",
+            "url":`/groups/${groups.id}/sites/root/weburl`
+
+        },
+      ]
+      };
+      return new Promise((resolve, reject) => {
+        try {
+          this.context.msGraphClientFactory
+                .getClient()
+                .then((client: MSGraphClient) => {
+                  client
+                  .api(`/$batch`)
+                  .post( requestBody, (error: any, responseObject: any) => {
+                    if(error){
+                      Promise.reject(error);
+                    }
+                    debugger
+                    let responseContent = {};
+                    // responseObject.responses.forEach( response => responseContent[response.id] = response.body );
+
+                    responseObject.responses.forEach(response => {
+                      console.log("RES",response);
+                      if(response.status === 200) {
+                       responseContent[response.id] =  response.body;
+                      } else if (response.status === 403) {
+                        return null;
+                      }
+
+                    })
+                    console.log("RESOLVE",responseContent);
+                    resolve(responseContent);
+                  });
+                });
+        } catch (error) {
+          Promise.reject(error);
+          console.error(error);
+        }
+      });
   }
 
   // public getGroupActivity(groups: IGroup): Promise<any> {
@@ -94,6 +143,9 @@ export class GroupServiceManager {
               .api(`/groups/${groups.id}/photos/48x48/$value`)
               .responseType("blob")
               .get((error: any, group: any, rawResponse: any) => {
+                if(error) {
+                  Promise.reject(error);
+                }
                 resolve(window.URL.createObjectURL(group));
               });
           });
@@ -103,13 +155,13 @@ export class GroupServiceManager {
     });
   }
 
-  // public getGroupThumbnailsBatch(groups: IGroup[]): Promise<any> {
+  // public getGroupLinks(groups: any): Promise<any> {
 
   //   let requestBody = { requests: [] };
   //   requestBody.requests = groups.map((group) => ({
   //     id: group.id,
   //     method: "GET",
-  //     url: `/groups/${group.id}/photos/48x48/$value`
+  //     url: `/groups/${group.id}/sites/root/weburl`
   //   }));
 
   //   return new Promise<any>((resolve, reject) => {
@@ -120,13 +172,14 @@ export class GroupServiceManager {
   //         client
   //         .api(`/$batch`)
   //         .post( requestBody, (error: any, responseObject: any) => {
-  //           let thumbnailsResponseContent = {};
-  //           responseObject.responses.forEach( response => thumbnailsResponseContent[response.id] = response.body );
-
-  //           resolve(thumbnailsResponseContent);
+  //           let responseContent = {};
+  //           responseObject.responses.forEach( response => responseContent[response.id] = response.body );
+  //           console.log("batch",responseContent);
+  //           resolve(responseContent);
   //         });
   //       });
   //     } catch(error) {
+  //       Promise.reject(error)
   //       console.error("ERROR",error);
   //     }
   //   });
