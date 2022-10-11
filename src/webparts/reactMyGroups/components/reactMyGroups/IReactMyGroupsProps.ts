@@ -13,6 +13,7 @@ export interface IReactMyGroupsProps {
   selectedLetter: string;
   commLink: string;
   createComm: string;
+  numberOfCommunities: number
 
 
 }
