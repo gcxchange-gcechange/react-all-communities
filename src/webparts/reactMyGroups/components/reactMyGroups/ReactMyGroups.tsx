@@ -27,7 +27,8 @@ export class ReactMyGroups extends React.Component<IReactMyGroupsProps, IReactMy
       showless: false,
       pageSeeAll: false,
       selectedLetter: 'A',
-      errorMessage: null
+      errorMessage: null,
+      numberOfCommunities: 0,
 
     };
 
@@ -49,8 +50,103 @@ export class ReactMyGroups extends React.Component<IReactMyGroupsProps, IReactMy
 
   }
 
+  public componentDidMount (): void {
+    this._getGroups(this.state.selectedLetter);
+
+  }
+
+  public  _getGroups = (letter: string): void => {
+    GroupService.getGroups(letter).then(groupData => {
+      this.setState({
+        groups: groupData,
+      });
+      this._getGroupLinks(groupData);
+    });
+  }
+
+  public _getGroupLinks = (groups: any): void => {
+    groups.map( groupItem => (
+     GroupService.getGroupLinksBatch(groupItem).then(groupUrl => {
+
+        if (groupUrl[1].value !== null || groupUrl[1].value !== undefined) {
+          this.setState(prevState => ({
+            groups: prevState.groups.map(group => group.id === groupItem.id ? {...group, url: groupUrl[1].value} : group)
+          }));
+
+        }
+        else {
+
+          this.setState(prevState => ({
+            groups: prevState.groups.splice(prevState.groups.map(g => g.id).indexOf(groupItem.id), 1)
+          }));
+
+        }
+
+          //change the state
+
+     }).catch(error => {
+      this.setState({
+        errorMessage: "OOPS" + error
+      });
+     })
+    ));
+
+    this._getGroupThumbnails(groups);
+  }
+
+  public _getGroupThumbnails = (groups: any): void => {
+    groups.map(groupItem => (
+      GroupService.getGroupThumbnails(groupItem).then(grouptb => {
+        //set group color:
+
+        this.setState(prevState => ({
+          groups: prevState.groups.map(group => group.id === groupItem.id ? {...group, thumbnail: grouptb, color: "#0078d4"} : group)
+        }));
+      })
+    ));
+    //console.log('Set False');
+    this.setState({
+      isLoading: false
+    });
+
+  }
+
+  private _onRenderGridItem = (item: any): JSX.Element => {
+
+    console.log("GRIDITEM", this.state.groups);
+     return (
+
+
+       <div className={styles.siteCard } >
+           <a href={item.url}>
+             <div className={styles.cardBanner}>
+               <div className={styles.topBanner} style={{backgroundColor: item.color}}></div>
+               <img className={styles.bannerImg} src={item.thumbnail} alt={`${this.strings.altImgLogo} ${item.displayName} `}/>
+               <div className={styles.cardTitle}>{item.displayName}</div>
+               <p className={styles.groups}>{this.strings.groups} </p>
+             </div>
+           </a>
+
+           <div className={` ${styles.secondSection} ${styles.cardBanner2}`}>
+             <ul className={`${styles.groups} ${styles.articleFlex}`}>
+                 <li className={` ${styles.cardBannerList} `}>
+                   <div style={{display: 'flex'}}>
+                   <a>
+                     <p><strong></strong></p>
+                   </a>
+                   </div>
+                 </li>
+             </ul>
+           </div>
+       </div>
+
+     );
+   }
+
 
   public render(): React.ReactElement<IReactMyGroupsProps> {
+
+
 
     //Sorting in the Control panel
     let myData =[];
@@ -68,8 +164,8 @@ export class ReactMyGroups extends React.Component<IReactMyGroupsProps, IReactMy
     });
 
     // total the groups that are not status code 403
-    let totalItems: number = pagedItems.length;
-    console.log("Tot",totalItems);
+    let totalItems: number = newPagedItems.length;
+    console.log("Total",totalItems);
 
 
 
@@ -90,61 +186,25 @@ export class ReactMyGroups extends React.Component<IReactMyGroupsProps, IReactMy
            totalItems ?
               <div>
                 <div className = {styles.groupsContainer}>
-                  <GridLayout sort={ this.props.sort } items={ newPagedItems } onRenderGridItem={(item: any) => this._onRenderGridItem(item)}/>
+                  <GridLayout sort={ this.props.sort } items={newPagedItems} onRenderGridItem={(item: any) => this._onRenderGridItem(item)}/>
                 </div>
               </div>
           :
-          <div className = {styles.noResults}>{this.state.errorMessage}</div>
-              // <div className = {styles.noResults}>{(this.strings.userLang === 'FR'? this.strings.noResultsFR : this.strings.noResultsEN)}</div>
+          // <div className = {styles.noResults}>{this.state.errorMessage}</div>
+              <div className = {styles.noResults}>{(this.strings.userLang === 'FR'? this.strings.noResultsFR : this.strings.noResultsEN)}</div>
             }
       </div>
     );
   }
 
-  public componentDidMount (): void {
-    this._getGroups(this.state.selectedLetter);
-
-  }
-
-
-  public  _getGroups = (letter: string): void => {
-    GroupService.getGroups(letter).then(groupData => {
-      this.setState({
-        groups: groupData,
-      });
-      this._getGroupLinks(groupData);
-    });
-  }
 
 
 
-  public _getGroupLinks = (groups: any): void => {
-    groups.map( groupItem => (
-     GroupService.getGroupLinksBatch(groupItem).then(groupUrl => {
 
-        if (groupUrl[1].value !== undefined) {
-          this.setState(prevState => ({
-            groups: prevState.groups.map(group => group.id === groupItem.id ? {...group, url: groupUrl[1].value} : group)
-          }));
-        }
-        else {
-          
-          this.setState(prevState => ({
-            groups: prevState.groups.splice(prevState.groups.map(g => g.id).indexOf(groupItem.id), 1)
-          }));
-        }
 
-          //change the state
 
-     }).catch(error => {
-      this.setState({
-        errorMessage: "OOPS" + error
-      });
-     })
-    ));
 
-    this._getGroupThumbnails(groups);
-  }
+
 
 
   // public _getGroupActivity = (groups: any): void => {
@@ -160,55 +220,11 @@ export class ReactMyGroups extends React.Component<IReactMyGroupsProps, IReactMy
   //   this._getGroupThumbnails(groups);
   // }
 
-  public _getGroupThumbnails = (groups: any): void => {
-    groups.map(groupItem => (
-      GroupService.getGroupThumbnails(groupItem).then(grouptb => {
-        //set group color:
-
-        this.setState(prevState => ({
-          groups: prevState.groups.map(group => group.id === groupItem.id ? {...group, thumbnail: grouptb, color: "#0078d4"} : group)
-        }));
-      })
-    ));
-    //console.log('Set False');
-    this.setState({
-      isLoading: false
-    });
-
-  }
 
 
 
-  private _onRenderGridItem = (item: any): JSX.Element => {
 
 
-   return (
-
-     <div className={styles.siteCard } >
-         <a href={item.url}>
-           <div className={styles.cardBanner}>
-             <div className={styles.topBanner} style={{backgroundColor: item.color}}></div>
-             <img className={styles.bannerImg} src={item.thumbnail} alt={`${this.strings.altImgLogo} ${item.displayName} `}/>
-             <div className={styles.cardTitle}>{item.displayName}</div>
-             <p className={styles.groups}>{this.strings.groups} </p>
-           </div>
-         </a>
-
-         <div className={` ${styles.secondSection} ${styles.cardBanner2}`}>
-           <ul className={`${styles.groups} ${styles.articleFlex}`}>
-               <li className={` ${styles.cardBannerList} `}>
-                 <div style={{display: 'flex'}}>
-                 <a>
-                   <p><strong></strong></p>
-                 </a>
-                 </div>
-               </li>
-           </ul>
-         </div>
-     </div>
-
-   );
- }
 
 
 
