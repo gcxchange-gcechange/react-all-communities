@@ -98,7 +98,7 @@ export class GroupServiceManager {
                       if(response.status === 200) {
                        responseContent[response.id] =  response.body;
                       } else if (response.status === 403) {
-                        resolve({})
+                        resolve({});
                       }
 
                     });
@@ -108,7 +108,7 @@ export class GroupServiceManager {
                   });
                 });
         } catch (error) {
-          Promise.reject(error);
+          reject(error);
           console.error(error);
         }
       });

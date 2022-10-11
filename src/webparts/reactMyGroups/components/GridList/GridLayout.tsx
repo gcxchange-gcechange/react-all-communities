@@ -37,11 +37,7 @@ export class GridLayout extends React.Component<IGridLayoutProps, IGridLayoutSta
   public render(): React.ReactElement<IGridLayoutProps> {
 
 
-
-    // let items = this.props.items.filter(groupData => {
-    //   return groupData.hasOwnProperty('url');
-    // });
-
+    console.log(this.props.items);
 
 
 
@@ -51,7 +47,7 @@ export class GridLayout extends React.Component<IGridLayoutProps, IGridLayoutSta
           <List
             role="presentation"
             className={styles.gridLayout}
-            items={this.props.items}
+            items={this.props.items.filter(group => {return group.hasOwnProperty('url');})}
             getItemCountForPage={this._getItemCountForPage}
             getPageHeight={this._getPageHeight}
             onRenderCell={this._onRenderCell}
@@ -96,7 +92,7 @@ export class GridLayout extends React.Component<IGridLayoutProps, IGridLayoutSta
       return (
           <div className={styles.rendergrid} style={{width: `${cellWidth}px`, marginRight: `${cellPadding}px`}} >
 
-            {this.props.onRenderGridItem(item, finalSize, isCompact)}
+            {this.props.onRenderGridItem(item)}
 
           </div>
 
