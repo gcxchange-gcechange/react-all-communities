@@ -75,15 +75,15 @@ export class ReactMyGroups extends React.Component<IReactMyGroupsProps, IReactMy
     //     } return group;
     //  });
 
-     this.setState(prevState => {
-      const groups = prevState.groups.map((group) => {
-        if(group.id === groupItem.id) {
-          return {...group, url: groupUrl[1].value};
-        } return group;
-     });
+    //  this.setState(prevState => {
+    //   const groups = prevState.groups.map((group) => {
+    //     if(group.id === groupItem.id) {
+    //       return {...group, url: groupUrl[1].value};
+    //     } return group;
+    //  });
 
-     console.log("GR", groups)
-     })
+    //  console.log("GR", groups)
+    //  })
 
 
         // this.setState({
@@ -92,19 +92,19 @@ export class ReactMyGroups extends React.Component<IReactMyGroupsProps, IReactMy
         // });
 
 
-        // if (groupUrl[1].value !== null || groupUrl[1].value !== undefined) {
-        //   this.setState(prevState => ({
-        //     groups: prevState.groups.map(group => group.id === groupItem.id ? {...group, url: groupUrl[1].value} : group)
-        //   }));
+        if (groupUrl[1].value !== null || groupUrl[1].value !== undefined) {
+          this.setState(prevState => ({
+            groups: prevState.groups.map(group => group.id === groupItem.id ? {...group, url: groupUrl[1].value} : group)
+          }));
 
-        // }
-        // else {
+        }
+        else {
 
-        //   this.setState(prevState => ({
-        //     groups: prevState.groups.splice(prevState.groups.map(g => g.id).indexOf(groupItem.id), 1)
-        //   }));
+          this.setState(prevState => ({
+            groups: prevState.groups.splice(prevState.groups.map(g => g.id).indexOf(groupItem.id), 1)
+          }));
 
-        // }
+        }
 
           //change the state
 
