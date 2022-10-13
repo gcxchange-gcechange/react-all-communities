@@ -60,27 +60,51 @@ export class ReactMyGroups extends React.Component<IReactMyGroupsProps, IReactMy
       this.setState({
         groups: groupData,
       });
-      this._getGroupLinks(groupData);
+      this._getGroupsLinks(groupData);
     });
   }
 
-  public _getGroupLinks = (groups: any): void => {
+
+  public _getGroupsLinks = (groups: any): void => {
     groups.map( groupItem => (
      GroupService.getGroupLinksBatch(groupItem).then(groupUrl => {
 
-        if (groupUrl[1].value !== null || groupUrl[1].value !== undefined) {
-          this.setState(prevState => ({
-            groups: prevState.groups.map(group => group.id === groupItem.id ? {...group, url: groupUrl[1].value} : group)
-          }));
+    //   const data = groups.map((group) => {
+    //     if(group.id === groupItem.id) {
+    //       return {...group, url: groupUrl[1].value};
+    //     } return group;
+    //  });
 
-        }
-        else {
+     this.setState(prevState => {
+      const groups = prevState.groups.map((group) => {
+        if(group.id === groupItem.id) {
+          return {...group, url: groupUrl[1].value};
+        } return group;
+     });
 
-          this.setState(prevState => ({
-            groups: prevState.groups.splice(prevState.groups.map(g => g.id).indexOf(groupItem.id), 1)
-          }));
+     console.log("GR", groups)
+     })
 
-        }
+
+        // this.setState({
+        //   groups: group.filter((item) =>
+        //     item.hasOwnProperty('url'))
+        // });
+
+
+        // if (groupUrl[1].value !== null || groupUrl[1].value !== undefined) {
+        //   this.setState(prevState => ({
+        //     groups: prevState.groups.map(group => group.id === groupItem.id ? {...group, url: groupUrl[1].value} : group)
+        //   }));
+
+        // }
+        // else {
+
+        //   this.setState(prevState => ({
+        //     groups: prevState.groups.splice(prevState.groups.map(g => g.id).indexOf(groupItem.id), 1)
+        //   }));
+
+        // }
 
           //change the state
 
@@ -158,13 +182,13 @@ export class ReactMyGroups extends React.Component<IReactMyGroupsProps, IReactMy
 
     // filter through groups that are not statuscode 403 and have a url
 
-    let newPagedItems = pagedItems.filter(groupData => {
-      return groupData.hasOwnProperty('url');
+    // let newPagedItems = pagedItems.filter(groupData => {
+    //   return groupData.hasOwnProperty('url');
 
-    });
+    // });
 
     // total the groups that are not status code 403
-    let totalItems: number = newPagedItems.length;
+    let totalItems: number = pagedItems.length;
     console.log("Total",totalItems);
 
 
@@ -186,7 +210,7 @@ export class ReactMyGroups extends React.Component<IReactMyGroupsProps, IReactMy
            totalItems ?
               <div>
                 <div className = {styles.groupsContainer}>
-                  <GridLayout sort={ this.props.sort } items={newPagedItems} onRenderGridItem={(item: any) => this._onRenderGridItem(item)}/>
+                  <GridLayout sort={ this.props.sort } items={pagedItems} onRenderGridItem={(item: any) => this._onRenderGridItem(item)}/>
                 </div>
               </div>
           :
