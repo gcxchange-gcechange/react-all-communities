@@ -60,25 +60,21 @@ export class GridLayout extends React.Component<IGridLayoutProps, IGridLayoutSta
   }
 
 
-  private _getItemCountForPage = (itemIndex: number, surfaceRect: IRectangle): number => {
-    if (itemIndex === 0) {
-      this._isCompact = surfaceRect.width < COMPACT_THRESHOLD;
-      if (this._isCompact) {
-        this._columnCount = 1;
-        this._columnWidth = surfaceRect.width;
-      } else {
-        this._columnCount = Math.ceil(surfaceRect.width / (MAX_ROW_HEIGHT));
-        this._columnWidth = Math.max(MIN_WIDTH, Math.floor(surfaceRect.width / this._columnCount) + Math.floor(PADDING / this._columnCount));
-        this._rowHeight = this._columnWidth;
-      }
-    }
 
-    return this._columnCount * ROWS_PER_PAGE;
+  private _getItemCountForPage = (itemIndex: number, surfaceRect: IRectangle): number => {
+
+      this._columnCount = Math.ceil(surfaceRect.width / (MAX_ROW_HEIGHT));
+      this._columnWidth = Math.max(MIN_WIDTH, Math.floor(surfaceRect.width / this._columnCount) + Math.floor(PADDING / this._columnCount));
+      this._rowHeight = this._columnWidth;
+
+    return this._columnCount + this._columnWidth +  this._rowHeight * ROWS_PER_PAGE;
   }
 
   private _getPageHeight = (): number => {
     return this._rowHeight * ROWS_PER_PAGE;
   }
+
+
 
   private _onRenderCell = (item: any, index: number | undefined): JSX.Element => {
 
@@ -91,6 +87,7 @@ export class GridLayout extends React.Component<IGridLayoutProps, IGridLayoutSta
 
       return (
           <div className={styles.rendergrid} style={{width: `${cellWidth}px`, marginRight: `${cellPadding}px`}} >
+
 
             {this.props.onRenderGridItem(item)}
 
