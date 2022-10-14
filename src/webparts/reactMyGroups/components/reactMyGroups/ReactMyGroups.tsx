@@ -138,6 +138,7 @@ export class ReactMyGroups extends React.Component<IReactMyGroupsProps, IReactMy
   private _onRenderGridItem = (item: any): JSX.Element => {
 
     console.log("GRIDITEM", this.state.groups);
+    if(item.url){
      return (
 
 
@@ -165,6 +166,7 @@ export class ReactMyGroups extends React.Component<IReactMyGroupsProps, IReactMy
        </div>
 
      );
+    }
    }
 
 
