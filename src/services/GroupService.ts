@@ -42,29 +42,6 @@ export class GroupServiceManager {
     });
   }
 
-  public async getGroupLinks(): Promise<any> {
-    return new Promise<any>(async(resolve, reject) => {
-
-      try {
-        this.context.msGraphClientFactory
-          .getClient()
-          .then((client: MSGraphClient) => {
-            client
-              .api(`me/transitiveMemberOf/microsoft.graph.group`)
-              .get((error: any, group: IGroupCollection, rawResponse: any) => {
-                console.log("LINKS", group.value);
-                if(error) {
-                  Promise.reject(error);
-                }
-                  resolve(group.value);
-              });
-          });
-      } catch (error) {
-
-        console.error("ERROR", error);
-      }
-    });
-  }
 
   public getGroupLinksBatch(groups: any): Promise<any> {
     let requestBody = {
@@ -91,7 +68,6 @@ export class GroupServiceManager {
                       Promise.reject(error);
                     }
                     let responseContent = {};
-                    // responseObject.responses.forEach( response => responseContent[response.id] = response.body );
 
                     responseObject.responses.forEach(response => {
                       console.log("RES",response);
