@@ -99,13 +99,6 @@ export class ReactMyGroups extends React.Component<
                   : group
               ),
             }));
-          } else {
-            this.setState((prevState) => ({
-              groups: prevState.groups.splice(
-                prevState.groups.map((g) => g.id).indexOf(groupItem.id),
-                1
-              ),
-            }));
           }
 
           //change the state
@@ -117,18 +110,30 @@ export class ReactMyGroups extends React.Component<
         })
     );
 
+    
+
     this._getGroupThumbnails(groups);
+  }
+  public y = (groups: any): void => {
+    this.setState({
+      groups: this.state.groups.filter((item) => item.hasOwnProperty("url")),
+    });
+
   }
 
   public _getGroupThumbnails = (groups: any): void => {
+    // this.setState({
+    //   groups: group.filter((item) =>
+    //     item.hasOwnProperty('url'))
+    // });
+
     groups.map((groupItem) =>
-    
       GroupService.getGroupThumbnails(groupItem).then((grouptb) => {
         //set group color:
 
         this.setState((prevState) => ({
-          groups: prevState.groups.map((group) => (group.hasOwnProperty('url') &&
-            group.id === groupItem.id )
+          groups: prevState.groups.map((group) =>
+            group.id === groupItem.id
               ? { ...group, thumbnail: grouptb, color: "#0078d4" }
               : group
           ),
@@ -142,6 +147,9 @@ export class ReactMyGroups extends React.Component<
   }
 
   private _onRenderGridItem = (item: any): JSX.Element => {
+    //  this.setState({
+    //    groups: this.state.groups.filter((ite) => ite.hasOwnProperty("url")),
+    //  });
     console.log("GRIDITEM", this.state.groups);
     return (
       <div className={styles.siteCard}>
@@ -179,6 +187,9 @@ export class ReactMyGroups extends React.Component<
   }
 
   public render(): React.ReactElement<IReactMyGroupsProps> {
+    //  this.setState({
+    //    groups: this.state.groups.filter((item) => item.hasOwnProperty("url")),
+    //  });
     //Sorting in the Control panel
     let myData = [];
     this.props.sort == "DateCreation"
@@ -193,10 +204,10 @@ export class ReactMyGroups extends React.Component<
 
     // filter through groups that are not statuscode 403 and have a url
 
-    // let newPagedItems = pagedItems.filter(groupData => {
-    //   return groupData.hasOwnProperty('url');
+    let newPagedItems = pagedItems.filter(groupData => {
+     return groupData.hasOwnProperty('url');
 
-    // });
+    });
 
     // total the groups that are not status code 403
     let totalItems: number = pagedItems.length;
@@ -232,7 +243,7 @@ export class ReactMyGroups extends React.Component<
             <div className={styles.groupsContainer}>
               <GridLayout
                 sort={this.props.sort}
-                items={pagedItems}
+                items={newPagedItems}
                 onRenderGridItem={(item: any) => this._onRenderGridItem(item)}
               />
             </div>
