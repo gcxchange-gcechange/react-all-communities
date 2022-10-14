@@ -106,8 +106,6 @@ export class ReactMyGroups extends React.Component<IReactMyGroupsProps, IReactMy
 
         }
 
-          //change the state
-
      }).catch(error => {
       this.setState({
         errorMessage: "OOPS" + error
@@ -138,7 +136,7 @@ export class ReactMyGroups extends React.Component<IReactMyGroupsProps, IReactMy
   private _onRenderGridItem = (item: any): JSX.Element => {
 
     console.log("GRIDITEM", this.state.groups);
-    if(item.url){
+
      return (
 
 
@@ -166,12 +164,11 @@ export class ReactMyGroups extends React.Component<IReactMyGroupsProps, IReactMy
        </div>
 
      );
-    }
+
    }
 
 
   public render(): React.ReactElement<IReactMyGroupsProps> {
-
 
 
     //Sorting in the Control panel
@@ -194,13 +191,6 @@ export class ReactMyGroups extends React.Component<IReactMyGroupsProps, IReactMy
     console.log("Total",totalItems);
 
 
-
-    let showPages: boolean = false;
-
-    let maxEvents: number = this.props.numberPerPage;
-    const { currentPage } = this.state;
-
-
     return (
 
       <div className={ styles.reactMyGroups }  >
@@ -209,55 +199,19 @@ export class ReactMyGroups extends React.Component<IReactMyGroupsProps, IReactMy
           {this.state.isLoading  ?
             <Spinner label={this.strings.loadingState}/>
           :
-           totalItems ?
+          //  totalItems ?
               <div>
                 <div className = {styles.groupsContainer}>
                   <GridLayout sort={ this.props.sort } items={pagedItems} onRenderGridItem={(item: any) => this._onRenderGridItem(item)}/>
                 </div>
               </div>
-          :
+
           // <div className = {styles.noResults}>{this.state.errorMessage}</div>
-              <div className = {styles.noResults}>{(this.strings.userLang === 'FR'? this.strings.noResultsFR : this.strings.noResultsEN)}</div>
+              // <div className = {styles.noResults}>{(this.strings.userLang === 'FR'? this.strings.noResultsFR : this.strings.noResultsEN)}</div>
             }
       </div>
     );
   }
 
-
-
-
-
-
-
-
-
-
-
-  // public _getGroupActivity = (groups: any): void => {
-  //   groups.map(groupItem => (
-  //     GroupService.getGroupActivity(groupItem).then(groupActivity => {
-
-  //       this.setState(prevState => ({
-  //         groups: prevState.groups.map(group => group.id === groupItem.id ? {...group, activity: groupActivity} : group)
-  //       }));
-  //     })
-  //   ));
-
-  //   this._getGroupThumbnails(groups);
-  // }
-
-
-
-
-
-
-
-
-
-  private _onPageUpdate = (pageNumber: number): void => {
-    this.setState({
-    currentPage: pageNumber
-    });
-  }
 
 }
