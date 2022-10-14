@@ -17,6 +17,7 @@ import { IReadonlyTheme } from "@microsoft/sp-component-base";
 import { Paging } from "../paging/Paging";
 import { Icon } from "office-ui-fabric-react/lib/Icon";
 import { AZNavigation } from "../AZNavigation/AZNavigation";
+import * as _ from "lodash";
 
 export class ReactMyGroups extends React.Component<
   IReactMyGroupsProps,
@@ -217,11 +218,13 @@ export class ReactMyGroups extends React.Component<
 
     let maxEvents: number = this.props.numberPerPage;
     const { currentPage } = this.state;
+    let isNogroups:boolean=_.isEmpty(newPagedItems);
 
     return (
       <div className={styles.reactMyGroups}>
         <div className={styles.addComm}>
           <Icon iconName="Add" className={styles.addIcon} />
+          
           <a
             aria-label={this.strings.seeAllLabel}
             href={this.props.addCommLink}
@@ -236,9 +239,10 @@ export class ReactMyGroups extends React.Component<
           selectedLetter={this.props.selectedLetter}
           onClickEvent={this.handleClickEvent}
         />
+       
         {this.state.isLoading ? (
           <Spinner label={this.strings.loadingState} />
-        ) : totalItems ? (
+        ) : !isNogroups ? (
           <div>
             <div className={styles.groupsContainer}>
               <GridLayout
@@ -249,13 +253,13 @@ export class ReactMyGroups extends React.Component<
             </div>
           </div>
         ) : (
-          // <div className = {styles.noResults}>{this.state.errorMessage}</div>
           <div className={styles.noResults}>
             {this.strings.userLang === "FR"
               ? this.strings.noResultsFR
               : this.strings.noResultsEN}
           </div>
         )}
+        {}
       </div>
     );
   }
