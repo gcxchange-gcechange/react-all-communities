@@ -1,4 +1,4 @@
-import * as MicrosoftGroup from '@microsoft/microsoft-graph-types';
+import * as MicrosoftGroup from "@microsoft/microsoft-graph-types";
 //import {IGroup} from '../../../../models/IGroup';
 
 export interface IReactMyGroupsState {
@@ -8,4 +8,7 @@ export interface IReactMyGroupsState {
   pagelimit: number;
   showless: boolean;
   pageSeeAll: boolean;
+  selectedLetter: string;
+  errorMessage: string;
+  numberOfCommunities: number;
 }

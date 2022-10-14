@@ -2,8 +2,6 @@ declare interface IReactMyGroupsWebPartStrings {
   PropertyPaneDescription: string;
   BasicGroupName: string;
   DescriptionFieldLabel: string;
-  setTitleEn: string;
-  setTitleFr: string;
   setPageNum: string;
   seeAllToggle: string;
   seeAllOn: string;
@@ -18,10 +16,13 @@ declare interface IReactMyGroupsWebPartStrings {
   groups: string;
   alphabetical: string;
   addCommLink: string;
-  link: string;
+  commLink: string;
+  createComm: string;
+  noResultsEN: string;
+  noResultsFR: string;
 }
 
-declare module 'ReactMyGroupsWebPartStrings' {
+declare module "ReactMyGroupsWebPartStrings" {
   const strings: IReactMyGroupsWebPartStrings;
   export = strings;
 }
