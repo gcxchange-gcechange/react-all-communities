@@ -91,19 +91,19 @@ export class ReactMyGroups extends React.Component<IReactMyGroupsProps, IReactMy
         //     item.hasOwnProperty('url'))
         // });
 
-
-        if (groupUrl[1].value !== null || groupUrl[1].value !== undefined) {
+        if (groupUrl[1] && (groupUrl[1].value !== null || groupUrl[1].value !== undefined)) {
           this.setState(prevState => ({
             groups: prevState.groups.map(group => group.id === groupItem.id ? {...group, url: groupUrl[1].value} : group)
           }));
 
         }
         else {
-
+          let index = this.state.groups.map(g => g.id).indexOf(groupItem.id);
+          let groupsCopy = JSON.parse(JSON.stringify(this.state.groups));
+          groupsCopy.splice(index, 1);
           this.setState(prevState => ({
-            groups: prevState.groups.splice(prevState.groups.map(g => g.id).indexOf(groupItem.id), 1)
+            groups: groupsCopy
           }));
-
         }
 
      }).catch(error => {
