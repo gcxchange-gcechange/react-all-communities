@@ -4,7 +4,7 @@ import { IReactMyGroupsProps } from './IReactMyGroupsProps';
 import GroupService from '../../../../services/GroupService';
 import { IReactMyGroupsState } from './IReactMyGroupsState';
 import { IGroup } from '../../../../models';
-import { Spinner, ISize, FontSizes, nullRender, TagItemSuggestion } from 'office-ui-fabric-react';
+import { Spinner } from 'office-ui-fabric-react';
 import { GridLayout } from '../GridList';
 import { SelectLanguage } from '../SelectLanguage';
 import { IReadonlyTheme } from '@microsoft/sp-component-base';
@@ -69,27 +69,6 @@ export class ReactMyGroups extends React.Component<IReactMyGroupsProps, IReactMy
     groups.map( groupItem => (
      GroupService.getGroupLinksBatch(groupItem).then(groupUrl => {
 
-    //   const data = groups.map((group) => {
-    //     if(group.id === groupItem.id) {
-    //       return {...group, url: groupUrl[1].value};
-    //     } return group;
-    //  });
-
-    //  this.setState(prevState => {
-    //   const groups = prevState.groups.map((group) => {
-    //     if(group.id === groupItem.id) {
-    //       return {...group, url: groupUrl[1].value};
-    //     } return group;
-    //  });
-
-    //  console.log("GR", groups)
-    //  })
-
-
-        // this.setState({
-        //   groups: group.filter((item) =>
-        //     item.hasOwnProperty('url'))
-        // });
 
         if (groupUrl[1] && (groupUrl[1].value !== null || groupUrl[1].value !== undefined)) {
           this.setState(prevState => ({
@@ -135,7 +114,6 @@ export class ReactMyGroups extends React.Component<IReactMyGroupsProps, IReactMy
 
   private _onRenderGridItem = (item: any): JSX.Element => {
 
-    console.log("GRIDITEM", this.state.groups);
 
      return (
 
@@ -171,7 +149,7 @@ export class ReactMyGroups extends React.Component<IReactMyGroupsProps, IReactMy
   public render(): React.ReactElement<IReactMyGroupsProps> {
 
 
-    //Sorting in the Control panel
+    //Sorting
     let myData =[];
     (this.props.sort == "DateCreation") ? myData = [].concat(this.state.groups).sort(( a, b ) => a.createdDateTime < b. createdDateTime ? 1 : -1) :
     myData = [].concat(this.state.groups).sort(( a, b ) => a.displayName < b.displayName ? 1 : -1);
@@ -179,15 +157,9 @@ export class ReactMyGroups extends React.Component<IReactMyGroupsProps, IReactMy
 
     let pagedItems: any[] = myData;
 
-    // filter through groups that are not statuscode 403 and have a url
-
-    // let newPagedItems = pagedItems.filter(groupData => {
-    //   return groupData.hasOwnProperty('url');
-
-    // });
 
     // total the groups that are not status code 403
-    let totalItems: number = pagedItems.length;
+    let totalItems: number = this.state.groups.length;
     console.log("Total",totalItems);
 
 
@@ -199,15 +171,14 @@ export class ReactMyGroups extends React.Component<IReactMyGroupsProps, IReactMy
           {this.state.isLoading  ?
             <Spinner label={this.strings.loadingState}/>
           :
-          //  totalItems ?
+           totalItems ?
               <div>
                 <div className = {styles.groupsContainer}>
                   <GridLayout sort={ this.props.sort } items={pagedItems} onRenderGridItem={(item: any) => this._onRenderGridItem(item)}/>
                 </div>
               </div>
-
-          // <div className = {styles.noResults}>{this.state.errorMessage}</div>
-              // <div className = {styles.noResults}>{(this.strings.userLang === 'FR'? this.strings.noResultsFR : this.strings.noResultsEN)}</div>
+            :
+              <div className = {styles.noResults}>{(this.strings.userLang === 'FR'? this.strings.noResultsFR : this.strings.noResultsEN)}</div>
             }
       </div>
     );
