@@ -69,6 +69,7 @@ export class GroupServiceManager {
                     return null;
                   }
                 });
+                console.log("RES", responseContent);
                 resolve(responseContent);
               });
           });
@@ -90,14 +91,12 @@ export class GroupServiceManager {
               .api(`/groups/${groups.id}/photos/48x48/$value`)
               .responseType("blob")
               .get((error: any, group: any, rawResponse: any) => {
-                if (error) {
-                  Promise.reject(error);
-                }
                 resolve(window.URL.createObjectURL(group));
               });
           });
       } catch (error) {
         console.error(error);
+        reject(error);
       }
     });
   }
