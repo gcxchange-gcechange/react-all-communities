@@ -2,8 +2,8 @@ import { MSGraphClient } from "@microsoft/sp-http";
 import * as MicrosoftGraph from "@microsoft/microsoft-graph-types";
 import { WebPartContext } from "@microsoft/sp-webpart-base";
 import { IGroup, IGroupCollection } from "../models";
-import { GraphRequest } from "@microsoft/microsoft-graph-client";
-import { filter } from "lodash";
+
+
 
 export class GroupServiceManager {
   public context: WebPartContext;
@@ -13,7 +13,6 @@ export class GroupServiceManager {
   }
 
   public getGroups(letter: string): Promise<MicrosoftGraph.Group[]> {
-
     let apiTxt: string = "";
 
     if (letter === "#") {
@@ -31,9 +30,7 @@ export class GroupServiceManager {
             client
               .api(apiTxt)
               .get((error: any, groups: IGroupCollection, rawResponse: any) => {
-
                 resolve(groups.value);
-                console.log("GROUPS", groups.value);
               });
           });
       } catch (error) {
@@ -42,72 +39,46 @@ export class GroupServiceManager {
     });
   }
 
-
   public getGroupLinksBatch(groups: any): Promise<any> {
     let requestBody = {
-
-      "requests": [
-
-          {
-            "id": "1",
-            "method": "GET",
-            "url":`/groups/${groups.id}/sites/root/weburl`
-
+      requests: [
+        {
+          id: "1",
+          method: "GET",
+          url: `/groups/${groups.id}/sites/root/weburl`,
         },
-      ]
-      };
-      return new Promise((resolve, reject) => {
-        try {
-          this.context.msGraphClientFactory
-                .getClient()
-                .then((client: MSGraphClient) => {
-                  client
-                  .api(`/$batch`)
-                  .post( requestBody, (error: any, responseObject: any) => {
-                    if(error){
-                      Promise.reject(error);
-                    }
-                    let responseContent = {};
+      ],
+    };
+    return new Promise((resolve, reject) => {
+      try {
+        this.context.msGraphClientFactory
+          .getClient()
+          .then((client: MSGraphClient) => {
+            client
+              .api(`/$batch`)
+              .post(requestBody, (error: any, responseObject: any) => {
+                if (error) {
+                  Promise.reject(error);
+                }
+                let responseContent = {};
 
-                    responseObject.responses.forEach(response => {
-                      console.log("RES",response);
-                      if(response.status === 200) {
-                       responseContent[response.id] =  response.body;
-                      } else if (response.status === 403) {
-                        return null;
-                      }
-
-                    });
-
-                    console.log("RESOLVE",responseContent);
-                    resolve(responseContent);
-                  });
+                responseObject.responses.forEach((response) => {
+                  if (response.status === 200) {
+                    responseContent[response.id] = response.body;
+                  } else if (response.status === 403) {
+                    return null;
+                  }
                 });
-        } catch (error) {
-          reject(error);
-          console.error(error);
-        }
-      });
+                resolve(responseContent);
+              });
+          });
+      } catch (error) {
+        reject(error);
+        console.error(error);
+      }
+    });
   }
 
-  // public getGroupActivity(groups: IGroup): Promise<any> {
-  //   return new Promise<any>((resolve, reject) => {
-  //     try {
-  //       this.context.msGraphClientFactory
-  //       .getClient()
-  //       .then((client: MSGraphClient) => {
-  //         client
-  //         .api(`/groups/${groups.id}/sites`)
-  //         .get((error: any, result: any, rawResponse: any) => {
-  //           console.log("RESULT", result);
-  //           resolve(result);
-  //         });
-  //       });
-  //     } catch(error) {
-  //       console.log("ERROR", error);
-  //     }
-  //   });
-  // }
 
   public getGroupThumbnails(groups: IGroup): Promise<any> {
     return new Promise<any>((resolve, reject) => {
@@ -119,7 +90,7 @@ export class GroupServiceManager {
               .api(`/groups/${groups.id}/photos/48x48/$value`)
               .responseType("blob")
               .get((error: any, group: any, rawResponse: any) => {
-                if(error) {
+                if (error) {
                   Promise.reject(error);
                 }
                 resolve(window.URL.createObjectURL(group));
@@ -131,35 +102,6 @@ export class GroupServiceManager {
     });
   }
 
-  // public getGroupLinks(groups: any): Promise<any> {
-
-  //   let requestBody = { requests: [] };
-  //   requestBody.requests = groups.map((group) => ({
-  //     id: group.id,
-  //     method: "GET",
-  //     url: `/groups/${group.id}/sites/root/weburl`
-  //   }));
-
-  //   return new Promise<any>((resolve, reject) => {
-  //     try {
-  //       this.context.msGraphClientFactory
-  //       .getClient()
-  //       .then((client: MSGraphClient) => {
-  //         client
-  //         .api(`/$batch`)
-  //         .post( requestBody, (error: any, responseObject: any) => {
-  //           let responseContent = {};
-  //           responseObject.responses.forEach( response => responseContent[response.id] = response.body );
-  //           console.log("batch",responseContent);
-  //           resolve(responseContent);
-  //         });
-  //       });
-  //     } catch(error) {
-  //       Promise.reject(error)
-  //       console.error("ERROR",error);
-  //     }
-  //   });
-  // }
 }
 
 const GroupService = new GroupServiceManager();

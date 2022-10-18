@@ -115,33 +115,33 @@ export class ReactMyGroups extends React.Component<IReactMyGroupsProps, IReactMy
   private _onRenderGridItem = (item: any): JSX.Element => {
 
 
-     return (
+      return (
 
 
-       <div className={styles.siteCard } >
-           <a href={item.url}>
-             <div className={styles.cardBanner}>
-               <div className={styles.topBanner} style={{backgroundColor: item.color}}></div>
-               <img className={styles.bannerImg} src={item.thumbnail} alt={`${this.strings.altImgLogo} ${item.displayName} `}/>
-               <div className={styles.cardTitle}>{item.displayName}</div>
-               <p className={styles.groups}>{this.strings.groups} </p>
-             </div>
-           </a>
+        <div className={styles.siteCard } >
+            <a href={item.url}>
+              <div className={styles.cardBanner}>
+                <div className={styles.topBanner} style={{backgroundColor: item.color}}></div>
+                <img className={styles.bannerImg} src={item.thumbnail} alt={`${this.strings.altImgLogo} ${item.displayName} `}/>
+                <div className={styles.cardTitle}>{item.displayName}</div>
+                <p className={styles.groups}>{this.strings.groups} </p>
+              </div>
+            </a>
 
-           <div className={` ${styles.secondSection} ${styles.cardBanner2}`}>
-             <ul className={`${styles.groups} ${styles.articleFlex}`}>
-                 <li className={` ${styles.cardBannerList} `}>
-                   <div style={{display: 'flex'}}>
-                   <a>
-                     <p><strong></strong></p>
-                   </a>
-                   </div>
-                 </li>
-             </ul>
-           </div>
-       </div>
+            <div className={` ${styles.secondSection} ${styles.cardBanner2}`}>
+              <ul className={`${styles.groups} ${styles.articleFlex}`}>
+                  <li className={` ${styles.cardBannerList} `}>
+                    <div style={{display: 'flex'}}>
+                    <a>
+                      <p><strong></strong></p>
+                    </a>
+                    </div>
+                  </li>
+              </ul>
+            </div>
+        </div>
 
-     );
+      );
 
    }
 
@@ -149,7 +149,7 @@ export class ReactMyGroups extends React.Component<IReactMyGroupsProps, IReactMy
   public render(): React.ReactElement<IReactMyGroupsProps> {
 
 
-    //Sorting
+    //Sorting in the Control panel
     let myData =[];
     (this.props.sort == "DateCreation") ? myData = [].concat(this.state.groups).sort(( a, b ) => a.createdDateTime < b. createdDateTime ? 1 : -1) :
     myData = [].concat(this.state.groups).sort(( a, b ) => a.displayName < b.displayName ? 1 : -1);
@@ -160,7 +160,6 @@ export class ReactMyGroups extends React.Component<IReactMyGroupsProps, IReactMy
 
     // total the groups that are not status code 403
     let totalItems: number = this.state.groups.length;
-    console.log("Total",totalItems);
 
 
     return (
@@ -178,7 +177,7 @@ export class ReactMyGroups extends React.Component<IReactMyGroupsProps, IReactMy
                 </div>
               </div>
             :
-              <div className = {styles.noResults}>{(this.strings.userLang === 'FR'? this.strings.noResultsFR : this.strings.noResultsEN)}</div>
+            <div className = {styles.noResults}>{(this.strings.userLang === 'FR'? this.strings.noResultsFR : this.strings.noResultsEN)}</div>
             }
       </div>
     );

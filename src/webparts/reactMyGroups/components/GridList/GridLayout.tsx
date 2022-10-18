@@ -14,7 +14,6 @@ const ROWS_PER_PAGE: number = +styles.rowsPerPage;
 const MAX_ROW_HEIGHT: number = +styles.maxWidth;
 const PADDING: number = +styles.padding;
 const MIN_WIDTH: number = +styles.minWidth;
-const COMPACT_THRESHOLD: number = +styles.compactThreshold;
 
 
 export class GridLayout extends React.Component<IGridLayoutProps, IGridLayoutState> {
@@ -29,17 +28,9 @@ export class GridLayout extends React.Component<IGridLayoutProps, IGridLayoutSta
   private _columnCount: number;
   private _columnWidth: number;
   private _rowHeight: number;
-  private _isCompact: boolean;
-
-
 
 
   public render(): React.ReactElement<IGridLayoutProps> {
-
-
-    console.log(this.props.items);
-
-
 
     return (
       <div role="group" aria-label={this.props.ariaLabel}>
@@ -78,11 +69,8 @@ export class GridLayout extends React.Component<IGridLayoutProps, IGridLayoutSta
 
   private _onRenderCell = (item: any, index: number | undefined): JSX.Element => {
 
-    const isCompact: boolean = this._isCompact;
     const cellPadding: number = index % this._columnCount !== this._columnCount - 1  ? PADDING : 0;
-    const finalSize: ISize = { width: this._columnWidth, height: this._rowHeight };
-    const cellWidth: number = isCompact ? this._columnWidth + PADDING : this._columnWidth - PADDING;
-    let _totalPages = Math.ceil(item.length / 2);
+    const cellWidth: number =  this._columnWidth - PADDING;
 
 
       return (
