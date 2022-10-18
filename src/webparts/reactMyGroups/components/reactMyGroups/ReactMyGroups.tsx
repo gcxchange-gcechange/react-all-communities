@@ -28,7 +28,7 @@ export class ReactMyGroups extends React.Component<IReactMyGroupsProps, IReactMy
       pageSeeAll: false,
       selectedLetter: 'A',
       errorMessage: null,
-      numberOfCommunities: 0,
+      numberOfCommunities: null,
 
     };
 
@@ -101,7 +101,7 @@ export class ReactMyGroups extends React.Component<IReactMyGroupsProps, IReactMy
         //set group color:
 
         this.setState(prevState => ({
-          groups: prevState.groups.map(group => group.id === groupItem.id ? {...group, thumbnail: grouptb, color: "#0078d4"} : group)
+          groups: prevState.groups.map(group => group.id === groupItem.id ? {...group, thumbnail: grouptb, color: "#0078d4"} : group),
         }));
       })
     ));
@@ -159,7 +159,8 @@ export class ReactMyGroups extends React.Component<IReactMyGroupsProps, IReactMy
 
 
     // total the groups that are not status code 403
-    let totalItems: number = this.state.groups.length;
+    let totalItems: number = pagedItems.length;
+    console.log("total", totalItems);
 
 
     return (
@@ -170,7 +171,7 @@ export class ReactMyGroups extends React.Component<IReactMyGroupsProps, IReactMy
           {this.state.isLoading  ?
             <Spinner label={this.strings.loadingState}/>
           :
-           totalItems ?
+           totalItems >= 1  ?
               <div>
                 <div className = {styles.groupsContainer}>
                   <GridLayout sort={ this.props.sort } items={pagedItems} onRenderGridItem={(item: any) => this._onRenderGridItem(item)}/>
