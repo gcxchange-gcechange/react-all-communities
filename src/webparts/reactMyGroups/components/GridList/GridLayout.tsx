@@ -38,7 +38,7 @@ export class GridLayout extends React.Component<IGridLayoutProps, IGridLayoutSta
           <List
             role="presentation"
             className={styles.gridLayout}
-            items={this.props.items.filter(group => {return group.hasOwnProperty('url');})}
+            items={this.props.items}
             getItemCountForPage={this._getItemCountForPage}
             getPageHeight={this._getPageHeight}
             onRenderCell={this._onRenderCell}
