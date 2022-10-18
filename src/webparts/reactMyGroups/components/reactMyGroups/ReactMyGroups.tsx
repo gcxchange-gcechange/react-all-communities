@@ -45,6 +45,7 @@ export class ReactMyGroups extends React.Component<IReactMyGroupsProps, IReactMy
     },
     //functions that renders groups based on user selected letter
       function () {
+        this._setLoading(true);
         this._getGroups(letter);
       });
 
@@ -58,7 +59,7 @@ export class ReactMyGroups extends React.Component<IReactMyGroupsProps, IReactMy
   public  _getGroups = (letter: string): void => {
     GroupService.getGroups(letter).then(groupData => {
       this.setState({
-        groups: groupData,
+        groups: groupData
       });
       this._getGroupsLinks(groupData);
     });
@@ -66,9 +67,16 @@ export class ReactMyGroups extends React.Component<IReactMyGroupsProps, IReactMy
 
 
   public _getGroupsLinks = (groups: any): void => {
+    let groupsCompleted = 0;
+    let totalGroups = groups.length;
+
+    if (totalGroups == 0) {
+      this._setLoading(false);
+    }
+
     groups.map( groupItem => (
      GroupService.getGroupLinksBatch(groupItem).then(groupUrl => {
-
+        groupsCompleted++;
 
         if (groupUrl[1] && (groupUrl[1].value !== null || groupUrl[1].value !== undefined)) {
           this.setState(prevState => ({
@@ -80,9 +88,14 @@ export class ReactMyGroups extends React.Component<IReactMyGroupsProps, IReactMy
           let index = this.state.groups.map(g => g.id).indexOf(groupItem.id);
           let groupsCopy = JSON.parse(JSON.stringify(this.state.groups));
           groupsCopy.splice(index, 1);
-          this.setState(prevState => ({
+
+          this.setState({
             groups: groupsCopy
-          }));
+          });
+        }
+        
+        if (groupsCompleted >= totalGroups) {
+          this._getGroupThumbnails(this.state.groups);
         }
 
      }).catch(error => {
@@ -91,25 +104,36 @@ export class ReactMyGroups extends React.Component<IReactMyGroupsProps, IReactMy
       });
      })
     ));
-
-    this._getGroupThumbnails(groups);
   }
 
   public _getGroupThumbnails = (groups: any): void => {
+    let groupsCompleted = 0;
+    let totalGroups = groups.length;
+
+    if (totalGroups == 0) {
+      this._setLoading(false);
+    }
+
     groups.map(groupItem => (
       GroupService.getGroupThumbnails(groupItem).then(grouptb => {
-        //set group color:
+        groupsCompleted++;
 
+        //set group color:
         this.setState(prevState => ({
           groups: prevState.groups.map(group => group.id === groupItem.id ? {...group, thumbnail: grouptb, color: "#0078d4"} : group),
         }));
+
+        if (groupsCompleted >= totalGroups) {
+          this._setLoading(false);
+        }
       })
     ));
-    //console.log('Set False');
-    this.setState({
-      isLoading: false
-    });
+  }
 
+  private _setLoading(state: boolean) {
+    this.setState({
+      isLoading: state
+    });
   }
 
   private _onRenderGridItem = (item: any): JSX.Element => {
@@ -154,7 +178,6 @@ export class ReactMyGroups extends React.Component<IReactMyGroupsProps, IReactMy
     (this.props.sort == "DateCreation") ? myData = [].concat(this.state.groups).sort(( a, b ) => a.createdDateTime < b. createdDateTime ? 1 : -1) :
     myData = [].concat(this.state.groups).sort(( a, b ) => a.displayName < b.displayName ? 1 : -1);
 
-
     let pagedItems: any[] = myData;
 
 
@@ -168,7 +191,7 @@ export class ReactMyGroups extends React.Component<IReactMyGroupsProps, IReactMy
       <div className={ styles.reactMyGroups }  >
         <div className={styles.addComm}><Icon iconName='Add' className={styles.addIcon}/><a aria-label={this.strings.seeAllLabel} href={this.props.addCommLink} target='_blank'>{(!this.props.commLink ? this.strings.createComm : this.props.commLink)}</a></div>
         <AZNavigation selectedLetter={this.props.selectedLetter} onClickEvent={this.handleClickEvent}/>
-          {this.state.isLoading  ?
+          {this.state.isLoading ?
             <Spinner label={this.strings.loadingState}/>
           :
            totalItems >= 1  ?
