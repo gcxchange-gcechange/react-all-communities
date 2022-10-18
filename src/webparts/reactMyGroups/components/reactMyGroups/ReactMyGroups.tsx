@@ -109,7 +109,6 @@ export class ReactMyGroups extends React.Component<IReactMyGroupsProps, IReactMy
     this.setState({
       isLoading: false
     });
-
   }
 
   private _onRenderGridItem = (item: any): JSX.Element => {
@@ -159,8 +158,8 @@ export class ReactMyGroups extends React.Component<IReactMyGroupsProps, IReactMy
 
 
     // total the groups that are not status code 403
-    let totalItems: number = pagedItems.length;
-    console.log("total", totalItems);
+    let totalItems: any[] = this.state.groups;
+    console.log("NoCOMM", totalItems);
 
 
     return (
@@ -171,7 +170,7 @@ export class ReactMyGroups extends React.Component<IReactMyGroupsProps, IReactMy
           {this.state.isLoading  ?
             <Spinner label={this.strings.loadingState}/>
           :
-           totalItems >= 1  ?
+           totalItems !== null && totalItems.length >=1 ?
               <div>
                 <div className = {styles.groupsContainer}>
                   <GridLayout sort={ this.props.sort } items={pagedItems} onRenderGridItem={(item: any) => this._onRenderGridItem(item)}/>
