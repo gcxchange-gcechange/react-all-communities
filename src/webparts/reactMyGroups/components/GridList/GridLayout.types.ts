@@ -28,7 +28,7 @@ export interface IGridLayoutProps {
 }
 
 export interface IGridLayoutState {
-  isLoading?: boolean;
-  // selectedLetter: string;
+  // isLoading?: boolean;
+
 
 }

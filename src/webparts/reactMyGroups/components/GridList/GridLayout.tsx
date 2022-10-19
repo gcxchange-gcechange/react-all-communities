@@ -5,9 +5,9 @@ import styles from './GridLayout.module.scss';
 import { FocusZone } from 'office-ui-fabric-react/lib/FocusZone';
 import { List } from 'office-ui-fabric-react/lib/List';
 import { IRectangle, ISize } from 'office-ui-fabric-react/lib/Utilities';
-import { Spinner, TagItemSuggestion } from 'office-ui-fabric-react';
 
-import { IGridLayoutProps, IGridLayoutState } from './GridLayout.types';
+
+import { IGridLayoutProps } from './GridLayout.types';
 import { groups } from 'ReactMyGroupsWebPartStrings';
 
 const ROWS_PER_PAGE: number = +styles.rowsPerPage;
@@ -16,15 +16,8 @@ const PADDING: number = +styles.padding;
 const MIN_WIDTH: number = +styles.minWidth;
 
 
-export class GridLayout extends React.Component<IGridLayoutProps, IGridLayoutState> {
-  constructor(props: IGridLayoutProps) {
-    super(props);
-    this.state = {
-      isLoading: true,
+export class GridLayout extends React.Component<IGridLayoutProps> {
 
-    };
-
-  }
   private _columnCount: number;
   private _columnWidth: number;
   private _rowHeight: number;
@@ -49,8 +42,6 @@ export class GridLayout extends React.Component<IGridLayoutProps, IGridLayoutSta
     );
 
   }
-
-
 
   private _getItemCountForPage = (itemIndex: number, surfaceRect: IRectangle): number => {
 
