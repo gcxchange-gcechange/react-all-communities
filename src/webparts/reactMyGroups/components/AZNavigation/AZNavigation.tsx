@@ -2,11 +2,10 @@ import * as React from 'react';
 import { IAZNavigationProps} from './IAZNavigationProps';
 import  styles from './AZNavigation.module.scss';
 import { IPivotStyles, IStyleSet} from 'office-ui-fabric-react';
-import { IAZNavigationState } from './IAZNavigationState';
 import { Pivot, PivotItem} from 'office-ui-fabric-react';
 
 
-export class AZNavigation extends React.Component<IAZNavigationProps, IAZNavigationState> {
+export class AZNavigation extends React.Component<IAZNavigationProps> {
 
 
    //Handle the click event
