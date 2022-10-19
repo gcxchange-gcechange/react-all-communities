@@ -93,7 +93,7 @@ export class ReactMyGroups extends React.Component<IReactMyGroupsProps, IReactMy
             groups: groupsCopy
           });
         }
-        
+
         if (groupsCompleted >= totalGroups) {
           this._getGroupThumbnails(this.state.groups);
         }
@@ -183,7 +183,7 @@ export class ReactMyGroups extends React.Component<IReactMyGroupsProps, IReactMy
 
     // total the groups that are not status code 403
     let totalItems: any[] = this.state.groups;
-    console.log("NoCOMM", totalItems);
+
 
 
     return (
