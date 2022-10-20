@@ -10,7 +10,7 @@
 
 .gridLayout {
   overflow: hidden;
-  font-size: 0;
+  // font-size: 0;
   position: relative;
   background-color: transparent;
 
@@ -19,13 +19,13 @@
     background-color: $ms-color-white;
     height: 100%;
 
-    &:global(.ms-DocumentCard--compact) {
-      :global(.ms-DocumentCardPreview) {
-        -ms-flex-negative: 0;
-        flex-shrink: 0;
-        width: 144px;
-      }
-    }
+    // &:global(.ms-DocumentCard--compact) {
+    //   :global(.ms-DocumentCardPreview) {
+    //     -ms-flex-negative: 0;
+    //     flex-shrink: 0;
+    //     width: 144px;
+    //   }
+    // }
 
     :global(.ms-DocumentCardPreview-icon) img {
       width: 32px;

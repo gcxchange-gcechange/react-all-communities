@@ -4,13 +4,14 @@ import { IReactMyGroupsProps } from './IReactMyGroupsProps';
 import GroupService from '../../../../services/GroupService';
 import { IReactMyGroupsState } from './IReactMyGroupsState';
 import { IGroup } from '../../../../models';
-import { Spinner } from 'office-ui-fabric-react';
+import { GroupSpacer, Spinner } from 'office-ui-fabric-react';
 import { GridLayout } from '../GridList';
 import { SelectLanguage } from '../SelectLanguage';
 import { IReadonlyTheme } from '@microsoft/sp-component-base';
 import { Paging } from '../paging/Paging';
 import { Icon } from 'office-ui-fabric-react/lib/Icon';
 import { AZNavigation } from '../AZNavigation/AZNavigation';
+import { groups } from 'ReactMyGroupsWebPartStrings';
 
 
 
@@ -104,6 +105,16 @@ export class ReactMyGroups extends React.Component<IReactMyGroupsProps, IReactMy
       });
      })
     ));
+    this._getGroupActivity(groups)
+  }
+
+  public _getGroupActivity = (groups: any):void => {
+    GroupService.getGroupActivity(groups).then(groupActivity => {
+      this.setState(prevState => ({
+        groups: prevState.groups.map(group => group.id === groups.id ? {...group, fileCount: groupActivity} : group),
+      }));
+    })
+    this._getGroupThumbnails(groups)
   }
 
   public _getGroupThumbnails = (groups: any): void => {
@@ -157,7 +168,7 @@ export class ReactMyGroups extends React.Component<IReactMyGroupsProps, IReactMy
                   <li className={` ${styles.cardBannerList} `}>
                     <div style={{display: 'flex'}}>
                     <a>
-                      <p><strong></strong></p>
+                      <p>{item.description}</p>
                     </a>
                     </div>
                   </li>

@@ -80,6 +80,32 @@ export class GroupServiceManager {
     });
   }
 
+  public getGroupActivity(groups: IGroup): Promise<any> {
+    // debugger
+    const sevenDays: string = "D7"
+    return new Promise<any>((resolve, reject) => {
+      try {
+        this.context.msGraphClientFactory
+          .getClient()
+          .then((client: MSGraphClient) => {
+            client
+              .api(`reports/getSharePointSiteUsageDetail(period='D7')?$format=json`)
+              .get((error:any, groups: any, rawResponse: any) => {
+                if(error) {
+                  reject(error);
+                }
+                console.log("Raw", groups);
+                resolve(groups.JSON);
+              })
+          })
+
+      } catch (error) {
+        reject(error);
+      }
+    });
+
+  }
+
 
   public getGroupThumbnails(groups: IGroup): Promise<any> {
     return new Promise<any>((resolve, reject) => {
