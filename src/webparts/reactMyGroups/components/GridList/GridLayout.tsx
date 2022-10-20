@@ -1,14 +1,10 @@
 import * as React from 'react';
 import styles from './GridLayout.module.scss';
-
-// Used to render list grid
 import { FocusZone } from 'office-ui-fabric-react/lib/FocusZone';
 import { List } from 'office-ui-fabric-react/lib/List';
 import { IRectangle, ISize } from 'office-ui-fabric-react/lib/Utilities';
-
-
 import { IGridLayoutProps } from './GridLayout.types';
-import { groups } from 'ReactMyGroupsWebPartStrings';
+
 
 const ROWS_PER_PAGE: number = +styles.rowsPerPage;
 const MAX_ROW_HEIGHT: number = +styles.maxWidth;
@@ -56,8 +52,6 @@ export class GridLayout extends React.Component<IGridLayoutProps> {
     return this._rowHeight * ROWS_PER_PAGE;
   }
 
-
-
   private _onRenderCell = (item: any, index: number | undefined): JSX.Element => {
 
     const cellPadding: number = index % this._columnCount !== this._columnCount - 1  ? PADDING : 0;
@@ -67,14 +61,9 @@ export class GridLayout extends React.Component<IGridLayoutProps> {
       return (
           <div className={styles.rendergrid} style={{width: `${cellWidth}px`, marginRight: `${cellPadding}px`}} >
 
-
             {this.props.onRenderGridItem(item)}
 
           </div>
-
       );
-
     }
-
-
 }

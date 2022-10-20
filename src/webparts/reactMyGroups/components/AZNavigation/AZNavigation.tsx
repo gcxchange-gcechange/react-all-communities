@@ -10,7 +10,6 @@ export class AZNavigation extends React.Component<IAZNavigationProps> {
 
    //Handle the click event
   public _handleClick = (item?: PivotItem): void => {
-    //console.log("item", this.props.onClickEvent(item.props.headerText));
     this.props.onClickEvent(item.props.headerText);
   }
 
