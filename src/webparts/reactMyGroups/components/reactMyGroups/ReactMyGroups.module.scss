@@ -65,12 +65,15 @@
   }
 
   .articleFlex {
-    float:left;
+    // float:left;
     padding:1%;
   }
 
   .secondSection{
-    width: calc(80% - 55px);
+    width: 90%;
+    padding: 2px 12px 0px 12px;
+    color:#6B6B6B
+    // width: calc(80% - 55px);
   }
 
   .cardTitleList {
@@ -105,15 +108,15 @@
   }
 
   .cardDescription {
-    font-size: 14px;
-    line-height: 20px;
+    font-size: 12px;
+    line-height: 18px;
     display: -webkit-box;
     -webkit-box-orient: vertical;
-    -webkit-line-clamp: 1;
+    -webkit-line-clamp: 5;
     box-sizing: content-box;
     overflow: hidden;
     text-align: left;
-    padding: 0 12px;
+    padding: 5px;
     color: rgb(50, 49, 48);
   }
 
@@ -261,11 +264,7 @@
   .groupsContainer{
     clear:both;
   }
-  // .createComm{
-  //   clear:both;
-  //   margin-bottom: 5%;
-  //   text-decoration-line: underline;
-  // }
+
   .addIcon{
     color: #069;
     font-weight: bold;
@@ -275,10 +274,6 @@
     // border-radius: 50%;
     // padding: 10px;
   }
-//  .seeAll{
-//     display: flex;
-//     flex-direction: row-reverse;
-//   }
 
   .addComm{
     display: flex;

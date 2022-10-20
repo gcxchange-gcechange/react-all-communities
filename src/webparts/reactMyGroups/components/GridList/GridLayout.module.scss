@@ -33,7 +33,7 @@
     }
   }
 
-  :global(.ms-DocumentCard:not(.ms-DocumentCard--compact)) {
+  :global(.ms-DocumentCard) {
     min-width: 212px;
     max-width: 286px;
 

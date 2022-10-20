@@ -159,21 +159,23 @@ export class ReactMyGroups extends React.Component<IReactMyGroupsProps, IReactMy
                 <div className={styles.topBanner} style={{backgroundColor: item.color}}></div>
                 <img className={styles.bannerImg} src={item.thumbnail} alt={`${this.strings.altImgLogo} ${item.displayName} `}/>
                 <div className={styles.cardTitle}>{item.displayName}</div>
-                <p className={styles.groups}>{this.strings.groups} </p>
+              </div>
+
+
+              <div className={` ${styles.secondSection} ${styles.articleFlex}`}>
+                {/* <div className={styles.groups}>{this.strings.groups} </div> */}
+                <div className={styles.cardDescription}>{item.description}</div>
+                <ul className={`${styles.groups} ${styles.articleFlex}`}>
+                    <li className={` ${styles.cardBannerList} `}>
+                      {/* <div style={{display: 'flex'}}> */}
+                      <a>
+                        {/* <p>{item.description}</p> */}
+                      </a>
+                      {/* </div> */}
+                    </li>
+                </ul>
               </div>
             </a>
-
-            <div className={` ${styles.secondSection} ${styles.cardBanner2}`}>
-              <ul className={`${styles.groups} ${styles.articleFlex}`}>
-                  <li className={` ${styles.cardBannerList} `}>
-                    <div style={{display: 'flex'}}>
-                    <a>
-                      <p>{item.description}</p>
-                    </a>
-                    </div>
-                  </li>
-              </ul>
-            </div>
         </div>
 
       );
