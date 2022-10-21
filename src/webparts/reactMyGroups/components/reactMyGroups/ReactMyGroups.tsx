@@ -4,14 +4,13 @@ import { IReactMyGroupsProps } from './IReactMyGroupsProps';
 import GroupService from '../../../../services/GroupService';
 import { IReactMyGroupsState } from './IReactMyGroupsState';
 import { IGroup } from '../../../../models';
-import { GroupSpacer, Spinner } from 'office-ui-fabric-react';
+import {  Spinner } from 'office-ui-fabric-react';
 import { GridLayout } from '../GridList';
 import { SelectLanguage } from '../SelectLanguage';
 import { IReadonlyTheme } from '@microsoft/sp-component-base';
-import { Paging } from '../paging/Paging';
 import { Icon } from 'office-ui-fabric-react/lib/Icon';
 import { AZNavigation } from '../AZNavigation/AZNavigation';
-import { groups } from 'ReactMyGroupsWebPartStrings';
+
 
 
 
@@ -97,6 +96,7 @@ export class ReactMyGroups extends React.Component<IReactMyGroupsProps, IReactMy
 
         if (groupsCompleted >= totalGroups) {
           this._getGroupThumbnails(this.state.groups);
+          this._getGroupActivity(this.state.groups);
         }
 
      }).catch(error => {
@@ -105,7 +105,7 @@ export class ReactMyGroups extends React.Component<IReactMyGroupsProps, IReactMy
       });
      })
     ));
-    this._getGroupActivity(groups)
+
   }
 
   public _getGroupActivity = (groups: any):void => {
@@ -113,8 +113,8 @@ export class ReactMyGroups extends React.Component<IReactMyGroupsProps, IReactMy
       this.setState(prevState => ({
         groups: prevState.groups.map(group => group.id === groups.id ? {...group, fileCount: groupActivity} : group),
       }));
-    })
-    this._getGroupThumbnails(groups)
+    });
+    this._getGroupThumbnails(groups);
   }
 
   public _getGroupThumbnails = (groups: any): void => {
