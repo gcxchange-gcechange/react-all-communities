@@ -82,19 +82,19 @@ export class GroupServiceManager {
 
   public getGroupActivity(groups: IGroup): Promise<any> {
     // debugger
-    const sevenDays: string = "D7";
+    const period: number = 7;
     return new Promise<any>((resolve, reject) => {
       try {
         this.context.msGraphClientFactory
           .getClient()
           .then((client: MSGraphClient) => {
             client
-              .api(`reports/getSharePointSiteUsageDetail(period='D7')?$format=json`)
+              .api("reports/getSharePointSiteUsagePages(period='D" + period +"')")
               .get((error:any, response: any, rawResponse: any) => {
                 if(error) {
                   reject(error);
                 }
-                console.log("Raw", response);
+                console.log("R", response);
                 resolve(response);
               });
           });
