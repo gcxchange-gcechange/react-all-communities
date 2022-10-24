@@ -4,7 +4,7 @@ import { IReactMyGroupsProps } from './IReactMyGroupsProps';
 import GroupService from '../../../../services/GroupService';
 import { IReactMyGroupsState } from './IReactMyGroupsState';
 import { IGroup } from '../../../../models';
-import {  Spinner } from 'office-ui-fabric-react';
+import {  IPersonaStyleProps, IPersonaStyles, IStyleSet, Persona, PersonaCoin, PersonaSize, Spinner } from 'office-ui-fabric-react';
 import { GridLayout } from '../GridList';
 import { SelectLanguage } from '../SelectLanguage';
 import { IReadonlyTheme } from '@microsoft/sp-component-base';
@@ -149,6 +149,18 @@ export class ReactMyGroups extends React.Component<IReactMyGroupsProps, IReactMy
 
   private _onRenderGridItem = (item: any): JSX.Element => {
 
+    const personaStyles: Partial<IStyleSet<IPersonaStyles>> ={
+
+    root:{
+      alignItems: 'flex-start'
+    },
+
+    details: {
+      color:'#a19f9d'
+    }
+  };
+
+
 
       return (
 
@@ -159,23 +171,20 @@ export class ReactMyGroups extends React.Component<IReactMyGroupsProps, IReactMy
                 <div className={styles.topBanner} style={{backgroundColor: item.color}}></div>
                 <img className={styles.bannerImg} src={item.thumbnail} alt={`${this.strings.altImgLogo} ${item.displayName} `}/>
                 <div className={styles.cardTitle}>{item.displayName}</div>
+                <p className = {styles.subTitle}>{this.strings.groups}</p>
               </div>
-
+              </a>
 
               <div className={` ${styles.secondSection} ${styles.articleFlex}`}>
-                {/* <div className={styles.groups}>{this.strings.groups} </div> */}
+              <Persona styles={personaStyles}
+                // secondaryText={item.description}
+                size={PersonaSize.size32}>
+
                 <div className={styles.cardDescription}>{item.description}</div>
-                <ul className={`${styles.groups} ${styles.articleFlex}`}>
-                    <li className={` ${styles.cardBannerList} `}>
-                      {/* <div style={{display: 'flex'}}> */}
-                      <a>
-                        {/* <p>{item.description}</p> */}
-                      </a>
-                      {/* </div> */}
-                    </li>
-                </ul>
+             </Persona>
+
               </div>
-            </a>
+
         </div>
 
       );
