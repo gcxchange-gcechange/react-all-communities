@@ -17,11 +17,11 @@
     border-color: rgb(237, 235, 233);
     margin-top: 3px;
   }
-  div[class^="siteCardList"]:focus-within {
-    outline: 2px solid black;
-  }
+  // div[class^="siteCardList"]:focus-within {
+  //   outline: 2px solid black;
+  // }
   .siteCard {
-    height: 200px;
+    height: 320px;
     max-width: 286px;
     box-sizing: border-box;
     margin-bottom: 20px;
@@ -49,13 +49,15 @@
     // height: 144px;
     padding-top: 40px;
     width: 100%;
+    border-bottom: 2px solid #e5e3e2;
   }
-  .cardBanner2 {
-    position: relative;
-    // height: 144px;
-    padding-top: 5px;
-    width: 100%;
-  }
+  // .cardBanner2 {
+  //   position: relative;
+  //   // height: 144px;
+  //   padding-top: 5px;
+  //   width: 100%;
+  // }
+
 
   .members.groups{
     color:#6B6B6B;
@@ -71,7 +73,8 @@
 
   .secondSection{
     width: 90%;
-    padding: 2px 12px 0px 12px;
+    margin-top:5px;
+    padding: 0px 12px 0px 12px;
     color:#6B6B6B
     // width: calc(80% - 55px);
   }
@@ -112,11 +115,11 @@
     line-height: 18px;
     display: -webkit-box;
     -webkit-box-orient: vertical;
-    -webkit-line-clamp: 5;
+    -webkit-line-clamp: 3;
     box-sizing: content-box;
     overflow: hidden;
     text-align: left;
-    padding: 5px;
+    // padding: 5px;
     color: rgb(50, 49, 48);
   }
 
@@ -204,8 +207,9 @@
   }
 
   .subTitle {
-    @include ms-font-l;
-    @include ms-fontColor-white;
+    font-size: 14px;
+    color: black;
+    padding: 0px 12px;
   }
 
   .description {
