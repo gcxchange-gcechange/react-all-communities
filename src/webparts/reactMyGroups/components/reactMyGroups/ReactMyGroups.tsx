@@ -10,6 +10,8 @@ import { SelectLanguage } from '../SelectLanguage';
 import { IReadonlyTheme } from '@microsoft/sp-component-base';
 import { Icon } from 'office-ui-fabric-react/lib/Icon';
 import { AZNavigation } from '../AZNavigation/AZNavigation';
+import mockData from '../../../../services/mockData';
+import { MonthOfYear } from 'office-ui-fabric-react/lib/utilities/dateValues/DateValues';
 
 
 
@@ -80,7 +82,8 @@ export class ReactMyGroups extends React.Component<IReactMyGroupsProps, IReactMy
 
         if (groupUrl[1] && (groupUrl[1].value !== null || groupUrl[1].value !== undefined)) {
           this.setState(prevState => ({
-            groups: prevState.groups.map(group => group.id === groupItem.id ? {...group, url: groupUrl[1].value} : group)
+            groups: prevState.groups.map(group => group.id === groupItem.id ? {...group, url: groupUrl[1].webUrl, siteId: groupUrl[1].id, modified: groupUrl[1].lastModifiedDateTime
+            } : group)
           }));
 
         }
@@ -96,7 +99,9 @@ export class ReactMyGroups extends React.Component<IReactMyGroupsProps, IReactMy
 
         if (groupsCompleted >= totalGroups) {
           this._getGroupThumbnails(this.state.groups);
-          this._getGroupActivity(this.state.groups);
+          console.log(this.state.groups);
+          // this._getGroupActivity(this.state.groups);
+
         }
 
      }).catch(error => {
@@ -108,14 +113,27 @@ export class ReactMyGroups extends React.Component<IReactMyGroupsProps, IReactMy
 
   }
 
-  public _getGroupActivity = (groups: any):void => {
-    GroupService.getGroupActivity(groups).then(groupActivity => {
-      this.setState(prevState => ({
-        groups: prevState.groups.map(group => group.id === groups.id ? {...group, fileCount: groupActivity} : group),
-      }));
-    });
-    this._getGroupThumbnails(groups);
-  }
+  // public _getGroupActivity =(groups:any):void => {
+  //   mockData.map(item => {
+  //     this.setState(prevState => ({
+  //       groups: prevState.groups.map(group => item.id === groups.id ? {...group, fileCount: item.fileCount}:group),
+  //     }));
+  //   });
+  //   this._getGroupThumbnails(groups);
+  // }
+
+  // public _getGroupActivity = (groups: any):void => {
+  //   groups.map(item => (
+  //     GroupService.getGroupActivity(item).then(groupActivity => {
+  //       console.log(groupActivity);
+  //       this.setState(prevState => ({
+  //         groups: prevState.groups.map(group => group.id === item.siteId? {...group, isTrending: groupActivity.isTrending}: group )
+  //       }));
+  //     })
+  //   ));
+  // }
+
+
 
   public _getGroupThumbnails = (groups: any): void => {
     let groupsCompleted = 0;
@@ -161,6 +179,9 @@ export class ReactMyGroups extends React.Component<IReactMyGroupsProps, IReactMy
   };
 
 
+  let creationDate = item.creationDateTime;
+  creationDate = new Date(creationDate).toLocaleDateString();
+
 
       return (
 
@@ -171,19 +192,30 @@ export class ReactMyGroups extends React.Component<IReactMyGroupsProps, IReactMy
                 <div className={styles.topBanner} style={{backgroundColor: item.color}}></div>
                 <img className={styles.bannerImg} src={item.thumbnail} alt={`${this.strings.altImgLogo} ${item.displayName} `}/>
                 <div className={styles.cardTitle}>{item.displayName}</div>
-                <p className = {styles.subTitle}>{this.strings.groups}</p>
-              </div>
-              </a>
 
+                {/* <p className = {styles.subTitle}>{this.strings.groups}</p> */}
+              </div>
+            </a>
               <div className={` ${styles.secondSection} ${styles.articleFlex}`}>
+              <div className={styles.cardDescription}>{item.description}</div>
+                <div>created: {item.createdDateTime}</div>
+                <div>last modified: {item.modified}</div>
+                </div>
+
+
+
+
+
+              {/* <div className={` ${styles.secondSection} ${styles.articleFlex}`}>
               <Persona styles={personaStyles}
                 // secondaryText={item.description}
                 size={PersonaSize.size32}>
 
                 <div className={styles.cardDescription}>{item.description}</div>
+                <div>File Count{item.fileCount}</div>
              </Persona>
 
-              </div>
+              </div> */}
 
         </div>
 
