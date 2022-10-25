@@ -30,6 +30,7 @@ export class GroupServiceManager {
             client
               .api(apiTxt)
               .get((error: any, groups: IGroupCollection, rawResponse: any) => {
+                console.log("GROUPS", groups.value);
                 resolve(groups.value);
               });
           });
@@ -45,7 +46,7 @@ export class GroupServiceManager {
         {
           id: "1",
           method: "GET",
-          url: `/groups/${groups.id}/sites/root/weburl`,
+          url: `/groups/${groups.id}/sites/root/`,
         },
       ],
     };
@@ -80,31 +81,30 @@ export class GroupServiceManager {
     });
   }
 
-  public getGroupActivity(groups: IGroup): Promise<any> {
-    // debugger
-    const period: number = 7;
-    return new Promise<any>((resolve, reject) => {
-      try {
-        this.context.msGraphClientFactory
-          .getClient()
-          .then((client: MSGraphClient) => {
-            client
-              .api("reports/getSharePointSiteUsagePages(period='D" + period +"')")
-              .get((error:any, response: any, rawResponse: any) => {
-                if(error) {
-                  reject(error);
-                }
-                console.log("R", response);
-                resolve(response);
-              });
-          });
+  // public getGroupActivity(groups: IGroup): Promise<any> {
+  //   // debugger
+  //   const period: number = 7;
+  //   return new Promise<any>((resolve, reject) => {
+  //     try {
+  //       this.context.msGraphClientFactory
+  //         .getClient()
+  //         .then((client: MSGraphClient) => {
+  //           client
+  //           .api(`https://graph.microsoft.com/v1.0/sites/${groups.siteId}/analytics/lastsevendays`)
+  //             // .api("reports/getSharePointSiteUsagePages(period='D" + period +"')")
+  //             .get((error:any, response: any, rawResponse: any) => {
+  //               console.log("R", response);
+  //               resolve(response);
+  //             });
+  //         });
 
-      } catch (error) {
-        reject(error);
-      }
-    });
+  //     } catch (error) {
+  //       console.log("ERR",error);
+  //       reject(error);
+  //     }
+  //   });
 
-  }
+  // }
 
 
   public getGroupThumbnails(groups: IGroup): Promise<any> {
