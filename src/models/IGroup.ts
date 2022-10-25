@@ -3,6 +3,7 @@ export interface IGroup {
   displayName: string;
   description?: string;
   url: string;
+  siteId: string;
 }
 
 export interface IGroupCollection {
