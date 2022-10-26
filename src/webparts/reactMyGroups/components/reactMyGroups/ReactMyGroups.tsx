@@ -4,14 +4,14 @@ import { IReactMyGroupsProps } from './IReactMyGroupsProps';
 import GroupService from '../../../../services/GroupService';
 import { IReactMyGroupsState } from './IReactMyGroupsState';
 import { IGroup } from '../../../../models';
-import {  IPersonaStyleProps, IPersonaStyles, IStyleSet, Persona, PersonaCoin, PersonaSize, Spinner } from 'office-ui-fabric-react';
+import {  IPersonaStyleProps, IPersonaStyles, IStyleSet, Spinner} from 'office-ui-fabric-react';
 import { GridLayout } from '../GridList';
 import { SelectLanguage } from '../SelectLanguage';
 import { IReadonlyTheme } from '@microsoft/sp-component-base';
 import { Icon } from 'office-ui-fabric-react/lib/Icon';
 import { AZNavigation } from '../AZNavigation/AZNavigation';
 import mockData from '../../../../services/mockData';
-import { MonthOfYear } from 'office-ui-fabric-react/lib/utilities/dateValues/DateValues';
+
 
 
 
@@ -178,9 +178,8 @@ export class ReactMyGroups extends React.Component<IReactMyGroupsProps, IReactMy
     }
   };
 
-
-  let creationDate = item.creationDateTime;
-  creationDate = new Date(creationDate).toLocaleDateString();
+  let dateCreated = new Date(item.createdDateTime).toLocaleDateString('en-CA',{year: "numeric", month: "long", day:"2-digit"});
+  let modifiedDate = new Date(item.modified).toLocaleDateString('en-CA', {year:"numeric", month:"long", day:"2-digit"});
 
 
       return (
@@ -196,11 +195,17 @@ export class ReactMyGroups extends React.Component<IReactMyGroupsProps, IReactMy
                 {/* <p className = {styles.subTitle}>{this.strings.groups}</p> */}
               </div>
             </a>
+
               <div className={` ${styles.secondSection} ${styles.articleFlex}`}>
-              <div className={styles.cardDescription}>{item.description}</div>
-                <div>created: {item.createdDateTime}</div>
-                <div>last modified: {item.modified}</div>
+                <div className={styles.cardDescription}>{item.description}</div>
+                <div className={styles.cardFooter}>
+                  <div className={styles.columnRight}>Created {dateCreated}</div>
+                  <div>Last Modified {modifiedDate}</div>
                 </div>
+              </div>
+
+
+
 
 
 
