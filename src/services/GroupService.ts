@@ -86,30 +86,6 @@ export class GroupServiceManager {
     });
   }
 
-  // public getGroupActivity(groups: IGroup): Promise<any> {
-  //   // debugger
-  //   const period: number = 7;
-  //   return new Promise<any>((resolve, reject) => {
-  //     try {
-  //       this.context.msGraphClientFactory
-  //         .getClient()
-  //         .then((client: MSGraphClient) => {
-  //           client
-  //           .api(`/groups/${groups.id}/members/$count?ConsistencyLevel=eventual`)
-  //             // .api("reports/getSharePointSiteUsagePages(period='D" + period +"')")
-  //             .get((error:any, response: any, rawResponse: any) => {
-  //               console.log("MEM", response);
-  //               resolve(response);
-  //             });
-  //         });
-
-  //     } catch (error) {
-  //       console.log("ERR",error);
-  //       reject(error);
-  //     }
-  //   });
-
-  // }
 
 
   public getGroupThumbnails(groups: IGroup): Promise<any> {
@@ -130,6 +106,30 @@ export class GroupServiceManager {
         reject(error);
       }
     });
+  }
+
+  public pageViews(groups: IGroup): Promise<any> {
+    // debugger
+    const period: number = 7;
+    return new Promise<any>((resolve, reject) => {
+      try {
+        this.context.msGraphClientFactory
+          .getClient()
+          .then((client: MSGraphClient) => {
+            client
+            .api(`/sites/${groups.siteId}/analytics/lastsevendays`)
+              // .api("reports/getSharePointSiteUsagePages(period='D" + period +"')")
+              .get((error:any, response: any, rawResponse: any) => {
+                resolve(response);
+              });
+          });
+
+      } catch (error) {
+        console.log("ERR",error);
+        reject(error);
+      }
+    });
+
   }
 
 }

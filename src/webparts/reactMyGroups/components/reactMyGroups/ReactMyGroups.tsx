@@ -82,8 +82,8 @@ export class ReactMyGroups extends React.Component<IReactMyGroupsProps, IReactMy
 
         if (groupUrl[1] && (groupUrl[1].value !== null || groupUrl[1].value !== undefined)) {
           this.setState(prevState => ({
-            groups: prevState.groups.map(group => group.id === groupItem.id ? {...group, url: groupUrl[1].webUrl, siteId: groupUrl[1].id, modified: groupUrl[1].lastModifiedDateTime, members:groupUrl[2]
-            } : group)
+            groups: prevState.groups.map(group => group.id === groupItem.id ?
+            {...group, url: groupUrl[1].webUrl, siteId: groupUrl[1].id, modified: groupUrl[1].lastModifiedDateTime, members:groupUrl[2]} : group)
           }));
 
         }
@@ -100,7 +100,6 @@ export class ReactMyGroups extends React.Component<IReactMyGroupsProps, IReactMy
         if (groupsCompleted >= totalGroups) {
           this._getGroupThumbnails(this.state.groups);
           console.log(this.state.groups);
-          // this._getGroupActivity(this.state.groups);
 
         }
 
@@ -121,19 +120,6 @@ export class ReactMyGroups extends React.Component<IReactMyGroupsProps, IReactMy
   //   });
   //   this._getGroupThumbnails(groups);
   // }
-
-  // public _getGroupActivity = (groups: any):void => {
-  //   groups.map(item => (
-  //     GroupService.getGroupActivity(item).then(groupActivity => {
-  //       this.setState(prevState => ({
-  //         groups: prevState.groups.map(group => group.id === item.id? {...group, members: groupActivity}: group )
-
-  //       }));
-  //     })
-  //   ));
-  //   console.log("AFTER",this.state.groups);
-  // }
-
 
 
   public _getGroupThumbnails = (groups: any): void => {
@@ -156,9 +142,25 @@ export class ReactMyGroups extends React.Component<IReactMyGroupsProps, IReactMy
         if (groupsCompleted >= totalGroups) {
           this._setLoading(false);
         }
+
+      })
+    ));
+    this._pageViews(this.state.groups);
+  }
+
+
+  public _pageViews = (groups: any):void => {
+    groups.map(item => (
+      GroupService.pageViews(item).then(siteCount => {
+        this.setState(prevState => ({
+          groups: prevState.groups.map(group => group.id === item.id? {...group, views: siteCount.access.actionCount}: group )
+
+        }));
       })
     ));
   }
+
+
 
   private _setLoading(state: boolean) {
     this.setState({
@@ -191,6 +193,7 @@ export class ReactMyGroups extends React.Component<IReactMyGroupsProps, IReactMy
                 <div className={styles.cardDescription}>{item.description}</div>
                 <div className={styles.cardFooter}>
                   <div>Members {item.members}</div>
+                  <div>Site Visits {item.views}</div>
                   <div className={styles.columnRight}>Created {dateCreated}</div>
                   <div>Last Modified {modifiedDate}</div>
                 </div>
