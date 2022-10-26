@@ -16,10 +16,6 @@
         "resource": "Microsoft Graph",
         "scope": "User.Read.All"
       },
-      {
-        "resource": "Microsoft Graph",
-        "scope": "Reports.Read.All"
-      },
        {
         "resource": "Microsoft Graph",
         "scope": "Sites.Read.All"
