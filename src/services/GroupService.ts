@@ -48,6 +48,11 @@ export class GroupServiceManager {
           method: "GET",
           url: `/groups/${groups.id}/sites/root/`,
         },
+        {
+          id: "2",
+          method: "GET",
+          url: `/groups/${groups.id}/members/$count?ConsistencyLevel=eventual`
+        }
       ],
     };
     return new Promise((resolve, reject) => {
@@ -90,10 +95,10 @@ export class GroupServiceManager {
   //         .getClient()
   //         .then((client: MSGraphClient) => {
   //           client
-  //           .api(`https://graph.microsoft.com/v1.0/sites/${groups.siteId}/analytics/lastsevendays`)
+  //           .api(`/groups/${groups.id}/members/$count?ConsistencyLevel=eventual`)
   //             // .api("reports/getSharePointSiteUsagePages(period='D" + period +"')")
   //             .get((error:any, response: any, rawResponse: any) => {
-  //               console.log("R", response);
+  //               console.log("MEM", response);
   //               resolve(response);
   //             });
   //         });
