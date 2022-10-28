@@ -20,6 +20,10 @@ declare interface IReactMyGroupsWebPartStrings {
   createComm: string;
   noResultsEN: string;
   noResultsFR: string;
+  members:string;
+  siteViews:string;
+  created: string;
+  lastModified: string;
 
 }
 

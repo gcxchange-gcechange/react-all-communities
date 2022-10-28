@@ -190,12 +190,12 @@ export class ReactMyGroups extends React.Component<IReactMyGroupsProps, IReactMy
             </a>
 
               <div className={` ${styles.secondSection} ${styles.articleFlex}`}>
-                <div className={styles.cardDescription}>{item.description}</div>
+                <div className={styles.cardDescription} aria-label={item.description}>{item.description}</div>
                 <div className={styles.cardFooter}>
-                  <div>Members {item.members}</div>
-                  <div>Site Visits {item.views}</div>
-                  <div className={styles.columnRight}>Created {dateCreated}</div>
-                  <div>Last Modified {modifiedDate}</div>
+                  <div>{(this.strings.userLang === 'FR'? this.strings.members : this.strings.members)} {item.members}</div>
+                  <div>{(this.strings.userLang === 'FR' ? this.strings.siteViews : this.strings.siteViews)} {item.views}</div>
+                  <div className={styles.columnRight}>{(this.strings.userLang ==='FR' ? this.strings.created : this.strings.created)} {dateCreated}</div>
+                  <div>{(this.strings.userLang === 'FR' ? this.strings.lastModified : this.strings.lastModified)} {modifiedDate}</div>
                 </div>
               </div>
 

@@ -27,6 +27,10 @@ define([], function() {
     "addCommLink": "Lien pour créer une collectivité",
     "commLink": "Modifier créez une collectivité titre",
     "createComm": "Créez une collectivité",
-    "noResultsFR": "Aucun collectivité trouvé"
+    "noResultsFR": "Aucun collectivité trouvé",
+    "members": "Membres",
+    "siteViews": "Visites",
+    "created": "Créé",
+    "lastModified": "Dernière modification"
   }
 });
