@@ -192,10 +192,10 @@ export class ReactMyGroups extends React.Component<IReactMyGroupsProps, IReactMy
               <div className={` ${styles.secondSection} ${styles.articleFlex}`}>
                 <div className={styles.cardDescription} aria-label={item.description}>{item.description}</div>
                 <div className={styles.cardFooter}>
-                  <div>{(this.strings.userLang === 'FR'? this.strings.members : this.strings.members)} {item.members}</div>
-                  <div>{(this.strings.userLang === 'FR' ? this.strings.siteViews : this.strings.siteViews)} {item.views}</div>
-                  <div className={styles.columnRight}>{(this.strings.userLang ==='FR' ? this.strings.created : this.strings.created)} {dateCreated}</div>
-                  <div>{(this.strings.userLang === 'FR' ? this.strings.lastModified : this.strings.lastModified)} {modifiedDate}</div>
+                  <div className={styles.footerContent}>{(this.strings.userLang === 'FR'? this.strings.members : this.strings.members)} <p>{item.members}</p></div>
+                  <div className={styles.footerContent}>{(this.strings.userLang === 'FR' ? this.strings.siteViews : this.strings.siteViews)} <p>{item.views}</p></div>
+                  <div className={styles.footerContent}>{(this.strings.userLang ==='FR' ? this.strings.created : this.strings.created)} <p>{dateCreated}</p></div>
+                  <div className={styles.footerContent}>{(this.strings.userLang === 'FR' ? this.strings.lastModified : this.strings.lastModified)} <p>{modifiedDate}</p></div>
                 </div>
               </div>
 
