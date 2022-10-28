@@ -19,7 +19,7 @@
   //   outline: 2px solid black;
   // }
   .siteCard {
-    height: 250px;
+    height: 280px;
     max-width: 286px;
     box-sizing: border-box;
     margin-bottom: 20px;
@@ -117,6 +117,7 @@
   }
 
   .cardFooter {
+    width: 100%;
     border-top: 2px solid #e5e3e2;
     position: absolute;
     bottom:0px;
