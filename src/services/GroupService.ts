@@ -108,28 +108,39 @@ export class GroupServiceManager {
     });
   }
 
-  public pageViews(groups: IGroup): Promise<any> {
-    // debugger
-    const period: number = 7;
-    return new Promise<any>((resolve, reject) => {
-      try {
+  public pageViewsBatch(groups: any): Promise<any> {
+    let requestBody = {
+      requests: [
+        {
+          id: "1",
+          method: "GET",
+          url: `/sites/${groups.siteId}/analytics/lastsevendays/`,
+        },
+
+      ],
+    };
+    return new Promise<any>(( resolve, reject ) => {
+      try{
         this.context.msGraphClientFactory
           .getClient()
           .then((client: MSGraphClient) => {
             client
-            .api(`/sites/${groups.siteId}/analytics/lastsevendays`)
-              // .api("reports/getSharePointSiteUsagePages(period='D" + period +"')")
-              .get((error:any, response: any, rawResponse: any) => {
-                resolve(response);
+            .api(`/$batch`)
+            .post(requestBody, (error: any, responseObject: any) => {
+              let responseContent = {};
+
+              responseObject.responses.forEach((response) => {
+                responseContent[response.id]= response.body;
               });
+              resolve(responseContent);
+            });
           });
+        } catch (error) {
+          reject(error);
+          console.error(error);
+        }
 
-      } catch (error) {
-        console.log("ERR",error);
-        reject(error);
-      }
     });
-
   }
 
 }
