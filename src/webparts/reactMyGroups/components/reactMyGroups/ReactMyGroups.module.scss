@@ -132,7 +132,19 @@
     align-items: baseline;
     line-height: 0px;
     padding-right: 10%;
+    height: 17px;
   }
+  .footerContent2 {
+    display: flex;
+    align-items: center;
+    justify-content: space-evenly;
+
+  }
+
+  .pr10{
+    padding-right: 10px;
+  }
+
 
   .columnRight {
     width: 200px;
