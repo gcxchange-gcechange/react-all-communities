@@ -42,8 +42,8 @@ You can change between the grid and compact layout through the settings in the p
 
 ## Compability
 
-![SPFx 1.10.0](https://img.shields.io/badge/drop-1.10.0-green.svg)
-![Node.js v10](https://img.shields.io/badge/Node.js-v16%20%7C%20v14%20%7C%20v12-green.svg)
+![SPFx 1.10.0](https://img.shields.io/badge/SPFx-1.10.0-green.svg)
+![Node.js](https://img.shields.io/badge/Node.js-v10-green.svg)
 
 ## Applies to
 
@@ -119,9 +119,11 @@ Disposition compacte :
 Vous pouvez faire passer la disposition de grille à compacte à l’aide des paramètres de la fenêtre des propriétés :
 ![Property Pane Demo](./assets/React-MyGroups_Property.png)
 
-## Version de cadre SharePoint utilisée
+## Compabilité
 
-![1.10.0](https://img.shields.io/badge/drop-1.10.0-green.svg)
+![1.10.0](https://img.shields.io/badge/SPFx-1.10.0-green.svg)
+![Node.js](https://img.shields.io/badge/Node.js-v10-green.svg)
+
 
 ## S’applique à ce qui suit :
 
