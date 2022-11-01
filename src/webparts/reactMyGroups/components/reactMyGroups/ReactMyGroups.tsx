@@ -306,6 +306,7 @@ export class ReactMyGroups extends React.Component<
               : this.props.commLink}
           </a>
         </div>
+        <div className={styles.flexCenter}>
         <AZNavigation
           selectedLetter={this.props.selectedLetter}
           onClickEvent={this.handleClickEvent}
@@ -329,6 +330,7 @@ export class ReactMyGroups extends React.Component<
               : this.strings.noResultsEN}
           </div>
         )}
+        </div>
       </div>
     );
   }

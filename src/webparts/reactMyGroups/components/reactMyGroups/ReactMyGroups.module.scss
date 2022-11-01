@@ -2,6 +2,7 @@
 
 .reactMyGroups {
 
+
   .cardContainer{
     outline: transparent;
     position: relative;
@@ -133,6 +134,7 @@
     line-height: 0px;
     padding-right: 10%;
     height: 17px;
+    margin-bottom: 5px;
   }
   .footerContent2 {
     display: flex;
@@ -325,4 +327,10 @@
     margin-top: 50px;
   }
 
+}
+
+.flexCenter {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
 }
