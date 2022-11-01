@@ -40,9 +40,10 @@ Compact Layout:
 You can change between the grid and compact layout through the settings in the property pane:
 ![Property Pane Demo](./assets/React-MyGroups_Property.png)
 
-## Used SharePoint Framework Version
+## Compability
 
-![1.10.0](https://img.shields.io/badge/drop-1.10.0-green.svg)
+![SPFx 1.10.0](https://img.shields.io/badge/drop-1.10.0-green.svg)
+![Node.js v10](https://img.shields.io/badge/Node.js-v16%20%7C%20v14%20%7C%20v12-green.svg)
 
 ## Applies to
 
