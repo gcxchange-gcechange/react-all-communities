@@ -28,7 +28,7 @@ export class GridLayout extends React.Component<IGridLayoutProps> {
             role="presentation"
             className={styles.gridLayout}
             items={this.props.items}
-            getItemCountForPage={this._getItemCountForPage}
+            // getItemCountForPage={this._getItemCountForPage}
             getPageHeight={this._getPageHeight}
             onRenderCell={this._onRenderCell}
             {...this.props.listProps}
@@ -59,8 +59,8 @@ export class GridLayout extends React.Component<IGridLayoutProps> {
 
 
       return (
-          <div className={styles.rendergrid}
-          style={{ marginRight: `${cellPadding}px`}} >
+          <div className={styles.rendergrid}>
+          {/* style={{ marginRight: `${cellPadding}px`}} > */}
           {/* style={{width: `${cellWidth}px`, marginRight: `${cellPadding}px`}} > */}
 
             {this.props.onRenderGridItem(item)}
