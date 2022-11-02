@@ -205,20 +205,32 @@ export class ReactMyGroups extends React.Component<
         <div className={` ${styles.secondSection} ${styles.articleFlex}`}>
                 <div className={styles.cardDescription} aria-label={item.description}>{item.description}</div>
                 <div className={styles.cardFooter}>
-                  <div className={styles.footerContent}>
-                  {(this.strings.userLang === 'FR'? this.strings.members : this.strings.members)}
-                    <p>{item.members}</p>
+                  <div className={styles.footerRow}>
+                    <div >
+                    {(this.strings.userLang === 'FR'? this.strings.members : this.strings.members)}
+                      <span className={styles.pl5}>{item.members}</span>
+                    </div>
+
+                    <div >
+                      {(this.strings.userLang === 'FR' ? this.strings.siteViews : this.strings.siteViews)}
+                      <span className={styles.pl5}>{item.views}</span>
+                    </div>
                   </div>
-                  <div className={styles.footerContent}>
-                    {(this.strings.userLang === 'FR' ? this.strings.siteViews : this.strings.siteViews)}
-                    <p>{item.views}</p>
+
+                  <div className={styles.footerRow}>
+                      <div >
+                        {(this.strings.userLang ==='FR' ? this.strings.created : this.strings.created)}
+                        <span className={styles.pl5}>{(this.strings.userLang ==='FR' ? new Date(item.createdDateTime).toLocaleDateString('fr-CA') : new Date(item.createdDateTime).toLocaleDateString('en-CA'))}</span>
+                      </div>
+
+                      <div>
+                        {(this.strings.userLang === 'FR' ? this.strings.lastModified : this.strings.lastModified)}
+                      <span className={styles.pl5}>{(this.strings.userLang ==='FR' ? new Date(item.modified).toLocaleDateString('fr-CA') : new Date(item.modified).toLocaleDateString('en-CA'))}</span>
+                    </div>
+
                   </div>
-                  <div className={styles.footerContent}>{(this.strings.userLang ==='FR' ? this.strings.created : this.strings.created)}
-                    <p>{(this.strings.userLang ==='FR' ? new Date(item.createdDateTime).toLocaleDateString('fr-CA', options) : new Date(item.createdDateTime).toLocaleDateString('en-CA', options))}</p>
-                  </div>
-                  <div className={styles.footerContent}>{(this.strings.userLang === 'FR' ? this.strings.lastModified : this.strings.lastModified)}
-                    <p>{(this.strings.userLang ==='FR' ? new Date(item.modified).toLocaleDateString('fr-CA', options) : new Date(item.modified).toLocaleDateString('en-CA', options))}</p>
-                  </div>
+
+
                 </div>
               </div>
 

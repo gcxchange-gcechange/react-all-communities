@@ -2,26 +2,9 @@
 
 .reactMyGroups {
 
-
-  .cardContainer{
-    outline: transparent;
-    position: relative;
-  }
-  .siteCardList {
-    box-sizing: border-box;
-    outline: transparent;
-    position: relative;
-    border-image: initial;
-    overflow: hidden;
-    border-color: rgb(237, 235, 233);
-    margin-top: 3px;
-  }
-  // div[class^="siteCardList"]:focus-within {
-  //   outline: 2px solid black;
-  // }
   .siteCard {
     height: 280px;
-    max-width: 286px;
+    width:286px;
     box-sizing: border-box;
     margin-bottom: 20px;
     outline: transparent;
@@ -36,32 +19,15 @@
     border-color: rgb(237, 235, 233);
   }
 
-  .cardBannerList {
-    position: relative;
-    width: 100%;
-    display: flex;
-    flex-wrap: wrap;
-  }
 
   .cardBanner {
     position: relative;
     padding-top: 40px;
     width: 100%;
     height:70px;
-    // border-bottom: 2px solid #e5e3e2;
-  }
-
-
-
-  .members.groups{
-    color:#6B6B6B;
-    font-size: 12px;
-    bottom: 0px;
-    padding-left:12px;
   }
 
   .articleFlex {
-    // float:left;
     padding:1%;
   }
 
@@ -70,22 +36,6 @@
     margin-top:5px;
     padding: 0px 12px 0px 12px;
     color:#6B6B6B
-    // width: calc(80% - 55px);
-  }
-
-  .cardTitleList {
-    font-size: 16px;
-    font-weight: 600;
-    line-height: 20px;
-    display: -webkit-box;
-    -webkit-box-orient: vertical;
-    -webkit-line-clamp: 1;
-    box-sizing: content-box;
-    max-height: 2.7em;
-    overflow: hidden;
-    text-align: left;
-    padding: 0 12px;
-    color: rgb(50, 49, 48);
   }
 
   .cardTitle {
@@ -118,38 +68,23 @@
   }
 
   .cardFooter {
-    width: 100%;
+
     border-top: 2px solid #e5e3e2;
     position: absolute;
     bottom:0px;
-    display:flex;
-    flex-direction: column;
     font-size: 12px;
+    height: 40px;
+    width: 90%
   }
 
-  .footerContent {
+  .footerRow {
     display: flex;
+    flex-wrap: wrap;
     justify-content: space-between;
-    align-items: baseline;
-    line-height: 0px;
-    padding-right: 10%;
-    height: 17px;
-    margin-bottom: 5px;
-  }
-  .footerContent2 {
-    display: flex;
-    align-items: center;
-    justify-content: space-evenly;
-
   }
 
-  .pr10{
-    padding-right: 10px;
-  }
-
-
-  .columnRight {
-    width: 200px;
+  .pl5{
+    padding-left: 5px;
   }
 
   .topBanner {
@@ -159,18 +94,6 @@
     width: 100%;;
   }
 
-  .bannerImgList {
-    width:100%;
-    box-sizing: border-box;
-    box-shadow: 0 0 4px 0 rgba(0,0,0,.2);
-    border-width: 1px;
-    border-style: solid;
-    border-image: initial;
-    border-color: rgb(255,255,255);
-    background-position: 50%;
-    background-repeat: no-repeat;
-    background-size: contain;
-  }
 
   .bannerImg {
     position: absolute;
@@ -189,51 +112,11 @@
     background-size: contain;
   }
 
-  .docTile {
-    background-color: transparent;
-    outline: transparent;
-    position: relative;
-  }
-
   a {
     text-decoration: none;
     color:#106ebe;
   }
 
-  .container {
-    max-width: 700px;
-    margin: 0px auto;
-    box-shadow: 0 2px 4px 0 rgba(0, 0, 0, 0.2), 0 25px 50px 0 rgba(0, 0, 0, 0.1);
-  }
-
-  .row {
-    @include ms-Grid-row;
-    @include ms-fontColor-white;
-    background-color: $ms-color-themeDark;
-    padding: 20px;
-  }
-
-  .column {
-    @include ms-Grid-col;
-    @include ms-lg10;
-    @include ms-xl8;
-    @include ms-xlPush2;
-    @include ms-lgPush1;
-  }
-
-  .title {
-    text-align: left;
-    color: rgb(50, 49, 48);
-    white-space: pre-wrap;
-    font-family: "Segoe UI", "Segoe UI Web (West European)", "Segoe UI", -apple-system, BlinkMacSystemFont, Roboto, "Helvetica Neue", sans-serif;
-    -webkit-font-smoothing: antialiased;
-    font-size: 20px;
-    font-weight: 600;
-    margin-right: 32px;
-    margin-bottom: 18px;
-    flex-grow: 1;
-    float:left;
-  }
 
   .subTitle {
     font-size: 14px;
@@ -241,59 +124,6 @@
     padding: 0px 12px;
   }
 
-  .description {
-    @include ms-font-l;
-    @include ms-fontColor-white;
-  }
-
-  .button {
-    // Our button
-    text-decoration: none;
-    height: 32px;
-
-    // Primary Button
-    min-width: 80px;
-    background-color: $ms-color-themePrimary;
-    border-color: $ms-color-themePrimary;
-    color: $ms-color-white;
-
-    // Basic Button
-    outline: transparent;
-    position: relative;
-    font-family: "Segoe UI WestEuropean","Segoe UI",-apple-system,BlinkMacSystemFont,Roboto,"Helvetica Neue",sans-serif;
-    -webkit-font-smoothing: antialiased;
-    font-size: $ms-font-size-m;
-    font-weight: $ms-font-weight-regular;
-    border-width: 0;
-    text-align: center;
-    cursor: pointer;
-    display: inline-block;
-    padding: 0 16px;
-
-    .label {
-      font-weight: $ms-font-weight-semibold;
-      font-size: $ms-font-size-m;
-      height: 32px;
-      line-height: 32px;
-      margin: 0 4px;
-      vertical-align: top;
-      display: inline-block;
-    }
-  }
-
-  .buttonLink {
-    background: none!important;
-    border: none;
-    padding: 0!important;
-    /*optional*/
-    font-family: arial, sans-serif;
-    /*input has OS specific font-family*/
-    color: #069;
-    text-decoration: underline;
-    cursor: pointer;
-    position: absolute;
-    right: 0;
-  }
   .groupsContainer{
     clear:both;
   }

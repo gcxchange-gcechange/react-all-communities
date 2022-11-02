@@ -59,7 +59,9 @@ export class GridLayout extends React.Component<IGridLayoutProps> {
 
 
       return (
-          <div className={styles.rendergrid} style={{width: `${cellWidth}px`, marginRight: `${cellPadding}px`}} >
+          <div className={styles.rendergrid}
+          style={{ marginRight: `${cellPadding}px`}} >
+          {/* style={{width: `${cellWidth}px`, marginRight: `${cellPadding}px`}} > */}
 
             {this.props.onRenderGridItem(item)}
 
