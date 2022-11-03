@@ -13,52 +13,62 @@
   // font-size: 0;
   position: relative;
   background-color: transparent;
-
-  :global(.ms-DocumentCard) {
-    position: relative;
-    background-color: $ms-color-white;
-    height: 100%;
-
-    // &:global(.ms-DocumentCard--compact) {
-    //   :global(.ms-DocumentCardPreview) {
-    //     -ms-flex-negative: 0;
-    //     flex-shrink: 0;
-    //     width: 144px;
-    //   }
-    // }
-
-    :global(.ms-DocumentCardPreview-icon) img {
-      width: 32px;
-      height: 32px;
-    }
-  }
-
-  :global(.ms-DocumentCard) {
-    min-width: 212px;
-    max-width: 286px;
-
-    :global(.ms-DocumentCardActivity) {
-      padding-bottom: 16px;
-    }
-
-    :global(.ms-DocumentCardTile-titleArea) {
-      height: 81px;
-    }
-
-    :global(.ms-DocumentCardLocation) {
-      padding: 12px 16px 5px 16px;
-      overflow: hidden;
-      text-overflow: ellipsis;
-    }
-  }
-
-  :global(.ms-List-cell) {
-    vertical-align: top;
-    display: inline-block;
-    margin-bottom: 20px;
-  }
-  .rendergrid{
-    margin-right:20px;
-
-  }
 }
+
+:global(.ms-List-page) {
+  display: flex;
+  flex-wrap: wrap;
+  flex-direction: row;
+  justify-content: space-between;
+ }
+
+ :global(.ms-List-cell) {
+  padding:10px;
+}
+  // :global(.ms-DocumentCard) {
+  //   position: relative;
+  //   background-color: $ms-color-white;
+  //   height: 100%;
+
+  //   // &:global(.ms-DocumentCard--compact) {
+  //   //   :global(.ms-DocumentCardPreview) {
+  //   //     -ms-flex-negative: 0;
+  //   //     flex-shrink: 0;
+  //   //     width: 144px;
+  //   //   }
+  //   // }
+
+  //   :global(.ms-DocumentCardPreview-icon) img {
+  //     width: 32px;
+  //     height: 32px;
+  //   }
+  // }
+
+  // :global(.ms-DocumentCard) {
+  //   min-width: 212px;
+  //   max-width: 286px;
+
+  //   :global(.ms-DocumentCardActivity) {
+  //     padding-bottom: 16px;
+  //   }
+
+  //   :global(.ms-DocumentCardTile-titleArea) {
+  //     height: 81px;
+  //   }
+
+  //   :global(.ms-DocumentCardLocation) {
+  //     padding: 12px 16px 5px 16px;
+  //     overflow: hidden;
+  //     text-overflow: ellipsis;
+  //   }
+  // }
+
+
+  // .rendergrid{
+  //   margin-right:20px;
+
+  // }
+
+
+
+
