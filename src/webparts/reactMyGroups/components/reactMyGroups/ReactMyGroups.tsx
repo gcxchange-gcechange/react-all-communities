@@ -7,7 +7,6 @@ import { IGroup } from "../../../../models";
 import { Spinner } from "office-ui-fabric-react";
 import { GridLayout } from "../GridList";
 import { SelectLanguage } from "../SelectLanguage";
-import { IReadonlyTheme } from "@microsoft/sp-component-base";
 import { Icon } from "office-ui-fabric-react/lib/Icon";
 import { AZNavigation } from "../AZNavigation/AZNavigation";
 import mockData from "../../../../services/mockData";
@@ -116,15 +115,6 @@ export class ReactMyGroups extends React.Component<
     );
   }
 
-  // public _getGroupActivity =(groups:any):void => {
-  //   mockData.map(item => {
-  //     this.setState(prevState => ({
-  //       groups: prevState.groups.map(group => item.id === groups.id ? {...group, fileCount: item.fileCount}:group),
-  //     }));
-  //   });
-  //   this._getGroupThumbnails(groups);
-  // }
-
   public _getGroupThumbnails = (groups: any): void => {
     let groupsCompleted = 0;
     let totalGroups = groups.length;
@@ -175,13 +165,6 @@ export class ReactMyGroups extends React.Component<
   }
 
   private _onRenderGridItem = (item: any): JSX.Element => {
-    const options: any = { year: "numeric", month: "long", day: "2-digit" };
-
-    // let dateCreated = new Date(item.createdDateTime).toLocaleDateString('en-CA', options) ;
-    // let dateCreatedFR = new Date(item.createdDateTime).toLocaleDateString('fr-CA', options) ;
-
-    // let modifiedDate = new Date(item.modified).toLocaleDateString('en-CA', options);
-    // let modifiedDateFR = new Date(item.modified).toLocaleDateString('fr-CA', options);
 
     return (
       <div className={styles.siteCard}>
@@ -197,8 +180,6 @@ export class ReactMyGroups extends React.Component<
               alt={`${this.strings.altImgLogo} ${item.displayName} `}
             />
             <div className={styles.cardTitle}>{item.displayName}</div>
-
-            {/* <p className = {styles.subTitle}>{this.strings.groups}</p> */}
           </div>
         </a>
 
