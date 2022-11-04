@@ -30,7 +30,7 @@ export class GroupServiceManager {
             client
               .api(apiTxt)
               .get((error: any, groups: IGroupCollection, rawResponse: any) => {
-                console.log("GROUPS", groups.value);
+                //console.log("GROUPS", groups.value);
                 resolve(groups.value);
               });
           });
@@ -75,7 +75,7 @@ export class GroupServiceManager {
                     return null;
                   }
                 });
-                console.log("RES", responseContent);
+                //console.log("RES", responseContent);
                 resolve(responseContent);
               });
           });
