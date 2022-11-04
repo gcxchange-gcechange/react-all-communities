@@ -1,16 +1,17 @@
 import * as React from 'react';
 import styles from './GridLayout.module.scss';
-import { FocusZone } from 'office-ui-fabric-react/lib/FocusZone';
+import { FocusZone, FocusZoneDirection } from 'office-ui-fabric-react/lib/FocusZone';
 import { List } from 'office-ui-fabric-react/lib/List';
 import { IRectangle, ISize } from 'office-ui-fabric-react/lib/Utilities';
 import { IGridLayoutProps } from './GridLayout.types';
-import { Stack } from 'office-ui-fabric-react';
+
 
 
 const ROWS_PER_PAGE: number = +styles.rowsPerPage;
 const MAX_ROW_HEIGHT: number = +styles.maxWidth;
 const PADDING: number = +styles.padding;
 const MIN_WIDTH: number = +styles.minWidth;
+
 
 
 export class GridLayout extends React.Component<IGridLayoutProps> {
@@ -24,7 +25,7 @@ export class GridLayout extends React.Component<IGridLayoutProps> {
 
     return (
       <div role="group" aria-label={this.props.ariaLabel}>
-         <FocusZone>
+         <FocusZone  direction={FocusZoneDirection.vertical}>
            <List
             role="presentation"
             className={styles.gridLayout}
@@ -32,6 +33,7 @@ export class GridLayout extends React.Component<IGridLayoutProps> {
             getItemCountForPage={this._getItemCountForPage}
             getPageHeight={this._getPageHeight}
             onRenderCell={this._onRenderCell}
+            renderedWindowsAhead={4}
             {...this.props.listProps}
           />
         </FocusZone>
@@ -40,16 +42,17 @@ export class GridLayout extends React.Component<IGridLayoutProps> {
 
   }
 
-  private _getItemCountForPage = (itemIndex: number, surfaceRect: IRectangle): number => {
-    if(itemIndex !== 0) {
 
-      this._columnCount = Math.ceil(surfaceRect.width / (MAX_ROW_HEIGHT));
+  private _getItemCountForPage = (itemIndex: number, surfaceRect: IRectangle): number => {
+
+    if(itemIndex === 0) {
+
+      this._columnCount = Math.ceil(surfaceRect.width / MAX_ROW_HEIGHT);
       this._columnWidth = Math.max(MIN_WIDTH, Math.floor(surfaceRect.width / this._columnCount) + Math.floor(PADDING / this._columnCount));
       this._rowHeight = this._columnWidth;
     }
 
-
-    return this._columnCount + this._columnWidth +  this._rowHeight * ROWS_PER_PAGE;
+    return  this._columnCount + this._columnWidth +  this._rowHeight * ROWS_PER_PAGE;
   }
 
   private _getPageHeight = (): number => {
@@ -63,9 +66,10 @@ export class GridLayout extends React.Component<IGridLayoutProps> {
 
 
       return (
-          <div >
+          <div>
+             {/* style={{width: `${cellWidth}px`, marginRight: `${cellPadding}px`}} > */}
           {/* style={{ marginRight: `${cellPadding}px`}} > */}
-          {/* style={{width: `${cellWidth}px`, marginRight: `${cellPadding}px`}} > */}
+
 
             {this.props.onRenderGridItem(item)}
 

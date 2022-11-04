@@ -207,21 +207,22 @@ export class ReactMyGroups extends React.Component<
                 <div className={styles.cardFooter}>
                   <div className={styles.footerRow}>
                     <div >
-                    {(this.strings.userLang === 'FR'? this.strings.members : this.strings.members)}
+                      {(this.strings.userLang === 'FR'? this.strings.members : this.strings.members)}
                       <span className={styles.pl5}>{item.members}</span>
                     </div>
 
                     <div >
-                      {(this.strings.userLang === 'FR' ? this.strings.siteViews : this.strings.siteViews)}
-                      <span className={styles.pl5}>{item.views}</span>
+                      {(this.strings.userLang ==='FR' ? this.strings.created : this.strings.created)}
+                      <span className={styles.pl5}>{(this.strings.userLang ==='FR' ? new Date(item.createdDateTime).toLocaleDateString('fr-CA') : new Date(item.createdDateTime).toLocaleDateString('en-CA'))}</span>
                     </div>
                   </div>
 
                   <div className={styles.footerRow}>
-                      <div >
-                        {(this.strings.userLang ==='FR' ? this.strings.created : this.strings.created)}
-                        <span className={styles.pl5}>{(this.strings.userLang ==='FR' ? new Date(item.createdDateTime).toLocaleDateString('fr-CA') : new Date(item.createdDateTime).toLocaleDateString('en-CA'))}</span>
-                      </div>
+
+                   <div >
+                      {(this.strings.userLang === 'FR' ? this.strings.siteViews : this.strings.siteViews)}
+                      <span className={styles.pl5}>{item.views}</span>
+                    </div>
 
                       <div>
                         {(this.strings.userLang === 'FR' ? this.strings.lastModified : this.strings.lastModified)}
@@ -233,56 +234,6 @@ export class ReactMyGroups extends React.Component<
 
                 </div>
               </div>
-
-        {/* <div className={` ${styles.secondSection} ${styles.articleFlex}`}>
-          <div className={styles.cardDescription} aria-label={item.description}>
-            {item.description}
-          </div>
-          <div className={styles.cardFooter}>
-            <div className={styles.footerContent2}>
-              <div>
-                <Icon iconName="View" className={styles.pr10}></Icon>
-                <span>{item.views}</span>
-              </div>
-              <div>
-                <Icon iconName="Contact" className={styles.pr10}></Icon>
-                <span>{item.members}</span>
-              </div>
-            </div>
-            <div className={styles.footerContent2}>
-              <div>
-                <Icon iconName="previewLink" className={styles.pr10}></Icon>
-                <span>
-                  {this.strings.userLang === "FR"
-                    ? new Date(item.createdDateTime).toLocaleDateString(
-                        "fr-CA",
-                        options
-                      )
-                    : new Date(item.createdDateTime).toLocaleDateString(
-                        "en-CA",
-                        options
-                      )}
-                </span>
-              </div>
-            </div>
-            <div className={styles.footerContent2}>
-              <div>
-                <Icon iconName="edit" className={styles.pr10}></Icon>
-                <span>
-                  {this.strings.userLang === "FR"
-                    ? new Date(item.modified).toLocaleDateString(
-                        "fr-CA",
-                        options
-                      )
-                    : new Date(item.modified).toLocaleDateString(
-                        "en-CA",
-                        options
-                      )}
-                </span>
-              </div>
-            </div>
-          </div>
-        </div> */}
 
       </div>
     );
