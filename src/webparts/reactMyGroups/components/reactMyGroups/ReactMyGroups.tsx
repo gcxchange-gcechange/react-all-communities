@@ -241,7 +241,7 @@ export class ReactMyGroups extends React.Component<
         <div className={styles.addComm}>
           <Icon iconName="Add" className={styles.addIcon} />
           <a
-            aria-label={this.strings.seeAllLabel}
+            aria-label={this.strings.createComm}
             href={this.props.addCommLink}
             target="_blank"
           >
