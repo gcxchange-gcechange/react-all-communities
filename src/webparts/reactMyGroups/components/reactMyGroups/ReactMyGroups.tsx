@@ -8,8 +8,9 @@ import { Spinner } from "office-ui-fabric-react";
 import { GridLayout } from "../GridList";
 import { SelectLanguage } from "../SelectLanguage";
 import { Icon } from "office-ui-fabric-react/lib/Icon";
+import { Image, IImageProps, ImageFit } from "office-ui-fabric-react";
 import { AZNavigation } from "../AZNavigation/AZNavigation";
-import mockData from "../../../../services/mockData";
+
 
 export class ReactMyGroups extends React.Component<
   IReactMyGroupsProps,
@@ -185,35 +186,44 @@ export class ReactMyGroups extends React.Component<
 
         <div className={` ${styles.secondSection} ${styles.articleFlex}`}>
                 <div className={styles.cardDescription} aria-label={item.description}>{item.description}</div>
-                <div className={styles.cardFooter}>
+                <footer className={styles.cardFooter}>
                   <div className={styles.footerRow}>
-                    <div >
-                      {(this.strings.userLang === 'FR'? this.strings.members : this.strings.members)}
-                      <span className={styles.pl5}>{item.members}</span>
+                    <div className={styles.footerItem}>
+                      <p aria-label={(this.strings.userLang === 'FR'? this.strings.members : this.strings.members)}>
+                        {(this.strings.userLang === 'FR'? this.strings.members : this.strings.members)}
+                      </p>
+                      <p className={styles.pl5}>{item.members}</p>
                     </div>
 
-                    <div >
-                      {(this.strings.userLang ==='FR' ? this.strings.created : this.strings.created)}
-                      <span className={styles.pl5}>{(this.strings.userLang ==='FR' ? new Date(item.createdDateTime).toLocaleDateString('fr-CA') : new Date(item.createdDateTime).toLocaleDateString('en-CA'))}</span>
+                    <div className={styles.footerItem}>
+                      <p aria-label={(this.strings.userLang ==='FR' ? this.strings.created : this.strings.created)}>
+                        {(this.strings.userLang ==='FR' ? this.strings.created : this.strings.created)}
+                      </p>
+                      <p className={styles.pl5}>{(this.strings.userLang ==='FR' ? new Date(item.createdDateTime).toLocaleDateString('fr-CA') : new Date(item.createdDateTime).toLocaleDateString('en-CA'))}</p>
                     </div>
                   </div>
 
                   <div className={styles.footerRow}>
-
-                   <div >
-                      {(this.strings.userLang === 'FR' ? this.strings.siteViews : this.strings.siteViews)}
-                      <span className={styles.pl5}>{item.views}</span>
+                    <div className={styles.footerItem}>
+                      <p aria-label={(this.strings.userLang === 'FR' ? this.strings.siteViews : this.strings.siteViews)}>
+                        {(this.strings.userLang === 'FR' ? this.strings.siteViews : this.strings.siteViews)}
+                      </p>
+                      <p className={styles.pl5}>{item.views}</p>
                     </div>
 
-                      <div>
+                    <div className={styles.footerItem}>
+                      <p aria-label={(this.strings.userLang === 'FR' ? this.strings.lastModified : this.strings.lastModified)}>
                         {(this.strings.userLang === 'FR' ? this.strings.lastModified : this.strings.lastModified)}
-                      <span className={styles.pl5}>{(this.strings.userLang ==='FR' ? new Date(item.modified).toLocaleDateString('fr-CA') : new Date(item.modified).toLocaleDateString('en-CA'))}</span>
+                      </p>
+                      <p className={styles.pl5} aria-label={(this.strings.userLang ==='FR' ? new Date(item.modified).toLocaleDateString('fr-CA') : new Date(item.modified).toLocaleDateString('en-CA'))}>
+                        {(this.strings.userLang ==='FR' ? new Date(item.modified).toLocaleDateString('fr-CA') : new Date(item.modified).toLocaleDateString('en-CA'))}
+                      </p>
                     </div>
 
                   </div>
 
 
-                </div>
+                </footer>
               </div>
 
       </div>
@@ -235,6 +245,14 @@ export class ReactMyGroups extends React.Component<
 
     // total the groups that are not status code 403
     let totalItems: any[] = this.state.groups;
+
+    const imageProps: Partial<IImageProps> = {
+      src: require("../../../../../assets/Yeti_404-02.png"),
+      imageFit: ImageFit.contain,
+      width: 200,
+      height: 200
+
+    };
 
     return (
       <div className={styles.reactMyGroups}>
@@ -269,6 +287,11 @@ export class ReactMyGroups extends React.Component<
           </div>
         ) : (
           <div className={styles.noResults}>
+             <Image
+            {...imageProps}
+            alt="a hiding yeti"
+          />
+
             {this.strings.userLang === "FR"
               ? this.strings.noResultsFR
               : this.strings.noResultsEN}
