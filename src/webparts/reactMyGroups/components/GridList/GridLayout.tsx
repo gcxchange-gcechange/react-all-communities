@@ -25,7 +25,7 @@ export class GridLayout extends React.Component<IGridLayoutProps> {
 
     return (
       <div role="group" aria-label={this.props.ariaLabel}>
-         <FocusZone  direction={FocusZoneDirection.vertical}>
+         <FocusZone  as="div" direction={FocusZoneDirection.horizontal}>
            <List
             role="presentation"
             className={styles.gridLayout}
