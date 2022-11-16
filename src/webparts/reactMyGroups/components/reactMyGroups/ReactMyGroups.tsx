@@ -298,7 +298,7 @@ export class ReactMyGroups extends React.Component<
               :
             <>
               <div className={styles.noResultsText}>
-                <h4 className={styles.margin0}>Sorry.<br/>We Couldn't find the community you were looking for.</h4>
+                <h4 className={styles.margin0}>Sorry.<br/>We couldn't find the community you were looking for.</h4>
                 <p className={styles.margin0}>Either the community does not exist or it has a different name.
                 <br/>
                 Try searching for the community by another letter in the title or start your own commmunity.
