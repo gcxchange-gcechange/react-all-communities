@@ -249,8 +249,8 @@ export class ReactMyGroups extends React.Component<
     const imageProps: Partial<IImageProps> = {
       src: require("../../../../../assets/Yeti_404-02.png"),
       imageFit: ImageFit.contain,
-      width: 200,
-      height: 200
+      width: 300,
+      height: 300
 
     };
 
@@ -288,13 +288,25 @@ export class ReactMyGroups extends React.Component<
         ) : (
           <div className={styles.noResults}>
              <Image
-            {...imageProps}
-            alt="a hiding yeti"
-          />
+              {...imageProps}
+              alt="a hiding yeti"
+             />
 
-            {this.strings.userLang === "FR"
-              ? this.strings.noResultsFR
-              : this.strings.noResultsEN}
+            { this.strings.userLang === "FR"
+              ?
+              <div className={styles.noResultsText} dangerouslySetInnerHTML={{ __html: this.strings.noResultsEN.replace(/[\n]/g,"<br/>")}}></div>
+              :
+            <>
+              <div className={styles.noResultsText}>
+                <h4 className={styles.margin0}>Sorry.<br/>We Couldn't find the community you were looking for.</h4>
+                <p className={styles.margin0}>Either the community does not exist or it has a different name.
+                <br/>
+                Try searching for the community by another letter in the title or start your own commmunity.
+                </p>
+              </div>
+            </>
+            }
+
           </div>
         )}
         </div>
@@ -302,3 +314,4 @@ export class ReactMyGroups extends React.Component<
     );
   }
 }
+
