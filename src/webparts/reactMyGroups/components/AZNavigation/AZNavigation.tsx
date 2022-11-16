@@ -44,6 +44,7 @@ export class AZNavigation extends React.Component<IAZNavigationProps> {
       },
 
       root:{
+        marginTop:'20px',
         marginBottom: '20px;'
       },
 
