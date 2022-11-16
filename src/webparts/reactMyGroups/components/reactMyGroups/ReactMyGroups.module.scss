@@ -160,9 +160,18 @@
 
   .noResults {
     display: flex;
-    justify-content:space-around;
+    align-items: center;
     font-weight: $ms-font-weight-semibold;
-    margin-top: 50px;
+    // margin-top: 50px;
+  }
+
+  .noResultsText {
+    text-align: center;
+    padding: 20px;
+  }
+
+  .margin0 {
+    margin: 0px;
   }
 
 }
