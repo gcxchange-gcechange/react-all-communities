@@ -74,9 +74,7 @@ export default class ReactMyGroupsWebPart extends BaseClientSideWebPart<IReactMy
     return {
       pages: [
         {
-          header: {
-            description: strings.PropertyPaneDescription
-          },
+
           groups: [
             {
 
