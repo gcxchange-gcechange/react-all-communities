@@ -4,6 +4,7 @@ import { FocusZone, FocusZoneDirection } from 'office-ui-fabric-react/lib/FocusZ
 import { List } from 'office-ui-fabric-react/lib/List';
 import { IRectangle, ISize } from 'office-ui-fabric-react/lib/Utilities';
 import { IGridLayoutProps } from './GridLayout.types';
+import { KeyCodes, getRTLSafeKeyCode } from 'office-ui-fabric-react';
 
 
 
@@ -21,23 +22,26 @@ export class GridLayout extends React.Component<IGridLayoutProps> {
   private _rowHeight: number;
 
 
+
   public render(): React.ReactElement<IGridLayoutProps> {
 
+
+
+
     return (
-      <div role="group" aria-label={this.props.ariaLabel}>
-         <FocusZone  as="div" direction={FocusZoneDirection.horizontal}>
+         <FocusZone aria-label={this.props.ariaLabel}  isCircularNavigation={true}   as="div" direction={FocusZoneDirection.vertical}>
            <List
-            role="presentation"
             className={styles.gridLayout}
             items={this.props.items}
             getItemCountForPage={this._getItemCountForPage}
             getPageHeight={this._getPageHeight}
             onRenderCell={this._onRenderCell}
             renderedWindowsAhead={4}
+            data-is-focusable={true}
             {...this.props.listProps}
           />
         </FocusZone>
-      </div>
+
     );
 
   }
@@ -66,7 +70,7 @@ export class GridLayout extends React.Component<IGridLayoutProps> {
 
 
       return (
-          <div>
+          <div data-is-focusable={true}>
              {/* style={{width: `${cellWidth}px`, marginRight: `${cellPadding}px`}} > */}
           {/* style={{ marginRight: `${cellPadding}px`}} > */}
 
