@@ -4,13 +4,12 @@ import { IReactMyGroupsProps } from "./IReactMyGroupsProps";
 import GroupService from "../../../../services/GroupService";
 import { IReactMyGroupsState } from "./IReactMyGroupsState";
 import { IGroup } from "../../../../models";
-import { Spinner } from "office-ui-fabric-react";
+import {Spinner, IDocumentCardStyles, IDocumentCardLogoProps } from "office-ui-fabric-react";
 import { GridLayout } from "../GridList";
 import { SelectLanguage } from "../SelectLanguage";
 import { Icon } from "office-ui-fabric-react/lib/Icon";
 import { Image, IImageProps, ImageFit } from "office-ui-fabric-react";
 import { AZNavigation } from "../AZNavigation/AZNavigation";
-
 
 export class ReactMyGroups extends React.Component<
   IReactMyGroupsProps,
@@ -170,61 +169,101 @@ export class ReactMyGroups extends React.Component<
     return (
       <div className={styles.siteCard}>
         <a href={item.url}>
-          <div className={styles.cardBanner}>
-            <div
-              className={styles.topBanner}
-              style={{ backgroundColor: item.color }}
-            ></div>
-            <img
-              className={styles.bannerImg}
-              src={item.thumbnail}
-              alt={`${this.strings.altImgLogo} ${item.displayName} `}
-            />
-            <div className={styles.cardTitle}>{item.displayName}</div>
-          </div>
+          <div className={styles.cardBanner}/>
+          <img
+            className={styles.bannerImg}
+            src={item.thumbnail}
+            alt={`${this.strings.altImgLogo} ${item.displayName} `}
+          />
+          <div className={styles.cardTitle}>{item.displayName}</div>
         </a>
 
-        <div className={` ${styles.secondSection} ${styles.articleFlex}`}>
-                <div className={styles.cardDescription} aria-label={item.description}>{item.description}</div>
-                <footer className={styles.cardFooter}>
-                  <div className={styles.footerRow}>
-                    <div className={styles.footerItem}>
-                      <p aria-label={(this.strings.userLang === 'FR'? this.strings.members : this.strings.members)}>
-                        {(this.strings.userLang === 'FR'? this.strings.members : this.strings.members)}
-                      </p>
-                      <p className={styles.pl5}>{item.members}</p>
-                    </div>
+            <div className={styles.cardDescription} aria-label={item.description}>
+              {item.description}
+            </div>
+            <footer className={styles.cardFooter}>
+              <div className={styles.footerRow}>
+                <div className={styles.footerItem}>
+                <p
+                    aria-label={
+                      this.strings.userLang === "FR"
+                        ? this.strings.siteViews
+                        : this.strings.siteViews
+                    }
+                  >
+                    {this.strings.userLang === "FR"
+                      ? this.strings.siteViews
+                      : this.strings.siteViews}
+                  </p>
+                  <p className={styles.pl5}>{item.views}</p>
 
-                    <div className={styles.footerItem}>
-                      <p aria-label={(this.strings.userLang ==='FR' ? this.strings.created : this.strings.created)}>
-                        {(this.strings.userLang ==='FR' ? this.strings.created : this.strings.created)}
-                      </p>
-                      <p className={styles.pl5}>{(this.strings.userLang ==='FR' ? new Date(item.createdDateTime).toLocaleDateString('fr-CA') : new Date(item.createdDateTime).toLocaleDateString('en-CA'))}</p>
-                    </div>
-                  </div>
+                </div>
 
-                  <div className={styles.footerRow}>
-                    <div className={styles.footerItem}>
-                      <p aria-label={(this.strings.userLang === 'FR' ? this.strings.siteViews : this.strings.siteViews)}>
-                        {(this.strings.userLang === 'FR' ? this.strings.siteViews : this.strings.siteViews)}
-                      </p>
-                      <p className={styles.pl5}>{item.views}</p>
-                    </div>
-
-                    <div className={styles.footerItem}>
-                      <p aria-label={(this.strings.userLang === 'FR' ? this.strings.lastModified : this.strings.lastModified)}>
-                        {(this.strings.userLang === 'FR' ? this.strings.lastModified : this.strings.lastModified)}
-                      </p>
-                      <p className={styles.pl5} aria-label={(this.strings.userLang ==='FR' ? new Date(item.modified).toLocaleDateString('fr-CA') : new Date(item.modified).toLocaleDateString('en-CA'))}>
-                        {(this.strings.userLang ==='FR' ? new Date(item.modified).toLocaleDateString('fr-CA') : new Date(item.modified).toLocaleDateString('en-CA'))}
-                      </p>
-                    </div>
-
-                  </div>
-
-
-                </footer>
+                <div className={styles.footerItem}>
+                  <p
+                    aria-label={
+                      this.strings.userLang === "FR"
+                        ? this.strings.created
+                        : this.strings.created
+                    }
+                  >
+                    {this.strings.userLang === "FR"
+                      ? this.strings.created
+                      : this.strings.created}
+                  </p>
+                  <p className={styles.pl5}>
+                    {this.strings.userLang === "FR"
+                      ? new Date(item.createdDateTime).toLocaleDateString("fr-CA")
+                      : new Date(item.createdDateTime).toLocaleDateString(
+                          "en-CA"
+                        )}
+                  </p>
+                </div>
               </div>
+
+              <div className={styles.footerRow}>
+                <div className={styles.footerItem}>
+                <p
+                    aria-label={
+                      this.strings.userLang === "FR"
+                        ? this.strings.members
+                        : this.strings.members
+                    }
+                  >
+                    {this.strings.userLang === "FR"
+                      ? this.strings.members
+                      : this.strings.members}
+                  </p>
+                  <p className={styles.pl5}>{item.members}</p>
+                </div>
+
+                <div className={styles.footerItem}>
+                  <p
+                    aria-label={
+                      this.strings.userLang === "FR"
+                        ? this.strings.lastModified
+                        : this.strings.lastModified
+                    }
+                  >
+                    {this.strings.userLang === "FR"
+                      ? this.strings.lastModified
+                      : this.strings.lastModified}
+                  </p>
+                  <p
+                    className={styles.pl5}
+                    aria-label={
+                      this.strings.userLang === "FR"
+                        ? new Date(item.modified).toLocaleDateString("fr-CA")
+                        : new Date(item.modified).toLocaleDateString("en-CA")
+                    }
+                  >
+                    {this.strings.userLang === "FR"
+                      ? new Date(item.modified).toLocaleDateString("fr-CA")
+                      : new Date(item.modified).toLocaleDateString("en-CA")}
+                  </p>
+                </div>
+              </div>
+            </footer>
 
       </div>
     );
@@ -246,12 +285,12 @@ export class ReactMyGroups extends React.Component<
     // total the groups that are not status code 403
     let totalItems: any[] = this.state.groups;
 
+    //No Results Image props
     const imageProps: Partial<IImageProps> = {
       src: require("../../../../../assets/Yeti_404-02.png"),
       imageFit: ImageFit.contain,
       width: 300,
-      height: 300
-
+      height: 300,
     };
 
     return (
@@ -269,49 +308,61 @@ export class ReactMyGroups extends React.Component<
           </a>
         </div>
         <div className={styles.flexCenter}>
-        <AZNavigation
-          selectedLetter={this.props.selectedLetter}
-          onClickEvent={this.handleClickEvent}
-        />
-        {this.state.isLoading ? (
-          <Spinner label={this.strings.loadingState} />
-        ) : totalItems !== null && totalItems.length >= 1 ? (
-          <div>
-            <div className={styles.groupsContainer}>
-              <GridLayout
-                sort={this.props.sort}
-                items={pagedItems}
-                onRenderGridItem={(item: any) => this._onRenderGridItem(item)}
-              />
+          <AZNavigation
+            selectedLetter={this.props.selectedLetter}
+            onClickEvent={this.handleClickEvent}
+          />
+          {this.state.isLoading ? (
+            <Spinner label={this.strings.loadingState} />
+          ) : totalItems !== null && totalItems.length >= 1 ? (
+            <div>
+              {/* <div className={styles.groupsContainer}> */}
+                <GridLayout
+                  sort={this.props.sort}
+                  items={pagedItems}
+                  onRenderGridItem={(item: any) => this._onRenderGridItem(item)}
+                />
+              {/* </div> */}
             </div>
-          </div>
-        ) : (
-          <div className={styles.noResults}>
-             <Image
-              {...imageProps}
-              alt="a hiding yeti"
-             />
+          ) : (
+            <div className={styles.noResults}>
+              <Image {...imageProps} alt="a hiding yeti" />
 
-            { this.strings.userLang === "FR"
-              ?
-              <div className={styles.noResultsText} dangerouslySetInnerHTML={{ __html: this.strings.noResultsEN.replace(/[\n]/g,"<br/>")}}></div>
-              :
-            <>
-              <div className={styles.noResultsText}>
-                <h4 className={styles.margin0}>Sorry.<br/>We couldn't find the community you were looking for.</h4>
-                <p className={styles.margin0}>Either the community does not exist or it has a different name.
-                <br/>
-                Try searching for the community by another letter in the title or start your own community.
-                </p>
-              </div>
-            </>
-            }
-
-          </div>
-        )}
+              {this.strings.userLang === "FR" ? (
+                <div className={styles.noResultsText}>
+                  <h4 className={styles.margin0}>
+                    Désolés.
+                    <br />
+                    Nous ne pouvons trouver la collectivité que vous cherchez.
+                  </h4>
+                  <p className={styles.margin0}>
+                    Soit elle n’existe pas ou elle porte un autre nom que celui que vous avez entré.
+                    <br />
+                    Essayez de trouver cette collectivité en utilisant un autre caractère qui fait partie du titre ou créez votre propre collectivité.
+                  </p>
+                </div>
+              ) : (
+                <>
+                  <div className={styles.noResultsText}>
+                    <h4 className={styles.margin0}>
+                      Sorry.
+                      <br />
+                      We couldn't find the community you were looking for.
+                    </h4>
+                    <p className={styles.margin0}>
+                      Either the community does not exist or it has a different
+                      name.
+                      <br />
+                      Try searching for the community by another letter in the
+                      title or start your own community.
+                    </p>
+                  </div>
+                </>
+              )}
+            </div>
+          )}
         </div>
       </div>
     );
   }
 }
-
