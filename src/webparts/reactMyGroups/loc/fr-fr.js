@@ -25,11 +25,11 @@ define([], function() {
     "seeAllOff": "Non",
     "loadingState": "Chargement en cours",
     "addCommLink": "Lien pour créer une collectivité",
-    "commLink": "Modifier créez une collectivité titre",
-    "createComm": "Créez une collectivité",
-    "noResultsFR": "Aucun collectivité trouvé",
+    "commLink": "Modifier le titre Créer une collectivité",
+    "createComm": "Créer une collectivité",
+    "noResultsFR": "Désolés.\n Nous ne pouvons trouver la collectivité que vous cherchez.\n Soit elle n’existe pas ou elle porte un autre nom que celui que vous avez entré.\nEssayez de trouver cette collectivité en utilisant un autre caractère qui fait partie du titre ou créez votre propre collectivité.",
     "members": "Membres",
-    "siteViews": "Visites",
+    "siteViews": "Visionnements",
     "created": "Créé",
     "lastModified": "Dernière modification"
   }
