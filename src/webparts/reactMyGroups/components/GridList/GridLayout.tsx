@@ -25,11 +25,15 @@ export class GridLayout extends React.Component<IGridLayoutProps> {
 
   public render(): React.ReactElement<IGridLayoutProps> {
 
-
+    const totalItems = this.props.items.length;
 
 
     return (
-         <FocusZone aria-label={this.props.ariaLabel}  isCircularNavigation={true}   as="div" direction={FocusZoneDirection.vertical}>
+         <FocusZone
+            aria-label={`There are ${totalItems} items in grid layout.
+            Use left and right arrow keys to navigate between the sites in the grid.`}
+           role="grid" isCircularNavigation={true}
+           as="div" direction={FocusZoneDirection.vertical}>
            <List
             className={styles.gridLayout}
             items={this.props.items}
