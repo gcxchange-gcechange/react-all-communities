@@ -30,7 +30,7 @@ export class GridLayout extends React.Component<IGridLayoutProps> {
 
     return (
          <FocusZone
-            aria-label={`There are ${totalItems} items in grid layout.
+            aria-label={`${totalItems} items in grid layout.
             Use left and right arrow keys to navigate between the sites in the grid.`}
            role="grid" isCircularNavigation={true}
            as="div" direction={FocusZoneDirection.vertical}>

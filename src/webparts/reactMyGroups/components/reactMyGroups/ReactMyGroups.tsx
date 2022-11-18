@@ -4,7 +4,7 @@ import { IReactMyGroupsProps } from "./IReactMyGroupsProps";
 import GroupService from "../../../../services/GroupService";
 import { IReactMyGroupsState } from "./IReactMyGroupsState";
 import { IGroup } from "../../../../models";
-import {Spinner, IDocumentCardStyles, IDocumentCardLogoProps } from "office-ui-fabric-react";
+import {Spinner} from "office-ui-fabric-react";
 import { GridLayout } from "../GridList";
 import { SelectLanguage } from "../SelectLanguage";
 import { Icon } from "office-ui-fabric-react/lib/Icon";
@@ -165,106 +165,70 @@ export class ReactMyGroups extends React.Component<
   }
 
   private _onRenderGridItem = (item: any): JSX.Element => {
-
     return (
       <div className={styles.siteCard}>
         <a href={item.url} target="_blank">
-          <div className={styles.cardBanner}/>
+          <div className={styles.cardBanner} />
           <img
             className={styles.bannerImg}
             src={item.thumbnail}
             alt={`${this.strings.altImgLogo} ${item.displayName} `}
           />
-          <h3 className={`${styles.cardTitle} ${styles.cardPrimaryAction}`}>{item.displayName}</h3>
+          <h3 className={`${styles.cardTitle} ${styles.cardPrimaryAction}`}>
+            {item.displayName}
+          </h3>
         </a>
 
-            <div className={styles.cardDescription} aria-label={item.description}>
-              {item.description}
+        <section
+          className={styles.cardDescription}
+          aria-label={item.description}
+        >
+          {item.description}
+        </section>
+        <footer className={styles.cardFooter}>
+          <div className={styles.footerRow}>
+            <div className={styles.footerItem}>
+              <p aria-label={this.strings.siteViews}>
+                {this.strings.siteViews}
+              </p>
+              <p className={styles.pl5}>{item.views}</p>
             </div>
-            <footer className={styles.cardFooter}>
-              <div className={styles.footerRow}>
-                <div className={styles.footerItem}>
-                <p
-                    aria-label={
-                      this.strings.userLang === "FR"
-                        ? this.strings.siteViews
-                        : this.strings.siteViews
-                    }
-                  >
-                    {this.strings.userLang === "FR"
-                      ? this.strings.siteViews
-                      : this.strings.siteViews}
-                  </p>
-                  <p className={styles.pl5}>{item.views}</p>
 
-                </div>
+            <div className={styles.footerItem}>
+              <p aria-label={this.strings.created}>{this.strings.created}</p>
+              <p className={styles.pl5}>
+                {this.strings.userLang === "FR"
+                  ? new Date(item.createdDateTime).toLocaleDateString("fr-CA")
+                  : new Date(item.createdDateTime).toLocaleDateString("en-CA")}
+              </p>
+            </div>
+          </div>
 
-                <div className={styles.footerItem}>
-                  <p
-                    aria-label={
-                      this.strings.userLang === "FR"
-                        ? this.strings.created
-                        : this.strings.created
-                    }
-                  >
-                    {this.strings.userLang === "FR"
-                      ? this.strings.created
-                      : this.strings.created}
-                  </p>
-                  <p className={styles.pl5}>
-                    {this.strings.userLang === "FR"
-                      ? new Date(item.createdDateTime).toLocaleDateString("fr-CA")
-                      : new Date(item.createdDateTime).toLocaleDateString(
-                          "en-CA"
-                        )}
-                  </p>
-                </div>
-              </div>
+          <div className={styles.footerRow}>
+            <div className={styles.footerItem}>
+              <p aria-label={this.strings.members}>{this.strings.members}</p>
+              <p className={styles.pl5}>{item.members}</p>
+            </div>
 
-              <div className={styles.footerRow}>
-                <div className={styles.footerItem}>
-                <p
-                    aria-label={
-                      this.strings.userLang === "FR"
-                        ? this.strings.members
-                        : this.strings.members
-                    }
-                  >
-                    {this.strings.userLang === "FR"
-                      ? this.strings.members
-                      : this.strings.members}
-                  </p>
-                  <p className={styles.pl5}>{item.members}</p>
-                </div>
-
-                <div className={styles.footerItem}>
-                  <p
-                    aria-label={
-                      this.strings.userLang === "FR"
-                        ? this.strings.lastModified
-                        : this.strings.lastModified
-                    }
-                  >
-                    {this.strings.userLang === "FR"
-                      ? this.strings.lastModified
-                      : this.strings.lastModified}
-                  </p>
-                  <p
-                    className={styles.pl5}
-                    aria-label={
-                      this.strings.userLang === "FR"
-                        ? new Date(item.modified).toLocaleDateString("fr-CA")
-                        : new Date(item.modified).toLocaleDateString("en-CA")
-                    }
-                  >
-                    {this.strings.userLang === "FR"
-                      ? new Date(item.modified).toLocaleDateString("fr-CA")
-                      : new Date(item.modified).toLocaleDateString("en-CA")}
-                  </p>
-                </div>
-              </div>
-            </footer>
-
+            <div className={styles.footerItem}>
+              <p aria-label={this.strings.lastModified}>
+                {this.strings.lastModified}
+              </p>
+              <p
+                className={styles.pl5}
+                aria-label={
+                  this.strings.userLang === "FR"
+                    ? new Date(item.modified).toLocaleDateString("fr-CA")
+                    : new Date(item.modified).toLocaleDateString("en-CA")
+                }
+              >
+                {this.strings.userLang === "FR"
+                  ? new Date(item.modified).toLocaleDateString("fr-CA")
+                  : new Date(item.modified).toLocaleDateString("en-CA")}
+              </p>
+            </div>
+          </div>
+        </footer>
       </div>
     );
   }
@@ -317,11 +281,11 @@ export class ReactMyGroups extends React.Component<
           ) : totalItems !== null && totalItems.length >= 1 ? (
             <div>
               {/* <div className={styles.groupsContainer}> */}
-                <GridLayout
-                  sort={this.props.sort}
-                  items={pagedItems}
-                  onRenderGridItem={(item: any) => this._onRenderGridItem(item)}
-                />
+              <GridLayout
+                sort={this.props.sort}
+                items={pagedItems}
+                onRenderGridItem={(item: any) => this._onRenderGridItem(item)}
+              />
               {/* </div> */}
             </div>
           ) : (
@@ -329,21 +293,30 @@ export class ReactMyGroups extends React.Component<
               <Image {...imageProps} alt="a hiding yeti" />
 
               {this.strings.userLang === "FR" ? (
-                <div className={styles.noResultsText}>
+                <div
+                  className={styles.noResultsText}
+                  aria-label={this.strings.noResultsFR}
+                >
                   <h4 className={styles.margin0}>
                     Désolés.
                     <br />
                     Nous ne pouvons trouver la collectivité que vous cherchez.
                   </h4>
                   <p className={styles.margin0}>
-                    Soit elle n’existe pas ou elle porte un autre nom que celui que vous avez entré.
+                    Soit elle n’existe pas ou elle porte un autre nom que celui
+                    que vous avez entré.
                     <br />
-                    Essayez de trouver cette collectivité en utilisant un autre caractère qui fait partie du titre ou créez votre propre collectivité.
+                    Essayez de trouver cette collectivité en utilisant un autre
+                    caractère qui fait partie du titre ou créez votre propre
+                    collectivité.
                   </p>
                 </div>
               ) : (
                 <>
-                  <div className={styles.noResultsText}>
+                  <div
+                    className={styles.noResultsText}
+                    aria-label={this.strings.noResultsEN}
+                  >
                     <h4 className={styles.margin0}>
                       Sorry.
                       <br />
