@@ -168,14 +168,14 @@ export class ReactMyGroups extends React.Component<
 
     return (
       <div className={styles.siteCard}>
-        <a href={item.url}>
+        <a href={item.url} target="_blank">
           <div className={styles.cardBanner}/>
           <img
             className={styles.bannerImg}
             src={item.thumbnail}
             alt={`${this.strings.altImgLogo} ${item.displayName} `}
           />
-          <div className={styles.cardTitle}>{item.displayName}</div>
+          <h3 className={`${styles.cardTitle} ${styles.cardPrimaryAction}`}>{item.displayName}</h3>
         </a>
 
             <div className={styles.cardDescription} aria-label={item.description}>
