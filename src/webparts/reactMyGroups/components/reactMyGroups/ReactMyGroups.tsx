@@ -189,10 +189,10 @@ export class ReactMyGroups extends React.Component<
         <footer className={styles.cardFooter}>
           <div className={styles.footerRow}>
             <div className={styles.footerItem}>
-              <p aria-label={this.strings.siteViews}>
-                {this.strings.siteViews}
+              <p aria-label={this.strings.members}>
+                {this.strings.members}
               </p>
-              <p className={styles.pl5}>{item.views}</p>
+              <p className={styles.pl5}>{item.members}</p>
             </div>
 
             <div className={styles.footerItem}>
@@ -207,8 +207,8 @@ export class ReactMyGroups extends React.Component<
 
           <div className={styles.footerRow}>
             <div className={styles.footerItem}>
-              <p aria-label={this.strings.members}>{this.strings.members}</p>
-              <p className={styles.pl5}>{item.members}</p>
+              <p aria-label={this.strings.siteViews}>{this.strings.siteViews}</p>
+              <p className={styles.pl5}>{item.views}</p>
             </div>
 
             <div className={styles.footerItem}>
