@@ -180,12 +180,12 @@ export class ReactMyGroups extends React.Component<
           </h3>
         </a>
 
-        <section
+        <div
           className={styles.cardDescription}
           aria-label={item.description}
         >
           {item.description}
-        </section>
+        </div>
         <footer className={styles.cardFooter}>
           <div className={styles.footerRow}>
             <div className={styles.footerItem}>
@@ -297,6 +297,7 @@ export class ReactMyGroups extends React.Component<
                 <div
                   className={styles.noResultsText}
                   aria-label={this.strings.noResultsFR}
+                  tabIndex={0}
                 >
                   <h4 className={styles.margin0} >
                     Désolés.
@@ -317,6 +318,8 @@ export class ReactMyGroups extends React.Component<
                   <div
                     className={styles.noResultsText}
                     aria-label={this.strings.noResultsEN}
+                    tabIndex={0}
+
                   >
                     <h4 className={styles.margin0} >
                       Sorry.
@@ -334,7 +337,7 @@ export class ReactMyGroups extends React.Component<
                 </>
               )}
 
-              <Image {...imageProps} alt="a hiding yeti" />
+              <Image {...imageProps} alt="a hiding yeti" tabIndex={-1}/>
             </div>
           )}
         </div>
