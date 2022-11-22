@@ -105,7 +105,7 @@ export class ReactMyGroups extends React.Component<
 
           if (groupsCompleted >= totalGroups) {
             this._getGroupThumbnails(this.state.groups);
-            console.log(this.state.groups);
+            // console.log(this.state.groups);
           }
         })
         .catch((error) => {

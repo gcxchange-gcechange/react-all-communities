@@ -148,6 +148,7 @@
 
   .noResults {
     display: flex;
+    flex-direction: row-reverse;
     align-items: center;
     font-weight: $ms-font-weight-semibold;
   }
