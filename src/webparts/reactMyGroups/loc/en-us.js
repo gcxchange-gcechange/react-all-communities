@@ -26,7 +26,7 @@ define([], function() {
     "addCommLink": "Link for create a community",
     "commLink": "Modify create a community title",
     "createComm": "Create a community",
-    "noResultsEN": "Sorry.\n We couldn't find the community you were looking for.\n Either the community does not exist, or it has a different name.\n Try searching for the community by another letter in the title \n or start your own community.",
+    "noResults": "Sorry.\n We couldn't find the community you were looking for.\n Either the community does not exist, or it has a different name.\n Try searching for the community by another letter in the title \n or start your own community.",
     "members": "Members",
     "siteViews": "Site views",
     "created": "Created",

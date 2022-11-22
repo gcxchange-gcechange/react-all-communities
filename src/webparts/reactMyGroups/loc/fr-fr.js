@@ -27,7 +27,7 @@ define([], function() {
     "addCommLink": "Lien pour créer une collectivité",
     "commLink": "Modifier le titre Créer une collectivité",
     "createComm": "Créer une collectivité",
-    "noResultsFR": "Désolés.\n Nous ne pouvons trouver la collectivité que vous cherchez.\n Soit elle n’existe pas ou elle porte un autre nom que celui que vous avez entré.\nEssayez de trouver cette collectivité en utilisant un autre caractère qui fait partie du titre ou créez votre propre collectivité.",
+    "noResults": "Désolés.\n Nous ne pouvons trouver la collectivité que vous cherchez.\n Soit elle n’existe pas ou elle porte un autre nom que celui que vous avez entré.\nEssayez de trouver cette collectivité en utilisant un autre caractère qui fait partie du titre ou créez votre propre collectivité.",
     "members": "Membres",
     "siteViews": "Visionnements",
     "created": "Créé",

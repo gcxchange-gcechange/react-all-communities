@@ -4,7 +4,7 @@ import { FocusZone, FocusZoneDirection } from 'office-ui-fabric-react/lib/FocusZ
 import { List } from 'office-ui-fabric-react/lib/List';
 import { IRectangle, ISize } from 'office-ui-fabric-react/lib/Utilities';
 import { IGridLayoutProps } from './GridLayout.types';
-import { KeyCodes, getRTLSafeKeyCode } from 'office-ui-fabric-react';
+
 
 
 
@@ -77,7 +77,6 @@ export class GridLayout extends React.Component<IGridLayoutProps> {
           <div data-is-focusable={true}>
              {/* style={{width: `${cellWidth}px`, marginRight: `${cellPadding}px`}} > */}
           {/* style={{ marginRight: `${cellPadding}px`}} > */}
-
 
             {this.props.onRenderGridItem(item)}
 

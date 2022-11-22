@@ -10,6 +10,7 @@ import { SelectLanguage } from "../SelectLanguage";
 import { Icon } from "office-ui-fabric-react/lib/Icon";
 import { Image, IImageProps, ImageFit } from "office-ui-fabric-react";
 import { AZNavigation } from "../AZNavigation/AZNavigation";
+import { noResultsEN } from "ReactMyGroupsWebPartStrings";
 
 export class ReactMyGroups extends React.Component<
   IReactMyGroupsProps,
@@ -289,20 +290,20 @@ export class ReactMyGroups extends React.Component<
               {/* </div> */}
             </div>
           ) : (
-            <div className={styles.noResults}>
-              <Image {...imageProps} alt="a hiding yeti" />
+            <div className={styles.noResults} tabIndex={0} aria-label={this.strings.noResults}>
+
 
               {this.strings.userLang === "FR" ? (
                 <div
                   className={styles.noResultsText}
                   aria-label={this.strings.noResultsFR}
                 >
-                  <h4 className={styles.margin0}>
+                  <h4 className={styles.margin0} >
                     Désolés.
                     <br />
                     Nous ne pouvons trouver la collectivité que vous cherchez.
                   </h4>
-                  <p className={styles.margin0}>
+                  <p className={styles.margin0} >
                     Soit elle n’existe pas ou elle porte un autre nom que celui
                     que vous avez entré.
                     <br />
@@ -317,7 +318,7 @@ export class ReactMyGroups extends React.Component<
                     className={styles.noResultsText}
                     aria-label={this.strings.noResultsEN}
                   >
-                    <h4 className={styles.margin0}>
+                    <h4 className={styles.margin0} >
                       Sorry.
                       <br />
                       We couldn't find the community you were looking for.
@@ -332,6 +333,8 @@ export class ReactMyGroups extends React.Component<
                   </div>
                 </>
               )}
+
+              <Image {...imageProps} alt="a hiding yeti" />
             </div>
           )}
         </div>
