@@ -243,9 +243,10 @@ export class ReactMyGroups extends React.Component<
           .sort((a, b) => (a.createdDateTime < b.createdDateTime ? 1 : -1)))
       : (myData = []
           .concat(this.state.groups)
-          .sort((a, b) => (a.displayName < b.displayName ? 1 : -1)));
+          .sort((a, b) => (a.displayName < b.displayName ? -1 : 1)));
 
     let pagedItems: any[] = myData;
+
 
     // total the groups that are not status code 403
     let totalItems: any[] = this.state.groups;
