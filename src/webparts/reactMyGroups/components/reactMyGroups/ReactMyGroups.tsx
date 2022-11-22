@@ -255,6 +255,7 @@ export class ReactMyGroups extends React.Component<
     const imageProps: Partial<IImageProps> = {
       src: require("../../../../../assets/Yeti_404-02.png"),
       imageFit: ImageFit.contain,
+      shouldStartVisible: true,
       width: 300,
       height: 300,
     };
@@ -338,7 +339,7 @@ export class ReactMyGroups extends React.Component<
                 </>
               )}
 
-              <Image {...imageProps} alt="a hiding yeti" tabIndex={-1}/>
+              <Image {...imageProps} alt="a hiding yeti" tabIndex={-1} />
             </div>
           )}
         </div>
