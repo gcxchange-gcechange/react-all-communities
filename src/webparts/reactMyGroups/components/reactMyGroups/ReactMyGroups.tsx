@@ -8,7 +8,7 @@ import { Spinner } from "office-ui-fabric-react";
 import { GridLayout } from "../GridList";
 import { SelectLanguage } from "../SelectLanguage";
 import { Icon } from "office-ui-fabric-react/lib/Icon";
-import { Stack } from "office-ui-fabric-react";
+import { Stack, Image, IImageProps, ImageFit } from "office-ui-fabric-react";
 import { AZNavigation } from "../AZNavigation/AZNavigation";
 
 export class ReactMyGroups extends React.Component<
@@ -165,6 +165,7 @@ export class ReactMyGroups extends React.Component<
   }
 
   private _onRenderGridItem = (item: any): JSX.Element => {
+
     return (
       <div className={styles.siteCard}>
         <a href={item.url} target="_blank">
@@ -250,8 +251,16 @@ export class ReactMyGroups extends React.Component<
     // total the groups that are not status code 403
     let totalItems: any[] = this.state.groups;
 
+     //No Results Image props
+     const imageProps: Partial<IImageProps> = {
+      src: require("../../assets/YetiHiding.png"),
+      imageFit: ImageFit.contain,
+      width: 300,
+      height: 300,
+    };
 
     return (
+
       <div className={styles.reactMyGroups}>
         <div className={styles.addComm}>
           <Icon iconName="Add" className={styles.addIcon} />
@@ -270,7 +279,7 @@ export class ReactMyGroups extends React.Component<
             selectedLetter={this.props.selectedLetter}
             onClickEvent={this.handleClickEvent}
           />
-          {this.state.isLoading ? (
+          { this.state.isLoading ? (
             <Spinner label={this.strings.loadingState} />
           ) : totalItems !== null && totalItems.length >= 1 ? (
             <div>
@@ -283,7 +292,7 @@ export class ReactMyGroups extends React.Component<
               {/* </div> */}
             </div>
           ) : (
-            <Stack  horizontal reversed  verticalAlign="center" tabIndex={0} aria-label={this.strings.noResults}>
+            <Stack  as='div' horizontal reversed  verticalAlign="center" tabIndex={0} aria-label={this.strings.noResults}>
               {this.strings.userLang === "FR" ? (
                 <div
                   className={styles.noResultsText}
@@ -327,7 +336,12 @@ export class ReactMyGroups extends React.Component<
                   </div>
                 </>
               )}
-              <img src={require("../../assets/Yeti_404-02.png")}  alt="A heiding yeti" width={300 } height={300} tabIndex={-1}></img>
+
+              {/* <img src={require("../../assets/Yeti_404-02.png")}  alt="A heiding yeti" width={300 } height={300} tabIndex={-1}></img> */}
+                <div>
+                <Image {...imageProps} alt="a hiding yeti"/>
+                </div>
+
             </Stack>
           )}
         </div>
