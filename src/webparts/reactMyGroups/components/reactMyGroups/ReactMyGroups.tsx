@@ -4,13 +4,12 @@ import { IReactMyGroupsProps } from "./IReactMyGroupsProps";
 import GroupService from "../../../../services/GroupService";
 import { IReactMyGroupsState } from "./IReactMyGroupsState";
 import { IGroup } from "../../../../models";
-import {Spinner} from "office-ui-fabric-react";
+import { Spinner } from "office-ui-fabric-react";
 import { GridLayout } from "../GridList";
 import { SelectLanguage } from "../SelectLanguage";
 import { Icon } from "office-ui-fabric-react/lib/Icon";
-import { Image, IImageProps, ImageFit } from "office-ui-fabric-react";
+import { Stack } from "office-ui-fabric-react";
 import { AZNavigation } from "../AZNavigation/AZNavigation";
-import { noResultsEN } from "ReactMyGroupsWebPartStrings";
 
 export class ReactMyGroups extends React.Component<
   IReactMyGroupsProps,
@@ -251,14 +250,6 @@ export class ReactMyGroups extends React.Component<
     // total the groups that are not status code 403
     let totalItems: any[] = this.state.groups;
 
-    //No Results Image props
-    const imageProps: Partial<IImageProps> = {
-      src: require("../../../../../assets/Yeti_404-02.png"),
-      imageFit: ImageFit.contain,
-      shouldStartVisible: true,
-      width: 300,
-      height: 300,
-    };
 
     return (
       <div className={styles.reactMyGroups}>
@@ -292,9 +283,7 @@ export class ReactMyGroups extends React.Component<
               {/* </div> */}
             </div>
           ) : (
-            <div className={styles.noResults} tabIndex={0} aria-label={this.strings.noResults}>
-
-
+            <Stack  horizontal reversed  verticalAlign="center" tabIndex={0} aria-label={this.strings.noResults}>
               {this.strings.userLang === "FR" ? (
                 <div
                   className={styles.noResultsText}
@@ -338,9 +327,8 @@ export class ReactMyGroups extends React.Component<
                   </div>
                 </>
               )}
-
-              <Image {...imageProps} alt="a hiding yeti" tabIndex={-1} />
-            </div>
+              <img src={require("../../assets/Yeti_404-02.png")}  alt="A heiding yeti" width={300 } height={300} tabIndex={-1}></img>
+            </Stack>
           )}
         </div>
       </div>
