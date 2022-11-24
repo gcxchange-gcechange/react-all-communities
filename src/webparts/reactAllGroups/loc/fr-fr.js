@@ -31,6 +31,7 @@ define([], function() {
     "members": "Membres",
     "siteViews": "Vues",
     "created": "Créé",
-    "lastModified": "Dernière modification"
+    "lastModified": "Dernière modification",
+    "hidingYeti": "Un yeti caché"
   }
 });
