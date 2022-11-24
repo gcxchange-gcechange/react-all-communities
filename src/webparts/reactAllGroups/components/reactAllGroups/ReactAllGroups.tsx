@@ -266,7 +266,7 @@ export class ReactAllGroups extends React.Component<
     return (
 
       <div className={styles.reactAllGroups}>
-        <div className={styles.addComm}>
+        {/* <div className={styles.addComm}>
           <Icon iconName="Add" className={styles.addIcon} />
           <a
             aria-label={this.strings.createComm}
@@ -277,7 +277,7 @@ export class ReactAllGroups extends React.Component<
               ? this.strings.createComm
               : this.props.commLink}
           </a>
-        </div>
+        </div> */}
         <div className={styles.flexCenter}>
           <AZNavigation
             selectedLetter={this.props.selectedLetter}
@@ -318,6 +318,7 @@ export class ReactAllGroups extends React.Component<
                     collectivité.
                   </p>
                 </div>
+
               ) : (
                 <>
                   <div
@@ -339,11 +340,12 @@ export class ReactAllGroups extends React.Component<
                       title or start your own community.
                     </p>
                   </div>
-                  <div>
-                   <img {...imageProps} alt={this.strings.hidingYeti}/>
-                  </div>
+
                 </>
               )}
+                <div>
+                  <img {...imageProps} alt={this.strings.hidingYeti}/>
+                </div>
             </Stack>
           )}
         </div>
