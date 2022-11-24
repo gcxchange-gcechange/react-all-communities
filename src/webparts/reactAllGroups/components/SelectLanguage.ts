@@ -1,4 +1,4 @@
-import * as strings from 'ReactMyGroupsWebPartStrings';
+import * as strings from 'ReactAllGroupsWebPartStrings';
 import * as english from '../loc/en-us.js';
 import * as french from '../loc/fr-fr.js';
 

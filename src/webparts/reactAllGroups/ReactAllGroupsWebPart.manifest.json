@@ -1,7 +1,7 @@
 {
   "$schema": "https://developer.microsoft.com/json-schemas/spfx/client-side-web-part-manifest.schema.json",
   "id": "f7cdea9d-4904-4e7b-990a-6e4f69f13db8",
-  "alias": "ReactMyGroupsWebPart",
+  "alias": "ReactAllGroupsWebPart",
   "componentType": "WebPart",
   "supportsThemeVariants": true,
 

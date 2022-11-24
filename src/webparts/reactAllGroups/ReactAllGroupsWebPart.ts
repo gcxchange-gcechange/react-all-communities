@@ -4,12 +4,12 @@ import { Version } from '@microsoft/sp-core-library';
 import { BaseClientSideWebPart } from "@microsoft/sp-webpart-base";
 import { IPropertyPaneConfiguration, PropertyPaneTextField, PropertyPaneChoiceGroup, PropertyPaneDropdown, PropertyPaneToggle, PropertyPaneLink, PropertyPaneButton, PropertyPaneButtonType } from "@microsoft/sp-property-pane";
 import GroupService from '../../services/GroupService';
-import * as strings from 'ReactMyGroupsWebPartStrings';
-import { ReactMyGroups, IReactMyGroupsProps } from './components';
+import * as strings from 'ReactAllGroupsWebPartStrings';
+import { ReactAllGroups, IReactAllGroupsProps } from './components';
 import { ThemeProvider, ThemeChangedEventArgs, IReadonlyTheme } from '@microsoft/sp-component-base';
 
 
-export interface IReactMyGroupsWebPartProps {
+export interface IReactAllGroupsWebPartProps {
   addCommLink: string;
   layout: string;
   prefLang: string;
@@ -25,14 +25,14 @@ export interface IReactMyGroupsWebPartProps {
 
 }
 
-export default class ReactMyGroupsWebPart extends BaseClientSideWebPart<IReactMyGroupsWebPartProps> {
+export default class ReactAllGroupsWebPart extends BaseClientSideWebPart<IReactAllGroupsWebPartProps> {
 
   private _themeProvider: ThemeProvider;
   private _themeVariant: IReadonlyTheme;
 
   public render(): void {
-    const element: React.ReactElement<IReactMyGroupsProps > = React.createElement(
-      ReactMyGroups,
+    const element: React.ReactElement<IReactAllGroupsProps > = React.createElement(
+      ReactAllGroups,
       {
         addCommLink: this.properties.addCommLink,
         layout: this.properties.layout,

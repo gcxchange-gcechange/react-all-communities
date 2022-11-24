@@ -1,4 +1,4 @@
-declare interface IReactMyGroupsWebPartStrings {
+declare interface IReactAllGroupsWebPartStrings {
   PropertyPaneDescription: string;
   BasicGroupName: string;
   DescriptionFieldLabel: string;
@@ -27,7 +27,7 @@ declare interface IReactMyGroupsWebPartStrings {
 
 }
 
-declare module 'ReactMyGroupsWebPartStrings' {
-  const strings: IReactMyGroupsWebPartStrings;
+declare module 'ReactAllGroupsWebPartStrings' {
+  const strings: IReactAllGroupsWebPartStrings;
   export = strings;
 }

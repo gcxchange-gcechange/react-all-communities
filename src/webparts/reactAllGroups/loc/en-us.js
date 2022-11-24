@@ -30,7 +30,8 @@ define([], function() {
     "members": "Members",
     "siteViews": "Views",
     "created": "Created",
-    "lastModified": "Last modified"
+    "lastModified": "Last modified",
+    "hidingYeti": "hidingYeti"
 
   }
 });

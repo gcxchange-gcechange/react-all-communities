@@ -1,8 +1,8 @@
 import * as React from "react";
-import styles from "./ReactMyGroups.module.scss";
-import { IReactMyGroupsProps } from "./IReactMyGroupsProps";
+import styles from "./ReactAllGroups.module.scss";
+import { IReactAllGroupsProps } from "./IReactAllGroupsProps";
 import GroupService from "../../../../services/GroupService";
-import { IReactMyGroupsState } from "./IReactMyGroupsState";
+import { IReactAllGroupsState } from "./IReactAllGroupsState";
 import { IGroup } from "../../../../models";
 import { Spinner } from "office-ui-fabric-react";
 import { GridLayout } from "../GridList";
@@ -11,11 +11,13 @@ import { Icon } from "office-ui-fabric-react/lib/Icon";
 import { Stack, Image, IImageProps, ImageFit } from "office-ui-fabric-react";
 import { AZNavigation } from "../AZNavigation/AZNavigation";
 
-export class ReactMyGroups extends React.Component<
-  IReactMyGroupsProps,
-  IReactMyGroupsState
+
+
+export class ReactAllGroups extends React.Component<
+  IReactAllGroupsProps,
+  IReactAllGroupsState
 > {
-  constructor(props: IReactMyGroupsProps) {
+  constructor(props: IReactAllGroupsProps) {
     super(props);
 
     this.state = {
@@ -166,6 +168,8 @@ export class ReactMyGroups extends React.Component<
 
   private _onRenderGridItem = (item: any): JSX.Element => {
 
+    // console.log("Item", item)
+
     return (
       <div className={styles.siteCard}>
         <a href={item.url} target="_blank">
@@ -234,7 +238,7 @@ export class ReactMyGroups extends React.Component<
     );
   }
 
-  public render(): React.ReactElement<IReactMyGroupsProps> {
+  public render(): React.ReactElement<IReactAllGroupsProps> {
     //Sorting in the Control panel
     let myData = [];
     this.props.sort == "DateCreation"
@@ -253,15 +257,15 @@ export class ReactMyGroups extends React.Component<
 
      //No Results Image props
      const imageProps: Partial<IImageProps> = {
-      src: require("../../assets/YetiHiding.png"),
-      imageFit: ImageFit.contain,
+     src: (require("../../assets/YetiHiding.png")),
+      // imageFit: ImageFit.contain,
       width: 300,
       height: 300,
     };
 
     return (
 
-      <div className={styles.reactMyGroups}>
+      <div className={styles.reactAllGroups}>
         <div className={styles.addComm}>
           <Icon iconName="Add" className={styles.addIcon} />
           <a
@@ -293,13 +297,14 @@ export class ReactMyGroups extends React.Component<
             </div>
           ) : (
             <Stack  as='div' horizontal reversed  verticalAlign="center" tabIndex={0} aria-label={this.strings.noResults}>
+
               {this.strings.userLang === "FR" ? (
                 <div
                   className={styles.noResultsText}
                   aria-label={this.strings.noResultsFR}
                   tabIndex={0}
                 >
-                  <h4 className={styles.margin0} >
+                  <h4 className={styles.margin0}>
                     Désolés.
                     <br />
                     Nous ne pouvons trouver la collectivité que vous cherchez.
@@ -320,7 +325,7 @@ export class ReactMyGroups extends React.Component<
                     aria-label={this.strings.noResultsEN}
                     tabIndex={0}
 
-                  >
+                    >
                     <h4 className={styles.margin0} >
                       Sorry.
                       <br />
@@ -334,14 +339,11 @@ export class ReactMyGroups extends React.Component<
                       title or start your own community.
                     </p>
                   </div>
+                  <div>
+                   <img {...imageProps} alt={this.strings.hidingYeti}/>
+                  </div>
                 </>
               )}
-
-              {/* <img src={require("../../assets/Yeti_404-02.png")}  alt="A heiding yeti" width={300 } height={300} tabIndex={-1}></img> */}
-                <div>
-                <Image {...imageProps} alt="a hiding yeti"/>
-                </div>
-
             </Stack>
           )}
         </div>

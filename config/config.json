@@ -2,17 +2,17 @@
   "$schema": "https://developer.microsoft.com/json-schemas/spfx-build/config.2.0.schema.json",
   "version": "2.0",
   "bundles": {
-    "react-my-groups-web-part": {
+    "react-all-groups-web-part": {
       "components": [
         {
-          "entrypoint": "./lib/webparts/reactMyGroups/ReactMyGroupsWebPart.js",
-          "manifest": "./src/webparts/reactMyGroups/ReactMyGroupsWebPart.manifest.json"
+          "entrypoint": "./lib/webparts/reactAllGroups/ReactAllGroupsWebPart.js",
+          "manifest": "./src/webparts/reactAllGroups/ReactAllGroupsWebPart.manifest.json"
         }
       ]
     }
   },
   "externals": {},
   "localizedResources": {
-    "ReactMyGroupsWebPartStrings": "lib/webparts/reactMyGroups/loc/{locale}.js"
+    "ReactAllGroupsWebPartStrings": "lib/webparts/reactAllGroups/loc/{locale}.js"
   }
 }
