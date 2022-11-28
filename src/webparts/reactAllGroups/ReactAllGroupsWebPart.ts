@@ -10,7 +10,7 @@ import { ThemeProvider, ThemeChangedEventArgs, IReadonlyTheme } from '@microsoft
 
 
 export interface IReactAllGroupsWebPartProps {
-  addCommLink: string;
+  // addCommLink: string;
   layout: string;
   prefLang: string;
   toggleSeeAll: boolean;
@@ -18,8 +18,8 @@ export interface IReactAllGroupsWebPartProps {
   sort: string;
   themeVariant: IReadonlyTheme | undefined;
   selectedLetter: string;
-  commLink: string;
-  createComm: string;
+  // commLink: string;
+  // createComm: string;
 
 
 
@@ -34,7 +34,7 @@ export default class ReactAllGroupsWebPart extends BaseClientSideWebPart<IReactA
     const element: React.ReactElement<IReactAllGroupsProps > = React.createElement(
       ReactAllGroups,
       {
-        addCommLink: this.properties.addCommLink,
+        // addCommLink: this.properties.addCommLink,
         layout: this.properties.layout,
         prefLang: this.properties.prefLang,
         toggleSeeAll: this.properties.toggleSeeAll,
@@ -42,8 +42,8 @@ export default class ReactAllGroupsWebPart extends BaseClientSideWebPart<IReactA
         sort: this.properties.sort,
         themeVariant: this._themeVariant,
         selectedLetter: this.properties.selectedLetter,
-        commLink: this.properties.commLink,
-        createComm: this.properties.createComm,
+        // commLink: this.properties.commLink,
+        // createComm: this.properties.createComm,
 
 
       }
@@ -87,18 +87,6 @@ export default class ReactAllGroupsWebPart extends BaseClientSideWebPart<IReactA
                     { key: 'en-us', text: 'English'},
                     { key: 'fr-fr', text: 'Français'},
                   ]
-                }),
-
-                PropertyPaneTextField('commLink', {
-                  label: strings.commLink,
-
-
-
-                }),
-
-                PropertyPaneTextField('addCommLink', {
-                  label:`${strings.addCommLink}`,
-                  value:`https://`,
                 }),
 
 

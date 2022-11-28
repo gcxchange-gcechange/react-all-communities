@@ -3,7 +3,7 @@ import { IReadonlyTheme } from '@microsoft/sp-component-base';
 
 export interface IReactAllGroupsProps {
 
-  addCommLink: string;
+  // addCommLink: string;
   layout: string;
   sort: string;
   numberPerPage: number;
@@ -11,8 +11,8 @@ export interface IReactAllGroupsProps {
   themeVariant: IReadonlyTheme | undefined;
   prefLang: string;
   selectedLetter: string;
-  commLink: string;
-  createComm: string;
+  // commLink: string;
+  // createComm: string;
 
 
 

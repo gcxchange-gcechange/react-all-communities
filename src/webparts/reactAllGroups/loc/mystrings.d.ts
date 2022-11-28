@@ -15,9 +15,6 @@ declare interface IReactAllGroupsWebPartStrings {
   listIcon: string;
   groups: string;
   alphabetical: string;
-  addCommLink: string;
-  commLink: string;
-  createComm: string;
   noResultsEN: string;
   noResultsFR: string;
   members:string;
