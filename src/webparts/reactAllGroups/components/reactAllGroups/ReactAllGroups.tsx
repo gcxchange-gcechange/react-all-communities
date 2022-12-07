@@ -266,18 +266,6 @@ export class ReactAllGroups extends React.Component<
     return (
 
       <div className={styles.reactAllGroups}>
-        {/* <div className={styles.addComm}>
-          <Icon iconName="Add" className={styles.addIcon} />
-          <a
-            aria-label={this.strings.createComm}
-            href={this.props.addCommLink}
-            target="_blank"
-          >
-            {!this.props.commLink
-              ? this.strings.createComm
-              : this.props.commLink}
-          </a>
-        </div> */}
         <div className={styles.flexCenter}>
           <AZNavigation
             selectedLetter={this.props.selectedLetter}
