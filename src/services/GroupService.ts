@@ -17,7 +17,8 @@ export class GroupServiceManager {
 
     if (letter === "#") {
       apiTxt =
-        "/groups?$filter=groupTypes/any(c:c+eq+'Unified') and startsWith(displayName,'1') or startswith(displayName,'2') or startswith(displayName,'3') or startswith(displayName,'4')or startswith(displayName,'5') or startswith(displayName,'6') or startswith(displayName,'7') or startswith(displayName,'8') or startswith(displayName,'9')";
+        "/groups?$filter=groupTypes/any(c:c+eq+'Unified') and startsWith(displayName,'1') or startswith(displayName,'2') or startswith(displayName,'3') or startswith(displayName,'4') \
+        or startswith(displayName,'5') or startswith(displayName,'6') or startswith(displayName,'7') or startswith(displayName,'8') or startswith(displayName,'9') or startswith(displayName, '0')";
     } else {
       apiTxt = `/groups?$filter=groupTypes/any(c:c+eq+'Unified') and startsWith(displayName,'${letter}')`;
     }
@@ -30,7 +31,7 @@ export class GroupServiceManager {
             client
               .api(apiTxt)
               .get((error: any, groups: IGroupCollection, rawResponse: any) => {
-                //console.log("GROUPS", groups.value);
+                console.log("GROUPS", groups.value);
                 resolve(groups.value);
               });
           });
@@ -52,7 +53,7 @@ export class GroupServiceManager {
           id: "2",
           method: "GET",
           url: `/groups/${groups.id}/members/$count?ConsistencyLevel=eventual`
-        }
+        },
       ],
     };
     return new Promise((resolve, reject) => {
@@ -75,7 +76,7 @@ export class GroupServiceManager {
                     return null;
                   }
                 });
-                //console.log("RES", responseContent);
+                console.log("RES", responseContent);
                 resolve(responseContent);
               });
           });
@@ -86,24 +87,35 @@ export class GroupServiceManager {
     });
   }
 
+  public getGroupThumbnails(groups: any): Promise<any> {
 
+    let requestBody = {
+      requests: [
+        {
+          id: "1",
+          method: "GET",
+          url:  `/groups/${groups.id}/photos/48x48/$value`
+        }
+      ],
+    };
 
-  public getGroupThumbnails(groups: IGroup): Promise<any> {
     return new Promise<any>((resolve, reject) => {
       try {
         this.context.msGraphClientFactory
-          .getClient()
-          .then((client: MSGraphClient) => {
-            client
-              .api(`/groups/${groups.id}/photos/48x48/$value`)
-              .responseType("blob")
-              .get((error: any, group: any, rawResponse: any) => {
-                resolve(window.URL.createObjectURL(group));
-              });
+        .getClient()
+        .then((client: MSGraphClient) => {
+          client
+          .api(`/$batch`)
+          .post( requestBody, (error: any, responseObject: any) => {
+            console.log("THUM", responseObject);
+            let thumbnailsResponseContent = {};
+            responseObject.responses.forEach( response => thumbnailsResponseContent[response.id] = response.body );
+
+            resolve(thumbnailsResponseContent);
           });
-      } catch (error) {
+        });
+      } catch(error) {
         console.error(error);
-        reject(error);
       }
     });
   }

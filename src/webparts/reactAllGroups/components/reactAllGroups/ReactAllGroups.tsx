@@ -133,7 +133,7 @@ export class ReactAllGroups extends React.Component<
         this.setState((prevState) => ({
           groups: prevState.groups.map((group) =>
             group.id === groupItem.id
-              ? { ...group, thumbnail: grouptb, color: "#0078d4" }
+              ? {...group, thumbnail: "data:image/jpeg;base64," + grouptb[1], color: "#0078d4"}
               : group
           ),
         }));
