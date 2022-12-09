@@ -10,6 +10,7 @@ import { SelectLanguage } from "../SelectLanguage";
 import { Icon } from "office-ui-fabric-react/lib/Icon";
 import { Stack, Image, IImageProps, ImageFit } from "office-ui-fabric-react";
 import { AZNavigation } from "../AZNavigation/AZNavigation";
+import { Paging } from "../paging";
 
 
 
@@ -118,6 +119,7 @@ export class ReactAllGroups extends React.Component<
   }
 
   public _getGroupThumbnails = (groups: any): void => {
+
     let groupsCompleted = 0;
     let totalGroups = groups.length;
 
@@ -238,6 +240,12 @@ export class ReactAllGroups extends React.Component<
     );
   }
 
+  private _onPageUpdate = (pageNumber: number): void => {
+    this.setState({
+      currentPage: pageNumber
+    });
+  }
+
   public render(): React.ReactElement<IReactAllGroupsProps> {
     //Sorting in the Control panel
     let myData = [];
@@ -263,6 +271,23 @@ export class ReactAllGroups extends React.Component<
       height: 300,
     };
 
+    //Paging
+
+    const numberOfItems: number = pagedItems.length;
+    let showPages: boolean = false;
+
+    let  maxEvents: number = this.props.numberPerPage;
+    const { currentPage } = this.state;
+
+    if (true && numberOfItems > 0 && numberOfItems > maxEvents) {
+
+      const pageStartAt: number = maxEvents * (currentPage - 1);
+      const pageEndAt: number = (maxEvents * currentPage);
+
+      pagedItems = pagedItems.slice(pageStartAt, pageEndAt);
+      showPages = true;
+    }
+
     return (
 
       <div className={styles.reactAllGroups}>
@@ -275,6 +300,14 @@ export class ReactAllGroups extends React.Component<
             <Spinner label={this.strings.loadingState} />
           ) : totalItems !== null && totalItems.length >= 1 ? (
             <div>
+              <Paging
+              showPageNumber={true}
+              currentPage={currentPage}
+              itemsCountPerPage={20}
+              numberOfItems={numberOfItems}
+              onPageUpdate={this._onPageUpdate}
+              nextButtonLabel={this.strings.pagNext}
+              previousButtonLabel={this.strings.pagPrev}/>
               {/* <div className={styles.groupsContainer}> */}
               <GridLayout
                 sort={this.props.sort}
