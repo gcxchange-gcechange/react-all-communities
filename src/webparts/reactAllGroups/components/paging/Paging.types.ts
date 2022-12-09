@@ -1,6 +1,6 @@
 export interface IPagingProps {
     currentPage: number;
-    totalItems: number;
+    numberOfItems: number;
     itemsCountPerPage: number;
     showPageNumber: boolean;
     nextButtonLabel: string;
