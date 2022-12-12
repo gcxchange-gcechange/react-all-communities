@@ -5,6 +5,7 @@ import { Icon } from 'office-ui-fabric-react/lib/Icon';
 
 import { IPagingProps, IPagingState } from "./index";
 import styles from "./Paging.module.scss";
+import { setPageNum } from 'ReactAllGroupsWebPartStrings';
 
 /**
  * A custom pagination control designed to look & feel like Office UI Fabric
@@ -38,6 +39,9 @@ export class Paging extends React.Component<IPagingProps, IPagingState> {
                 >
                     {previousButtonLabel}
                 </ActionButton>
+                <div className={styles.pageNumber}>
+                  {currentPage}
+                </div>
                 {/* NOT IMPLEMENTED: Page numbers aren't shown here, but we'll need them if we want this control to be reusable */}
                 <ActionButton className={styles.next}
                     disabled={nextDisabled}

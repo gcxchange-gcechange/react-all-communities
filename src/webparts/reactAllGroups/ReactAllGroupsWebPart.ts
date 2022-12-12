@@ -64,17 +64,6 @@ export default class ReactAllGroupsWebPart extends BaseClientSideWebPart<IReactA
   protected getPropertyPaneConfiguration(): IPropertyPaneConfiguration {
     const { layout }  = this.properties;
 
-    let numberPerPageOption: any;
-
-
-    if (this.properties.numberPerPage) {
-      numberPerPageOption = PropertyPaneSlider('numberPerPage', {
-        label: strings.setPageNum,
-        min: 1,
-        max: 5
-      });
-    }
-
 
     return {
       pages: [
@@ -114,7 +103,7 @@ export default class ReactAllGroupsWebPart extends BaseClientSideWebPart<IReactA
                 }),
 
                 PropertyPaneSlider('numberPerPage', {
-                  label: 'Items per page',
+                  label: 'items per page',
                   min: 1,
                   max: 5,
                   step: 1,

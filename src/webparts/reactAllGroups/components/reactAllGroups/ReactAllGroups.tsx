@@ -258,7 +258,7 @@ export class ReactAllGroups extends React.Component<
           .sort((a, b) => (a.displayName < b.displayName ? -1 : 1)));
 
     let pagedItems: any[] = myData;
-
+        console.log("PgItems",pagedItems);
 
     // total the groups that are not status code 403
     let totalItems: any[] = this.state.groups;
@@ -274,9 +274,11 @@ export class ReactAllGroups extends React.Component<
     //Paging
 
     const numberOfItems: number = pagedItems.length;
+    console.log("#",numberOfItems);
     let showPages: boolean = false;
 
     let  maxEvents: number = this.props.numberPerPage;
+    console.log("maxEvents",maxEvents);
     const { currentPage } = this.state;
 
     if (true && numberOfItems > 0 && numberOfItems > maxEvents) {
@@ -303,7 +305,7 @@ export class ReactAllGroups extends React.Component<
               <Paging
               showPageNumber={true}
               currentPage={currentPage}
-              itemsCountPerPage={20}
+              itemsCountPerPage={2}
               numberOfItems={numberOfItems}
               onPageUpdate={this._onPageUpdate}
               nextButtonLabel={this.strings.pagNext}
