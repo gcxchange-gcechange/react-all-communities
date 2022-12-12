@@ -7,6 +7,10 @@ export interface IPagingProps {
     previousButtonLabel: string;
     nextButtonAriaLabel?: string;
     previousButtonAriaLabel?: string;
+    firstButtonLabel: string;
+    lastButtonLabel: string;
+    firstButtonAriaLabel?: string;
+    lastButtonAriaLabel?: string;
     onPageUpdate: (pageNumber: number) => void;
 }
 

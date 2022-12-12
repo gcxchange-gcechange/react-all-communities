@@ -11,6 +11,7 @@ export interface IReactAllGroupsProps {
   themeVariant: IReadonlyTheme | undefined;
   prefLang: string;
   selectedLetter: string;
+
   // commLink: string;
   // createComm: string;
 

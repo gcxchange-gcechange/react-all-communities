@@ -22,6 +22,8 @@ define([], function() {
     "ListIcon" : "List",
     "pagePrev" : "Previous",
     "pageNext" : "Next",
+    "firstPage" : "First",
+    "lastPage" : "Last",
     "groups" : "Group",
     "noResults": "Sorry.\n We couldn't find the community you were looking for.\n Either the community does not exist, or it has a different name.\n Try searching for the community by another letter in the title \n or start your own community.",
     "members": "Members",

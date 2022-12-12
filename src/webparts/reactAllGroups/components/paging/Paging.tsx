@@ -13,10 +13,11 @@ import { setPageNum } from 'ReactAllGroupsWebPartStrings';
 export class Paging extends React.Component<IPagingProps, IPagingState> {
     public render(): React.ReactElement<IPagingProps> {
 
-        const { currentPage, nextButtonLabel, previousButtonLabel, nextButtonAriaLabel, previousButtonAriaLabel } = this.props;
+        const { currentPage, nextButtonLabel, previousButtonLabel, nextButtonAriaLabel, previousButtonAriaLabel, firstButtonLabel, firstButtonAriaLabel, lastButtonLabel, lastButtonAriaLabel } = this.props;
 
         // calculate the page situation
         const numberOfPages: number = this._getNumberOfPages();
+
 
         // we disable the previous button if we're on page 1
         const prevDisabled: boolean = currentPage < 2;
@@ -24,8 +25,22 @@ export class Paging extends React.Component<IPagingProps, IPagingState> {
         // we disable the next button if we're on the last page
         const nextDisabled: boolean = currentPage >= numberOfPages;
 
+
+
         return (
             <div className={css(styles.Paging, this.props.showPageNumber ? null : styles.noPageNum)}>
+              {/* <ActionButton className={styles.prev}
+                onRenderIcon={(_props: IButtonProps) => {
+                        // we use the render custom icon method to render the icon consistently with the right icon
+                        return (
+                            <Icon iconName="DoubleChevronLeft" />
+                        );
+                    }}
+                    disabled={prevDisabled}
+                    onClick={this._firstPage}
+                    ariaLabel={firstButtonAriaLabel}>
+
+              </ActionButton> */}
                 <ActionButton className={styles.prev}
                     onRenderIcon={(_props: IButtonProps) => {
                         // we use the render custom icon method to render the icon consistently with the right icon
@@ -40,7 +55,7 @@ export class Paging extends React.Component<IPagingProps, IPagingState> {
                     {previousButtonLabel}
                 </ActionButton>
                 <div className={styles.pageNumber}>
-                  {currentPage}
+                  <div>{currentPage}</div>
                 </div>
                 {/* NOT IMPLEMENTED: Page numbers aren't shown here, but we'll need them if we want this control to be reusable */}
                 <ActionButton className={styles.next}
@@ -79,12 +94,22 @@ export class Paging extends React.Component<IPagingProps, IPagingState> {
         }
     }
 
+
+    private _firstPage = (): void => {
+      const numberofPages: number = this._getNumberOfPages();
+      console.log("firstPage", numberofPages);
+      if(this.props.currentPage > numberofPages) {
+        this.props.onPageUpdate(this.props.currentPage);
+      }
+    }
+
     /**
      * Calculates how many pages there will be
      */
     private _getNumberOfPages(): number {
         const { numberOfItems, itemsCountPerPage } = this.props;
-        let numPages: number = Math.round(numberOfItems / itemsCountPerPage);
+        let numPages: number = Math.ceil(numberOfItems / itemsCountPerPage);
+        console.log("numPages", numPages);
         return numPages;
     }
 }

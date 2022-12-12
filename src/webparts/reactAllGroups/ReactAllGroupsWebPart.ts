@@ -20,6 +20,8 @@ export interface IReactAllGroupsWebPartProps {
 
 
 
+
+
 }
 
 export default class ReactAllGroupsWebPart extends BaseClientSideWebPart<IReactAllGroupsWebPartProps> {
@@ -38,6 +40,7 @@ export default class ReactAllGroupsWebPart extends BaseClientSideWebPart<IReactA
         sort: this.properties.sort,
         themeVariant: this._themeVariant,
         selectedLetter: this.properties.selectedLetter,
+
 
 
       }

@@ -257,8 +257,8 @@ export class ReactAllGroups extends React.Component<
           .concat(this.state.groups)
           .sort((a, b) => (a.displayName < b.displayName ? -1 : 1)));
 
-    let pagedItems: any[] = myData;
-        console.log("PgItems",pagedItems);
+    let pagedItems: any[] = this.state.groups;
+        console.log("PgItems",pagedItems.length);
 
     // total the groups that are not status code 403
     let totalItems: any[] = this.state.groups;
@@ -273,10 +273,11 @@ export class ReactAllGroups extends React.Component<
 
     //Paging
 
-    const numberOfItems: number = pagedItems.length;
-    console.log("#",numberOfItems);
+    const numberOfItems: number = totalItems.length;
+    console.log("#total Item for specific letter",numberOfItems);
     let showPages: boolean = false;
 
+    //slider events
     let  maxEvents: number = this.props.numberPerPage;
     console.log("maxEvents",maxEvents);
     const { currentPage } = this.state;
@@ -305,11 +306,14 @@ export class ReactAllGroups extends React.Component<
               <Paging
               showPageNumber={true}
               currentPage={currentPage}
-              itemsCountPerPage={2}
+              itemsCountPerPage={maxEvents}
               numberOfItems={numberOfItems}
               onPageUpdate={this._onPageUpdate}
               nextButtonLabel={this.strings.pagNext}
-              previousButtonLabel={this.strings.pagPrev}/>
+              previousButtonLabel={this.strings.pagPrev}
+              firstButtonLabel={this.strings.firstPage}
+              lastButtonLabel={this.strings.lastPage}
+              />
               {/* <div className={styles.groupsContainer}> */}
               <GridLayout
                 sort={this.props.sort}
