@@ -41,11 +41,13 @@ export class ReactAllGroups extends React.Component<
     this.setState(
       {
         selectedLetter: this.props.selectedLetter,
+        currentPage: 1
       },
       //functions that renders groups based on user selected letter
       function () {
         this._setLoading(true);
         this._getGroups(letter);
+
       }
     );
   }
@@ -245,6 +247,7 @@ export class ReactAllGroups extends React.Component<
       currentPage: pageNumber
     });
   }
+
 
   public render(): React.ReactElement<IReactAllGroupsProps> {
     //Sorting in the Control panel
