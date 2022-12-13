@@ -168,15 +168,17 @@ export class ReactAllGroups extends React.Component<
 
   private _onRenderGridItem = (item: any): JSX.Element => {
 
-    let frenchTitle = '';
-     let newTitle = item.displayName.split(" - ").length - 1
+    // 1 - Split the Eng and French by the first hyphen that contains spaces.
+    // 2 - if only 1 hyphen appears remove the English.
 
-     if(newTitle == 1) {
-      // console.log("just one")
-      frenchTitle =  item.displayName.split(" - ").slice(1);
-     } else {
-      frenchTitle = item.displayName
-     }
+    let frenchTitle: string = '';
+    let Index: number = item.displayName.split(" - ").length - 1; // - 1
+    Index == 1 ? frenchTitle =  item.displayName.split(" - ").slice(1) : frenchTitle = item.displayName; // -2
+
+    let frenchDesc: string = '';
+    let DescIndex :number = item.description.split(" - ").length -1;
+    DescIndex == 1 ? frenchDesc =  item.description.split(" - ").slice(1) : frenchDesc = item.description;
+
 
     return (
       <div className={styles.siteCard}>
@@ -196,7 +198,7 @@ export class ReactAllGroups extends React.Component<
           className={styles.cardDescription}
           aria-label={item.description}
         >
-          {item.description}
+          { this.strings.userLang === "FR" ? frenchDesc : item.description }
         </div>
         <footer className={styles.cardFooter}>
           <div className={styles.footerRow}>
