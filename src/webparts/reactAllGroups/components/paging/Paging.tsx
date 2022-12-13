@@ -1,6 +1,6 @@
 import * as React from 'react';
 import { css } from '@uifabric/utilities/lib/css';
-import { ActionButton, IButtonProps } from 'office-ui-fabric-react/lib/Button';
+import { ActionButton, IButtonProps, PrimaryButton } from 'office-ui-fabric-react/lib/Button';
 import { Icon } from 'office-ui-fabric-react/lib/Icon';
 
 import { IPagingProps, IPagingState } from "./index";
@@ -54,10 +54,11 @@ export class Paging extends React.Component<IPagingProps, IPagingState> {
                 >
                     {previousButtonLabel}
                 </ActionButton>
-
-                <div className={styles.resCircle}>
+              {/* NOT IMPLEMENTED: Page numbers aren't shown here, but we'll need them if we want this control to be reusable */}
+                <PrimaryButton className={styles.resCircle}
+                >
                   <div className={styles.circleTxt}>{currentPage}</div>
-                </div>                {/* NOT IMPLEMENTED: Page numbers aren't shown here, but we'll need them if we want this control to be reusable */}
+                </PrimaryButton>
                 <ActionButton className={styles.next}
                     disabled={nextDisabled}
                     onRenderMenuIcon={(_props: IButtonProps) => {
