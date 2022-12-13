@@ -54,10 +54,10 @@ export class Paging extends React.Component<IPagingProps, IPagingState> {
                 >
                     {previousButtonLabel}
                 </ActionButton>
-                <div className={styles.pageNumber}>
-                  <div>{currentPage}</div>
-                </div>
-                {/* NOT IMPLEMENTED: Page numbers aren't shown here, but we'll need them if we want this control to be reusable */}
+
+                <div className={styles.resCircle}>
+                  <div className={styles.circleTxt}>{currentPage}</div>
+                </div>                {/* NOT IMPLEMENTED: Page numbers aren't shown here, but we'll need them if we want this control to be reusable */}
                 <ActionButton className={styles.next}
                     disabled={nextDisabled}
                     onRenderMenuIcon={(_props: IButtonProps) => {

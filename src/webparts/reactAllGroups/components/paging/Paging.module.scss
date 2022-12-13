@@ -4,8 +4,9 @@
   width: 100%;
   min-width: 240px;
   text-align: center;
+  height:25px;
   margin: 0;
-  padding: 2px 0;
+  padding:5px;
   border: 1px solid transparent;
   position: relative;
   display: flex;
@@ -50,7 +51,7 @@
 }
 
 .Paging button {
-  font-size: 14px;
+  font-size: 16px;
   font-weight: 400;
   padding: 8px 4px;
   margin: 0 8px;
@@ -60,16 +61,55 @@
   height: 32px!important;
   display: none;
   outline: 0;
+  align-self: center;
 }
 
-.pageNumber {
-  background-color:"[theme:themePrimary]";
-  border-radius: 50%;
-  padding-top: 2px;
-  padding-bottom: 2px;
-  padding-left:8px;
-  padding-right:8px;
-  color:white;
-  align-self: center;
+// .pageNumber {
+//   background-color:"[theme:themePrimary]";
+//   border-radius: 50%;
+//   // padding-top: 2px;
+//   // padding-bottom: 2px;
+//   // padding-left:8px;
+//   // padding-right:8px;
 
+//   align-self: center;
+
+// }
+
+
+
+// .currentPage {
+//   color:white;
+//   line-height: 20;
+// }
+
+
+.resCircle {
+  /* (A) PERCENTAGE WIDTH & BORDER RADIUS */
+  width: 4%;
+  border-radius: 50%;
+
+  /* (B) BACKGROUND COLOR */
+  background-color:"[theme:themePrimary]";
+
+  /* (C) NECESSARY TO POSITION TEXT BLOCK */
+  line-height: 0;
+  position: relative;
+}
+
+/* (D) MATCH HEIGHT */
+.resCircle::after {
+  content: "";
+  display: block;
+  padding-bottom: 1px;
+}
+
+/* (E) TEXT BLOCK */
+.circleTxt {
+  /* (E1) CENTER TEXT IN CIRCLE */
+  position: absolute;
+  bottom: 50%;
+  width: 100%;
+  text-align: center;
+  color:white;
 }
