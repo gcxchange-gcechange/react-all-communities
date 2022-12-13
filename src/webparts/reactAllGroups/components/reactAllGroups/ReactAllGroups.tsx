@@ -170,9 +170,10 @@ export class ReactAllGroups extends React.Component<
     });
   }
 
+
+
   private _onRenderGridItem = (item: any): JSX.Element => {
 
-    // console.log("Item", item)
 
     return (
       <div className={styles.siteCard}>
@@ -249,6 +250,7 @@ export class ReactAllGroups extends React.Component<
   }
 
 
+
   public render(): React.ReactElement<IReactAllGroupsProps> {
     //Sorting in the Control panel
     let myData = [];
@@ -305,8 +307,8 @@ export class ReactAllGroups extends React.Component<
           { this.state.isLoading ? (
             <Spinner label={this.strings.loadingState} />
           ) : totalItems !== null && totalItems.length >= 1 ? (
-            <div>
-              <Paging
+            <>
+            <Paging
               showPageNumber={true}
               currentPage={currentPage}
               itemsCountPerPage={maxEvents}
@@ -316,15 +318,31 @@ export class ReactAllGroups extends React.Component<
               previousButtonLabel={this.strings.pagPrev}
               firstButtonLabel={this.strings.firstPage}
               lastButtonLabel={this.strings.lastPage}
-              />
+            />
+            <div>
+
               {/* <div className={styles.groupsContainer}> */}
               <GridLayout
                 sort={this.props.sort}
                 items={pagedItems}
                 onRenderGridItem={(item: any) => this._onRenderGridItem(item)}
               />
+
               {/* </div> */}
             </div>
+            <Paging
+              showPageNumber={true}
+              currentPage={currentPage}
+              itemsCountPerPage={maxEvents}
+              numberOfItems={numberOfItems}
+              onPageUpdate={this._onPageUpdate}
+              nextButtonLabel={this.strings.pagNext}
+              previousButtonLabel={this.strings.pagPrev}
+              firstButtonLabel={this.strings.firstPage}
+              lastButtonLabel={this.strings.lastPage}
+            />
+
+            </>
           ) : (
             <Stack  as='div' horizontal reversed  verticalAlign="center" tabIndex={0} aria-label={this.strings.noResults}>
 
