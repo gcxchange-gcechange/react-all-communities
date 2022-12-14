@@ -171,9 +171,9 @@ export class ReactAllGroups extends React.Component<
     // 1 - Split the Eng and French by the first hyphen that contains spaces.
     // 2 - if only 1 hyphen appears remove the English.
 
-    let frenchTitle: string = '';
-    let Index: number = item.displayName.split(" - ").length - 1; // - 1
-    Index == 1 ? frenchTitle =  item.displayName.split(" - ").slice(1) : frenchTitle = item.displayName; // -2
+    // let frenchTitle: string = '';
+    // let Index: number = item.displayName.split(" - ").length - 1; // - 1
+    // Index == 1 ? frenchTitle =  item.displayName.split(" - ").slice(1) : frenchTitle = item.displayName; // -2
 
     let frenchDesc: string = '';
     let DescIndex :number = item.description.split(" - ").length -1;
@@ -190,7 +190,7 @@ export class ReactAllGroups extends React.Component<
             alt={`${this.strings.altImgLogo} ${item.displayName} `}
           />
           <h3 className={`${styles.cardTitle} ${styles.cardPrimaryAction}`}>
-            { this.strings.userLang === "FR" ? frenchTitle : item.displayName }
+            { item.displayName }
           </h3>
         </a>
 
