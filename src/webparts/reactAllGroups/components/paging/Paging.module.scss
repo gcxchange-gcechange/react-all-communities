@@ -123,10 +123,19 @@ ul {
   display: flex;
   flex-direction: row;
   padding:0;
+  padding-left: 0;
 }
 
 li{
   color: fuchsia;
   border: 2px solid black;
   padding: 5px;
+
 }
+
+li a.currentPage {
+  background-color: aqua;
+}
+
+
+

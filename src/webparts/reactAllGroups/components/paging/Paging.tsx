@@ -7,6 +7,7 @@ import { IPagingProps, IPagingState } from "./index";
 import styles from "./Paging.module.scss";
 import { setPageNum } from 'ReactAllGroupsWebPartStrings';
 import { toArray } from '@microsoft/sp-lodash-subset';
+import { add } from 'lodash';
 
 /**
  * A custom pagination control designed to look & feel like Office UI Fabric
@@ -15,6 +16,7 @@ export class Paging extends React.Component<IPagingProps, IPagingState> {
     public render(): React.ReactElement<IPagingProps> {
 
         const { currentPage, nextButtonLabel, previousButtonLabel, nextButtonAriaLabel, previousButtonAriaLabel, firstButtonLabel, firstButtonAriaLabel, lastButtonLabel, lastButtonAriaLabel } = this.props;
+
 
         // calculate the page situation
         const numberOfPages: number = this._getNumberOfPages().length;
@@ -57,11 +59,14 @@ export class Paging extends React.Component<IPagingProps, IPagingState> {
                     {previousButtonLabel}
                 </ActionButton>
               {/* NOT IMPLEMENTED: Page numbers aren't shown here, but we'll need them if we want this control to be reusable */}
-                <ul
-                >
-                 {this._getNumberOfPages().map( itemNumber => <li>{itemNumber}</li>)}
+
+
+                <ul>
+
+                 {this._getNumberOfPages().map( itemNumber => <li id={itemNumber.toString()}>{itemNumber === currentPage ? <a className={styles.currentPage}>{currentPage}</a> : itemNumber}</li>)}
                   {/* <div className={styles.circleTxt}>{currentPage}</div> */}
                 </ul>
+
                 <ActionButton className={styles.next}
                     disabled={nextDisabled}
                     onRenderMenuIcon={(_props: IButtonProps) => {
@@ -78,6 +83,7 @@ export class Paging extends React.Component<IPagingProps, IPagingState> {
             </div>
         );
     }
+
 
     /**
      * Increments the page number unless we're on the last page
@@ -100,7 +106,7 @@ export class Paging extends React.Component<IPagingProps, IPagingState> {
 
 
     // private _firstPage = (): void => {
-    //   const numberofPages: number = this._getNumberOfPages();
+    //   const numberofPages: number = this._getNumberOfPages().length;
     //   console.log("firstPage", numberofPages);
     //   if(this.props.currentPage > numberofPages) {
     //     this.props.onPageUpdate(this.props.currentPage);
@@ -113,15 +119,20 @@ export class Paging extends React.Component<IPagingProps, IPagingState> {
 
 
     private _getNumberOfPages(): number[] {
-        const { numberOfItems, itemsCountPerPage } = this.props;
+        const { numberOfItems, itemsCountPerPage} = this.props;
+
         let numPages: number = Math.ceil(numberOfItems / itemsCountPerPage);
         let numbers: number[] = [];
-        for (var i = 1; i < numPages; i++) {
-        numbers.push(i);
+        for (let i = 0; i < numPages; i++) {
+        numbers.push(i + 1);
         }
-        console.log(numbers)
+        console.log("num",numbers);
 
         // console.log("numPages", numPagesArray);
         return numbers;
     }
+
+
+
+
 }
