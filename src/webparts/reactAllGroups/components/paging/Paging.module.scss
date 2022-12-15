@@ -133,9 +133,17 @@ li{
 
 }
 
-li a.currentPage {
+li > a.currentPage {
   background-color: aqua;
 }
 
+ul ~ li {
+  background-color: pink;
+}
 
+button{
+  color:black;
+  background-color: aqua;
+  cursor: pointer;
+}
 

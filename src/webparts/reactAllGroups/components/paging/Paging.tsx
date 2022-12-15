@@ -5,9 +5,7 @@ import { Icon } from 'office-ui-fabric-react/lib/Icon';
 
 import { IPagingProps, IPagingState } from "./index";
 import styles from "./Paging.module.scss";
-import { setPageNum } from 'ReactAllGroupsWebPartStrings';
-import { toArray } from '@microsoft/sp-lodash-subset';
-import { add } from 'lodash';
+
 
 /**
  * A custom pagination control designed to look & feel like Office UI Fabric
@@ -33,7 +31,7 @@ export class Paging extends React.Component<IPagingProps, IPagingState> {
 
         return (
             <div className={css(styles.Paging, this.props.showPageNumber ? null : styles.noPageNum)}>
-              {/* <ActionButton className={styles.prev}
+              <ActionButton className={styles.prev}
                 onRenderIcon={(_props: IButtonProps) => {
                         // we use the render custom icon method to render the icon consistently with the right icon
                         return (
@@ -41,10 +39,10 @@ export class Paging extends React.Component<IPagingProps, IPagingState> {
                         );
                     }}
                     disabled={prevDisabled}
-                    onClick={this._firstPage}
+                    onClick={this._goToFirstPage}
                     ariaLabel={firstButtonAriaLabel}>
 
-              </ActionButton> */}
+              </ActionButton>
                 <ActionButton className={styles.prev}
                     onRenderIcon={(_props: IButtonProps) => {
                         // we use the render custom icon method to render the icon consistently with the right icon
@@ -60,10 +58,14 @@ export class Paging extends React.Component<IPagingProps, IPagingState> {
                 </ActionButton>
               {/* NOT IMPLEMENTED: Page numbers aren't shown here, but we'll need them if we want this control to be reusable */}
 
-
                 <ul>
 
-                 {this._getNumberOfPages().map( itemNumber => <li id={itemNumber.toString()}>{itemNumber === currentPage ? <a className={styles.currentPage}>{currentPage}</a> : itemNumber}</li>)}
+                 {this._getNumberOfPages().map( itemNumber =>
+                  <li id={itemNumber.toString()}>{
+                    itemNumber === currentPage
+                       ? <a className={styles.currentPage}>{currentPage}</a>
+                       : <a onClick={() => {}}>{itemNumber}</a>}
+                  </li>)}
                   {/* <div className={styles.circleTxt}>{currentPage}</div> */}
                 </ul>
 
@@ -80,6 +82,19 @@ export class Paging extends React.Component<IPagingProps, IPagingState> {
                 >
                     {nextButtonLabel}
                 </ActionButton>
+
+                <ActionButton className={styles.prev}
+                onRenderIcon={(_props: IButtonProps) => {
+                        // we use the render custom icon method to render the icon consistently with the right icon
+                        return (
+                            <Icon iconName="DoubleChevronRight" />
+                        );
+                    }}
+                    disabled={nextDisabled}
+                    onClick={this._goToLastPage}
+                    ariaLabel={firstButtonAriaLabel}>
+
+              </ActionButton>
             </div>
         );
     }
@@ -104,14 +119,24 @@ export class Paging extends React.Component<IPagingProps, IPagingState> {
         }
     }
 
+    private _goToFirstPage = (): void => {
+        const number: number = this._getNumberOfPages().length;
+        console.log("first", number)
+        if( number !== 1) {
+          this.props.onPageUpdate(1)
+        }
+    }
 
-    // private _firstPage = (): void => {
-    //   const numberofPages: number = this._getNumberOfPages().length;
-    //   console.log("firstPage", numberofPages);
-    //   if(this.props.currentPage > numberofPages) {
-    //     this.props.onPageUpdate(this.props.currentPage);
-    //   }
-    // }
+
+    private _goToLastPage = (): void => {
+      const number: number = this.props.currentPage;
+      const lastItem = this._getNumberOfPages()[this._getNumberOfPages().length - 1];
+
+      if(number !== lastItem) {
+        this.props.onPageUpdate(lastItem)
+      }
+  }
+
 
     /**
      * Calculates how many pages there will be
