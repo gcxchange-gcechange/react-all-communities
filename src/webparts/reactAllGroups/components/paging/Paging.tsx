@@ -61,7 +61,7 @@ export class Paging extends React.Component<IPagingProps, IPagingState> {
                 <ul>
 
                  {this._getNumberOfPages().map( itemNumber =>
-                  <li id={itemNumber.toString()}>{
+                  <li id={itemNumber.toString()} aria-label={`Page ${itemNumber}`}>{
                     itemNumber === currentPage
                        ? <a className={styles.currentPage}>{currentPage}</a>
                        : <a onClick={() => {}}>{itemNumber}</a>}
