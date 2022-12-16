@@ -7,6 +7,7 @@ import { IPagingProps, IPagingState } from "./index";
 import styles from "./Paging.module.scss";
 
 
+
 /**
  * A custom pagination control designed to look & feel like Office UI Fabric
  */
@@ -18,7 +19,7 @@ export class Paging extends React.Component<IPagingProps, IPagingState> {
 
         // calculate the page situation
         const numberOfPages: number = this._getNumberOfPages().length;
-        console.log("NumPages", numberOfPages);
+        // console.log("NumPages", numberOfPages);
 
 
         // we disable the previous button if we're on page 1
@@ -61,10 +62,10 @@ export class Paging extends React.Component<IPagingProps, IPagingState> {
                 <ul>
 
                  {this._getNumberOfPages().map( itemNumber =>
-                  <li id={itemNumber.toString()} aria-label={`Page ${itemNumber}`}>{
+                  <li id={itemNumber.toString()} aria-label={`Page ${itemNumber}`}  onClick={() => this._goToPage(itemNumber)}>{
                     itemNumber === currentPage
                        ? <a className={styles.currentPage}>{currentPage}</a>
-                       : <a onClick={() => {}}>{itemNumber}</a>}
+                       : <a>{itemNumber}</a>}
                   </li>)}
                   {/* <div className={styles.circleTxt}>{currentPage}</div> */}
                 </ul>
@@ -121,9 +122,8 @@ export class Paging extends React.Component<IPagingProps, IPagingState> {
 
     private _goToFirstPage = (): void => {
         const number: number = this._getNumberOfPages().length;
-        console.log("first", number)
         if( number !== 1) {
-          this.props.onPageUpdate(1)
+          this.props.onPageUpdate(1);
         }
     }
 
@@ -133,9 +133,17 @@ export class Paging extends React.Component<IPagingProps, IPagingState> {
       const lastItem = this._getNumberOfPages()[this._getNumberOfPages().length - 1];
 
       if(number !== lastItem) {
-        this.props.onPageUpdate(lastItem)
+        this.props.onPageUpdate(lastItem);
       }
-  }
+    }
+
+    private _goToPage = (itemNumber):void => {
+        const pageNumber: number[]  = this._getNumberOfPages();
+        const selected = pageNumber.indexOf(itemNumber);
+        this.props.onPageUpdate(pageNumber[selected]);
+    }
+
+
 
 
     /**
@@ -151,9 +159,7 @@ export class Paging extends React.Component<IPagingProps, IPagingState> {
         for (let i = 0; i < numPages; i++) {
         numbers.push(i + 1);
         }
-        console.log("num",numbers);
 
-        // console.log("numPages", numPagesArray);
         return numbers;
     }
 
