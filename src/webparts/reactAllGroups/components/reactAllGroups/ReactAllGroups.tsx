@@ -158,7 +158,9 @@ export class ReactAllGroups extends React.Component<
         }));
       })
     );
+
   }
+
 
   private _setLoading(state: boolean) {
     this.setState({
@@ -171,14 +173,13 @@ export class ReactAllGroups extends React.Component<
     // 1 - Split the Eng and French by the first hyphen that contains spaces.
     // 2 - if only 1 hyphen appears remove the English.
 
-    // let frenchTitle: string = '';
-    // let Index: number = item.displayName.split(" - ").length - 1; // - 1
-    // Index == 1 ? frenchTitle =  item.displayName.split(" - ").slice(1) : frenchTitle = item.displayName; // -2
-
     let frenchDesc: string = '';
-    let DescIndex :number = item.description.split(" - ").length -1;
-    DescIndex == 1 ? frenchDesc =  item.description.split(" - ").slice(1) : frenchDesc = item.description;
+    let DescIndex :number = item.description.split(" - ").length -1; // -1
+    DescIndex == 1 ? frenchDesc =  item.description.split(" - ").slice(1) : frenchDesc = item.description; // -2
 
+    let engDesc: string = '';
+    let descEngIndex :number = item.description.split(" - ").length -1;
+    descEngIndex == 1 ? engDesc = item.description.split(" - ")[0] : engDesc = item.description;
 
     return (
       <div className={styles.siteCard}>
@@ -198,7 +199,7 @@ export class ReactAllGroups extends React.Component<
           className={styles.cardDescription}
           aria-label={item.description}
         >
-          { this.strings.userLang === "FR" ? frenchDesc : item.description }
+          { this.strings.userLang === "FR" ? frenchDesc : engDesc}
         </div>
         <footer className={styles.cardFooter}>
           <div className={styles.footerRow}>
