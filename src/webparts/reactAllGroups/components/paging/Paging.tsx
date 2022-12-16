@@ -41,9 +41,8 @@ export class Paging extends React.Component<IPagingProps, IPagingState> {
                     }}
                     disabled={prevDisabled}
                     onClick={this._goToFirstPage}
-                    ariaLabel={firstButtonAriaLabel}>
+                    ariaLabel={firstButtonLabel}/>
 
-              </ActionButton>
                 <ActionButton className={styles.prev}
                     onRenderIcon={(_props: IButtonProps) => {
                         // we use the render custom icon method to render the icon consistently with the right icon
@@ -59,13 +58,15 @@ export class Paging extends React.Component<IPagingProps, IPagingState> {
                 </ActionButton>
               {/* NOT IMPLEMENTED: Page numbers aren't shown here, but we'll need them if we want this control to be reusable */}
 
-                <ul>
+                <ul  role="navigation" aria-label="Pagination Navigation" >
 
                  {this._getNumberOfPages().map( itemNumber =>
-                  <li id={itemNumber.toString()} aria-label={`Page ${itemNumber}`}  onClick={() => this._goToPage(itemNumber)}>{
+                  <li id={itemNumber.toString()}  tabIndex={0}  aria-label={`Goto Page ${itemNumber}`}  onClick={() => this._goToPage(itemNumber) }>{
                     itemNumber === currentPage
-                       ? <a className={styles.currentPage}>{currentPage}</a>
-                       : <a>{itemNumber}</a>}
+                       ? <a className={styles.currentPage} aria-label={`Current page, Page ${currentPage}`} aria-current={true}>
+                        {currentPage}
+                        </a>
+                       : <a id={itemNumber.toString()}>{itemNumber}</a>}
                   </li>)}
                   {/* <div className={styles.circleTxt}>{currentPage}</div> */}
                 </ul>
@@ -93,7 +94,7 @@ export class Paging extends React.Component<IPagingProps, IPagingState> {
                     }}
                     disabled={nextDisabled}
                     onClick={this._goToLastPage}
-                    ariaLabel={firstButtonAriaLabel}>
+                    ariaLabel={lastButtonLabel}>
 
               </ActionButton>
             </div>
