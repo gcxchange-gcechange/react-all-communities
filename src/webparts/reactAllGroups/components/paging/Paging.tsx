@@ -1,10 +1,11 @@
 import * as React from 'react';
 import { css } from '@uifabric/utilities/lib/css';
-import { ActionButton, IButtonProps, PrimaryButton } from 'office-ui-fabric-react/lib/Button';
+import { ActionButton, DefaultButton, IButtonProps, IButtonStyles, PrimaryButton } from 'office-ui-fabric-react/lib/Button';
 import { Icon } from 'office-ui-fabric-react/lib/Icon';
 
 import { IPagingProps, IPagingState } from "./index";
 import styles from "./Paging.module.scss";
+import { Stack } from 'office-ui-fabric-react';
 
 
 
@@ -29,9 +30,24 @@ export class Paging extends React.Component<IPagingProps, IPagingState> {
         const nextDisabled: boolean = currentPage >= numberOfPages;
 
 
+        const buttonStyles: IButtonStyles = {
+        root:{
+          padding: '0px',
+          minWidth: '30px',
+          borderRadius: '50%',
+          borderColor: 'transparent'
+
+        },
+
+        rootHovered: {
+          backgroundColor: "lightgray"
+        }
+
+      };
 
         return (
-            <div className={css(styles.Paging, this.props.showPageNumber ? null : styles.noPageNum)}>
+            <Stack horizontal  horizontalAlign="center" verticalAlign="center">
+
               <ActionButton className={styles.prev}
                 onRenderIcon={(_props: IButtonProps) => {
                         // we use the render custom icon method to render the icon consistently with the right icon
@@ -56,20 +72,20 @@ export class Paging extends React.Component<IPagingProps, IPagingState> {
                 >
                     {previousButtonLabel}
                 </ActionButton>
-              {/* NOT IMPLEMENTED: Page numbers aren't shown here, but we'll need them if we want this control to be reusable */}
 
-                <ul  role="navigation" aria-label="Pagination Navigation" >
+{/*
+                <ul  role="navigation" aria-label="Pagination Navigation" > */}
 
                  {this._getNumberOfPages().map( itemNumber =>
-                  <li id={itemNumber.toString()}  tabIndex={0}  aria-label={`Goto Page ${itemNumber}`}  onClick={() => this._goToPage(itemNumber) }>{
+                  <div id={itemNumber.toString()}  tabIndex={0}  aria-label={`Goto Page ${itemNumber}`}  onClick={() => this._goToPage(itemNumber) }>{
                     itemNumber === currentPage
-                       ? <a className={styles.currentPage} aria-label={`Current page, Page ${currentPage}`} aria-current={true}>
+                       ? <DefaultButton styles={buttonStyles} className={styles.currentPage} aria-label={`Current page, Page ${currentPage}`} aria-current={true}>
                         {currentPage}
-                        </a>
-                       : <a id={itemNumber.toString()}>{itemNumber}</a>}
-                  </li>)}
-                  {/* <div className={styles.circleTxt}>{currentPage}</div> */}
-                </ul>
+                        </DefaultButton>
+                       : <DefaultButton  styles={buttonStyles} id={itemNumber.toString()}>{itemNumber}</DefaultButton>}
+                  </div>)}
+
+                {/* </ul> */}
 
                 <ActionButton className={styles.next}
                     disabled={nextDisabled}
@@ -97,7 +113,7 @@ export class Paging extends React.Component<IPagingProps, IPagingState> {
                     ariaLabel={lastButtonLabel}>
 
               </ActionButton>
-            </div>
+            </Stack>
         );
     }
 
