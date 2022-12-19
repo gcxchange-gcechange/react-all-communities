@@ -32,13 +32,11 @@ copy of: https://github.com/pnp/sp-dev-fx-webparts/blob/master/samples/react-my-
 Using Microsoft Graph, this webpart grabs the Office 365 groups the current user is a member of with links to the groups' SharePoint site.
 
 The webpart has been updated to include a grid style layout, in addition to the compact layout as seen below:
-![Grid Demo](./assets/React-MyGroups_Grid.png)
+![Grid Demo](./src/webparts/reactAllGroups/assets/All_Communities.png)
 
-Compact Layout:
-![Compact Demo](./assets/React-MyGroups_Compact.png)
 
-You can change between the grid and compact layout through the settings in the property pane:
-![Property Pane Demo](./assets/React-MyGroups_Property.png)
+You can customize paging and sorting of items through the settings in the property pane:
+![Property Pane Demo](./src/webparts/reactAllGroups/assets/PropertyPane_AllComm.png)
 
 ## Compability
 
@@ -109,15 +107,12 @@ de tous les groupes de l’utilisateur.
 
 À l’aide de Microsoft Graph, ce composant WebPart affiche les groupes Office 365 dont l’utilisateur actuel est membre avec des liens vers le site SharePoint de chaque groupe.
 
-Le composant WebPart a été mis à jour pour inclure une disposition en grille, en plus de la disposition compacte, comme indiqué ci-dessous :
 
-![Grid Demo](./assets/React-MyGroups_Grid.png)
+![Grid Demo](./src/webparts/reactAllGroups/assets/All_Communities.png)
 
-Disposition compacte :
-![Compact Demo](./assets/React-MyGroups_Compact.png)
 
-Vous pouvez faire passer la disposition de grille à compacte à l’aide des paramètres de la fenêtre des propriétés :
-![Property Pane Demo](./assets/React-MyGroups_Property.png)
+Vous pouvez personnaliser la pagination et le tri des éléments à l’aide des paramètres de la fenêtre des propriétés :
+![Property Pane Demo](./src/webparts/reactAllGroups/assets/PropertyPane_AllComm.png)
 
 ## Compabilité
 
