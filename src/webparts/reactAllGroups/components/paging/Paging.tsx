@@ -73,8 +73,8 @@ export class Paging extends React.Component<IPagingProps, IPagingState> {
                     {previousButtonLabel}
                 </ActionButton>
 
-{/*
-                <ul  role="navigation" aria-label="Pagination Navigation" > */}
+
+
 
                  {this._getNumberOfPages().map( itemNumber =>
                   <div id={itemNumber.toString()}  tabIndex={0}   onClick={() => this._goToPage(itemNumber) }>{
@@ -85,7 +85,7 @@ export class Paging extends React.Component<IPagingProps, IPagingState> {
                        : <DefaultButton  styles={buttonStyles} id={itemNumber.toString()} aria-label={`Goto Page ${itemNumber}`} >{itemNumber}</DefaultButton>}
                   </div>)}
 
-                {/* </ul> */}
+
 
                 <ActionButton className={styles.next}
                     disabled={nextDisabled}
