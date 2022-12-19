@@ -18,20 +18,16 @@ copy of: https://github.com/pnp/sp-dev-fx-webparts/blob/master/samples/react-my-
 
 # My Groups
 ## Update
-- Option to show all groups, this will show 20 groups at the time (with pagination).
-- New link available to redirect at a specific page for the creation of the group.
-- You can choose the number group to display in the setting.
-- If the user have more group, see all button will show. In the setting, a input is available for the see all link.
-- Ability to sort by creation date or alphabitical.
-- French as been add.
-- Available in full-with layout.
-- New List style layout available.
+- Option to show all groups based on the selected letter or # (numbers)
+- You can choose how many groups to display in the property pane.
+- Ability to sort cards alphabetically or date the group was created.
+- French language icluded.
 
 ## Summary
 
-Using Microsoft Graph, this webpart grabs the Office 365 groups the current user is a member of with links to the groups' SharePoint site.
+Using Microsoft Graph, this webpart generates all of the Office 365 groups that have been created in the SharePoint site.
 
-The webpart has been updated to include a grid style layout, in addition to the compact layout as seen below:
+
 ![Grid Demo](./src/webparts/reactAllGroups/assets/All_Communities.png)
 
 
@@ -82,7 +78,7 @@ Version|Date|Comments
 
 ## Features
 
-This web part lists the current user's Office 365 groups with links to the  group's SharePoint site.
+This web part lists all of the group sites created in the SharePoint site.
 
 <img src="https://telemetry.sharepointpnp.com/sp-dev-fx-webparts/samples/react-my-groups" />
 
@@ -93,19 +89,15 @@ copie de: https://github.com/pnp/sp-dev-fx-webparts/blob/master/samples/react-my
 
 # Mes groupes
 ## Mise à jour
-- Ajout de l'option de voir tous les groupes. Ceci permet de voir 20 groupes à la fois, avec une pagination.
-- Nouveau lien disponible pour rediriger l'utilisateur vers une page spécifique pour la création d'un groupe.
+- Ajout de l'option de voir tous les groupes en fonction de la lettre ou du # (chiffres) sélectionnés.
 - Vous pouvez choisir le nombre de groupes à afficher dans les paramètres.
-- Si l’utilisateur a plus de groupes, un bouton Afficher tout apparaît pour permettre l’affichage. Dans la section paramètre, un champ est disponible pour ajouter le lien au bouton Afficher tout.
-de tous les groupes de l’utilisateur.
 - Il est possible de trier les groupes par date de création ou par ordre alphabétique.
 - Le français a été ajouté.
-- La page est disponible en pleine largeur.
-- Nouvelle disposition de style Liste disponible.
+
 
 ## Résumé
 
-À l’aide de Microsoft Graph, ce composant WebPart affiche les groupes Office 365 dont l’utilisateur actuel est membre avec des liens vers le site SharePoint de chaque groupe.
+À l’aide de Microsoft Graph, ce composant WebPart affiche tous les sites de groupe créés dans le site SharePoint.
 
 
 ![Grid Demo](./src/webparts/reactAllGroups/assets/All_Communities.png)
@@ -159,7 +151,7 @@ Version|Date|Commentaires
 
 ## Fonctionnalités
 
-Ce composant WebPart répertorie les groupes Office 365 actuels de l’utilisateur avec des liens vers le site SharePoint de chaque groupe.
+Ce composant WebPart répertorie tous les sites de groupe créés dans le site SharePoint.
 
 <img src="https://telemetry.sharepointpnp.com/sp-dev-fx-webparts/samples/react-my-groups" />
 
