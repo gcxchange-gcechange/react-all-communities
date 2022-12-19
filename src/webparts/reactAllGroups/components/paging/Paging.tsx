@@ -77,12 +77,12 @@ export class Paging extends React.Component<IPagingProps, IPagingState> {
                 <ul  role="navigation" aria-label="Pagination Navigation" > */}
 
                  {this._getNumberOfPages().map( itemNumber =>
-                  <div id={itemNumber.toString()}  tabIndex={0}  aria-label={`Goto Page ${itemNumber}`}  onClick={() => this._goToPage(itemNumber) }>{
+                  <div id={itemNumber.toString()}  tabIndex={0}   onClick={() => this._goToPage(itemNumber) }>{
                     itemNumber === currentPage
                        ? <DefaultButton styles={buttonStyles} className={styles.currentPage} aria-label={`Current page, Page ${currentPage}`} aria-current={true}>
                         {currentPage}
                         </DefaultButton>
-                       : <DefaultButton  styles={buttonStyles} id={itemNumber.toString()}>{itemNumber}</DefaultButton>}
+                       : <DefaultButton  styles={buttonStyles} id={itemNumber.toString()} aria-label={`Goto Page ${itemNumber}`} >{itemNumber}</DefaultButton>}
                   </div>)}
 
                 {/* </ul> */}
