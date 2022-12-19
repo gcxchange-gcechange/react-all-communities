@@ -158,7 +158,9 @@ export class ReactAllGroups extends React.Component<
         }));
       })
     );
+
   }
+
 
   private _setLoading(state: boolean) {
     this.setState({
@@ -168,7 +170,16 @@ export class ReactAllGroups extends React.Component<
 
   private _onRenderGridItem = (item: any): JSX.Element => {
 
-    // console.log("Item", item)
+    // 1 - Split the Eng and French by the first hyphen that contains spaces.
+    // 2 - if only 1 hyphen appears remove the English.
+
+    let frenchDesc: string = '';
+    let DescIndex :number = item.description.split(" - ").length -1; // -1
+    DescIndex == 1 ? frenchDesc =  item.description.split(" - ").slice(1) : frenchDesc = item.description; // -2
+
+    let engDesc: string = '';
+    let descEngIndex :number = item.description.split(" - ").length -1;
+    descEngIndex == 1 ? engDesc = item.description.split(" - ")[0] : engDesc = item.description;
 
     return (
       <div className={styles.siteCard}>
@@ -180,7 +191,7 @@ export class ReactAllGroups extends React.Component<
             alt={`${this.strings.altImgLogo} ${item.displayName} `}
           />
           <h3 className={`${styles.cardTitle} ${styles.cardPrimaryAction}`}>
-            {item.displayName}
+            { item.displayName }
           </h3>
         </a>
 
@@ -188,7 +199,7 @@ export class ReactAllGroups extends React.Component<
           className={styles.cardDescription}
           aria-label={item.description}
         >
-          {item.description}
+          { this.strings.userLang === "FR" ? frenchDesc : engDesc}
         </div>
         <footer className={styles.cardFooter}>
           <div className={styles.footerRow}>
