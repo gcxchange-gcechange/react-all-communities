@@ -12,7 +12,8 @@ export class GroupServiceManager {
     this.context = context;
   }
 
-  public getGroups(letter: string): Promise<MicrosoftGraph.Group[]> {
+
+  public getGroupsBatch(letter:string): Promise<MicrosoftGraph.Group[]> {
     let apiTxt: string = "";
 
     if (letter === "#") {
@@ -20,22 +21,108 @@ export class GroupServiceManager {
         "/groups?$filter=groupTypes/any(c:c+eq+'Unified') and startsWith(displayName,'1') or startswith(displayName,'2') or startswith(displayName,'3') or startswith(displayName,'4')or startswith(displayName,'5') or startswith(displayName,'6') or startswith(displayName,'7') or startswith(displayName,'8') or startswith(displayName,'9')";
     } else {
       apiTxt = `/groups?$filter=groupTypes/any(c:c+eq+'Unified') and startsWith(displayName,'${letter}')`;
+      // apiTxt = `/groups?$filter=groupTypes/any(c:c+eq+'Unified') and startsWith(displayName,'${letter}')&$top=5`;
+
     }
 
-    return new Promise<MicrosoftGraph.Group[]>((resolve, reject) => {
+    let requestBody = {
+      requests: [
+        {
+          id: "1",
+          method: "GET",
+          url: `${apiTxt}`,
+        }
+      ],
+    };
+    return new Promise((resolve, reject) => {
       try {
         this.context.msGraphClientFactory
           .getClient()
           .then((client: MSGraphClient) => {
             client
-              .api(apiTxt)
-              .get((error: any, groups: IGroupCollection, rawResponse: any) => {
-                //console.log("GROUPS", groups.value);
-                resolve(groups.value);
-              });
+              .api(`/$batch`)
+              .post(requestBody, (error: any, responseObject: any) => {
+
+                if (error) {
+                  Promise.reject(error);
+                }
+
+                let responseContent = [];
+                responseContent = responseObject.responses[0].body.value;
+                resolve(responseContent);
+
+              //   let nextLink = responseObject.responses[0].body["@odata.nextLink"];
+
+              // client.api(nextLink).get((error2: any, responseObject2: any) => {
+              //   console.log(responseObject2.value);
+              //   resolve(responseObject2.value);
+              // });
+
+            });
           });
       } catch (error) {
+        reject(error);
         console.error(error);
+      }
+    });
+  }
+
+  // public getGroups(letter: string): Promise<MicrosoftGraph.Group[]> {
+  //   let apiTxt: string = "";
+
+  //   if (letter === "#") {
+  //     apiTxt =
+  //       "/groups?$filter=groupTypes/any(c:c+eq+'Unified') and startsWith(displayName,'1') or startswith(displayName,'2') or startswith(displayName,'3') or startswith(displayName,'4')or startswith(displayName,'5') or startswith(displayName,'6') or startswith(displayName,'7') or startswith(displayName,'8') or startswith(displayName,'9')";
+  //   } else {
+  //     // apiTxt = `/groups?$filter=groupTypes/any(c:c+eq+'Unified') and startsWith(displayName,'${letter}')`;
+  //     apiTxt = `/groups?$filter=groupTypes/any(c:c+eq+'Unified') and startsWith(displayName,'${letter}')&$top=5`;
+  //   }
+
+
+
+  //   return new Promise<MicrosoftGraph.Group[]>((resolve, reject) => {
+  //     try {
+  //       this.context.msGraphClientFactory
+  //         .getClient()
+  //         .then((client: MSGraphClient) => {
+  //           client
+  //             .api(apiTxt)
+  //             .get((error: any, groups: IGroupCollection, rawResponse: any) => {
+  //               //console.log("GROUPS", groups.value);
+  //               console.log("GROUP "+JSON.stringify(groups));
+
+  //               resolve(groups.value);
+  //             });
+  //         });
+  //     } catch (error) {
+  //       console.error(error);
+  //     }
+  //   });
+  // }
+
+
+
+  public getNextLinkGroups(letter: string): Promise<MicrosoftGraph.Group[]> {
+    let apiTxt = `/groups?$filter=groupTypes/any(c:c+eq+'Unified') and startsWith(displayName,'${letter}')&$top=5`;
+
+
+    let nextLink: string = ``;
+
+    return new Promise<MicrosoftGraph.Group[]>((resolve, reject) => {
+      try{
+        this.context.msGraphClientFactory
+        .getClient()
+        .then((client: MSGraphClient) => {
+          client
+          .api(apiTxt)
+          .get((error: any, groups: IGroupCollection, rawResponse: any) => {
+            console.log("GROUP CONT "+JSON.stringify(groups));
+            resolve(groups.value);
+          });
+        });
+      } catch (error) {
+        reject(error);
+        console.log(error);
       }
     });
   }
