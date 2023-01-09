@@ -11,6 +11,7 @@ import { Icon } from "office-ui-fabric-react/lib/Icon";
 import { Stack, Image, IImageProps, ImageFit } from "office-ui-fabric-react";
 import { AZNavigation } from "../AZNavigation/AZNavigation";
 import { Paging } from "../paging";
+import { groups } from "ReactAllGroupsWebPartStrings";
 
 
 
@@ -54,26 +55,34 @@ export class ReactAllGroups extends React.Component<
 
   public componentDidMount(): void {
     this._getGroups(this.state.selectedLetter);
+
   }
 
   public _getGroups = (letter: string): void => {
-    GroupService.getGroups(letter).then((groupData) => {
+    GroupService.getGroupsBatch(letter).then((groupData) => {
       this.setState({
         groups: groupData,
       });
       this._getGroupsLinks(groupData);
     });
+
+    // GroupService.getNextLinkGroups(letter).then((nextGroupItems) => {
+    //   this.setState({
+    //     groups: nextGroupItems
+    //   });
+    //    this._getGroupsLinks(nextGroupItems);
+    // })
   }
 
-  public _getGroupsLinks = (groups: any): void => {
+  public _getGroupsLinks = (items: any): void => {
     let groupsCompleted = 0;
-    let totalGroups = groups.length;
+    let totalGroups = items.length;
 
     if (totalGroups == 0) {
       this._setLoading(false);
     }
 
-    groups.map((groupItem) =>
+    items.map((groupItem) =>
       GroupService.getGroupLinksBatch(groupItem)
         .then((groupUrl) => {
           groupsCompleted++;
@@ -120,16 +129,16 @@ export class ReactAllGroups extends React.Component<
     );
   }
 
-  public _getGroupThumbnails = (groups: any): void => {
+  public _getGroupThumbnails = (groupItems: any): void => {
 
     let groupsCompleted = 0;
-    let totalGroups = groups.length;
+    let totalGroups = groupItems.length;
 
     if (totalGroups == 0) {
       this._setLoading(false);
     }
 
-    groups.map((groupItem) =>
+    groupItems.map((groupItem) =>
       GroupService.getGroupThumbnails(groupItem).then((grouptb) => {
         groupsCompleted++;
 
@@ -150,8 +159,8 @@ export class ReactAllGroups extends React.Component<
     this._pageViews(this.state.groups);
   }
 
-  public _pageViews = (groups: any): void => {
-    groups.map((item) =>
+  public _pageViews = (groupsViews: any): void => {
+    groupsViews.map((item) =>
       GroupService.pageViewsBatch(item).then((siteCount) => {
         this.setState((prevState) => ({
           groups: prevState.groups.map((group) =>
