@@ -7,6 +7,8 @@ define([], function() {
     "altImgLogo": "Logo de",
     "pagPrev": "Précédant",
     "pagNext": "Suivant",
+    "firstPage" : "Premiere",
+    "lastPage" : "Derniere",
     "setPageNum": "Nombre par page",
     "setLayoutOpt": "Option de mise en page",
     "setSortOpt": "Option de tri",

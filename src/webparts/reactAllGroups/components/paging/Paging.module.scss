@@ -4,16 +4,22 @@
   width: 100%;
   min-width: 240px;
   text-align: center;
+  height:25px;
   margin: 0;
-  padding: 2px 0;
+  padding:5px;
   border: 1px solid transparent;
   position: relative;
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  text-align: center;
+  align-items: center;
 }
 
 .Paging .next,
 .Paging .prev {
   margin: 0;
-  display: inline-block;
+  // display: inline-block;
   border: none;
 }
 
@@ -46,7 +52,7 @@
 }
 
 .Paging button {
-  font-size: 14px;
+  font-size: 16px;
   font-weight: 400;
   padding: 8px 4px;
   margin: 0 8px;
@@ -56,4 +62,93 @@
   height: 32px!important;
   display: none;
   outline: 0;
+  align-self: center;
 }
+
+// .pageNumber {
+//   background-color:"[theme:themePrimary]";
+//   border-radius: 50%;
+//   // padding-top: 2px;
+//   // padding-bottom: 2px;
+//   // padding-left:8px;
+//   // padding-right:8px;
+
+//   align-self: center;
+
+// }
+
+
+
+// .currentPage {
+//   color:white;
+//   line-height: 20;
+// }
+
+
+.resCircle {
+  /* (A) PERCENTAGE WIDTH & BORDER RADIUS */
+  width: 4%;
+  border-radius: 50%;
+
+  /* (B) BACKGROUND COLOR */
+  background-color:"[theme:themePrimary]";
+
+  /* (C) NECESSARY TO POSITION TEXT BLOCK */
+  line-height: 0;
+  position: relative;
+
+  list-style-type: none;
+}
+
+/* (D) MATCH HEIGHT */
+.resCircle::after {
+  content: "";
+  display: block;
+  padding-bottom: 1px;
+}
+
+/* (E) TEXT BLOCK */
+.circleTxt {
+  /* (E1) CENTER TEXT IN CIRCLE */
+  position: absolute;
+  bottom: 50%;
+  width: 100%;
+  text-align: center;
+  // color:white;
+  color: pink;
+}
+
+ul {
+
+  display: flex;
+  flex-direction: row;
+  padding: 5px;
+}
+
+li{
+  color: fuchsia;
+  list-style-type: none;
+  margin-right: 5px;
+  width: 25px;
+
+}
+
+.currentPage {
+  background-color:"[theme:themePrimary]";
+  border-radius: 50%;
+  color:white;
+  padding: 1px 5px;
+
+
+}
+
+ul ~ li {
+  background-color: pink;
+}
+
+button{
+  color:black;
+  background-color: aqua;
+  cursor: pointer;
+}
+

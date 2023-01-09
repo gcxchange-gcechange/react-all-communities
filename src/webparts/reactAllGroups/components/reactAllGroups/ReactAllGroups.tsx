@@ -10,6 +10,7 @@ import { SelectLanguage } from "../SelectLanguage";
 import { Icon } from "office-ui-fabric-react/lib/Icon";
 import { Stack, Image, IImageProps, ImageFit } from "office-ui-fabric-react";
 import { AZNavigation } from "../AZNavigation/AZNavigation";
+import { Paging } from "../paging";
 
 
 
@@ -40,11 +41,13 @@ export class ReactAllGroups extends React.Component<
     this.setState(
       {
         selectedLetter: this.props.selectedLetter,
+        currentPage: 1
       },
       //functions that renders groups based on user selected letter
       function () {
         this._setLoading(true);
         this._getGroups(letter);
+
       }
     );
   }
@@ -118,6 +121,7 @@ export class ReactAllGroups extends React.Component<
   }
 
   public _getGroupThumbnails = (groups: any): void => {
+
     let groupsCompleted = 0;
     let totalGroups = groups.length;
 
@@ -166,9 +170,10 @@ export class ReactAllGroups extends React.Component<
     });
   }
 
+
+
   private _onRenderGridItem = (item: any): JSX.Element => {
 
-    // console.log("Item", item)
 
     return (
       <div className={styles.siteCard}>
@@ -238,6 +243,14 @@ export class ReactAllGroups extends React.Component<
     );
   }
 
+  private _onPageUpdate = (pageNumber: number): void => {
+    this.setState({
+      currentPage: pageNumber
+    });
+  }
+
+
+
   public render(): React.ReactElement<IReactAllGroupsProps> {
     //Sorting in the Control panel
     let myData = [];
@@ -249,8 +262,8 @@ export class ReactAllGroups extends React.Component<
           .concat(this.state.groups)
           .sort((a, b) => (a.displayName < b.displayName ? -1 : 1)));
 
-    let pagedItems: any[] = myData;
-
+    let pagedItems: any[] = this.state.groups;
+        console.log("PgItems",pagedItems.length);
 
     // total the groups that are not status code 403
     let totalItems: any[] = this.state.groups;
@@ -263,6 +276,26 @@ export class ReactAllGroups extends React.Component<
       height: 300,
     };
 
+    //Paging
+
+    const numberOfItems: number = totalItems.length;
+    console.log("#total Item for specific letter",numberOfItems);
+    let showPages: boolean = false;
+
+    //slider events
+    let  maxEvents: number = this.props.numberPerPage;
+    console.log("maxEvents",maxEvents);
+    const { currentPage } = this.state;
+
+    if (true && numberOfItems > 0 && numberOfItems > maxEvents) {
+
+      const pageStartAt: number = maxEvents * (currentPage - 1);
+      const pageEndAt: number = (maxEvents * currentPage);
+
+      pagedItems = pagedItems.slice(pageStartAt, pageEndAt);
+      showPages = true;
+    }
+
     return (
 
       <div className={styles.reactAllGroups}>
@@ -274,15 +307,42 @@ export class ReactAllGroups extends React.Component<
           { this.state.isLoading ? (
             <Spinner label={this.strings.loadingState} />
           ) : totalItems !== null && totalItems.length >= 1 ? (
+            <>
+            <Paging
+              showPageNumber={true}
+              currentPage={currentPage}
+              itemsCountPerPage={maxEvents}
+              numberOfItems={numberOfItems}
+              onPageUpdate={this._onPageUpdate}
+              nextButtonLabel={this.strings.pagNext}
+              previousButtonLabel={this.strings.pagPrev}
+              firstButtonLabel={this.strings.firstPage}
+              lastButtonLabel={this.strings.lastPage}
+            />
             <div>
+
               {/* <div className={styles.groupsContainer}> */}
               <GridLayout
                 sort={this.props.sort}
                 items={pagedItems}
                 onRenderGridItem={(item: any) => this._onRenderGridItem(item)}
               />
+
               {/* </div> */}
             </div>
+            <Paging
+              showPageNumber={true}
+              currentPage={currentPage}
+              itemsCountPerPage={maxEvents}
+              numberOfItems={numberOfItems}
+              onPageUpdate={this._onPageUpdate}
+              nextButtonLabel={this.strings.pagNext}
+              previousButtonLabel={this.strings.pagPrev}
+              firstButtonLabel={this.strings.firstPage}
+              lastButtonLabel={this.strings.lastPage}
+            />
+
+            </>
           ) : (
             <Stack  as='div' horizontal reversed  verticalAlign="center" tabIndex={0} aria-label={this.strings.noResults}>
 

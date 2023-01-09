@@ -2,7 +2,7 @@ import * as React from 'react';
 import * as ReactDom from 'react-dom';
 import { Version } from '@microsoft/sp-core-library';
 import { BaseClientSideWebPart } from "@microsoft/sp-webpart-base";
-import { IPropertyPaneConfiguration, PropertyPaneTextField, PropertyPaneChoiceGroup, PropertyPaneDropdown, PropertyPaneToggle, PropertyPaneLink, PropertyPaneButton, PropertyPaneButtonType } from "@microsoft/sp-property-pane";
+import { IPropertyPaneConfiguration, PropertyPaneTextField, PropertyPaneChoiceGroup, PropertyPaneDropdown, PropertyPaneToggle, PropertyPaneLink, PropertyPaneButton, PropertyPaneButtonType, PropertyPaneSlider } from "@microsoft/sp-property-pane";
 import GroupService from '../../services/GroupService';
 import * as strings from 'ReactAllGroupsWebPartStrings';
 import { ReactAllGroups, IReactAllGroupsProps } from './components';
@@ -10,7 +10,6 @@ import { ThemeProvider, ThemeChangedEventArgs, IReadonlyTheme } from '@microsoft
 
 
 export interface IReactAllGroupsWebPartProps {
-  // addCommLink: string;
   layout: string;
   prefLang: string;
   toggleSeeAll: boolean;
@@ -18,8 +17,8 @@ export interface IReactAllGroupsWebPartProps {
   sort: string;
   themeVariant: IReadonlyTheme | undefined;
   selectedLetter: string;
-  // commLink: string;
-  // createComm: string;
+
+
 
 
 
@@ -34,7 +33,6 @@ export default class ReactAllGroupsWebPart extends BaseClientSideWebPart<IReactA
     const element: React.ReactElement<IReactAllGroupsProps > = React.createElement(
       ReactAllGroups,
       {
-        // addCommLink: this.properties.addCommLink,
         layout: this.properties.layout,
         prefLang: this.properties.prefLang,
         toggleSeeAll: this.properties.toggleSeeAll,
@@ -42,8 +40,7 @@ export default class ReactAllGroupsWebPart extends BaseClientSideWebPart<IReactA
         sort: this.properties.sort,
         themeVariant: this._themeVariant,
         selectedLetter: this.properties.selectedLetter,
-        // commLink: this.properties.commLink,
-        // createComm: this.properties.createComm,
+
 
 
       }
@@ -104,8 +101,18 @@ export default class ReactAllGroupsWebPart extends BaseClientSideWebPart<IReactA
                       text:strings.alphabetical,
                       checked: layout === "Alphabetical" ? true : false,
                     }
+
                   ]
                 }),
+
+                PropertyPaneSlider('numberPerPage', {
+                  label: 'items per page',
+                  min: 1,
+                  max: 5,
+                  step: 1,
+                  showValue: true,
+                  value: 10
+                })
               ]
             }
           ]

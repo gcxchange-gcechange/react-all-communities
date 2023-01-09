@@ -1,5 +1,5 @@
-// export interface IAZNavigationState {
+export interface IAZNavigationState {
 
-//   isLoading?: boolean;
+  currentPage?: number;
 
-// }
+}
