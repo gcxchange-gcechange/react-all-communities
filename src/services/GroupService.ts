@@ -20,8 +20,8 @@ export class GroupServiceManager {
       apiTxt =
         "/groups?$filter=groupTypes/any(c:c+eq+'Unified') and startsWith(displayName,'1') or startswith(displayName,'2') or startswith(displayName,'3') or startswith(displayName,'4')or startswith(displayName,'5') or startswith(displayName,'6') or startswith(displayName,'7') or startswith(displayName,'8') or startswith(displayName,'9')";
     } else {
-      apiTxt = `/groups?$filter=groupTypes/any(c:c+eq+'Unified') and startsWith(displayName,'${letter}')`;
-      // apiTxt = `/groups?$filter=groupTypes/any(c:c+eq+'Unified') and startsWith(displayName,'${letter}')&$top=5`;
+      // apiTxt = `/groups?$filter=groupTypes/any(c:c+eq+'Unified') and startsWith(displayName,'${letter}')`;
+      apiTxt = `/groups?$filter=groupTypes/any(c:c+eq+'Unified') and startsWith(displayName,'${letter}')&$top=5`;
 
     }
 
@@ -48,20 +48,36 @@ export class GroupServiceManager {
                 }
 
                 let responseContent = [];
-                responseContent = responseObject.responses[0].body.value;
+                let nextLinkUrl= [];
+                const responseValue = responseObject.responses[0].body.value;
+                const nextLink = responseObject.responses[0].body["@odata.nextLink"];
+
+                if (nextLink) {
+                  nextLinkUrl.push(nextLink);
+                }
+
+                responseContent = responseValue;
+                // console.log("URL",nextLinkUrl);
+                // resolve(responseContent);
+                console.log("Res1",responseContent);
+
+              client.api(nextLink).get((error2: any, responseObject2: any) => {
+                const nextLink2 = responseObject2['@odata.nextLink'];
+
+                if(nextLink2) {
+                  nextLinkUrl.push(nextLink2);
+                }
+
+                responseContent = [...responseValue, ...responseObject2.value];
+                console.log("RES2",responseContent);
+                console.log("URL", nextLinkUrl);
                 resolve(responseContent);
-
-              //   let nextLink = responseObject.responses[0].body["@odata.nextLink"];
-
-              // client.api(nextLink).get((error2: any, responseObject2: any) => {
-              //   console.log(responseObject2.value);
-              //   resolve(responseObject2.value);
-              // });
+              });
 
             });
           });
       } catch (error) {
-        reject(error);
+          reject(error);
         console.error(error);
       }
     });
