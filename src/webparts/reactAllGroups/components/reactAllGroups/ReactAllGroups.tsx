@@ -71,7 +71,7 @@ export class ReactAllGroups extends React.Component<
     //     groups: nextGroupItems
     //   });
     //    this._getGroupsLinks(nextGroupItems);
-    // })
+    // });
   }
 
   public _getGroupsLinks = (items: any): void => {
