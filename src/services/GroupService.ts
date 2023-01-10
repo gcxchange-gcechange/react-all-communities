@@ -2,6 +2,7 @@ import { MSGraphClient } from "@microsoft/sp-http";
 import * as MicrosoftGraph from "@microsoft/microsoft-graph-types";
 import { WebPartContext } from "@microsoft/sp-webpart-base";
 import { IGroup, IGroupCollection } from "../models";
+import { groups } from "ReactAllGroupsWebPartStrings";
 
 
 
@@ -49,26 +50,41 @@ export class GroupServiceManager {
 
                 let responseContent = [];
                 let nextLinkUrl= [];
-                const responseValue = responseObject.responses[0].body.value;
+
+                const responseGroups = responseObject.responses[0].body;
                 const nextLink = responseObject.responses[0].body["@odata.nextLink"];
 
-                if (nextLink) {
+                if (nextLink !== undefined ) {
                   nextLinkUrl.push(nextLink);
                 }
 
-                responseContent = responseValue;
-                // console.log("URL",nextLinkUrl);
-                // resolve(responseContent);
-                console.log("Res1",responseContent);
+                responseContent = responseGroups.value;
+                console.log("URL",nextLinkUrl);
+                resolve(responseContent);
+                console.log("Res",responseContent);
+
+                // do {
+                //   client.api(responseGroups["@odata.nextLink"]).get((error2: any, responseObject: any) => {
+                //     responseContent = responseGroups.concat(responseObject.value);
+
+                //     console.log(responseContent)
+
+                //   });
+                // } while (responseGroups["@odata.nextLink"] !==  null);
+                //  console.log(responseContent);
+                //  resolve(responseContent);
+
+
 
               client.api(nextLink).get((error2: any, responseObject2: any) => {
-                const nextLink2 = responseObject2['@odata.nextLink'];
+                console.log("RES2RAW",responseObject2);
+                let nextLink2 = responseObject2['@odata.nextLink'];
 
                 if(nextLink2) {
                   nextLinkUrl.push(nextLink2);
                 }
 
-                responseContent = [...responseValue, ...responseObject2.value];
+                responseContent = [...responseGroups.value, ...responseObject2.value];
                 console.log("RES2",responseContent);
                 console.log("URL", nextLinkUrl);
                 resolve(responseContent);
@@ -119,10 +135,9 @@ export class GroupServiceManager {
 
 
   public getNextLinkGroups(letter: string): Promise<MicrosoftGraph.Group[]> {
-    let apiTxt = `/groups?$filter=groupTypes/any(c:c+eq+'Unified') and startsWith(displayName,'${letter}')&$top=5`;
+    // let apiTxt = `/groups?$filter=groupTypes/any(c:c+eq+'Unified') and startsWith(displayName,'${letter}')&$top=5`;
 
-
-    let nextLink: string = ``;
+    let nextLinkUrl: string = '';
 
     return new Promise<MicrosoftGraph.Group[]>((resolve, reject) => {
       try{
@@ -130,10 +145,10 @@ export class GroupServiceManager {
         .getClient()
         .then((client: MSGraphClient) => {
           client
-          .api(apiTxt)
-          .get((error: any, groups: IGroupCollection, rawResponse: any) => {
-            console.log("GROUP CONT "+JSON.stringify(groups));
-            resolve(groups.value);
+          .api(nextLinkUrl)
+          .get((error: any, response:any, rawResponse: any) => {
+            console.log("GROUP CONT "+JSON.stringify(response));
+            resolve(response.value);
           });
         });
       } catch (error) {
@@ -144,6 +159,7 @@ export class GroupServiceManager {
   }
 
   public getGroupLinksBatch(groups: any): Promise<any> {
+
     let requestBody = {
       requests: [
         {
