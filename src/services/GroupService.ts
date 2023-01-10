@@ -47,20 +47,23 @@ export class GroupServiceManager {
                 if (error) {
                   Promise.reject(error);
                 }
-
+                //store the groups
                 let responseContent = [];
+                // store the next Link URL
                 let nextLinkUrl= [];
+                //array that will store all of the groups.
+                let lastResult = [];
 
-                const responseGroups = responseObject.responses[0].body;
+                const responseGroups = responseObject.responses[0].body.value;
                 const nextLink = responseObject.responses[0].body["@odata.nextLink"];
 
                 if (nextLink !== undefined ) {
                   nextLinkUrl.push(nextLink);
                 }
 
-                responseContent = responseGroups.value;
+                responseContent = responseGroups;
                 console.log("URL",nextLinkUrl);
-                resolve(responseContent);
+                // resolve(responseContent);
                 console.log("Res",responseContent);
 
                 // do {
@@ -84,10 +87,10 @@ export class GroupServiceManager {
                   nextLinkUrl.push(nextLink2);
                 }
 
-                responseContent = [...responseGroups.value, ...responseObject2.value];
-                console.log("RES2",responseContent);
+                lastResult = [...responseGroups, ...responseObject2.value];
+                console.log("RES2",lastResult);
                 console.log("URL", nextLinkUrl);
-                resolve(responseContent);
+                resolve(lastResult);
               });
 
             });
