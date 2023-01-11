@@ -60,19 +60,26 @@ export class ReactAllGroups extends React.Component<
 
   public _getGroups = (letter: string): void => {
     GroupService.getGroupsBatch(letter).then((groupData) => {
+      console.log("GD",groupData);
       this.setState({
         groups: groupData,
       });
       this._getGroupsLinks(groupData);
+      this.getnextPage(groupData);
     });
 
-    // GroupService.getNextLinkGroups(letter).then((nextGroupItems) => {
-    //   this.setState({
-    //     groups: nextGroupItems
-    //   });
-    //    this._getGroupsLinks(nextGroupItems);
-    // });
+
   }
+
+  public getnextPage = (groups: any) => {
+    GroupService.getNextLinkGroups(groups).then((nextGroupItems) => {
+      this.setState({
+        groups: nextGroupItems
+      });
+      this._getGroupsLinks(nextGroupItems);
+    });
+  }
+
 
   public _getGroupsLinks = (items: any): void => {
     let groupsCompleted = 0;
