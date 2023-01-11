@@ -22,7 +22,7 @@ export class GroupServiceManager {
         "/groups?$filter=groupTypes/any(c:c+eq+'Unified') and startsWith(displayName,'1') or startswith(displayName,'2') or startswith(displayName,'3') or startswith(displayName,'4')or startswith(displayName,'5') or startswith(displayName,'6') or startswith(displayName,'7') or startswith(displayName,'8') or startswith(displayName,'9')";
     } else {
       // apiTxt = `/groups?$filter=groupTypes/any(c:c+eq+'Unified') and startsWith(displayName,'${letter}')`;
-      apiTxt = `/groups?$filter=groupTypes/any(c:c+eq+'Unified') and startsWith(displayName,'${letter}')&$top=5`;
+      apiTxt = `/groups?$filter=groupTypes/any(c:c+eq+'Unified') and startsWith(displayName,'${letter}')&$top=10`;
 
     }
 
@@ -79,19 +79,27 @@ export class GroupServiceManager {
 
 
 
-              client.api(nextLink).get((error2: any, responseObject2: any) => {
-                console.log("RES2RAW",responseObject2);
-                let nextLink2 = responseObject2['@odata.nextLink'];
+              for (let key of responseObject.responses[0].body["@odata.nextLink"]) {
+                client.api(nextLink).get((error2:any, responseObject2: any) => {
+                  lastResult = [...responseContent, ...responseObject2.value]
+                  console.log("RESOB",responseObject2)
+                  resolve(lastResult)
+                })
+              }
 
-                if(nextLink2) {
-                  nextLinkUrl.push(nextLink2);
-                }
+              // client.api(nextLink).get((error2: any, responseObject2: any) => {
+              //   console.log("RES2RAW",responseObject2);
+              //   let nextLink2 = responseObject2['@odata.nextLink'];
 
-                lastResult = [...responseGroups, ...responseObject2.value];
-                console.log("RES2",lastResult);
-                console.log("URL", nextLinkUrl);
-                resolve(lastResult);
-              });
+              //   if(nextLink2) {
+              //     nextLinkUrl.push(nextLink2);
+              //   }
+
+              //   lastResult = [...responseGroups, ...responseObject2.value];
+              //   console.log("RES2",lastResult);
+              //   console.log("URL", nextLinkUrl);
+              //   resolve(lastResult);
+              // });
 
             });
           });
