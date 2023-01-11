@@ -144,8 +144,8 @@ export class GroupServiceManager {
           }
         });
       }
-    }
   }
+
 
 
   public getGroupLinksBatch(groups: any): Promise<any> {
