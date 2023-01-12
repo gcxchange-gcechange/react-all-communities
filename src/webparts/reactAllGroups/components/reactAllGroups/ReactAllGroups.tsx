@@ -32,6 +32,7 @@ export class ReactAllGroups extends React.Component<
       selectedLetter: "A",
       errorMessage: null,
       numberOfCommunities: null,
+      pageCount: ''
     };
   }
 
@@ -60,22 +61,31 @@ export class ReactAllGroups extends React.Component<
 
   public _getGroups = (letter: string): void => {
     GroupService.getGroupsBatch(letter).then((groupData) => {
-      console.log("GD",groupData);
+      console.log("GD",groupData[11]);
+
+      let pageCount = '';
+
+      pageCount = groupData[11].toString();
+
       this.setState({
         groups: groupData,
+        pageCount: pageCount
       });
+
       this._getGroupsLinks(groupData);
-      this.getnextPage(groupData);
+      // this.getnextPage(groupData);
+
     });
 
 
   }
 
   public getnextPage = (groups: any) => {
-    GroupService.getNextLinkGroups(groups).then((nextGroupItems) => {
+    GroupService.getNextLinkPageGroups(groups).then((nextGroupItems) => {
       this.setState({
         groups: nextGroupItems
       });
+      console.log("Next",nextGroupItems)
       this._getGroupsLinks(nextGroupItems);
     });
   }
@@ -84,6 +94,7 @@ export class ReactAllGroups extends React.Component<
   public _getGroupsLinks = (items: any): void => {
     let groupsCompleted = 0;
     let totalGroups = items.length;
+
 
     if (totalGroups == 0) {
       this._setLoading(false);
