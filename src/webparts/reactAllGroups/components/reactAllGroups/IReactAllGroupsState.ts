@@ -11,6 +11,7 @@ export interface IReactAllGroupsState {
   selectedLetter: string;
   errorMessage: string;
   numberOfCommunities: number;
+  pageCount: string;
 
 
 }
