@@ -23,7 +23,7 @@ export class GroupServiceManager {
         "/groups?$filter=groupTypes/any(c:c+eq+'Unified') and startsWith(displayName,'1') or startswith(displayName,'2') or startswith(displayName,'3') or startswith(displayName,'4')or startswith(displayName,'5') or startswith(displayName,'6') or startswith(displayName,'7') or startswith(displayName,'8') or startswith(displayName,'9')";
     } else {
       // apiTxt = `/groups?$filter=groupTypes/any(c:c+eq+'Unified') and startsWith(displayName,'${letter}')`;
-      apiTxt = `/groups?$filter=groupTypes/any(c:c+eq+'Unified') and startsWith(displayName,'${letter}')&$top=10`;
+      apiTxt = `/groups?$filter=groupTypes/any(c:c+eq+'Unified') and startsWith(displayName,'${letter}')&$count=true&$top=10`;
 
     }
 
@@ -33,9 +33,14 @@ export class GroupServiceManager {
           id: "1",
           method: "GET",
           url: `${apiTxt}`,
+          headers: {
+            ConsistencyLevel: "eventual"
+          }
         }
       ],
     };
+
+
     return new Promise((resolve, reject) => {
       try {
         this.context.msGraphClientFactory
@@ -43,8 +48,9 @@ export class GroupServiceManager {
           .then((client: MSGraphClient) => {
             client
               .api(`/$batch`)
-              .post(requestBody, (error: any, responseObject: any) => {
 
+              .post(requestBody, (error: any, responseObject: any) => {
+                console.log("initial",responseObject)
                 if (error) {
                   Promise.reject(error);
                 }
@@ -56,51 +62,19 @@ export class GroupServiceManager {
                 let lastResult = [];
 
                 const responseGroups = responseObject.responses[0].body.value; // this is the groups returned from the response
-                const nextLink = responseObject.responses[0].body["@odata.nextLink"]; //this is the next page link object returned from the response
+                const nextLink: string = responseObject.responses[0].body["@odata.nextLink"]; //this is the next page link object returned from the response
+                let pageCount: number  = Math.ceil(responseObject.responses[0].body["@odata.count"] / 10); // grab the count of all groups and divide by # of top in API.
+
 
 
                 if (nextLink !== undefined ) {
                   nextLinkUrl.push(nextLink);
                 }
                 //store the first response groups array to responseContent
-                responseContent = [...responseGroups, ...nextLinkUrl];
+                responseContent = [...responseGroups, ...nextLinkUrl, pageCount];
                 console.log("URL",nextLinkUrl);
                 console.log("RESCON",responseContent);
                 resolve(responseContent);
-
-
-
-              // for (let key in responseObject.responses[0].body) {
-              //   let link = key
-              //   console.log("K", link);
-
-                // if(nextLinkUrl !== null) {
-
-                //   client.api(nextLink).get((error2:any, responseObject2: any) => {
-
-                //     lastResult = [...responseContent, ...responseObject2.value];
-                //     console.log("lastResult", responseObject2)
-                //     resolve(lastResult);
-                //   });
-                // }
-                //  else {
-                //   console.log("first",responseContent)
-                //   resolve(responseContent);
-                // }
-
-              // }
-
-              // client.api(nextLink).get((error2: any, responseObject2: any) => {
-              //   console.log("RES2RAW",responseObject2);
-              //   let nextLink2 = responseObject2['@odata.nextLink'];
-
-              //   if(nextLink2) {
-              //     nextLinkUrl.push(nextLink2);
-              //   }
-
-              //   lastResult = [...responseGroups, ...responseObject2.value];
-              //   resolve(lastResult);
-              // });
 
             });
           });
@@ -111,7 +85,7 @@ export class GroupServiceManager {
     });
   }
 
-  public getNextLinkGroups(groups:any): Promise<MicrosoftGraph.Group[]> {
+  public getNextLinkPageGroups(groups:any): Promise<MicrosoftGraph.Group[]> {
     // let apiTxt = `/groups?$filter=groupTypes/any(c:c+eq+'Unified') and startsWith(displayName,'${letter}')&$top=5`;
     console.log("G",groups[10]);
     let nextPageUrl = [];
@@ -119,33 +93,30 @@ export class GroupServiceManager {
 
     let nextLink: string = `${groups[10]}`
 
-      if(nextLink === undefined) {
-        return (groups)
-      }
+    if(nextLink !== undefined) {
 
-      if (nextLink !== undefined) {
-
-        return new Promise<MicrosoftGraph.Group[]>((resolve, reject) => {
-          try{
-            this.context.msGraphClientFactory
-            .getClient()
-            .then((client: MSGraphClient) => {
-              client
-              .api(nextLink)
-              .get((error: any, groups: IGroupCollection, rawResponse: any) => {
-                console.log("GROUP CONT "+JSON.stringify(groups));
-                console.log("groups", groups);
-                resolve(groups.value);
-              });
+      return new Promise<MicrosoftGraph.Group[]>((resolve, reject) => {
+        try{
+          this.context.msGraphClientFactory
+          .getClient()
+          .then((client: MSGraphClient) => {
+            client
+            .api(nextLink)
+            .get((error: any, groups: IGroupCollection, rawResponse: any) => {
+              console.log("GROUP CONT "+JSON.stringify(groups));
+              console.log("groups", groups.value);
+              resolve(groups.value);
             });
-          } catch (error) {
-            reject(error);
-            console.log(error);
-          }
-        });
-      }
+          });
+        } catch (error) {
+          reject(error);
+          console.log(error);
+        }
+      });
+    } else {
+      return (groups.value);
+    }
   }
-
 
 
   public getGroupLinksBatch(groups: any): Promise<any> {
@@ -172,6 +143,7 @@ export class GroupServiceManager {
             client
               .api(`/$batch`)
               .post(requestBody, (error: any, responseObject: any) => {
+                console.log("LinksBatchRES",responseObject);
                 if (error) {
                   Promise.reject(error);
                 }
