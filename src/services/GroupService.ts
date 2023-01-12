@@ -66,7 +66,6 @@ export class GroupServiceManager {
                 let pageCount: number  = Math.ceil(responseObject.responses[0].body["@odata.count"] / 10); // grab the count of all groups and divide by # of top in API.
 
 
-
                 if (nextLink !== undefined ) {
                   nextLinkUrl.push(nextLink);
                 }
