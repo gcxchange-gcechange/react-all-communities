@@ -19,9 +19,6 @@ export interface IReactAllGroupsWebPartProps {
   selectedLetter: string;
 
 
-
-
-
 }
 
 export default class ReactAllGroupsWebPart extends BaseClientSideWebPart<IReactAllGroupsWebPartProps> {
@@ -40,8 +37,6 @@ export default class ReactAllGroupsWebPart extends BaseClientSideWebPart<IReactA
         sort: this.properties.sort,
         themeVariant: this._themeVariant,
         selectedLetter: this.properties.selectedLetter,
-
-
 
       }
     );
@@ -108,7 +103,7 @@ export default class ReactAllGroupsWebPart extends BaseClientSideWebPart<IReactA
                 PropertyPaneSlider('numberPerPage', {
                   label: 'items per page',
                   min: 1,
-                  max: 5,
+                  max: 10,
                   step: 1,
                   showValue: true,
                   value: 10
