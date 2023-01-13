@@ -6,7 +6,7 @@ import { Icon } from 'office-ui-fabric-react/lib/Icon';
 import { IPagingProps, IPagingState } from "./index";
 import styles from "./Paging.module.scss";
 import { Stack } from 'office-ui-fabric-react';
-import GroupService from "../../../../services/GroupService";
+
 
 
 
@@ -21,7 +21,7 @@ export class Paging extends React.Component<IPagingProps, IPagingState> {
 
         // calculate the page situation
         const numberOfPages: number = this._getNumberOfPages().length;
-        // console.log("NumPages", numberOfPages);
+        console.log("NumPages", numberOfPages);
 
 
         // we disable the previous button if we're on page 1
@@ -171,7 +171,7 @@ export class Paging extends React.Component<IPagingProps, IPagingState> {
 
 
     private _getNumberOfPages(): number[] {
-        const { numberOfItems, itemsCountPerPage} = this.props;
+        const { numberOfItems} = this.props;
 
         let numberPages: number = numberOfItems;
         let numbers: number[] = []

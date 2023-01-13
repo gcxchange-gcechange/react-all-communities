@@ -67,7 +67,12 @@ export class ReactAllGroups extends React.Component<
       let url = '';
 
       pageCount = Number(groupData[11]);
-      url = groupData[10].toString();
+
+      if(pageCount > 1) {
+        url = groupData[10].toString();
+      } else {
+        return null;
+      }
 
       this.setState({
         groups: groupData,
@@ -85,9 +90,13 @@ export class ReactAllGroups extends React.Component<
   public _getnextPage = (url: any) => {
     GroupService.getNextLinkPageGroups(url).then((nextGroupItems) => {
       console.log("Next",nextGroupItems);
-      this.setState({
-        groups: nextGroupItems
-      });
+
+      if(url !== undefined) {
+        this.setState({
+          groups: nextGroupItems
+        });
+      }
+
       // console.log("Next",nextGroupItems);
       this._getGroupsLinks(nextGroupItems);
     });
@@ -126,6 +135,8 @@ export class ReactAllGroups extends React.Component<
                     }
                   : group
               ),
+
+
             }));
           } else {
             let index = this.state.groups
@@ -137,6 +148,7 @@ export class ReactAllGroups extends React.Component<
             this.setState({
               groups: groupsCopy,
               pageCount: newPageCount
+
             });
           }
 
@@ -277,11 +289,31 @@ export class ReactAllGroups extends React.Component<
   }
 
   private _onPageUpdate = (pageNumber: number): void => {
+
+
     this.setState({
-      currentPage: pageNumber
+      currentPage: pageNumber,
     });
+
     //when the user selects another page pass the nextPage API to get the other items
-    this._getnextPage(this.state.nexPageUrl) // pass the URL from the first group call
+
+    if(this.state.nexPageUrl !== undefined) {
+
+      this._getnextPage(this.state.nexPageUrl), // pass the URL from the first group call
+      this.setState({
+        groups: this.state.groups})
+    }
+
+      else if(this.state.currentPage === 1){
+
+      this.setState(prevState => ({
+        groups: prevState.groups
+        }))
+
+    }
+
+
+
   }
 
 
@@ -320,16 +352,29 @@ export class ReactAllGroups extends React.Component<
     let showPages: boolean = false;
 
     //slider events
-    let  maxEvents: number = this.props.numberPerPage;
+    // let  maxEvents: number = this.props.numberPerPage;
+    let  maxEvents: number = 5;
     // console.log("maxEvents",maxEvents);
     const { currentPage } = this.state;
 
-    if (true && numberOfItems > 0 && numberOfItems > maxEvents) {
+    if (true && pages > 0 ) {
 
-      const pageStartAt: number = maxEvents * (currentPage - 1);
-      const pageEndAt: number = (maxEvents * currentPage);
+      let numbers: number[] = []
+      for (let i = 0; i < pages; i++) {
+        numbers.push(i + 1);
+      }
 
-      pagedItems = pagedItems.slice(pageStartAt, pageEndAt);
+      // const pageStartAt: number = numbers[0] * (currentPage - 1);
+      // console.log("Start",pageStartAt)
+      // const pageEndAt: number = ((numbers.length -1) * currentPage);
+      // console.log("Start",pageStartAt)
+
+      // const pageStartAt: number = maxEvents * (currentPage - 1);
+      // console.log("StartC",currentPage)
+      // const pageEndAt: number = (maxEvents * currentPage);
+      // console.log("End",pageEndAt)
+
+      // pagedItems = pagedItems.slice(pageStartAt, pageEndAt);
       showPages = true;
     }
 
@@ -348,7 +393,7 @@ export class ReactAllGroups extends React.Component<
             <Paging
               showPageNumber={true}
               currentPage={currentPage}
-              itemsCountPerPage={maxEvents}
+              itemsCountPerPage={10}
               numberOfItems={pages}
               onPageUpdate={this._onPageUpdate}
               nextButtonLabel={this.strings.pagNext}

@@ -18,12 +18,14 @@ export class GroupServiceManager {
   public getGroupsBatch(letter:string): Promise<MicrosoftGraph.Group[]> {
     let apiTxt: string = "";
 
+    let numberofItems: number = 10;
+
     if (letter === "#") {
       apiTxt =
         "/groups?$filter=groupTypes/any(c:c+eq+'Unified') and startsWith(displayName,'1') or startswith(displayName,'2') or startswith(displayName,'3') or startswith(displayName,'4')or startswith(displayName,'5') or startswith(displayName,'6') or startswith(displayName,'7') or startswith(displayName,'8') or startswith(displayName,'9')";
     } else {
       // apiTxt = `/groups?$filter=groupTypes/any(c:c+eq+'Unified') and startsWith(displayName,'${letter}')`;
-      apiTxt = `/groups?$filter=groupTypes/any(c:c+eq+'Unified') and startsWith(displayName,'${letter}')&$count=true&$top=10`;
+      apiTxt = `/groups?$filter=groupTypes/any(c:c+eq+'Unified') and startsWith(displayName,'${letter}')&$count=true&$top=${numberofItems}`;
 
     }
 
@@ -63,7 +65,7 @@ export class GroupServiceManager {
 
                 const responseGroups = responseObject.responses[0].body.value; // this is the groups returned from the response
                 const nextLink: string = responseObject.responses[0].body["@odata.nextLink"]; //this is the next page link object returned from the response
-                let pageCount: number  = Math.ceil(responseObject.responses[0].body["@odata.count"] / 10); // grab the count of all groups and divide by # of top in API.
+                let pageCount: number  = Math.ceil(responseObject.responses[0].body["@odata.count"] / numberofItems); // grab the count of all groups and divide by # of top in API.
 
 
                 if (nextLink !== undefined ) {
