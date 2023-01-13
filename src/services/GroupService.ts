@@ -84,13 +84,13 @@ export class GroupServiceManager {
     });
   }
 
-  public getNextLinkPageGroups(groups:any): Promise<MicrosoftGraph.Group[]> {
+  public getNextLinkPageGroups(url:any): Promise<MicrosoftGraph.Group[]> {
     // let apiTxt = `/groups?$filter=groupTypes/any(c:c+eq+'Unified') and startsWith(displayName,'${letter}')&$top=5`;
-    console.log("G",groups[10]);
+    console.log("G",url);
     let nextPageUrl = [];
 
 
-    let nextLink: string = `${groups[10]}`
+    let nextLink: string = `${url}`
 
     if(nextLink !== undefined) {
 
@@ -112,9 +112,10 @@ export class GroupServiceManager {
           console.log(error);
         }
       });
-    } else {
-      return (groups.value);
     }
+    // else {
+    //   return (groups);
+    // }
   }
 
 

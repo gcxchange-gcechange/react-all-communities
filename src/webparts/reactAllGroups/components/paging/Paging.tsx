@@ -6,6 +6,7 @@ import { Icon } from 'office-ui-fabric-react/lib/Icon';
 import { IPagingProps, IPagingState } from "./index";
 import styles from "./Paging.module.scss";
 import { Stack } from 'office-ui-fabric-react';
+import GroupService from "../../../../services/GroupService";
 
 
 
@@ -76,13 +77,13 @@ export class Paging extends React.Component<IPagingProps, IPagingState> {
 
 
 
-                 {this._getNumberOfPages().map( itemNumber =>
-                  <div id={itemNumber.toString()}  tabIndex={0}   onClick={() => this._goToPage(itemNumber) }>{
-                    itemNumber === currentPage
+                 {this._getNumberOfPages().map( pageNumber =>
+                  <div id={pageNumber.toString()}  tabIndex={0}   onClick={() => this._goToPage(pageNumber) }>{
+                    pageNumber === currentPage
                        ? <DefaultButton styles={buttonStyles} className={styles.currentPage} aria-label={`Current page, Page ${currentPage}`} aria-current={true}>
                         {currentPage}
                         </DefaultButton>
-                       : <DefaultButton  styles={buttonStyles} id={itemNumber.toString()} aria-label={`Goto Page ${itemNumber}`} >{itemNumber}</DefaultButton>}
+                       : <DefaultButton  styles={buttonStyles} id={pageNumber.toString()} aria-label={`Goto Page ${pageNumber}`} >{pageNumber}</DefaultButton>}
                   </div>)}
 
 
@@ -155,9 +156,10 @@ export class Paging extends React.Component<IPagingProps, IPagingState> {
     }
 
     private _goToPage = (itemNumber):void => {
-        const pageNumber: number[]  = this._getNumberOfPages();
+        const pageNumber: number[]  = this._getNumberOfPages(); //gives an array of the page count
         const selected = pageNumber.indexOf(itemNumber);
         this.props.onPageUpdate(pageNumber[selected]);
+
     }
 
 
@@ -171,11 +173,17 @@ export class Paging extends React.Component<IPagingProps, IPagingState> {
     private _getNumberOfPages(): number[] {
         const { numberOfItems, itemsCountPerPage} = this.props;
 
-        let numPages: number = Math.ceil(numberOfItems / itemsCountPerPage);
-        let numbers: number[] = [];
-        for (let i = 0; i < numPages; i++) {
-        numbers.push(i + 1);
+        let numberPages: number = numberOfItems;
+        let numbers: number[] = []
+        for (let i = 0; i < numberPages; i++) {
+          numbers.push(i+ 1);
         }
+
+        // let numPages: number = Math.ceil(numberOfItems / itemsCountPerPage);
+        // let numbers: number[] = [];
+        // for (let i = 0; i < numPages; i++) {
+        // numbers.push(i + 1);
+        // }
 
         return numbers;
     }
