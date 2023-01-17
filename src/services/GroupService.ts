@@ -64,15 +64,22 @@ export class GroupServiceManager {
                 let lastResult = [];
 
                 const responseGroups = responseObject.responses[0].body.value; // this is the groups returned from the response
+
+
                 const nextLink: string = responseObject.responses[0].body["@odata.nextLink"]; //this is the next page link object returned from the response
+                console.log("NxtL",nextLink);
+
                 let pageCount: number  = Math.ceil(responseObject.responses[0].body["@odata.count"] / numberofItems); // grab the count of all groups and divide by # of top in API.
 
 
                 if (nextLink !== undefined ) {
                   nextLinkUrl.push(nextLink);
+                  responseContent = [...responseGroups, ...nextLinkUrl, pageCount];
+                } else {
+                  responseContent = [...responseGroups, pageCount];
                 }
                 //store the first response groups array to responseContent
-                responseContent = [...responseGroups, ...nextLinkUrl, pageCount];
+
                 console.log("URL",nextLinkUrl);
                 console.log("RESCON",responseContent);
                 resolve(responseContent);
@@ -93,6 +100,7 @@ export class GroupServiceManager {
 
 
     let nextLink: string = `${url}`
+    console.log("url", nextLink)
 
     if(nextLink !== undefined) {
 

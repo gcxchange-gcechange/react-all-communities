@@ -69,16 +69,25 @@ export class ReactAllGroups extends React.Component<
       pageCount = Number(groupData[11]);
 
       if(pageCount > 1) {
+
         url = groupData[10].toString();
+
+        this.setState(prevstate => ({ ...prevstate, groups: groupData, pageCount:pageCount, nexPageUrl: url}));
+        console.log("State1", this.state)
+        // this.setState({
+        //   groups: groupData,
+        //   pageCount: pageCount,
+        //   nexPageUrl: url
+        // });
+
       } else {
-        return null;
+        this.setState({
+          groups: groupData,
+          pageCount: pageCount
+        });
       }
 
-      this.setState({
-        groups: groupData,
-        pageCount: pageCount,
-        nexPageUrl: url
-      });
+
       console.log("url",url)
       this._getGroupsLinks(groupData);
 
@@ -90,11 +99,14 @@ export class ReactAllGroups extends React.Component<
   public _getnextPage = (url: any) => {
     GroupService.getNextLinkPageGroups(url).then((nextGroupItems) => {
       console.log("Next",nextGroupItems);
+      console.log("NxtUrl", url)
 
       if(url !== undefined) {
-        this.setState({
-          groups: nextGroupItems
-        });
+        this.setState(prevstate => ({ ...prevstate, groups: nextGroupItems}));
+        console.log("State2",this.state)
+        // this.setState({
+        //   groups: nextGroupItems
+        // });
       }
 
       // console.log("Next",nextGroupItems);
@@ -147,7 +159,7 @@ export class ReactAllGroups extends React.Component<
 
             this.setState({
               groups: groupsCopy,
-              pageCount: newPageCount
+              // pageCount: newPageCount
 
             });
           }
@@ -291,29 +303,31 @@ export class ReactAllGroups extends React.Component<
   private _onPageUpdate = (pageNumber: number): void => {
 
 
-    this.setState({
-      currentPage: pageNumber,
-    });
+    // this.setState({
+    //   currentPage: pageNumber,
+    // });
 
+    console.log("PAGE#", this.state.currentPage);
+    console.log("PageURL", this.state.nexPageUrl);
     //when the user selects another page pass the nextPage API to get the other items
 
     if(this.state.nexPageUrl !== undefined) {
 
       this._getnextPage(this.state.nexPageUrl), // pass the URL from the first group call
-      this.setState({
-        groups: this.state.groups})
+
+      this.setState(prevstate => ({ ...prevstate, groups: this.state.groups, currentPage: pageNumber }));
+    //   this.setState({
+    //     groups: this.state.groups})
     }
 
-      else if(this.state.currentPage === 1){
+     else  {
 
       this.setState(prevState => ({
-        groups: prevState.groups
+        groups: prevState.groups,
+        currentPage: pageNumber
         }))
 
     }
-
-
-
   }
 
 
