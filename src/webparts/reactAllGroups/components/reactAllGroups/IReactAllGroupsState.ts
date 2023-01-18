@@ -15,4 +15,5 @@ export interface IReactAllGroupsState {
   nexPageUrl: string;
 
 
+
 }

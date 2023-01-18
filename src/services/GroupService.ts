@@ -22,7 +22,7 @@ export class GroupServiceManager {
 
     if (letter === "#") {
       apiTxt =
-        "/groups?$filter=groupTypes/any(c:c+eq+'Unified') and startsWith(displayName,'1') or startswith(displayName,'2') or startswith(displayName,'3') or startswith(displayName,'4')or startswith(displayName,'5') or startswith(displayName,'6') or startswith(displayName,'7') or startswith(displayName,'8') or startswith(displayName,'9')";
+        `/groups?$filter=groupTypes/any(c:c+eq+'Unified') and startsWith(displayName,'0') or startsWith(displayName,'1') or startswith(displayName,'2') or startswith(displayName,'3') or startswith(displayName,'4')or startswith(displayName,'5') or startswith(displayName,'6') or startswith(displayName,'7') or startswith(displayName,'8') or startswith(displayName,'9')&$count=true&$top=${numberofItems}`;
     } else {
       // apiTxt = `/groups?$filter=groupTypes/any(c:c+eq+'Unified') and startsWith(displayName,'${letter}')`;
       apiTxt = `/groups?$filter=groupTypes/any(c:c+eq+'Unified') and startsWith(displayName,'${letter}')&$count=true&$top=${numberofItems}`;
@@ -38,7 +38,8 @@ export class GroupServiceManager {
           headers: {
             ConsistencyLevel: "eventual"
           }
-        }
+        },
+
       ],
     };
 
@@ -96,7 +97,7 @@ export class GroupServiceManager {
   public getNextLinkPageGroups(url:any): Promise<MicrosoftGraph.Group[]> {
     // let apiTxt = `/groups?$filter=groupTypes/any(c:c+eq+'Unified') and startsWith(displayName,'${letter}')&$top=5`;
     console.log("G",url);
-    let nextPageUrl = [];
+    let nextPageItems = [];
 
 
     let nextLink: string = `${url}`
@@ -111,10 +112,14 @@ export class GroupServiceManager {
           .then((client: MSGraphClient) => {
             client
             .api(nextLink)
-            .get((error: any, groups: IGroupCollection, rawResponse: any) => {
-              console.log("GROUP CONT "+JSON.stringify(groups));
-              console.log("groups", groups.value);
-              resolve(groups.value);
+            .get((error: any, response: any, rawResponse: any) => {
+              console.log("GROUP CONT "+JSON.stringify(response));
+              console.log("groups", response);
+              if(response.value) {
+                nextPageItems.push(response.value)
+                console.log("NEXTPAGEURL", nextPageItems)
+              }
+              resolve(response.value);
             });
           });
         } catch (error) {
@@ -166,7 +171,7 @@ export class GroupServiceManager {
                     return null;
                   }
                 });
-                //console.log("RES", responseContent);
+                // console.log("RES", responseContent);
                 resolve(responseContent);
               });
           });

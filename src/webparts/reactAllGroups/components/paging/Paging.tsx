@@ -16,7 +16,7 @@ import { Stack } from 'office-ui-fabric-react';
 export class Paging extends React.Component<IPagingProps, IPagingState> {
     public render(): React.ReactElement<IPagingProps> {
 
-        const { currentPage, nextButtonLabel, previousButtonLabel, nextButtonAriaLabel, previousButtonAriaLabel, firstButtonLabel, firstButtonAriaLabel, lastButtonLabel, lastButtonAriaLabel } = this.props;
+        const {  currentPage, nextButtonLabel, previousButtonLabel, nextButtonAriaLabel, previousButtonAriaLabel, firstButtonLabel, firstButtonAriaLabel, lastButtonLabel, lastButtonAriaLabel } = this.props;
 
 
         // calculate the page situation
