@@ -67,11 +67,11 @@ export class ReactAllGroups extends React.Component<
       let pageCount = 0;
       let url = '';
 
-      pageCount = Number(groupData[11]);
+      pageCount = Number(groupData[6]);
 
       if(pageCount > 1) {
 
-        url = groupData[10].toString();
+        url = groupData[5].toString();
 
         // this.setState(prevstate => ({ ...prevstate, groups: groupData, pageCount:pageCount, nexPageUrl: url}));
 
@@ -81,6 +81,7 @@ export class ReactAllGroups extends React.Component<
           nexPageUrl: url
         });
         console.log("State1", this.state);
+
       } else {
         this.setState({
           groups: groupData,
@@ -98,23 +99,30 @@ export class ReactAllGroups extends React.Component<
   }
 
   public _getpreviousPage = (prevGroup: any ) => {
-     console.log("Current St of G", this.state.groups)
+     console.log("Current St of G", this.state.nexPageUrl)
 
   }
 
   public _getnextPage = (url: any, prevGroups: any) => {
-    let nextSetGroup = []
-    console.log("prevGroups", prevGroups);
+    let nextSetGroup = [];
+    let nextPageLink = [];
 
+    console.log("prevGroups", prevGroups);
       GroupService.getNextLinkPageGroups(url).then((nextGroupItems) => {
-        nextSetGroup.push(nextGroupItems);
+
+        console.log("NGI",nextGroupItems)
+
+          nextSetGroup.push([...prevGroups], nextGroupItems[1]);
+          nextPageLink.push(nextGroupItems[0]);
+
+        console.log("NSG", nextSetGroup)
 
        this.setState({
-        ...prevGroups, nextPageGroups: nextGroupItems
-       })
-
-        this._getGroupsLinks(nextGroupItems);
-    })
+        ...prevGroups, groups: nextSetGroup[1], nexPageUrl: nextPageLink
+       });
+       console.log("STATE",this.state)
+        this._getGroupsLinks(nextSetGroup[1]);
+    });
 
 
 
@@ -318,6 +326,7 @@ export class ReactAllGroups extends React.Component<
 
     let nextItems: any[] = this.state.groups;
 
+
     console.log("PAGE#", this.state.currentPage);
     console.log("PageURL", this.state.nexPageUrl);
     console.log("GROUPS", this.state.groups)
@@ -417,8 +426,11 @@ export class ReactAllGroups extends React.Component<
             <Spinner label={this.strings.loadingState} />
           ) : totalItems !== null && totalItems.length >= 1 ? (
             <>
-            <button onClick={this._getpreviousPage}>Previous</button>
-            <button onClick={this._onNextPageSelected}>Next</button>
+            <Stack  horizontal  horizontalAlign="center" verticalAlign="center" >
+              {/* <button onClick={this._getpreviousPage}>Previous</button> */}
+              <button onClick={this._onNextPageSelected}>Load More</button>
+            </Stack>
+
             {/* <Paging
               showPageNumber={true}
               currentPage={currentPage}

@@ -18,7 +18,7 @@ export class GroupServiceManager {
   public getGroupsBatch(letter:string): Promise<MicrosoftGraph.Group[]> {
     let apiTxt: string = "";
 
-    let numberofItems: number = 10;
+    let numberofItems: number = 5;
 
     if (letter === "#") {
       apiTxt =
@@ -98,6 +98,8 @@ export class GroupServiceManager {
     // let apiTxt = `/groups?$filter=groupTypes/any(c:c+eq+'Unified') and startsWith(displayName,'${letter}')&$top=5`;
     console.log("G",url);
     let nextPageItems = [];
+    let nextPageUrls= [];
+    let responseContent = [];
 
 
     let nextLink: string = `${url}`
@@ -113,13 +115,17 @@ export class GroupServiceManager {
             client
             .api(nextLink)
             .get((error: any, response: any, rawResponse: any) => {
-              console.log("GROUP CONT "+JSON.stringify(response));
+              // console.log("GROUP CONT "+JSON.stringify(response));
               console.log("groups", response);
+
               if(response.value) {
+
+                responseContent.push(response["@odata.nextLink"], response.value)
                 nextPageItems.push(response.value)
-                console.log("NEXTPAGEURL", nextPageItems)
+                console.log("Content", responseContent)
+                console.log("NEXTPAGEURL", nextPageUrls)
               }
-              resolve(response.value);
+              resolve(responseContent);
             });
           });
         } catch (error) {
