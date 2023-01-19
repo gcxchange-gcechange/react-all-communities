@@ -12,7 +12,7 @@ export interface IReactAllGroupsState {
   errorMessage: string;
   numberOfCommunities: number;
   pageCount: number;
-  nexPageUrl: string;
+  nextPageUrl: string;
 
 
 
