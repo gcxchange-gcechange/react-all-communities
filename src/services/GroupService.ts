@@ -81,8 +81,6 @@ export class GroupServiceManager {
                 }
                 //store the first response groups array to responseContent
 
-                console.log("URL",nextLinkUrl);
-                console.log("RESCON",responseContent);
                 resolve(responseContent);
 
             });
@@ -96,16 +94,16 @@ export class GroupServiceManager {
 
   public getNextLinkPageGroups(url:any): Promise<MicrosoftGraph.Group[]> {
     // let apiTxt = `/groups?$filter=groupTypes/any(c:c+eq+'Unified') and startsWith(displayName,'${letter}')&$top=5`;
-    console.log("G",url);
+
     let nextPageItems = [];
     let nextPageUrls= [];
     let responseContent = [];
 
 
     let nextLink: string = `${url}`
-    console.log("url", nextLink)
 
-    if(nextLink !== undefined) {
+
+    if (nextLink !== undefined) {
 
       return new Promise<MicrosoftGraph.Group[]>((resolve, reject) => {
         try{
@@ -116,14 +114,11 @@ export class GroupServiceManager {
             .api(nextLink)
             .get((error: any, response: any, rawResponse: any) => {
               // console.log("GROUP CONT "+JSON.stringify(response));
-              console.log("groups", response);
 
               if(response.value) {
-
-                responseContent.push(response["@odata.nextLink"], response.value)
-                nextPageItems.push(response.value)
-                console.log("Content", responseContent)
-                console.log("NEXTPAGEURL", nextPageUrls)
+                responseContent.push(response["@odata.nextLink"], response.value);
+                nextPageUrls.push(response["@odata.nextLink"]);
+                nextPageItems.push(response.value);
               }
               resolve(responseContent);
             });
@@ -133,10 +128,10 @@ export class GroupServiceManager {
           console.log(error);
         }
       });
+    } else {
+      return null;
     }
-    // else {
-    //   return (groups);
-    // }
+
   }
 
 
