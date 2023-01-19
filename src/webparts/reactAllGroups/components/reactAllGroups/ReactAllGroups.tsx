@@ -8,7 +8,7 @@ import { Spinner } from "office-ui-fabric-react";
 import { GridLayout } from "../GridList";
 import { SelectLanguage } from "../SelectLanguage";
 import { Icon } from "office-ui-fabric-react/lib/Icon";
-import { Stack, Image, IImageProps, ImageFit } from "office-ui-fabric-react";
+import { Stack, Image, IImageProps, ImageFit, PrimaryButton } from "office-ui-fabric-react";
 import { AZNavigation } from "../AZNavigation/AZNavigation";
 import { Paging } from "../paging";
 import { groups } from "ReactAllGroupsWebPartStrings";
@@ -33,7 +33,7 @@ export class ReactAllGroups extends React.Component<
       errorMessage: null,
       numberOfCommunities: null,
       pageCount: 0,
-      nexPageUrl: '',
+      nextPageUrl: '',
 
     };
   }
@@ -78,7 +78,7 @@ export class ReactAllGroups extends React.Component<
         this.setState({
           groups: groupData,
           pageCount: pageCount,
-          nexPageUrl: url
+          nextPageUrl: url
         });
         console.log("State1", this.state);
 
@@ -99,7 +99,7 @@ export class ReactAllGroups extends React.Component<
   }
 
   public _getpreviousPage = (prevGroup: any ) => {
-     console.log("Current St of G", this.state.nexPageUrl)
+     console.log("Current St of G", this.state.groups)
 
   }
 
@@ -107,7 +107,8 @@ export class ReactAllGroups extends React.Component<
     let nextSetGroup = [];
     let nextPageLink = [];
 
-    console.log("prevGroups", prevGroups);
+    if (url !== undefined) {
+      console.log("prevGroups", prevGroups);
       GroupService.getNextLinkPageGroups(url).then((nextGroupItems) => {
 
         console.log("NGI",nextGroupItems)
@@ -117,12 +118,24 @@ export class ReactAllGroups extends React.Component<
 
         console.log("NSG", nextSetGroup)
 
-       this.setState({
-        ...prevGroups, groups: nextSetGroup[1], nexPageUrl: nextPageLink
-       });
+        if (nextPageLink !== undefined) {
+          this.setState({
+            ...prevGroups, groups: nextGroupItems[1], nextPageUrl: nextPageLink
+           });
+        } else {
+
+          this.setState({
+            ...prevGroups, groups: nextGroupItems[1]
+           });
+
+        }
+
        console.log("STATE",this.state)
         this._getGroupsLinks(nextSetGroup[1]);
     });
+    }
+
+
 
 
 
@@ -328,28 +341,15 @@ export class ReactAllGroups extends React.Component<
 
 
     console.log("PAGE#", this.state.currentPage);
-    console.log("PageURL", this.state.nexPageUrl);
+    console.log("PageURL", this.state.nextPageUrl);
     console.log("GROUPS", this.state.groups)
     //when the user selects another page pass the nextPage API to get the other items
 
-    // if(this.state.nexPageUrl !== undefined) {
+    if (this.state.nextPageUrl !== undefined) {
 
+      this._getnextPage(this.state.nextPageUrl, nextItems) // pass the URL from the first group call
+    }
 
-      this._getnextPage(this.state.nexPageUrl, nextItems) // pass the URL from the first group call
-    // }
-      // this.setState(prevstate => ({ ...prevstate, groups: this.state.groups, currentPage: pageNumber }));
-
-
-
-
-    //  else  {
-
-    //   this.setState(prevState => ({
-    //     groups: prevState.groups,
-    //     currentPage: pageNumber
-    //     }))
-
-    // }
   }
 
 
@@ -414,6 +414,10 @@ export class ReactAllGroups extends React.Component<
       showPages = true;
     }
 
+    const LoadMoreLink = this.state.nextPageUrl[0];
+
+
+
     return (
 
       <div className={styles.reactAllGroups}>
@@ -427,44 +431,19 @@ export class ReactAllGroups extends React.Component<
           ) : totalItems !== null && totalItems.length >= 1 ? (
             <>
             <Stack  horizontal  horizontalAlign="center" verticalAlign="center" >
+              {LoadMoreLink !== undefined ? (  <PrimaryButton onClick={this._onNextPageSelected}>Next</PrimaryButton> ) : ''}
               {/* <button onClick={this._getpreviousPage}>Previous</button> */}
-              <button onClick={this._onNextPageSelected}>Load More</button>
             </Stack>
 
-            {/* <Paging
-              showPageNumber={true}
-              currentPage={currentPage}
-              itemsCountPerPage={10}
-              numberOfItems={pages}
-              onPageUpdate={this._onPageUpdate}
-              nextButtonLabel={this.strings.pagNext}
-              previousButtonLabel={this.strings.pagPrev}
-              firstButtonLabel={this.strings.firstPage}
-              lastButtonLabel={this.strings.lastPage}
-            /> */}
             <div>
-
-              {/* <div className={styles.groupsContainer}> */}
               <GridLayout
                 sort={this.props.sort}
                 items={pagedItems}
                 onRenderGridItem={(item: any) => this._onRenderGridItem(item)}
               />
 
-              {/* </div> */}
             </div>
-            {/* <Paging
-              showPageNumber={true}
-              currentPage={currentPage}
-              itemsCountPerPage={maxEvents}
-              numberOfItems={numberOfItems}
-              onPageUpdate={this._onPageUpdate}
-              nextButtonLabel={this.strings.pagNext}
-              previousButtonLabel={this.strings.pagPrev}
-              firstButtonLabel={this.strings.firstPage}
-              lastButtonLabel={this.strings.lastPage}
-            /> */}
-
+              {LoadMoreLink !== undefined ? (  <PrimaryButton onClick={this._onNextPageSelected}>Next</PrimaryButton> ) : ''}
             </>
           ) : (
             <Stack  as='div' horizontal reversed  verticalAlign="center" tabIndex={0} aria-label={this.strings.noResults}>
