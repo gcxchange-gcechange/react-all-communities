@@ -53,7 +53,7 @@ export class GroupServiceManager {
               .api(`/$batch`)
 
               .post(requestBody, (error: any, responseObject: any) => {
-                console.log("initial",responseObject)
+
                 if (error) {
                   Promise.reject(error);
                 }
@@ -99,9 +99,7 @@ export class GroupServiceManager {
     let nextPageUrls= [];
     let responseContent = [];
 
-
-    let nextLink: string = `${url}`
-
+    let nextLink: string = `${url}`;
 
     if (nextLink !== undefined) {
 
@@ -135,19 +133,19 @@ export class GroupServiceManager {
   }
 
 
-  public getGroupLinksBatch(groups: any): Promise<any> {
+  public getGroupLinksBatch(group: any): Promise<any> {
 
-    let requestBody = {
+    let request = {
       requests: [
         {
           id: "1",
           method: "GET",
-          url: `/groups/${groups.id}/sites/root/`,
+          url: `/groups/${group.id}/sites/root/`,
         },
         {
           id: "2",
           method: "GET",
-          url: `/groups/${groups.id}/members/$count?ConsistencyLevel=eventual`
+          url: `/groups/${group.id}/members/$count?ConsistencyLevel=eventual`
         }
       ],
     };
@@ -158,7 +156,7 @@ export class GroupServiceManager {
           .then((client: MSGraphClient) => {
             client
               .api(`/$batch`)
-              .post(requestBody, (error: any, responseObject: any) => {
+              .post(request, (error: any, responseObject: any) => {
                 console.log("LinksBatchRES",responseObject);
                 if (error) {
                   Promise.reject(error);
@@ -185,14 +183,14 @@ export class GroupServiceManager {
 
 
 
-  public getGroupThumbnails(groups: IGroup): Promise<any> {
+  public getGroupThumbnails(groupItem: IGroup): Promise<any> {
     return new Promise<any>((resolve, reject) => {
       try {
         this.context.msGraphClientFactory
           .getClient()
           .then((client: MSGraphClient) => {
             client
-              .api(`/groups/${groups.id}/photos/48x48/$value`)
+              .api(`/groups/${groupItem.id}/photos/48x48/$value`)
               .responseType("blob")
               .get((error: any, group: any, rawResponse: any) => {
                 resolve(window.URL.createObjectURL(group));
@@ -205,13 +203,13 @@ export class GroupServiceManager {
     });
   }
 
-  public pageViewsBatch(groups: any): Promise<any> {
+  public pageViewsBatch(groupObj: any): Promise<any> {
     let requestBody = {
       requests: [
         {
           id: "1",
           method: "GET",
-          url: `/sites/${groups.siteId}/analytics/lastsevendays/`,
+          url: `/sites/${groupObj.siteId}/analytics/lastsevendays/`,
         },
 
       ],
