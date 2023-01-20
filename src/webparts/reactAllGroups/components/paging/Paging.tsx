@@ -174,7 +174,7 @@ export class Paging extends React.Component<IPagingProps, IPagingState> {
         const { numberOfItems} = this.props;
 
         let numberPages: number = numberOfItems;
-        let numbers: number[] = []
+        let numbers: number[] = [];
         for (let i = 0; i < numberPages; i++) {
           numbers.push(i+ 1);
         }
