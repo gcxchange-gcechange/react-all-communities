@@ -45,12 +45,14 @@ export class ReactAllGroups extends React.Component<
     this.setState(
       {
         selectedLetter: this.props.selectedLetter,
-        currentPage: 1
+        currentPage: 1,
+        nextPageUrl: ''
       },
       //functions that renders groups based on user selected letter
       function () {
         this._setLoading(true);
         this._getGroups(letter);
+
 
       }
     );
@@ -89,17 +91,14 @@ export class ReactAllGroups extends React.Component<
         });
       }
 
-
-      console.log("url",url)
+      console.log("url",url);
       this._getGroupsLinks(groupData);
 
     });
-
-
   }
 
   public _getpreviousPage = (prevGroup: any ) => {
-     console.log("Current St of G", this.state.groups)
+     console.log("Current St of G", this.state.groups);
 
   }
 
@@ -108,20 +107,18 @@ export class ReactAllGroups extends React.Component<
     let nextPageLink = [];
 
     if (url !== undefined) {
-      console.log("prevGroups", prevGroups);
       GroupService.getNextLinkPageGroups(url).then((nextGroupItems) => {
-
-        console.log("NGI",nextGroupItems)
 
           nextSetGroup.push([...prevGroups], nextGroupItems[1]);
           nextPageLink.push(nextGroupItems[0]);
 
-        console.log("NSG", nextSetGroup)
+        console.log("NSG", nextSetGroup);
 
         if (nextPageLink !== undefined) {
           this.setState({
-            ...prevGroups, groups: nextGroupItems[1], nextPageUrl: nextPageLink
+            ...prevGroups, groups: nextGroupItems[1], nextPageUrl: nextPageLink, isLoading: true
            });
+           console.log("load", this.state.isLoading);
         } else {
 
           this.setState({
@@ -130,15 +127,10 @@ export class ReactAllGroups extends React.Component<
 
         }
 
-       console.log("STATE",this.state)
         this._getGroupsLinks(nextSetGroup[1]);
-    });
+
+      });
     }
-
-
-
-
-
   }
 
 
@@ -146,7 +138,6 @@ export class ReactAllGroups extends React.Component<
     let groupsCompleted = 0;
     let totalGroups = items.length;
     let newPageCount = Math.ceil(totalGroups / 10);
-
 
 
     if (totalGroups == 0) {
@@ -193,7 +184,6 @@ export class ReactAllGroups extends React.Component<
 
           if (groupsCompleted >= totalGroups) {
             this._getGroupThumbnails(this.state.groups);
-            // console.log(this.state.groups);
           }
         })
         .catch((error) => {
@@ -247,6 +237,8 @@ export class ReactAllGroups extends React.Component<
       })
     );
   }
+
+
 
   private _setLoading(state: boolean) {
     this.setState({
@@ -339,15 +331,11 @@ export class ReactAllGroups extends React.Component<
 
     let nextItems: any[] = this.state.groups;
 
-
-    console.log("PAGE#", this.state.currentPage);
-    console.log("PageURL", this.state.nextPageUrl);
-    console.log("GROUPS", this.state.groups)
     //when the user selects another page pass the nextPage API to get the other items
 
     if (this.state.nextPageUrl !== undefined) {
 
-      this._getnextPage(this.state.nextPageUrl, nextItems) // pass the URL from the first group call
+      this._getnextPage(this.state.nextPageUrl, nextItems); // pass the URL from the first group call
     }
 
   }
@@ -395,20 +383,16 @@ export class ReactAllGroups extends React.Component<
 
     if (true && pages > 0 ) {
 
-      let numbers: number[] = []
+      let numbers: number[] = [];
       for (let i = 0; i < pages; i++) {
         numbers.push(i + 1);
       }
 
       // const pageStartAt: number = numbers[0] * (currentPage - 1);
-      // console.log("Start",pageStartAt)
       // const pageEndAt: number = ((numbers.length -1) * currentPage);
-      // console.log("Start",pageStartAt)
 
       // const pageStartAt: number = maxEvents * (currentPage - 1);
-      // console.log("StartC",currentPage)
       // const pageEndAt: number = (maxEvents * currentPage);
-      // console.log("End",pageEndAt)
 
       // pagedItems = pagedItems.slice(pageStartAt, pageEndAt);
       showPages = true;
