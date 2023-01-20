@@ -166,11 +166,11 @@ export class GroupServiceManager {
                 responseObject.responses.forEach((response) => {
                   if (response.status === 200) {
                     responseContent[response.id] = response.body;
-                  } else if (response.status === 403) {
+                  } else if (response.status === 403 || response.status === 404) {
                     return null;
                   }
                 });
-                // console.log("RES", responseContent);
+                console.log("RES", responseContent);
                 resolve(responseContent);
               });
           });
@@ -193,7 +193,17 @@ export class GroupServiceManager {
               .api(`/groups/${groupItem.id}/photos/48x48/$value`)
               .responseType("blob")
               .get((error: any, group: any, rawResponse: any) => {
-                resolve(window.URL.createObjectURL(group));
+                console.log("responseG", group);
+                let response = [];
+
+                if(group !== null) {
+                  response.push(window.URL.createObjectURL(group));
+                } else {
+                  response.push(group);
+                }
+                resolve(response);
+
+
               });
           });
       } catch (error) {

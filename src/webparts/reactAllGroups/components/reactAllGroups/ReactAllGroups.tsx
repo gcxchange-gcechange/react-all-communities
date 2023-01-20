@@ -4,7 +4,7 @@ import { IReactAllGroupsProps } from "./IReactAllGroupsProps";
 import GroupService from "../../../../services/GroupService";
 import { IReactAllGroupsState } from "./IReactAllGroupsState";
 import { IGroup } from "../../../../models";
-import { Spinner } from "office-ui-fabric-react";
+import { SelectionDirection, Spinner } from "office-ui-fabric-react";
 import { GridLayout } from "../GridList";
 import { SelectLanguage } from "../SelectLanguage";
 import { Icon } from "office-ui-fabric-react/lib/Icon";
@@ -12,6 +12,7 @@ import { Stack, Image, IImageProps, ImageFit, PrimaryButton } from "office-ui-fa
 import { AZNavigation } from "../AZNavigation/AZNavigation";
 import { Paging } from "../paging";
 import { groups } from "ReactAllGroupsWebPartStrings";
+import { split } from "lodash";
 
 
 
@@ -250,16 +251,22 @@ export class ReactAllGroups extends React.Component<
 
   private _onRenderGridItem = (item: any): JSX.Element => {
 
+    let groupInitial: string = item.displayName.charAt(0);
 
     return (
       <div className={styles.siteCard}>
         <a href={item.url} target="_blank">
           <div className={styles.cardBanner} />
+
+        {item.thumbnail[0] !== null ?
           <img
             className={styles.bannerImg}
             src={item.thumbnail}
             alt={`${this.strings.altImgLogo} ${item.displayName} `}
           />
+          :
+          <div className={styles.emptySquare}>{groupInitial}</div>
+        }
           <h3 className={`${styles.cardTitle} ${styles.cardPrimaryAction}`}>
             {item.displayName}
           </h3>
