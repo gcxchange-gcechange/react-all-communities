@@ -80,7 +80,7 @@ export class GroupServiceManager {
                   responseContent = [...responseGroups, pageCount];
                 }
                 //store the first response groups array to responseContent
-
+                // console.log("RESPONSE_Content", responseContent);
                 resolve(responseContent);
 
             });
@@ -113,11 +113,13 @@ export class GroupServiceManager {
             .get((error: any, response: any, rawResponse: any) => {
               // console.log("GROUP CONT "+JSON.stringify(response));
 
+              console.log("Response", response)
               if(response.value) {
                 responseContent.push(response["@odata.nextLink"], response.value);
                 nextPageUrls.push(response["@odata.nextLink"]);
                 nextPageItems.push(response.value);
               }
+              // console.log("RESPContent", responseContent);
               resolve(responseContent);
             });
           });
@@ -157,7 +159,7 @@ export class GroupServiceManager {
             client
               .api(`/$batch`)
               .post(request, (error: any, responseObject: any) => {
-                console.log("LinksBatchRES",responseObject);
+                // console.log("LinksBatchRES",responseObject);
                 if (error) {
                   Promise.reject(error);
                 }
@@ -170,7 +172,7 @@ export class GroupServiceManager {
                     return null;
                   }
                 });
-                console.log("RES", responseContent);
+                // console.log("RES", responseContent);
                 resolve(responseContent);
               });
           });
@@ -193,7 +195,7 @@ export class GroupServiceManager {
               .api(`/groups/${groupItem.id}/photos/48x48/$value`)
               .responseType("blob")
               .get((error: any, group: any, rawResponse: any) => {
-                console.log("responseG", group);
+                // console.log("responseG", group);
                 let response = [];
 
                 if(group !== null) {

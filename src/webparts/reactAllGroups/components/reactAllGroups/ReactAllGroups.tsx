@@ -4,7 +4,7 @@ import { IReactAllGroupsProps } from "./IReactAllGroupsProps";
 import GroupService from "../../../../services/GroupService";
 import { IReactAllGroupsState } from "./IReactAllGroupsState";
 import { IGroup } from "../../../../models";
-import { SelectionDirection, Spinner } from "office-ui-fabric-react";
+import { DefaultButton, SelectionDirection, Spinner, TagItemSuggestion } from "office-ui-fabric-react";
 import { GridLayout } from "../GridList";
 import { SelectLanguage } from "../SelectLanguage";
 import { Icon } from "office-ui-fabric-react/lib/Icon";
@@ -83,7 +83,7 @@ export class ReactAllGroups extends React.Component<
           pageCount: pageCount,
           nextPageUrl: url
         });
-        console.log("State1", this.state);
+        // console.log("State1", this.state);
 
       } else {
         this.setState({
@@ -92,7 +92,7 @@ export class ReactAllGroups extends React.Component<
         });
       }
 
-      console.log("url",url);
+      // console.log("url",url);
       this._getGroupsLinks(groupData);
 
     });
@@ -104,22 +104,38 @@ export class ReactAllGroups extends React.Component<
   }
 
   public _getnextPage = (url: any, prevGroups: any) => {
+
     let nextSetGroup = [];
     let nextPageLink = [];
 
     if (url !== undefined) {
       GroupService.getNextLinkPageGroups(url).then((nextGroupItems) => {
 
+        //prevGroups is the current state of groups
           nextSetGroup.push([...prevGroups], nextGroupItems[1]);
           nextPageLink.push(nextGroupItems[0]);
 
         console.log("NSG", nextSetGroup);
 
         if (nextPageLink !== undefined) {
+
+          this.setState((prevState) => ({
+            groups: [...prevState.groups, ...nextSetGroup[1]], isLoading: true
+          }));
+
           this.setState({
-            ...prevGroups, groups: nextGroupItems[1], nextPageUrl: nextPageLink, isLoading: true
-           });
-           console.log("load", this.state.isLoading);
+            ...prevGroups, nextPageUrl: nextPageLink
+          })
+
+          // this.setState({
+          //   ...this.state,
+          //   ...prevGroups, groups: nextGroupItems[1], nextPageUrl: nextPageLink, isLoading: true
+          //  });
+          //  console.log("load", this.state.groups);
+          //  console.log("1", this.state.groups[0]);
+          //  console.log("2", this.state.groups[1]);
+
+
         } else {
 
           this.setState({
@@ -128,7 +144,7 @@ export class ReactAllGroups extends React.Component<
 
         }
 
-        this._getGroupsLinks(nextSetGroup[1]);
+        this._getGroupsLinks(nextGroupItems[1]);
 
       });
     }
@@ -222,7 +238,7 @@ export class ReactAllGroups extends React.Component<
         }
       })
     );
-    this._pageViews(this.state.groups);
+    // this._pageViews(this.state.groups);
   }
 
   public _pageViews = (groupsViews: any): void => {
@@ -250,6 +266,9 @@ export class ReactAllGroups extends React.Component<
 
 
   private _onRenderGridItem = (item: any): JSX.Element => {
+    // console.log("Item",item);
+
+
 
     let groupInitial: string = item.displayName.charAt(0);
 
@@ -264,7 +283,7 @@ export class ReactAllGroups extends React.Component<
             src={item.thumbnail}
             alt={`${this.strings.altImgLogo} ${item.displayName} `}
           />
-          :
+         :
           <div className={styles.emptySquare}>{groupInitial}</div>
         }
           <h3 className={`${styles.cardTitle} ${styles.cardPrimaryAction}`}>
@@ -334,15 +353,15 @@ export class ReactAllGroups extends React.Component<
 
   }
 
-  public _onNextPageSelected = (prevGroups: any) => {
+  public _onNextPageSelected = () => {
 
-    let nextItems: any[] = this.state.groups;
+    let currentItems: any[] = this.state.groups;
 
     //when the user selects another page pass the nextPage API to get the other items
 
     if (this.state.nextPageUrl !== undefined) {
 
-      this._getnextPage(this.state.nextPageUrl, nextItems); // pass the URL from the first group call
+      this._getnextPage(this.state.nextPageUrl, currentItems); // pass the URL from the first group call
     }
 
   }
@@ -361,7 +380,7 @@ export class ReactAllGroups extends React.Component<
           .sort((a, b) => (a.displayName < b.displayName ? -1 : 1)));
 
     let pagedItems: any[] = this.state.groups;
-        console.log("PgItems",pagedItems.length);
+        // console.log("PgItems",pagedItems.length);
 
     // total the groups that are not status code 403
     let totalItems: any[] = this.state.groups;
@@ -422,7 +441,8 @@ export class ReactAllGroups extends React.Component<
           ) : totalItems !== null && totalItems.length >= 1 ? (
             <>
             <Stack  horizontal  horizontalAlign="center" verticalAlign="center" >
-              {LoadMoreLink !== undefined ? (  <PrimaryButton onClick={this._onNextPageSelected}>Next</PrimaryButton> ) : ''}
+              {/* <DefaultButton onClick={this._getpreviousPage}>Previous</DefaultButton> */}
+              {LoadMoreLink !== undefined ? (  <PrimaryButton onClick={this._onNextPageSelected}>Load More</PrimaryButton> ) : ''}
               {/* <button onClick={this._getpreviousPage}>Previous</button> */}
             </Stack>
 
@@ -434,7 +454,7 @@ export class ReactAllGroups extends React.Component<
               />
 
             </div>
-              {LoadMoreLink !== undefined ? (  <PrimaryButton onClick={this._onNextPageSelected}>Next</PrimaryButton> ) : ''}
+              {LoadMoreLink !== undefined ? (  <PrimaryButton onClick={this._onNextPageSelected}>Load More</PrimaryButton> ) : ''}
             </>
           ) : (
             <Stack  as='div' horizontal reversed  verticalAlign="center" tabIndex={0} aria-label={this.strings.noResults}>
