@@ -60,21 +60,25 @@ export class ReactAllGroups extends React.Component<
   }
 
   public componentDidMount(): void {
-    this._getGroups(this.state.selectedLetter);
+    const {numberPerPage} = this.props;
+    this._getGroups(this.state.selectedLetter, numberPerPage);
 
   }
 
-  public _getGroups = (letter: string): void => {
-    GroupService.getGroupsBatch(letter).then((groupData) => {
+  public _getGroups = (letter: string, numberPerPage: number): void => {
+    GroupService.getGroupsBatch(letter, numberPerPage).then((groupData) => {
 
       let pageCount = 0;
       let url = '';
+      console.log("GROUPDATA", groupData);
 
-      pageCount = Number(groupData[6]);
+      pageCount = Number(groupData[6]); //FIX THIS
+      console.log("PageCount", (groupData.length)-1);
 
       if(pageCount > 1) {
 
-        url = groupData[5].toString();
+        url = groupData[numberPerPage].toString();
+        console.log(url)
 
         // this.setState(prevstate => ({ ...prevstate, groups: groupData, pageCount:pageCount, nexPageUrl: url}));
 
@@ -125,10 +129,9 @@ export class ReactAllGroups extends React.Component<
 
           this.setState({
             ...prevGroups, nextPageUrl: nextPageLink
-          })
+          });
 
           // this.setState({
-          //   ...this.state,
           //   ...prevGroups, groups: nextGroupItems[1], nextPageUrl: nextPageLink, isLoading: true
           //  });
           //  console.log("load", this.state.groups);
@@ -356,6 +359,7 @@ export class ReactAllGroups extends React.Component<
   public _onNextPageSelected = () => {
 
     let currentItems: any[] = this.state.groups;
+    const {numberPerPage} = this.props;
 
     //when the user selects another page pass the nextPage API to get the other items
 
@@ -440,11 +444,11 @@ export class ReactAllGroups extends React.Component<
             <Spinner label={this.strings.loadingState} />
           ) : totalItems !== null && totalItems.length >= 1 ? (
             <>
-            <Stack  horizontal  horizontalAlign="center" verticalAlign="center" >
-              {/* <DefaultButton onClick={this._getpreviousPage}>Previous</DefaultButton> */}
+            {/*<Stack  horizontal  horizontalAlign="center" verticalAlign="center" >
+               <DefaultButton onClick={this._getpreviousPage}>Previous</DefaultButton>
               {LoadMoreLink !== undefined ? (  <PrimaryButton onClick={this._onNextPageSelected}>Load More</PrimaryButton> ) : ''}
-              {/* <button onClick={this._getpreviousPage}>Previous</button> */}
-            </Stack>
+
+            </Stack>*/}
 
             <div>
               <GridLayout

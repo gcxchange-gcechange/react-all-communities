@@ -15,10 +15,10 @@ export class GroupServiceManager {
   }
 
 
-  public getGroupsBatch(letter:string): Promise<MicrosoftGraph.Group[]> {
+  public getGroupsBatch(letter:string, numberPerPage: number): Promise<MicrosoftGraph.Group[]> {
     let apiTxt: string = "";
 
-    let numberofItems: number = 5;
+    let numberofItems: number = numberPerPage;
 
     if (letter === "#") {
       apiTxt =
@@ -112,8 +112,6 @@ export class GroupServiceManager {
             .api(nextLink)
             .get((error: any, response: any, rawResponse: any) => {
               // console.log("GROUP CONT "+JSON.stringify(response));
-
-              console.log("Response", response)
               if(response.value) {
                 responseContent.push(response["@odata.nextLink"], response.value);
                 nextPageUrls.push(response["@odata.nextLink"]);
