@@ -19,14 +19,13 @@ export class GroupServiceManager {
     let apiTxt: string = "";
 
     let numberofItems: number = numberPerPage;
-    console.log("#ofItems", numberofItems);
 
     if (letter === "#") {
       apiTxt =
         `/groups?$filter=groupTypes/any(c:c+eq+'Unified') and startsWith(displayName,'0') or startsWith(displayName,'1') or startswith(displayName,'2') or startswith(displayName,'3') or startswith(displayName,'4')or startswith(displayName,'5') or startswith(displayName,'6') or startswith(displayName,'7') or startswith(displayName,'8') or startswith(displayName,'9')&$count=true&$top=${numberofItems}`;
     } else {
       // apiTxt = `/groups?$filter=groupTypes/any(c:c+eq+'Unified') and startsWith(displayName,'${letter}')`;
-      apiTxt = `/groups?$filter=groupTypes/any(c:c+eq+'Unified') and startsWith(displayName,'${letter}')&$count=true&$top=${numberPerPage}`;
+      apiTxt = `/groups?$filter=groupTypes/any(c:c+eq+'Unified') and startsWith(displayName,'${letter}')&$count=true&$top=${numberofItems}`;
 
     }
 
@@ -52,8 +51,8 @@ export class GroupServiceManager {
           .then((client: MSGraphClient) => {
             client
               .api(`/$batch`)
+
               .post(requestBody, (error: any, responseObject: any) => {
-                console.log(responseObject)
 
                 if (error) {
                   Promise.reject(error);
@@ -132,8 +131,6 @@ export class GroupServiceManager {
     }
 
   }
-
-
 
 
   public getGroupLinksBatch(group: any): Promise<any> {
