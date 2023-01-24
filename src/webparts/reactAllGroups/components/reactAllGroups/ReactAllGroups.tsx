@@ -51,8 +51,9 @@ export class ReactAllGroups extends React.Component<
       },
       //functions that renders groups based on user selected letter
       function () {
+        const {numberPerPage} = this.props;
         this._setLoading(true);
-        this._getGroups(letter);
+        this._getGroups(letter, numberPerPage);
 
 
       }
@@ -68,12 +69,12 @@ export class ReactAllGroups extends React.Component<
   public _getGroups = (letter: string, numberPerPage: number): void => {
     GroupService.getGroupsBatch(letter, numberPerPage).then((groupData) => {
 
+
       let pageCount = 0;
       let url = '';
       console.log("GROUPDATA", groupData);
 
-      pageCount = Number(groupData[6]); //FIX THIS
-      console.log("PageCount", (groupData.length)-1);
+      pageCount = Number(groupData[groupData.length - 1]);
 
       if(pageCount > 1) {
 
@@ -126,9 +127,10 @@ export class ReactAllGroups extends React.Component<
           this.setState((prevState) => ({
             groups: [...prevState.groups, ...nextSetGroup[1]], isLoading: true
           }));
+          console.log("State", this.state.groups);
 
           this.setState({
-            ...prevGroups, nextPageUrl: nextPageLink
+            ...prevGroups, nextPageUrl: nextPageLink, isLoading: true
           });
 
           // this.setState({
@@ -269,26 +271,26 @@ export class ReactAllGroups extends React.Component<
 
 
   private _onRenderGridItem = (item: any): JSX.Element => {
-    // console.log("Item",item);
+    console.log("Item",item);
 
 
 
-    let groupInitial: string = item.displayName.charAt(0);
+    // let groupInitial: string = item.displayName.charAt(0);
 
     return (
       <div className={styles.siteCard}>
         <a href={item.url} target="_blank">
           <div className={styles.cardBanner} />
 
-        {item.thumbnail[0] !== null ?
+        {/* {item.thumbnail[0] !== null ? */}
           <img
             className={styles.bannerImg}
             src={item.thumbnail}
             alt={`${this.strings.altImgLogo} ${item.displayName} `}
           />
-         :
+         {/* :
           <div className={styles.emptySquare}>{groupInitial}</div>
-        }
+        } */}
           <h3 className={`${styles.cardTitle} ${styles.cardPrimaryAction}`}>
             {item.displayName}
           </h3>
