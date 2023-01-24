@@ -26,12 +26,17 @@ export class GridLayout extends React.Component<IGridLayoutProps> {
   public render(): React.ReactElement<IGridLayoutProps> {
 
     const totalItems = this.props.items.length;
+    console.log("totalItems",this.props.items)
+
+
+
 
 
     return (
          <FocusZone
             aria-label={`${totalItems} items in grid layout.
             Use left and right arrow keys to navigate between the sites in the grid.`}
+
            role="grid" isCircularNavigation={true}
            as="div" direction={FocusZoneDirection.vertical}>
            <List
@@ -77,8 +82,8 @@ export class GridLayout extends React.Component<IGridLayoutProps> {
           <div data-is-focusable={true}>
              {/* style={{width: `${cellWidth}px`, marginRight: `${cellPadding}px`}} > */}
           {/* style={{ marginRight: `${cellPadding}px`}} > */}
-
-            {this.props.onRenderGridItem(item)}
+            <div >{`Item ${index}`}</div>
+            {this.props.onRenderGridItem(item, index)}
 
           </div>
       );
