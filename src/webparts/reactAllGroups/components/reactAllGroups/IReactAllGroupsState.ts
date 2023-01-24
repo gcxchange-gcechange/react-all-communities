@@ -14,6 +14,4 @@ export interface IReactAllGroupsState {
   pageCount: number;
   nextPageUrl: string;
 
-
-
 }
