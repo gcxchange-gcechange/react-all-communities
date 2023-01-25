@@ -68,7 +68,7 @@ export class GroupServiceManager {
 
 
                 const nextLink: string = responseObject.responses[0].body["@odata.nextLink"]; //this is the next page link object returned from the response
-                console.log("NxtL",nextLink);
+                // console.log("NxtL",nextLink);
 
                 let pageCount: number  = Math.ceil(responseObject.responses[0].body["@odata.count"] / numberofItems); // grab the count of all groups and divide by # of top in API.
 
@@ -93,7 +93,6 @@ export class GroupServiceManager {
   }
 
   public getNextLinkPageGroups(url:any): Promise<MicrosoftGraph.Group[]> {
-    // let apiTxt = `/groups?$filter=groupTypes/any(c:c+eq+'Unified') and startsWith(displayName,'${letter}')&$top=5`;
 
     let nextPageItems = [];
     let nextPageUrls= [];
@@ -180,7 +179,6 @@ export class GroupServiceManager {
       }
     });
   }
-
 
 
   public getGroupThumbnails(groupItem: IGroup): Promise<any> {
