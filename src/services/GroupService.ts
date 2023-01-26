@@ -25,7 +25,7 @@ export class GroupServiceManager {
         `/groups?$filter=groupTypes/any(c:c+eq+'Unified') and startsWith(displayName,'0') or startsWith(displayName,'1') or startswith(displayName,'2') or startswith(displayName,'3') or startswith(displayName,'4')or startswith(displayName,'5') or startswith(displayName,'6') or startswith(displayName,'7') or startswith(displayName,'8') or startswith(displayName,'9')&$count=true&$top=${numberofItems}`;
     } else {
       // apiTxt = `/groups?$filter=groupTypes/any(c:c+eq+'Unified') and startsWith(displayName,'${letter}')`;
-      apiTxt = `/groups?$filter=groupTypes/any(c:c+eq+'Unified') and startsWith(displayName,'${letter}')&$count=true&$top=${numberofItems}`;
+      apiTxt = `/groups?$filter=groupTypes/any(c:c+eq+'Unified') and startsWith(displayName,'${letter}')&$select=id,displayName,createdDateTime,description&$count=true&$top=${numberofItems}`;
 
     }
 
@@ -156,7 +156,6 @@ export class GroupServiceManager {
             client
               .api(`/$batch`)
               .post(request, (error: any, responseObject: any) => {
-                // console.log("LinksBatchRES",responseObject);
                 if (error) {
                   Promise.reject(error);
                 }
@@ -191,7 +190,6 @@ export class GroupServiceManager {
               .api(`/groups/${groupItem.id}/photos/48x48/$value`)
               .responseType("blob")
               .get((error: any, group: any, rawResponse: any) => {
-                // console.log("responseG", group);
                 let response = [];
 
                 if(group !== null) {
@@ -217,7 +215,7 @@ export class GroupServiceManager {
         {
           id: "1",
           method: "GET",
-          url: `/sites/${groupObj.siteId}/analytics/lastsevendays/`,
+          url: `/sites/${groupObj.siteId}/analytics/lastsevendays/access/actionCount`,
         },
 
       ],
@@ -230,11 +228,12 @@ export class GroupServiceManager {
             client
             .api(`/$batch`)
             .post(requestBody, (error: any, responseObject: any) => {
-              let responseContent = {};
+              let responseContent = {}
+              responseContent = responseObject.responses[0].body.value
 
-              responseObject.responses.forEach((response) => {
-                responseContent[response.id]= response.body;
-              });
+              // responseObject.responses.forEach((response) => {
+              //   responseContent[response.id]= response.body;
+              // });
               resolve(responseContent);
             });
           });
