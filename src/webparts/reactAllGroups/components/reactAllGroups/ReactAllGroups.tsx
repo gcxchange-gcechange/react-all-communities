@@ -12,7 +12,7 @@ import { Stack, Image, IImageProps, ImageFit, PrimaryButton } from "office-ui-fa
 import { AZNavigation } from "../AZNavigation/AZNavigation";
 import { Paging } from "../paging";
 import { groups } from "ReactAllGroupsWebPartStrings";
-import { findIndex, split } from "lodash";
+import { findIndex, split, times } from "lodash";
 
 
 
@@ -35,7 +35,7 @@ export class ReactAllGroups extends React.Component<
       numberOfCommunities: null,
       pageCount: 0,
       nextPageUrl: '',
-      showLoader: true,
+      showMoreLoader: true,
       numberOfLoadClicks: 0
 
 
@@ -57,6 +57,7 @@ export class ReactAllGroups extends React.Component<
       function () {
         const {numberPerPage} = this.props;
         this._setLoading(true);
+        this._showMoreLoading(true)
         this._getGroups(letter, numberPerPage);
 
 
@@ -109,7 +110,7 @@ export class ReactAllGroups extends React.Component<
         });
       }
 
-      // console.log("url",url);
+
       this._getGroupsLinks(groupData);
 
     });
@@ -136,12 +137,13 @@ export class ReactAllGroups extends React.Component<
       numberOfLoadClicks: prevState.numberOfLoadClicks + 1
     }));
 
+
   }
 
 
 
    public _getnextPage = (url: any, prevGroups: any) => {
-    console.log("StateNext", this.state.isLoading);
+    console.log("StateNext", this.state.showMoreLoader);
     // debugger
     let nextSetGroup = [];
     let nextPageLink = [];
@@ -149,38 +151,32 @@ export class ReactAllGroups extends React.Component<
 
 
     if (url !== undefined) {
+
+      this._showMoreLoading(true)
       GroupService.getNextLinkPageGroups(url).then((nextGroupItems) => {
 
         //prevGroups is the current state of groups
           nextSetGroup.push([...prevGroups], nextGroupItems[1]);
           nextPageLink.push(nextGroupItems[0]);
 
-        console.log("NSG", nextSetGroup);
-
         if (nextPageLink !== undefined) {
 
           this.setState((prevState) => ({
             groups: [...prevState.groups, ...nextSetGroup[1]]
           }));
-          console.log("State", this.state.groups);
 
           this.setState({
             ...prevGroups, nextPageUrl: nextPageLink
           });
-          // this.setState({
-          //   ...prevGroups, nextPageUrl: nextPageLink,  isLoading: true
-          //  });
-           console.log("load", this.state.groups);
+
 
         }
-        //  else {
 
-        //   this.setState({
-        //     ...prevGroups, groups: nextGroupItems[1]
-        //    });
-        // }
+
         this._getGroupsLinks(nextGroupItems[1]);
+
       });
+      this._showMoreLoading(false)
     }
   }
 
@@ -282,7 +278,7 @@ export class ReactAllGroups extends React.Component<
         this.setState((prevState) => ({
           groups: prevState.groups.map((group) =>
             group.id === item.id
-              ? { ...group, views: siteCount[1].access.actionCount }
+              ? { ...group, views: siteCount}
               : group
           ),
         }));
@@ -299,20 +295,20 @@ export class ReactAllGroups extends React.Component<
     });
   }
 
-  // private _showLoading(state: boolean) {
-  //   this.setState({
-  //     showLoader: state,
-  //   })
+  private _showMoreLoading(state: boolean) {
+    this.setState({
+      showMoreLoader: state,
+    })
 
-  //   console.log("showLoaderState", this.state.showLoader);
-  // }
+    console.log("showLoaderState", this.state.showMoreLoader);
+  }
 
 
 
   private _onRenderGridItem = (item: any, index: number): JSX.Element => {
 
-    // console.log("Index", index);
     // let groupInitial: string = item.displayName.charAt(0);
+
 
     return (
       <div className={styles.siteCard} key={index}>
@@ -454,8 +450,9 @@ export class ReactAllGroups extends React.Component<
       showPages = true;
     }
 
-    const LoadMoreLink = this.state.nextPageUrl[0];
-
+    const loadMoreLink = this.state.nextPageUrl[0];
+    const loadMoreDisable: boolean = this.state.showMoreLoader
+    console.log("Disable",loadMoreDisable);
 
 
     return (
@@ -466,30 +463,33 @@ export class ReactAllGroups extends React.Component<
             selectedLetter={this.props.selectedLetter}
             onClickEvent={this.handleClickEvent}
           />
-          { this.state.isLoading  ? (
-            <Spinner label={this.strings.loadingState} />
-          ) : totalItems !== null && totalItems.length >= 1 ? (
-            <>
-            {/*<Stack  horizontal  horizontalAlign="center" verticalAlign="center" >
-              //  <DefaultButton onClick={this._getpreviousPage}>Previous</DefaultButton>
-              {LoadMoreLink !== undefined ? (  <PrimaryButton onClick={this._onNextPageSelected}>Load More</PrimaryButton> ) : ''}
 
-            </Stack>*/}
+          { this.state.isLoading  ? //first condition
+           <Spinner label={this.strings.loadingState} />  :
 
-            <div>
-              <GridLayout
-                sort={this.props.sort}
-                items={pagedItems}
-                onRenderGridItem={(item: any, index: number) => this._onRenderGridItem(item, index)}
-              />
+            totalItems !== null && totalItems.length >= 1   ? //second condition if items are more than return the Grid
 
-            </div>
-            <div>
-              {LoadMoreLink !== undefined ? (  <PrimaryButton onClick={this._onLoadMore}>Load More</PrimaryButton> ) : ''}
+            (
+              <>
+              <div>
+                <GridLayout
+                  sort={this.props.sort}
+                  items={pagedItems}
+                  onRenderGridItem={(item: any, index: number) => this._onRenderGridItem(item, index) }
+                />
+              </div>
 
-            </div>
-            </>
-          ) : (
+              <div>
+              { loadMoreLink !== undefined  ?
+                (  <PrimaryButton onClick={this._onLoadMore} >Load More</PrimaryButton>  )
+                : ''
+              }
+
+
+              </div>
+
+              </>
+            ) : (
             <Stack  as='div' horizontal reversed  verticalAlign="center" tabIndex={0} aria-label={this.strings.noResults}>
 
               {this.strings.userLang === "FR" ? (
@@ -542,6 +542,7 @@ export class ReactAllGroups extends React.Component<
                 </div>
             </Stack>
           )}
+
         </div>
       </div>
     );
