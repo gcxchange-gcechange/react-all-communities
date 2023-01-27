@@ -156,7 +156,7 @@ export class ReactAllGroups extends React.Component<
         this.setState((prevState) => ({
           groups: prevState.groups.map((group) =>
             group.id === item.id
-              ? { ...group, views: siteCount[1].access.actionCount }
+              ? { ...group, views: siteCount }
               : group
           ),
         }));
