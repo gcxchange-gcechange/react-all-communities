@@ -82,7 +82,7 @@ export class GridLayout extends React.Component<IGridLayoutProps> {
           <div data-is-focusable={true}>
              {/* style={{width: `${cellWidth}px`, marginRight: `${cellPadding}px`}} > */}
           {/* style={{ marginRight: `${cellPadding}px`}} > */}
-            <div >{`Item ${index}`}</div>
+            {/* <div >{`Item ${index}`}</div> */}
             {this.props.onRenderGridItem(item, index)}
 
           </div>
