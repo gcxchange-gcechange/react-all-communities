@@ -68,7 +68,6 @@ export class GroupServiceManager {
 
 
                 const nextLink: string = responseObject.responses[0].body["@odata.nextLink"]; //this is the next page link object returned from the response
-                // console.log("NxtL",nextLink);
 
                 let pageCount: number  = Math.ceil(responseObject.responses[0].body["@odata.count"] / numberofItems); // grab the count of all groups and divide by # of top in API.
 
@@ -80,7 +79,6 @@ export class GroupServiceManager {
                   responseContent = [...responseGroups, pageCount];
                 }
                 //store the first response groups array to responseContent
-                // console.log("RESPONSE_Content", responseContent);
                 resolve(responseContent);
 
             });
@@ -128,9 +126,7 @@ export class GroupServiceManager {
     } else {
       return null;
     }
-
   }
-
 
   public getGroupLinksBatch(group: any): Promise<any> {
 
@@ -168,7 +164,6 @@ export class GroupServiceManager {
                     return null;
                   }
                 });
-                // console.log("RES", responseContent);
                 resolve(responseContent);
               });
           });
@@ -179,35 +174,70 @@ export class GroupServiceManager {
     });
   }
 
+  public getGroupThumbnailsBatch(groupItem: IGroup): Promise<any> {
 
-  public getGroupThumbnails(groupItem: IGroup): Promise<any> {
+    let request = {
+      requests: [
+        {
+          id: "1",
+          method: "GET",
+          url: `/groups/${groupItem.id}/photo/$value`,
+        },
+      ]
+    };
+
     return new Promise<any>((resolve, reject) => {
       try {
         this.context.msGraphClientFactory
           .getClient()
           .then((client: MSGraphClient) => {
             client
-              .api(`/groups/${groupItem.id}/photos/48x48/$value`)
-              .responseType("blob")
-              .get((error: any, group: any, rawResponse: any) => {
-                let response = [];
-
-                if(group !== null) {
-                  response.push(window.URL.createObjectURL(group));
-                } else {
-                  response.push(group);
-                }
-                resolve(response);
-
-
-              });
+            .api(`/$batch`)
+            .post(request, (error: any, response: any, rawResponse: any) => {
+              if (error) {
+                console.log(error);
+                reject(error);
+              }
+              let responseObj = response.responses[0].body;
+                resolve(responseObj);
+            });
           });
-      } catch (error) {
-        console.error(error);
-        reject(error);
+
+      } catch(e) {
+        console.log(e);
       }
     });
   }
+
+
+  // public getGroupThumbnails(groupItem: IGroup): Promise<any> {
+  //   return new Promise<any>((resolve, reject) => {
+  //     try {
+  //       this.context.msGraphClientFactory
+  //         .getClient()
+  //         .then((client: MSGraphClient) => {
+  //           client
+  //             .api(`/groups/${groupItem.id}/photos/48x48/$value`)
+  //             .responseType("blob")
+  //             .get((error: any, group: any, rawResponse: any) => {
+  //               let response = [];
+
+  //               if(group !== null) {
+  //                 response.push(window.URL.createObjectURL(group));
+  //               } else {
+  //                 response.push(group);
+  //               }
+  //               resolve(response);
+
+
+  //             });
+  //         });
+  //     } catch (error) {
+  //       console.error(error);
+  //       reject(error);
+  //     }
+  //   });
+  // }
 
   public pageViewsBatch(groupObj: any): Promise<any> {
     let requestBody = {
@@ -228,12 +258,8 @@ export class GroupServiceManager {
             client
             .api(`/$batch`)
             .post(requestBody, (error: any, responseObject: any) => {
-              let responseContent = {}
-              responseContent = responseObject.responses[0].body.value
-
-              // responseObject.responses.forEach((response) => {
-              //   responseContent[response.id]= response.body;
-              // });
+              let responseContent = {};
+              responseContent = responseObject.responses[0].body.value;
               resolve(responseContent);
             });
           });
