@@ -13,7 +13,7 @@ export interface IReactAllGroupsState {
   numberOfCommunities: number;
   pageCount: number;
   nextPageUrl: string;
-  showMoreLoader: boolean;
+  isLoadingMore: boolean;
   numberOfLoadClicks:number;
 
 }
