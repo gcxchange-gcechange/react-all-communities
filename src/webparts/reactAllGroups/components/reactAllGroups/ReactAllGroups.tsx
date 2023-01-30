@@ -13,6 +13,7 @@ import { AZNavigation } from "../AZNavigation/AZNavigation";
 import { Paging } from "../paging";
 import { groups } from "ReactAllGroupsWebPartStrings";
 import { findIndex, split, times } from "lodash";
+import { transitionKeysAreEqual } from "office-ui-fabric-react/lib/utilities/keytips/IKeytipTransitionKey";
 
 
 
@@ -35,7 +36,7 @@ export class ReactAllGroups extends React.Component<
       numberOfCommunities: null,
       pageCount: 0,
       nextPageUrl: '',
-      showMoreLoader: true,
+      isLoadingMore: true,
       numberOfLoadClicks: 0
 
 
@@ -57,7 +58,6 @@ export class ReactAllGroups extends React.Component<
       function () {
         const {numberPerPage} = this.props;
         this._setLoading(true);
-        this._showMoreLoading(true)
         this._getGroups(letter, numberPerPage);
 
 
@@ -112,15 +112,13 @@ export class ReactAllGroups extends React.Component<
 
 
       this._getGroupsLinks(groupData);
-
     });
   }
 
 
   public _onLoadMore = () => {
 
-
-    console.log(this.state.numberOfLoadClicks);
+    // debugger
 
     let currentGroups: any[] = this.state.groups;
     let url = this.state.nextPageUrl
@@ -131,28 +129,24 @@ export class ReactAllGroups extends React.Component<
 
       this._getnextPage(url, currentGroups); // pass the URL from the first group call
 
+      this.setState((prevState) => ({
+        numberOfLoadClicks: prevState.numberOfLoadClicks + 1
+      }));
     }
-
-    this.setState((prevState) => ({
-      numberOfLoadClicks: prevState.numberOfLoadClicks + 1
-    }));
-
-
+    this._showMoreLoading(true);
   }
 
 
 
    public _getnextPage = (url: any, prevGroups: any) => {
-    console.log("StateNext", this.state.showMoreLoader);
+    console.log("StateNext", this.state.isLoadingMore);
+    console.log("clicks", this.state.numberOfLoadClicks);
     // debugger
     let nextSetGroup = [];
     let nextPageLink = [];
 
 
-
     if (url !== undefined) {
-
-      this._showMoreLoading(true)
       GroupService.getNextLinkPageGroups(url).then((nextGroupItems) => {
 
         //prevGroups is the current state of groups
@@ -169,19 +163,18 @@ export class ReactAllGroups extends React.Component<
             ...prevGroups, nextPageUrl: nextPageLink
           });
 
-
         }
-
-
         this._getGroupsLinks(nextGroupItems[1]);
 
       });
-      this._showMoreLoading(false)
+
     }
   }
 
 
   public _getGroupsLinks = (items: any): void => {
+
+    // debugger
 
     let groupsCompleted = 0;
     let totalGroups = items.length;
@@ -191,6 +184,7 @@ export class ReactAllGroups extends React.Component<
     if (totalGroups == 0) {
       this._setLoading(false);
     }
+
 
     items.map((groupItem) =>
      GroupService.getGroupLinksBatch(groupItem)
@@ -213,9 +207,8 @@ export class ReactAllGroups extends React.Component<
                     }
                   : group
               ),
-
-
             }));
+
           } else {
             let index = this.state.groups
               .map((g) => g.id)
@@ -224,7 +217,7 @@ export class ReactAllGroups extends React.Component<
             groupsCopy.splice(index, 1);
 
             this.setState({
-              groups: groupsCopy,
+              groups: groupsCopy
               // pageCount: newPageCount
 
             });
@@ -251,6 +244,7 @@ export class ReactAllGroups extends React.Component<
       this._setLoading(false);
     }
 
+
     groupItems.map((groupItem) =>
       GroupService.getGroupThumbnails(groupItem).then((grouptb) => {
         groupsCompleted++;
@@ -264,8 +258,11 @@ export class ReactAllGroups extends React.Component<
           ),
         }));
 
+
+        //groups completed Greater or equal to totalGroups
         if (groupsCompleted >= totalGroups) {
           this._setLoading(false);
+
         }
       })
     );
@@ -284,7 +281,7 @@ export class ReactAllGroups extends React.Component<
         }));
       })
     );
-    this._setLoading(false);
+    this._showMoreLoading(false);
   }
 
 
@@ -297,10 +294,10 @@ export class ReactAllGroups extends React.Component<
 
   private _showMoreLoading(state: boolean) {
     this.setState({
-      showMoreLoader: state,
+      isLoadingMore: state,
     })
 
-    console.log("showLoaderState", this.state.showMoreLoader);
+    console.log("showLoaderState", this.state.isLoadingMore);
   }
 
 
@@ -308,7 +305,6 @@ export class ReactAllGroups extends React.Component<
   private _onRenderGridItem = (item: any, index: number): JSX.Element => {
 
     // let groupInitial: string = item.displayName.charAt(0);
-
 
     return (
       <div className={styles.siteCard} key={index}>
@@ -451,7 +447,7 @@ export class ReactAllGroups extends React.Component<
     }
 
     const loadMoreLink = this.state.nextPageUrl[0];
-    const loadMoreDisable: boolean = this.state.showMoreLoader
+    const loadMoreDisable: boolean = this.state.isLoadingMore
     console.log("Disable",loadMoreDisable);
 
 
@@ -480,10 +476,20 @@ export class ReactAllGroups extends React.Component<
               </div>
 
               <div>
-              { loadMoreLink !== undefined  ?
+              { this.state.isLoadingMore ?
+
+                  <Spinner/> :
+                  loadMoreLink !== undefined ?
                 (  <PrimaryButton onClick={this._onLoadMore} >Load More</PrimaryButton>  )
-                : ''
+                :  null
+
               }
+                {/* {
+                  loadMoreLink !== undefined ?
+                (  <PrimaryButton onClick={this._onLoadMore} >Load More</PrimaryButton>  )
+                :  null
+
+                } */}
 
 
               </div>
