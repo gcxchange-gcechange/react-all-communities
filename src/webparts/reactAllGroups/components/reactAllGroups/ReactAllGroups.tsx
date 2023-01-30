@@ -4,7 +4,7 @@ import { IReactAllGroupsProps } from "./IReactAllGroupsProps";
 import GroupService from "../../../../services/GroupService";
 import { IReactAllGroupsState } from "./IReactAllGroupsState";
 import { IGroup } from "../../../../models";
-import { DefaultButton, SelectionDirection, Spinner, TagItemSuggestion } from "office-ui-fabric-react";
+import { DefaultButton, SelectionDirection, Spinner, TagItemSuggestion, thProperties } from "office-ui-fabric-react";
 import { GridLayout } from "../GridList";
 import { SelectLanguage } from "../SelectLanguage";
 import { Icon } from "office-ui-fabric-react/lib/Icon";
@@ -86,22 +86,18 @@ export class ReactAllGroups extends React.Component<
 
       let pageCount = 0;
       let url = '';
-      console.log("GROUPDATA", groupData);
 
       pageCount = Number(groupData[groupData.length - 1]);
 
       if(pageCount > 1) {
 
         url = groupData[numberPerPage].toString();
-        console.log(url);
-
 
         this.setState({
           groups: groupData,
           pageCount: pageCount,
           nextPageUrl: url,
         });
-        console.log("State1", this.state);
 
       } else {
         this.setState({
@@ -109,8 +105,6 @@ export class ReactAllGroups extends React.Component<
           pageCount: pageCount
         });
       }
-
-
       this._getGroupsLinks(groupData);
     });
   }
@@ -118,10 +112,8 @@ export class ReactAllGroups extends React.Component<
 
   public _onLoadMore = () => {
 
-    // debugger
-
     let currentGroups: any[] = this.state.groups;
-    let url = this.state.nextPageUrl
+    let url = this.state.nextPageUrl;
 
     //when the user selects another page pass the nextPage API to get the other items
 
@@ -132,6 +124,7 @@ export class ReactAllGroups extends React.Component<
       this.setState((prevState) => ({
         numberOfLoadClicks: prevState.numberOfLoadClicks + 1
       }));
+
     }
     this._showMoreLoading(true);
   }
@@ -139,9 +132,7 @@ export class ReactAllGroups extends React.Component<
 
 
    public _getnextPage = (url: any, prevGroups: any) => {
-    console.log("StateNext", this.state.isLoadingMore);
-    console.log("clicks", this.state.numberOfLoadClicks);
-    // debugger
+
     let nextSetGroup = [];
     let nextPageLink = [];
 
@@ -165,7 +156,6 @@ export class ReactAllGroups extends React.Component<
 
         }
         this._getGroupsLinks(nextGroupItems[1]);
-
       });
 
     }
@@ -173,8 +163,6 @@ export class ReactAllGroups extends React.Component<
 
 
   public _getGroupsLinks = (items: any): void => {
-
-    // debugger
 
     let groupsCompleted = 0;
     let totalGroups = items.length;
@@ -236,7 +224,7 @@ export class ReactAllGroups extends React.Component<
   }
 
   public _getGroupThumbnails = (groupItems: any): void => {
-    // debugger
+
     let groupsCompleted = 0;
     let totalGroups = groupItems.length;
 
@@ -246,18 +234,17 @@ export class ReactAllGroups extends React.Component<
 
 
     groupItems.map((groupItem) =>
-      GroupService.getGroupThumbnails(groupItem).then((grouptb) => {
+      GroupService.getGroupThumbnailsBatch(groupItem).then((grouptb) => {
         groupsCompleted++;
 
         //set group color:
         this.setState((prevState) => ({
           groups: prevState.groups.map((group) =>
             group.id === groupItem.id
-              ? { ...group, thumbnail: grouptb, color: "#0078d4" }
+              ? { ...group, thumbnail: "data:image/jpeg;base64," + grouptb, color: "#0078d4" }
               : group
           ),
         }));
-
 
         //groups completed Greater or equal to totalGroups
         if (groupsCompleted >= totalGroups) {
@@ -295,9 +282,8 @@ export class ReactAllGroups extends React.Component<
   private _showMoreLoading(state: boolean) {
     this.setState({
       isLoadingMore: state,
-    })
+    });
 
-    console.log("showLoaderState", this.state.isLoadingMore);
   }
 
 
@@ -311,13 +297,13 @@ export class ReactAllGroups extends React.Component<
         <a href={item.url} target="_blank">
           <div className={styles.cardBanner} />
 
-        {/* {item.thumbnail[0] !== null ? */}
+         {/* {item.thumbnail[0] !== null ? */}
           <img
             className={styles.bannerImg}
             src={item.thumbnail}
             alt={`${this.strings.altImgLogo} ${item.displayName} `}
           />
-         {/* :
+          {/* :
           <div className={styles.emptySquare}>{groupInitial}</div>
         } */}
           <h3 className={`${styles.cardTitle} ${styles.cardPrimaryAction}`}>
@@ -447,8 +433,8 @@ export class ReactAllGroups extends React.Component<
     }
 
     const loadMoreLink = this.state.nextPageUrl[0];
-    const loadMoreDisable: boolean = this.state.isLoadingMore
-    console.log("Disable",loadMoreDisable);
+    const loadMoreDisable: boolean = this.state.isLoadingMore;
+    // console.log("Disable",loadMoreDisable);
 
 
     return (
