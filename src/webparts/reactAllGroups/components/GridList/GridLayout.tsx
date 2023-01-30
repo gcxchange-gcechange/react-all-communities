@@ -26,7 +26,7 @@ export class GridLayout extends React.Component<IGridLayoutProps> {
   public render(): React.ReactElement<IGridLayoutProps> {
 
     const totalItems = this.props.items.length;
-    console.log("totalItems",this.props.items)
+    // console.log("totalItems",this.props.items)
 
 
 
