@@ -57,7 +57,7 @@ export class ReactAllGroups extends React.Component<
   }
 
   public _getGroups = (letter: string): void => {
-    GroupService.getGroups(letter).then((groupData) => {
+    GroupService.getGroupsBatch(letter).then((groupData) => {
       this.setState({
         groups: groupData,
       });
