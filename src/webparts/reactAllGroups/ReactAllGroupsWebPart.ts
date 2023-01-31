@@ -107,8 +107,8 @@ export default class ReactAllGroupsWebPart extends BaseClientSideWebPart<IReactA
 
                 PropertyPaneSlider('numberPerPage', {
                   label: 'items per page',
-                  min: 1,
-                  max: 5,
+                  min: 10,
+                  max: 50,
                   step: 1,
                   showValue: true,
                   value: 10
