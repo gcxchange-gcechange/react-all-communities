@@ -59,7 +59,7 @@ export class GroupServiceManager {
           url: `${apiTxt}`
         }
       ]
-    }
+    };
 
 
     return new Promise((resolve, reject) => {
@@ -74,10 +74,10 @@ export class GroupServiceManager {
                 if(error) {
                   Promise.reject(error);
                 }
-                resolve(responseObject.responses[0].body.value)
+                resolve(responseObject.responses[0].body.value);
 
-              })
-          })
+              });
+          });
       } catch(error) {
         reject(error);
       }
@@ -172,7 +172,7 @@ export class GroupServiceManager {
             .api(`/$batch`)
             .post(requestBody, (error: any, responseObject: any) => {
               let responseContent = {};
-              responseContent = responseObject.responses[0].body.value
+              responseContent = responseObject.responses[0].body.value;
 
               resolve(responseContent);
             });
