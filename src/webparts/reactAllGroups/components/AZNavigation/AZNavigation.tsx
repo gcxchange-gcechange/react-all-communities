@@ -40,24 +40,24 @@ export class AZNavigation extends React.Component<IAZNavigationProps> {
    //Change the styles for the letters
     const pivotStyles: Partial<IStyleSet<IPivotStyles>> ={
         link:{
-        fontWeight: 'bold'
+        fontWeight: 'bold',
+        backgroundColor:'#e3e1e1',
       },
 
       root:{
         marginTop:'20px',
-        marginBottom: '20px;'
+        marginBottom: '20px',
       },
 
       linkIsSelected:{
-        color: 'blue',
+        color: 'white',
         fontWeight: 'bold'
       }
     };
 
 
     return (
-
-        <Pivot styles={pivotStyles} onLinkClick={this._handleClick} selectedKey={this.props.selectedLetter}>
+        <Pivot styles={pivotStyles} onLinkClick={this._handleClick} selectedKey={this.props.selectedLetter} linkFormat={1}>
           {combinedIndex.map((letter) => {
             return (
               <PivotItem
@@ -66,7 +66,7 @@ export class AZNavigation extends React.Component<IAZNavigationProps> {
               />
             );
           })}
-          </Pivot>
+        </Pivot>
 
     );
   }
