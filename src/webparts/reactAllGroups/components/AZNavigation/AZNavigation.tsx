@@ -1,7 +1,7 @@
 import * as React from 'react';
 import { IAZNavigationProps} from './IAZNavigationProps';
 import  styles from './AZNavigation.module.scss';
-import { IPivotStyles, IStyleSet} from 'office-ui-fabric-react';
+import { IPivotStyles, IStyleSet, Label, PivotLinkFormat, PivotLinkSize} from 'office-ui-fabric-react';
 import { Pivot, PivotItem} from 'office-ui-fabric-react';
 
 
@@ -40,7 +40,6 @@ export class AZNavigation extends React.Component<IAZNavigationProps> {
    //Change the styles for the letters
     const pivotStyles: Partial<IStyleSet<IPivotStyles>> ={
         link:{
-        fontWeight: 'bold',
         backgroundColor:'#e3e1e1',
       },
 
@@ -50,25 +49,23 @@ export class AZNavigation extends React.Component<IAZNavigationProps> {
       },
 
       linkIsSelected:{
-        color: 'white',
-        fontWeight: 'bold'
+        color: 'white'
       }
     };
 
 
     return (
-        <Pivot styles={pivotStyles} onLinkClick={this._handleClick} selectedKey={this.props.selectedLetter} linkFormat={1}>
+        <Pivot styles={pivotStyles} className={styles.letter} onLinkClick={this._handleClick} selectedKey={this.props.selectedLetter}  linkFormat={PivotLinkFormat.tabs} linkSize={1}>
           {combinedIndex.map((letter) => {
             return (
               <PivotItem
-               headerText={letter}
-               headerButtonProps={{'data-title': 'Letter'}}
+                itemKey={letter}
+                headerText={letter}
+                headerButtonProps={{'data-title': 'Letter'}}
               />
             );
           })}
         </Pivot>
-
-    );
-  }
-
+      );
+    }
 }
