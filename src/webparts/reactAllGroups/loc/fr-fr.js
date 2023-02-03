@@ -9,6 +9,7 @@ define([], function() {
     "pagNext": "Suivant",
     "firstPage" : "Premiere",
     "lastPage" : "Derniere",
+    "currentPage" : "Page en cours",
     "setPageNum": "Nombre par page",
     "setLayoutOpt": "Option de mise en page",
     "setSortOpt": "Option de tri",
@@ -31,6 +32,7 @@ define([], function() {
     "siteViews": "Vues",
     "created": "Créé",
     "lastModified": "Dernière modification",
-    "hidingYeti": "Un yeti caché"
+    "hidingYeti": "Un yeti caché",
+    "goToPage": "Aller à la page"
   }
 });

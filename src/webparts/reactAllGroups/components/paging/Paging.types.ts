@@ -11,6 +11,8 @@ export interface IPagingProps {
     lastButtonLabel: string;
     firstButtonAriaLabel?: string;
     lastButtonAriaLabel?: string;
+    currentPageLabel?:string;
+    goToPageLabel?: string;
     onPageUpdate: (pageNumber: number) => void;
 }
 
