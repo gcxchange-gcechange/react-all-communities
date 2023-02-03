@@ -4,7 +4,7 @@ import { IReactAllGroupsProps } from "./IReactAllGroupsProps";
 import GroupService from "../../../../services/GroupService";
 import { IReactAllGroupsState } from "./IReactAllGroupsState";
 import { IGroup } from "../../../../models";
-import { Spinner } from "office-ui-fabric-react";
+import { FocusZone, Spinner } from "office-ui-fabric-react";
 import { GridLayout } from "../GridList";
 import { SelectLanguage } from "../SelectLanguage";
 import { Icon } from "office-ui-fabric-react/lib/Icon";
@@ -172,29 +172,29 @@ export class ReactAllGroups extends React.Component<
 
 
 
-  private _onRenderGridItem = (item: any): JSX.Element => {
-
+  private _onRenderGridItem = (item: any, index: any): JSX.Element => {
 
     return (
-      <div className={styles.siteCard}>
-        <a href={item.url} target="_blank">
+    <a href={item.url} target="_blank">
+      <div className={styles.siteCard} id={index}>
+
           <div className={styles.cardBanner} />
           <img
             className={styles.bannerImg}
             src={item.thumbnail}
             alt={`${this.strings.altImgLogo} ${item.displayName} `}
           />
-          <h3 className={`${styles.cardTitle} ${styles.cardPrimaryAction}`}>
+          <h3 className={`${styles.cardTitle} `}>
             {item.displayName}
           </h3>
-        </a>
 
-        <div
+
+        <p
           className={styles.cardDescription}
           aria-label={item.description}
         >
           {item.description}
-        </div>
+        </p>
         <footer className={styles.cardFooter}>
           <div className={styles.footerRow}>
             <div className={styles.footerItem}>
@@ -240,6 +240,7 @@ export class ReactAllGroups extends React.Component<
           </div>
         </footer>
       </div>
+    </a>
     );
   }
 
@@ -279,12 +280,12 @@ export class ReactAllGroups extends React.Component<
     //Paging
 
     const numberOfItems: number = totalItems.length;
-    console.log("#total Item for specific letter",numberOfItems);
+    // console.log("#total Item for specific letter",numberOfItems);
     let showPages: boolean = false;
 
     //slider events
     let  maxEvents: number = this.props.numberPerPage;
-    console.log("maxEvents",maxEvents);
+    // console.log("maxEvents",maxEvents);
     const { currentPage } = this.state;
 
     if (true && numberOfItems > 0 && numberOfItems > maxEvents) {
@@ -300,10 +301,13 @@ export class ReactAllGroups extends React.Component<
 
       <div className={styles.reactAllGroups}>
         <div className={styles.flexCenter}>
+
           <AZNavigation
             selectedLetter={this.props.selectedLetter}
             onClickEvent={this.handleClickEvent}
+            lang={this.props.prefLang}
           />
+
           { this.state.isLoading ? (
             <Spinner label={this.strings.loadingState} />
           ) : totalItems !== null && totalItems.length >= 1 ? (
@@ -318,6 +322,8 @@ export class ReactAllGroups extends React.Component<
               previousButtonLabel={this.strings.pagPrev}
               firstButtonLabel={this.strings.firstPage}
               lastButtonLabel={this.strings.lastPage}
+              currentPageLabel={this.strings.currentPage}
+              goToPageLabel={this.strings.goToPage}
             />
             <div>
 
@@ -325,7 +331,7 @@ export class ReactAllGroups extends React.Component<
               <GridLayout
                 sort={this.props.sort}
                 items={pagedItems}
-                onRenderGridItem={(item: any) => this._onRenderGridItem(item)}
+                onRenderGridItem={(item: any, index: any) => this._onRenderGridItem(item, index)}
               />
 
               {/* </div> */}
@@ -340,6 +346,8 @@ export class ReactAllGroups extends React.Component<
               previousButtonLabel={this.strings.pagPrev}
               firstButtonLabel={this.strings.firstPage}
               lastButtonLabel={this.strings.lastPage}
+              currentPageLabel={this.strings.currentPage}
+              goToPageLabel={this.strings.goToPage}
             />
 
             </>
