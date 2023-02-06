@@ -41,7 +41,7 @@ export class AZNavigation extends React.Component<IAZNavigationProps> {
     const combinedIndex = [...abcChars, ...numSym ];
 
 
-   //Change the styles for the letters
+    //Change the styles for the letters
     const pivotStyles: Partial<IStyleSet<IPivotStyles>> ={
         link:{
         backgroundColor:'#e3e1e1',
@@ -60,28 +60,15 @@ export class AZNavigation extends React.Component<IAZNavigationProps> {
     return (
       <Pivot styles={pivotStyles} className={styles.letter} onLinkClick={this._handleClick} selectedKey={this.props.selectedLetter}  linkFormat={PivotLinkFormat.tabs} linkSize={1}>
         {combinedIndex.map((letter) => {
-
-          if(document.documentElement.lang === 'fr-fr') {
-
-            return (
-              <div lang="fr-fr">
-              <PivotItem
-                itemKey={letter}
-                headerText={letter}
-                headerButtonProps={{'data-title': 'Letter'}}
-              />
-              </div>
-            );
-          }
-          return (
-            <PivotItem
-              itemKey={letter}
-              headerText={letter}
-              headerButtonProps={{'data-title': 'Letter'}}
-            />
-          );
-        })}
-      </Pivot>
+             return (
+               <PivotItem
+                 itemKey={letter}
+                 headerText={letter}
+                 headerButtonProps={{'data-title': `${letter}`}}
+               />
+             );
+           })}
+           </Pivot>
     );
   }
 }
