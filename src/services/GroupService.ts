@@ -12,30 +12,46 @@ export class GroupServiceManager {
     this.context = context;
   }
 
-  public getGroups(letter: string): Promise<MicrosoftGraph.Group[]> {
+  public getGroupsBatch(letter: string): Promise<MicrosoftGraph.Group[]> {
+
     let apiTxt: string = "";
 
     if (letter === "#") {
       apiTxt =
         "/groups?$filter=groupTypes/any(c:c+eq+'Unified') and startsWith(displayName,'1') or startswith(displayName,'2') or startswith(displayName,'3') or startswith(displayName,'4')or startswith(displayName,'5') or startswith(displayName,'6') or startswith(displayName,'7') or startswith(displayName,'8') or startswith(displayName,'9')";
     } else {
-      apiTxt = `/groups?$filter=groupTypes/any(c:c+eq+'Unified') and startsWith(displayName,'${letter}')`;
+      apiTxt = `/groups?$filter=groupTypes/any(c:c+eq+'Unified') and startsWith(displayName,'${letter}')&$select=id,displayName, createdDateTime,description`;
     }
 
-    return new Promise<MicrosoftGraph.Group[]>((resolve, reject) => {
-      try {
+    let requestBody = {
+      requests: [
+        {
+          id: "1",
+          method: "GET",
+          url: `${apiTxt}`
+        }
+      ]
+    };
+
+
+    return new Promise((resolve, reject) => {
+      try{
         this.context.msGraphClientFactory
           .getClient()
           .then((client: MSGraphClient) => {
             client
-              .api(apiTxt)
-              .get((error: any, groups: IGroupCollection, rawResponse: any) => {
-                //console.log("GROUPS", groups.value);
-                resolve(groups.value);
+              .api(`/$batch`)
+              .post(requestBody, (error: any, responseObject: any) => {
+                console.log("RES",responseObject);
+                if(error) {
+                  Promise.reject(error);
+                }
+                resolve(responseObject.responses[0].body.value);
+
               });
           });
-      } catch (error) {
-        console.error(error);
+      } catch(error) {
+        reject(error);
       }
     });
   }
@@ -114,7 +130,7 @@ export class GroupServiceManager {
         {
           id: "1",
           method: "GET",
-          url: `/sites/${groups.siteId}/analytics/lastsevendays/`,
+          url: `/sites/${groups.siteId}/analytics/lastsevendays/access/actionCount`,
         },
 
       ],
@@ -128,10 +144,8 @@ export class GroupServiceManager {
             .api(`/$batch`)
             .post(requestBody, (error: any, responseObject: any) => {
               let responseContent = {};
+              responseContent = responseObject.responses[0].body.value;
 
-              responseObject.responses.forEach((response) => {
-                responseContent[response.id]= response.body;
-              });
               resolve(responseContent);
             });
           });

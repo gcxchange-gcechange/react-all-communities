@@ -65,74 +65,6 @@
   align-self: center;
 }
 
-// .pageNumber {
-//   background-color:"[theme:themePrimary]";
-//   border-radius: 50%;
-//   // padding-top: 2px;
-//   // padding-bottom: 2px;
-//   // padding-left:8px;
-//   // padding-right:8px;
-
-//   align-self: center;
-
-// }
-
-
-
-// .currentPage {
-//   color:white;
-//   line-height: 20;
-// }
-
-
-.resCircle {
-  /* (A) PERCENTAGE WIDTH & BORDER RADIUS */
-  width: 4%;
-  border-radius: 50%;
-
-  /* (B) BACKGROUND COLOR */
-  background-color:"[theme:themePrimary]";
-
-  /* (C) NECESSARY TO POSITION TEXT BLOCK */
-  line-height: 0;
-  position: relative;
-
-  list-style-type: none;
-}
-
-/* (D) MATCH HEIGHT */
-.resCircle::after {
-  content: "";
-  display: block;
-  padding-bottom: 1px;
-}
-
-/* (E) TEXT BLOCK */
-.circleTxt {
-  /* (E1) CENTER TEXT IN CIRCLE */
-  position: absolute;
-  bottom: 50%;
-  width: 100%;
-  text-align: center;
-  // color:white;
-  color: pink;
-}
-
-ul {
-
-  display: flex;
-  flex-direction: row;
-  padding: 5px;
-}
-
-li{
-  color: fuchsia;
-  list-style-type: none;
-  margin-right: 5px;
-  width: 25px;
-
-}
-
 .currentPage {
   background-color:"[theme:themePrimary]";
   border-radius: 50%;
@@ -141,14 +73,3 @@ li{
 
 
 }
-
-ul ~ li {
-  background-color: pink;
-}
-
-button{
-  color:black;
-  background-color: aqua;
-  cursor: pointer;
-}
-

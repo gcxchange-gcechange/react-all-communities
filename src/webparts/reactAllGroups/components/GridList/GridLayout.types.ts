@@ -21,7 +21,7 @@ export interface IGridLayoutProps {
   /**
    * The method to render each cell item
    */
-  onRenderGridItem: (item: any) => JSX.Element;
+  onRenderGridItem: (item: any, index: any) => JSX.Element;
 
 
 

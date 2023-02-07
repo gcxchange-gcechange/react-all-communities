@@ -13,9 +13,18 @@ import { Stack } from 'office-ui-fabric-react';
  * A custom pagination control designed to look & feel like Office UI Fabric
  */
 export class Paging extends React.Component<IPagingProps, IPagingState> {
+
     public render(): React.ReactElement<IPagingProps> {
 
-        const { currentPage, nextButtonLabel, previousButtonLabel, nextButtonAriaLabel, previousButtonAriaLabel, firstButtonLabel, firstButtonAriaLabel, lastButtonLabel, lastButtonAriaLabel } = this.props;
+        const { currentPage,
+          nextButtonLabel,
+          previousButtonLabel,
+          nextButtonAriaLabel,
+          previousButtonAriaLabel,
+          firstButtonLabel,
+          lastButtonLabel,
+          currentPageLabel,
+          goToPageLabel } = this.props;
 
 
         // calculate the page situation
@@ -79,10 +88,10 @@ export class Paging extends React.Component<IPagingProps, IPagingState> {
                  {this._getNumberOfPages().map( itemNumber =>
                   <div id={itemNumber.toString()}  tabIndex={0}   onClick={() => this._goToPage(itemNumber) }>{
                     itemNumber === currentPage
-                       ? <DefaultButton styles={buttonStyles} className={styles.currentPage} aria-label={`Current page, Page ${currentPage}`} aria-current={true}>
+                       ? <DefaultButton styles={buttonStyles} className={styles.currentPage} aria-label={`${currentPageLabel}, ${currentPage}`} aria-current={true}>
                         {currentPage}
                         </DefaultButton>
-                       : <DefaultButton  styles={buttonStyles} id={itemNumber.toString()} aria-label={`Goto Page ${itemNumber}`} >{itemNumber}</DefaultButton>}
+                       : <DefaultButton  styles={buttonStyles} id={itemNumber.toString()} aria-label={`${goToPageLabel} ${itemNumber}`} >{itemNumber}</DefaultButton>}
                   </div>)}
 
 
