@@ -13,7 +13,6 @@ import { AZNavigation } from "../AZNavigation/AZNavigation";
 import { Paging } from "../paging";
 
 
-
 export class ReactAllGroups extends React.Component<
   IReactAllGroupsProps,
   IReactAllGroupsState
@@ -325,17 +324,13 @@ export class ReactAllGroups extends React.Component<
               currentPageLabel={this.strings.currentPage}
               goToPageLabel={this.strings.goToPage}
             />
-            <div>
 
-              {/* <div className={styles.groupsContainer}> */}
               <GridLayout
                 sort={this.props.sort}
                 items={pagedItems}
                 onRenderGridItem={(item: any, index: any) => this._onRenderGridItem(item, index)}
               />
 
-              {/* </div> */}
-            </div>
             <Paging
               showPageNumber={true}
               currentPage={currentPage}
@@ -376,6 +371,7 @@ export class ReactAllGroups extends React.Component<
                 </div>
 
               ) : (
+
                 <>
                   <div
                     className={styles.noResultsText}
@@ -399,9 +395,9 @@ export class ReactAllGroups extends React.Component<
 
                 </>
               )}
-                <div>
+
                   <img {...imageProps} alt={this.strings.hidingYeti}/>
-                </div>
+
             </Stack>
           )}
         </div>
