@@ -44,7 +44,7 @@ export class Paging extends React.Component<IPagingProps, IPagingState> {
           padding: '0px',
           minWidth: '30px',
           borderRadius: '50%',
-          borderColor: 'transparent'
+          borderColor: 'transparent',
 
         },
 
@@ -57,7 +57,7 @@ export class Paging extends React.Component<IPagingProps, IPagingState> {
         return (
             <Stack horizontal  horizontalAlign="center" verticalAlign="center">
 
-              <ActionButton className={styles.prev}
+              <ActionButton
                 onRenderIcon={(_props: IButtonProps) => {
                         // we use the render custom icon method to render the icon consistently with the right icon
                         return (
@@ -68,7 +68,7 @@ export class Paging extends React.Component<IPagingProps, IPagingState> {
                     onClick={this._goToFirstPage}
                     ariaLabel={firstButtonLabel}/>
 
-                <ActionButton className={styles.prev}
+                <ActionButton
                     onRenderIcon={(_props: IButtonProps) => {
                         // we use the render custom icon method to render the icon consistently with the right icon
                         return (
@@ -86,7 +86,7 @@ export class Paging extends React.Component<IPagingProps, IPagingState> {
 
 
                  {this._getNumberOfPages().map( itemNumber =>
-                  <div id={itemNumber.toString()}  tabIndex={0}   onClick={() => this._goToPage(itemNumber) }>{
+                  <div key={itemNumber.toString()}  tabIndex={0}   onClick={() => this._goToPage(itemNumber) }>{
                     itemNumber === currentPage
                        ? <DefaultButton styles={buttonStyles} className={styles.currentPage} aria-label={`${currentPageLabel}, ${currentPage}`} aria-current={true}>
                         {currentPage}
@@ -96,7 +96,7 @@ export class Paging extends React.Component<IPagingProps, IPagingState> {
 
 
 
-                <ActionButton className={styles.next}
+                <ActionButton
                     disabled={nextDisabled}
                     onRenderMenuIcon={(_props: IButtonProps) => {
                         // we use the render custom menu icon method to render the icon to the right of the text
@@ -110,7 +110,7 @@ export class Paging extends React.Component<IPagingProps, IPagingState> {
                     {nextButtonLabel}
                 </ActionButton>
 
-                <ActionButton className={styles.prev}
+                <ActionButton
                 onRenderIcon={(_props: IButtonProps) => {
                         // we use the render custom icon method to render the icon consistently with the right icon
                         return (
