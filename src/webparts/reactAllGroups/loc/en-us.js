@@ -32,7 +32,7 @@ define([], function() {
     "siteViews": "Views",
     "created": "Created",
     "lastModified": "Last modified",
-    "hidingYeti": "Hiding Yeti"
+    "hidingYeti": "Hiding yeti"
 
   }
 });
