@@ -44,7 +44,7 @@ export class Paging extends React.Component<IPagingProps, IPagingState> {
           padding: '0px',
           minWidth: '30px',
           borderRadius: '50%',
-          borderColor: 'transparent',
+          borderColor: 'transparent'
 
         },
 
