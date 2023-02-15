@@ -17,10 +17,7 @@ export interface IReactAllGroupsWebPartProps {
   sort: string;
   themeVariant: IReadonlyTheme | undefined;
   selectedLetter: string;
-
-
-
-
+  hidingGroups: string;
 
 }
 
@@ -40,8 +37,7 @@ export default class ReactAllGroupsWebPart extends BaseClientSideWebPart<IReactA
         sort: this.properties.sort,
         themeVariant: this._themeVariant,
         selectedLetter: this.properties.selectedLetter,
-
-
+        hidingGroups: this.properties.hidingGroups
 
       }
     );
