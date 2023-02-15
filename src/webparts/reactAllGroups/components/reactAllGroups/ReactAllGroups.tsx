@@ -11,6 +11,7 @@ import { Icon } from "office-ui-fabric-react/lib/Icon";
 import { Stack, Image, IImageProps, ImageFit } from "office-ui-fabric-react";
 import { AZNavigation } from "../AZNavigation/AZNavigation";
 import { Paging } from "../paging";
+import { forEach } from "lodash";
 
 
 export class ReactAllGroups extends React.Component<
@@ -34,6 +35,10 @@ export class ReactAllGroups extends React.Component<
   }
 
   public strings = SelectLanguage(this.props.prefLang);
+
+//split the hidingGroups and split them by the comma
+  public hidingGroups: String[] = this.props.hidingGroups && this.props.hidingGroups.length > 0 ? this.props.hidingGroups.split(",") : [];
+
 
   //Selected Letter by user
   public handleClickEvent = (letter: string) => {
@@ -65,6 +70,8 @@ export class ReactAllGroups extends React.Component<
   }
 
   public _getGroupsLinks = (groups: any): void => {
+
+    console.log("hididng", this.hidingGroups);
     let groupsCompleted = 0;
     let totalGroups = groups.length;
 
@@ -77,10 +84,19 @@ export class ReactAllGroups extends React.Component<
         .then((groupUrl) => {
           groupsCompleted++;
 
+          console.log("GroupUrl",groupUrl);
+
+
+          for (let i = 0; i < this.hidingGroups.length; i++) {
+            let hideGroups = this.hidingGroups[i];
+
+
+          //groupUrl[1] is the body of the response from the API without the 403 status codes, groupURL[2] is the members count  API call
           if (
             groupUrl[1] &&
             (groupUrl[1].value !== null || groupUrl[1].value !== undefined)
-          ) {
+          )
+          {
             this.setState((prevState) => ({
               groups: prevState.groups.map((group) =>
                 group.id === groupItem.id
@@ -94,22 +110,32 @@ export class ReactAllGroups extends React.Component<
                   : group
               ),
             }));
-          } else {
+          }
+           if ( ){
+
+           }
+
+          else {
+
             let index = this.state.groups
               .map((g) => g.id)
               .indexOf(groupItem.id);
+
+              console.log("index", index);
             let groupsCopy = JSON.parse(JSON.stringify(this.state.groups));
             groupsCopy.splice(index, 1);
-
             this.setState({
               groups: groupsCopy,
             });
           }
+        }
+
 
           if (groupsCompleted >= totalGroups) {
             this._getGroupThumbnails(this.state.groups);
             // console.log(this.state.groups);
           }
+
         })
         .catch((error) => {
           this.setState({
