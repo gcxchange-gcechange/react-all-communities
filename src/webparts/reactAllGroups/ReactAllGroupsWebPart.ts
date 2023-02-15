@@ -112,7 +112,14 @@ export default class ReactAllGroupsWebPart extends BaseClientSideWebPart<IReactA
                   step: 1,
                   showValue: true,
                   value: 10
-                })
+                }),
+
+                PropertyPaneTextField( 'hideGroups', {
+                  label: 'Groups not in search',
+                  description: 'Enter group id of groups that are not to be rendered',
+                  multiline: true,
+                  rows: 10,
+                }),
               ]
             }
           ]
