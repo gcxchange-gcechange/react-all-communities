@@ -111,7 +111,7 @@ export default class ReactAllGroupsWebPart extends BaseClientSideWebPart<IReactA
                 }),
 
                 PropertyPaneTextField( 'hidingGroups', {
-                  label: 'Groups not in search',
+                  label: 'Groups not in search, seperate items by pressing the Enter key.',
                   placeholder: 'Seperate items by pressing the Enter key.',
                   description: 'Enter group id of groups that are not to be rendered',
                   multiline: true,
