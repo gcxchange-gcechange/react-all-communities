@@ -63,8 +63,6 @@ export class ReactAllGroups extends React.Component<
   public _getGroups = (letter: string): void => {
     GroupService.getGroupsBatch(letter).then((groupData) => {
       //create new array by matching only the newlines \n
-      // let removeSpace = this.props.hidingGroups.match (/(?=\S)[^\n]+?(?=\s*(\n|$))/g);
-      // const hidingGroups: string[] = this.props.hidingGroups && this.props.hidingGroups.length > 0 ? removeSpace: [];
 
       const hidingGroups: string[] = this.props.hidingGroups && this.props.hidingGroups.length > 0 ? this.props.hidingGroups.match (/(?=\S)[^\n]+?(?=\s*(\n|$))/g) : [];
 
