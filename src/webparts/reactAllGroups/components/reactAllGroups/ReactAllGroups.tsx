@@ -11,6 +11,7 @@ import { Icon } from "office-ui-fabric-react/lib/Icon";
 import { Stack, Image, IImageProps, ImageFit } from "office-ui-fabric-react";
 import { AZNavigation } from "../AZNavigation/AZNavigation";
 import { Paging } from "../paging";
+import { forEach } from "lodash";
 
 
 export class ReactAllGroups extends React.Component<
@@ -35,6 +36,10 @@ export class ReactAllGroups extends React.Component<
 
   public strings = SelectLanguage(this.props.prefLang);
 
+//split the hidingGroups and split them by the comma
+  // public hidingGroups: String[] = this.props.hidingGroups && this.props.hidingGroups.length > 0 ? this.props.hidingGroups.split(",") : [];
+
+
   //Selected Letter by user
   public handleClickEvent = (letter: string) => {
     this.setState(
@@ -57,14 +62,30 @@ export class ReactAllGroups extends React.Component<
 
   public _getGroups = (letter: string): void => {
     GroupService.getGroupsBatch(letter).then((groupData) => {
+      //create new array by matching only the newlines \n
+
+      const hidingGroups: string[] = this.props.hidingGroups && this.props.hidingGroups.length > 0 ? this.props.hidingGroups.match (/(?=\S)[^\n]+?(?=\s*(\n|$))/g) : [];
+
+      let n= groupData.length;
+      console.log("n", hidingGroups);
+      for (let index = 0; index < n; index++) {
+        let group:any = groupData[index];
+        if(hidingGroups.indexOf(group.id) != -1) {
+          groupData.splice(index, 1);
+          n = n -1;
+          index = index -1 ;
+        }
+      }
       this.setState({
-        groups: groupData,
+        groups: groupData
       });
+
       this._getGroupsLinks(groupData);
     });
   }
 
   public _getGroupsLinks = (groups: any): void => {
+
     let groupsCompleted = 0;
     let totalGroups = groups.length;
 
@@ -80,7 +101,8 @@ export class ReactAllGroups extends React.Component<
           if (
             groupUrl[1] &&
             (groupUrl[1].value !== null || groupUrl[1].value !== undefined)
-          ) {
+          )
+          {
             this.setState((prevState) => ({
               groups: prevState.groups.map((group) =>
                 group.id === groupItem.id
@@ -94,13 +116,15 @@ export class ReactAllGroups extends React.Component<
                   : group
               ),
             }));
+
           } else {
+
             let index = this.state.groups
               .map((g) => g.id)
               .indexOf(groupItem.id);
+
             let groupsCopy = JSON.parse(JSON.stringify(this.state.groups));
             groupsCopy.splice(index, 1);
-
             this.setState({
               groups: groupsCopy,
             });
@@ -110,6 +134,7 @@ export class ReactAllGroups extends React.Component<
             this._getGroupThumbnails(this.state.groups);
             // console.log(this.state.groups);
           }
+
         })
         .catch((error) => {
           this.setState({

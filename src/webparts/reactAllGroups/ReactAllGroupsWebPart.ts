@@ -17,10 +17,7 @@ export interface IReactAllGroupsWebPartProps {
   sort: string;
   themeVariant: IReadonlyTheme | undefined;
   selectedLetter: string;
-
-
-
-
+  hidingGroups: string;
 
 }
 
@@ -40,8 +37,7 @@ export default class ReactAllGroupsWebPart extends BaseClientSideWebPart<IReactA
         sort: this.properties.sort,
         themeVariant: this._themeVariant,
         selectedLetter: this.properties.selectedLetter,
-
-
+        hidingGroups: this.properties.hidingGroups
 
       }
     );
@@ -112,7 +108,15 @@ export default class ReactAllGroupsWebPart extends BaseClientSideWebPart<IReactA
                   step: 1,
                   showValue: true,
                   value: 10
-                })
+                }),
+
+                PropertyPaneTextField( 'hidingGroups', {
+                  label: 'Groups not in search, seperate items by pressing the Enter key.',
+                  placeholder: 'Seperate items by pressing the Enter key.',
+                  description: 'Enter group id of groups that are not to be rendered',
+                  multiline: true,
+                  rows: 10,
+                }),
               ]
             }
           ]
