@@ -4,8 +4,7 @@
 
   .siteCard {
     height: 250px;
-    // width: 315px;
-    width:286px;
+    width:376px;
     box-sizing: border-box;
     margin-bottom: 20px;
     outline: transparent;
@@ -67,6 +66,8 @@
     text-align: left;
     padding: 0 12px;
     color: rgb(50, 49, 48);
+    margin-left: 20px;
+    margin-right: 20px;
   }
 
   .cardDescription {
@@ -80,6 +81,7 @@
     overflow: hidden;
     text-align: left;
     color: rgb(50, 49, 48);
+    margin: 5px 20px;
 
   }
 
@@ -101,7 +103,7 @@
   .footerItem {
     display: flex;
     align-items: center;
-
+    margin: 5px 20px
   }
 
   .footerItem p{margin:0px;}
