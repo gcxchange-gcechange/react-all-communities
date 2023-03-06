@@ -222,14 +222,14 @@ export class ReactAllGroups extends React.Component<
         <footer className={styles.cardFooter}>
           <div className={styles.footerRow}>
             <div className={styles.footerItem}>
-              <p aria-label={this.strings.members}>
+              <p aria-label={this.strings.members} className={styles.bold700}>
                 {this.strings.members}
               </p>
               <p className={styles.pl5}>{item.members}</p>
             </div>
 
             <div className={styles.footerItem}>
-              <p aria-label={this.strings.created}>{this.strings.created}</p>
+              <p className={styles.bold700} aria-label={this.strings.created}>{this.strings.created}</p>
               <p className={styles.pl5}>
                 {this.strings.userLang === "FR"
                   ? new Date(item.createdDateTime).toLocaleDateString("fr-CA")
@@ -240,12 +240,12 @@ export class ReactAllGroups extends React.Component<
 
           <div className={styles.footerRow}>
             <div className={styles.footerItem}>
-              <p aria-label={this.strings.siteViews}>{this.strings.siteViews}</p>
+              <p className={styles.bold700} aria-label={this.strings.siteViews}>{this.strings.siteViews}</p>
               <p className={styles.pl5}>{item.views}</p>
             </div>
 
             <div className={styles.footerItem}>
-              <p aria-label={this.strings.lastModified}>
+              <p aria-label={this.strings.lastModified} className={styles.bold700}>
                 {this.strings.lastModified}
               </p>
               <p
