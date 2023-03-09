@@ -10,7 +10,6 @@
 
 .gridLayout {
   overflow: hidden;
-  // font-size: 0;
   position: relative;
   background-color: transparent;
 }
@@ -19,7 +18,7 @@
   display: flex;
   flex-wrap: wrap;
   flex-direction: row;
-  // justify-content: space-between;
+  justify-content: center;
   margin-left:-10px;
   margin-right:-10px;
  }
