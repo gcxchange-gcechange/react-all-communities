@@ -279,13 +279,12 @@ export class ReactAllGroups extends React.Component<
   public render(): React.ReactElement<IReactAllGroupsProps> {
     //Sorting in the Control panel
     let myData = [];
-    this.props.sort == "DateCreation"
-      ? (myData = []
-          .concat(this.state.groups)
-          .sort((a, b) => (a.createdDateTime < b.createdDateTime ? 1 : -1)))
-      : (myData = []
-          .concat(this.state.groups)
-          .sort((a, b) => (a.displayName < b.displayName ? -1 : 1)));
+
+    if ( this.props.sort === "DateCreation ") {
+      myData = this.state.groups.sort ((a, b) => (a.createdDateTime < b.createdDateTime ? 1: -1))
+    } else if ( this.props.sort === "Alphabetical") {
+      myData = this.state.groups.sort((a,b) => (a.displayName > b.displayName ? 1 : -1 ))
+    }
 
     let pagedItems: any[] = this.state.groups;
         console.log("PgItems",pagedItems.length);
