@@ -22,7 +22,7 @@ export class GroupServiceManager {
     } else {
       apiTxt = `/groups?$filter=groupTypes/any(c:c+eq+'Unified') and startsWith(displayName,'${letter}')&$select=id,displayName, createdDateTime,description&$top=5`;
     }
-5
+
     let requestBody = {
       requests: [
         {
@@ -43,22 +43,34 @@ export class GroupServiceManager {
               .api(`/$batch`)
               .post(requestBody, (error: any, responseObject: any) => {
 
+                let responseResults:any[] = [];
 
-                console.log("RES",responseObject);
+                responseResults.push(...responseObject.responses[0].body.value);
 
-                const url = responseObject.responses[0].body["@odata.nextLink"];
-                console.log("URL", url);
+                let link = responseObject.responses[0].body["@odata.nextLink"];
 
-                client.api(url).get((error2: any, response2: any) => {
-                  console.log("2",response2)
-                })
-
-
-                if(error) {
+                if (error) {
                   Promise.reject(error);
-                }
-                resolve(responseObject.responses[0].body.value);
+                } else if (link) {
 
+                  const handleNextPage = (url: string) => {
+                    client.api(url).get((error:any, response2: any) => {
+                      const nextLink = response2["@odata.nextLink"];
+
+                      responseResults.push(...response2.value);
+
+                      if (nextLink) {
+                        handleNextPage(nextLink);
+                      } else {
+                        resolve(responseResults);
+                      }
+                    })
+                  }
+                  handleNextPage(link);
+                }
+                else {
+                  resolve(responseResults)
+                }
               });
           });
       } catch(error) {

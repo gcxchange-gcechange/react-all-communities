@@ -281,9 +281,9 @@ export class ReactAllGroups extends React.Component<
     let myData = [];
 
     if ( this.props.sort === "DateCreation ") {
-      myData = this.state.groups.sort ((a, b) => (a.createdDateTime < b.createdDateTime ? 1: -1))
+      myData = this.state.groups.sort ((a, b) => (a.createdDateTime < b.createdDateTime ? 1: -1));
     } else if ( this.props.sort === "Alphabetical") {
-      myData = this.state.groups.sort((a,b) => (a.displayName.toLowerCase() > b.displayName.toLowerCase() ? 1 : -1 ))
+      myData = this.state.groups.sort((a,b) => (a.displayName.toLowerCase() > b.displayName.toLowerCase() ? 1 : -1 ));
     }
 
     let pagedItems: any[] = this.state.groups;
