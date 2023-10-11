@@ -1,4 +1,4 @@
-import { MSGraphClient } from "@microsoft/sp-http";
+import { MSGraphClientV3 } from "@microsoft/sp-http";
 import * as MicrosoftGraph from "@microsoft/microsoft-graph-types";
 import { WebPartContext } from "@microsoft/sp-webpart-base";
 import { IGroup, IGroupCollection } from "../models";
@@ -37,8 +37,8 @@ export class GroupServiceManager {
     return new Promise((resolve, reject) => {
       try{
         this.context.msGraphClientFactory
-          .getClient()
-          .then((client: MSGraphClient) => {
+          .getClient('3')
+          .then((client: MSGraphClientV3):void => {
             client
               .api(`/$batch`)
               .post(requestBody, (error: any, responseObject: any) => {
@@ -97,8 +97,8 @@ export class GroupServiceManager {
     return new Promise((resolve, reject) => {
       try {
         this.context.msGraphClientFactory
-          .getClient()
-          .then((client: MSGraphClient) => {
+          .getClient('3')
+          .then((client: MSGraphClientV3):void => {
             client
               .api(`/$batch`)
               .post(requestBody, (error: any, responseObject: any) => {
@@ -125,17 +125,15 @@ export class GroupServiceManager {
     });
   }
 
-
-
   public getGroupThumbnails(groups: IGroup): Promise<any> {
     return new Promise<any>((resolve, reject) => {
       try {
         this.context.msGraphClientFactory
-          .getClient()
-          .then((client: MSGraphClient) => {
+          .getClient('3')
+          .then((client: MSGraphClientV3) => {
             client
               .api(`/groups/${groups.id}/photos/48x48/$value`)
-              .responseType("blob")
+              //.responseType()
               .get((error: any, group: any, rawResponse: any) => {
                 resolve(window.URL.createObjectURL(group));
               });
@@ -161,8 +159,8 @@ export class GroupServiceManager {
     return new Promise<any>(( resolve, reject ) => {
       try{
         this.context.msGraphClientFactory
-          .getClient()
-          .then((client: MSGraphClient) => {
+          .getClient('3')
+          .then((client: MSGraphClientV3) => {
             client
             .api(`/$batch`)
             .post(requestBody, (error: any, responseObject: any) => {
