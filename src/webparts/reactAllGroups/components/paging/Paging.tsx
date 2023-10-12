@@ -1,6 +1,5 @@
 import * as React from 'react';
-import { css } from '@uifabric/utilities/lib/css';
-import { ActionButton, DefaultButton, IButtonProps, IButtonStyles, PrimaryButton } from 'office-ui-fabric-react/lib/Button';
+import { ActionButton, DefaultButton, IButtonProps, IButtonStyles } from 'office-ui-fabric-react/lib/Button';
 import { Icon } from 'office-ui-fabric-react/lib/Icon';
 
 import { IPagingProps, IPagingState } from "./index";

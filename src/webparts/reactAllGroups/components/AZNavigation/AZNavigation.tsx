@@ -1,9 +1,8 @@
 import * as React from 'react';
 import { IAZNavigationProps} from './IAZNavigationProps';
 import  styles from './AZNavigation.module.scss';
-import { htmlElementProperties, IPivotStyles, IStyleSet, Label, PivotLinkFormat, PivotLinkSize} from 'office-ui-fabric-react';
+import { IPivotStyles, IStyleSet, PivotLinkFormat} from 'office-ui-fabric-react';
 import { Pivot, PivotItem} from 'office-ui-fabric-react';
-import * as strings from 'ReactAllGroupsWebPartStrings';
 import { SelectLanguage } from '../SelectLanguage';
 
 
@@ -23,13 +22,13 @@ export class AZNavigation extends React.Component<IAZNavigationProps> {
 
 
     //Create # symbol array
-      const numberArray = () => {
+      const numberArray = ():any => {
         return Array.apply(null, {length:1}).map((num: any, index: number) => String.fromCharCode(35 + index));
       };
       const numSym  = numberArray();
 
     // Create the A-Z Array
-    const arrayAtoZ = () => {
+    const arrayAtoZ = ():any => {
       return Array.apply(null, {length:26}).map((num: any, index: number) => String.fromCharCode(65 + index));
     };
 
@@ -59,9 +58,10 @@ export class AZNavigation extends React.Component<IAZNavigationProps> {
 
     return (
       <Pivot styles={pivotStyles} className={styles.letter} onLinkClick={this._handleClick} selectedKey={this.props.selectedLetter}  linkFormat={PivotLinkFormat.tabs} linkSize={1}>
-        {combinedIndex.map((letter) => {
+        {combinedIndex.map((letter,index) => {
              return (
                <PivotItem
+                 key={index}
                  itemKey={letter}
                  headerText={letter}
                  headerButtonProps={{'data-title': `${letter}`}}

@@ -1,7 +1,7 @@
 import { MSGraphClientV3 } from "@microsoft/sp-http";
 import * as MicrosoftGraph from "@microsoft/microsoft-graph-types";
 import { WebPartContext } from "@microsoft/sp-webpart-base";
-import { IGroup, IGroupCollection } from "../models";
+import { IGroup } from "../models";
 
 
 
@@ -53,7 +53,7 @@ export class GroupServiceManager {
                   Promise.reject(error);
                 } else if (link) {
 
-                  const handleNextPage = (url: string) => {
+                  const handleNextPage = (url: string):any => {
                     client.api(url).get((error:any, response2: any) => {
                       const nextLink = response2["@odata.nextLink"];
 

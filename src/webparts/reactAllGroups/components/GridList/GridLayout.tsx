@@ -1,8 +1,7 @@
 import * as React from 'react';
 import styles from './GridLayout.module.scss';
-import { FocusZone, FocusZoneDirection } from 'office-ui-fabric-react/lib/FocusZone';
 import { List } from 'office-ui-fabric-react/lib/List';
-import { IRectangle, ISize } from 'office-ui-fabric-react/lib/Utilities';
+import { IRectangle } from 'office-ui-fabric-react/lib/Utilities';
 import { IGridLayoutProps } from './GridLayout.types';
 
 
@@ -25,7 +24,6 @@ export class GridLayout extends React.Component<IGridLayoutProps> {
 
   public render(): React.ReactElement<IGridLayoutProps> {
 
-    const totalItems = this.props.items.length;
 
 
     return (
@@ -62,9 +60,6 @@ export class GridLayout extends React.Component<IGridLayoutProps> {
   }
 
   private _onRenderCell = (item: any, index: number | undefined): JSX.Element => {
-
-    const cellPadding: number = index % this._columnCount !== this._columnCount - 1  ? PADDING : 0;
-    const cellWidth: number =  this._columnWidth - PADDING;
 
 
       return (
