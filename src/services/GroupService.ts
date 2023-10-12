@@ -23,7 +23,7 @@ export class GroupServiceManager {
       apiTxt = `/groups?$filter=groupTypes/any(c:c+eq+'Unified') and startsWith(displayName,'${letter}')&$select=id,displayName, createdDateTime,description&$top=999`;
     }
 
-    let requestBody = {
+    const requestBody = {
       requests: [
         {
           id: "1",
@@ -43,11 +43,11 @@ export class GroupServiceManager {
               .api(`/$batch`)
               .post(requestBody, (error: any, responseObject: any) => {
 
-                let responseResults:any[] = [];
+                const responseResults:any[] = [];
 
                 responseResults.push(...responseObject.responses[0].body.value);
 
-                let link = responseObject.responses[0].body["@odata.nextLink"];
+                const link = responseObject.responses[0].body["@odata.nextLink"];
 
                 if (error) {
                   Promise.reject(error);
@@ -80,7 +80,7 @@ export class GroupServiceManager {
   }
 
   public getGroupLinksBatch(groups: any): Promise<any> {
-    let requestBody = {
+    const requestBody = {
       requests: [
         {
           id: "1",
@@ -105,7 +105,7 @@ export class GroupServiceManager {
                 if (error) {
                   Promise.reject(error);
                 }
-                let responseContent = {};
+                const responseContent = {};
 
                 responseObject.responses.forEach((response) => {
                   if (response.status === 200) {
@@ -145,7 +145,7 @@ export class GroupServiceManager {
   }
 
   public pageViewsBatch(groups: any): Promise<any> {
-    let requestBody = {
+    const requestBody = {
       requests: [
         {
           id: "1",

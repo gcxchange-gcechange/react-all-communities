@@ -23,17 +23,17 @@ export class AZNavigation extends React.Component<IAZNavigationProps> {
 
 
     //Create # symbol array
-      let numberArray = () => {
+      const numberArray = () => {
         return Array.apply(null, {length:1}).map((num: any, index: number) => String.fromCharCode(35 + index));
       };
-      let numSym  = numberArray();
+      const numSym  = numberArray();
 
     // Create the A-Z Array
-    let arrayAtoZ = () => {
+    const arrayAtoZ = () => {
       return Array.apply(null, {length:26}).map((num: any, index: number) => String.fromCharCode(65 + index));
     };
 
-    let abcChars = arrayAtoZ();
+    const abcChars = arrayAtoZ();
 
     // Combine both ABC and # symbol arrays
 
