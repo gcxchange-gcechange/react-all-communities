@@ -231,7 +231,7 @@ export class ReactAllGroups extends React.Component<
             <div className={styles.footerItem}>
               <p className={styles.bold700} aria-label={this.strings.created}>{this.strings.created}</p>
               <p className={styles.pl5}>
-                {this.strings.userLang === "FR"
+                {this.strings.userLang === "fr-fr"
                   ? new Date(item.createdDateTime).toLocaleDateString("fr-CA")
                   : new Date(item.createdDateTime).toLocaleDateString("en-CA")}
               </p>
@@ -251,12 +251,12 @@ export class ReactAllGroups extends React.Component<
               <p
                 className={styles.pl5}
                 aria-label={
-                  this.strings.userLang === "FR"
+                  this.strings.userLang === "fr-fr"
                     ? new Date(item.modified).toLocaleDateString("fr-CA")
                     : new Date(item.modified).toLocaleDateString("en-CA")
                 }
               >
-                {this.strings.userLang === "FR"
+                {this.strings.userLang === "fr-fr"
                   ? new Date(item.modified).toLocaleDateString("fr-CA")
                   : new Date(item.modified).toLocaleDateString("en-CA")}
               </p>
@@ -373,7 +373,7 @@ export class ReactAllGroups extends React.Component<
           ) : (
             <Stack  as='div' horizontal reversed  verticalAlign="center" tabIndex={0} aria-label={this.strings.noResults}>
 
-              {this.strings.userLang === "FR" ? (
+              {this.strings.userLang === "fr-fr" ? (
                 <div
                   className={styles.noResultsText}
                   aria-label={this.strings.noResultsFR}

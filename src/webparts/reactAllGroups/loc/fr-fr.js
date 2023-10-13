@@ -1,6 +1,6 @@
 define([], function() {
   return {
-    "userLang": "FR",
+    "userLang": "fr-fr",
     "PropertyPaneDescription": "Description",
     "BasicGroupName": "Group Name",
     "DescriptionFieldLabel": "Description Field",
@@ -36,3 +36,4 @@ define([], function() {
     "goToPage": "Aller à la page"
   }
 });
+

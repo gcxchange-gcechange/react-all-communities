@@ -4,9 +4,10 @@ import { Version } from '@microsoft/sp-core-library';
 import { BaseClientSideWebPart } from "@microsoft/sp-webpart-base";
 import { IPropertyPaneConfiguration, PropertyPaneTextField, PropertyPaneChoiceGroup, PropertyPaneDropdown, PropertyPaneToggle, PropertyPaneLink, PropertyPaneButton, PropertyPaneButtonType, PropertyPaneSlider } from "@microsoft/sp-property-pane";
 import GroupService from '../../services/GroupService';
-import * as strings from 'ReactAllGroupsWebPartStrings';
 import { ReactAllGroups, IReactAllGroupsProps } from './components';
 import { ThemeProvider, ThemeChangedEventArgs, IReadonlyTheme } from '@microsoft/sp-component-base';
+import { SelectLanguage } from "./components/SelectLanguage";
+
 
 
 export interface IReactAllGroupsWebPartProps {
@@ -25,6 +26,7 @@ export default class ReactAllGroupsWebPart extends BaseClientSideWebPart<IReactA
 
   private _themeProvider: ThemeProvider;
   private _themeVariant: IReadonlyTheme;
+  private strings: IReactAllGroupsWebPartStrings;
 
   public render(): void {
     const element: React.ReactElement<IReactAllGroupsProps > = React.createElement(
@@ -47,6 +49,7 @@ export default class ReactAllGroupsWebPart extends BaseClientSideWebPart<IReactA
   }
 
   protected onInit(): Promise<void> {
+    this.strings = SelectLanguage(this.properties.prefLang);
     return super.onInit().then(() => {
       GroupService.setup(this.context);
     });
@@ -79,22 +82,22 @@ export default class ReactAllGroupsWebPart extends BaseClientSideWebPart<IReactA
                     { key: 'account', text: 'Account'},
                     { key: 'en-us', text: 'English'},
                     { key: 'fr-fr', text: 'Français'},
-                  ]
+                  ],
+                  selectedKey: this.strings.userLang,
                 }),
 
-
                 PropertyPaneChoiceGroup('sort', {
-                  label: strings.setSortOpt,
+                  label: this.strings.setSortOpt,
                   options: [
                     {
                       key: "DateCreation",
-                      text:strings.dateCreation,
+                      text:this.strings.dateCreation,
                       checked: layout === "DateCreation" ? true : false,
                     },
 
                     {
                       key: "Alphabetical",
-                      text:strings.alphabetical,
+                      text:this.strings.alphabetical,
                       checked: layout === "Alphabetical" ? true : false,
                     }
 

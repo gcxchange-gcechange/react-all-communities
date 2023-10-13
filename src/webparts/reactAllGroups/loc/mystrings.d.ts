@@ -1,4 +1,5 @@
 declare interface IReactAllGroupsWebPartStrings {
+  userLang:string;
   PropertyPaneDescription: string;
   BasicGroupName: string;
   DescriptionFieldLabel: string;

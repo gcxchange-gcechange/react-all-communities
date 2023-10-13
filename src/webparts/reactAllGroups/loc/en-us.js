@@ -1,6 +1,6 @@
 define([], function() {
   return {
-    "userLang": "EN",
+    "userLang": "en-us",
     "PropertyPaneDescription": "Description",
     "BasicGroupName": "Group Name",
     "DescriptionFieldLabel": "Description Field",
