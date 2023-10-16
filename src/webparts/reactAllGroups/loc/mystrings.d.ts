@@ -16,13 +16,20 @@ declare interface IReactAllGroupsWebPartStrings {
   listIcon: string;
   groups: string;
   alphabetical: string;
-  noResultsEN: string;
-  noResultsFR: string;
+  noResults: string;
   members:string;
   siteViews:string;
   created: string;
   lastModified: string;
-
+  altImgLogo:string;
+  loadingState:string;
+  pagNext:string;
+  pagPrev:string;
+  firstPage:string;
+  lastPage:string;
+  currentPage:string;
+  goToPage:string;
+  hidingYeti:string;
 }
 
 declare module 'ReactAllGroupsWebPartStrings' {

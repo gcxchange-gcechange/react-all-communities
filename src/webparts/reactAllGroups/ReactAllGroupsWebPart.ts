@@ -28,6 +28,11 @@ export default class ReactAllGroupsWebPart extends BaseClientSideWebPart<IReactA
   private _themeVariant: IReadonlyTheme;
   private strings: IReactAllGroupsWebPartStrings;
 
+  public updateWebPart= async () => {
+    this.context.propertyPane.refresh();
+    this.render();
+  }
+
   public render(): void {
     const element: React.ReactElement<IReactAllGroupsProps > = React.createElement(
       ReactAllGroups,
@@ -39,8 +44,8 @@ export default class ReactAllGroupsWebPart extends BaseClientSideWebPart<IReactA
         sort: this.properties.sort,
         themeVariant: this._themeVariant,
         selectedLetter: this.properties.selectedLetter,
-        hidingGroups: this.properties.hidingGroups
-
+        hidingGroups: this.properties.hidingGroups,
+        updateWebPart: this.updateWebPart
       }
     );
 

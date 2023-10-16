@@ -36,6 +36,13 @@ export class ReactAllGroups extends React.Component<
 
   public strings = SelectLanguage(this.props.prefLang);
 
+  public async componentDidUpdate (prevProps:IReactAllGroupsProps){
+    if (prevProps.prefLang !== this.props.prefLang) {
+      this.strings = SelectLanguage(this.props.prefLang);
+      await this.props.updateWebPart();
+    }
+  };
+
 //split the hidingGroups and split them by the comma
   // public hidingGroups: String[] = this.props.hidingGroups && this.props.hidingGroups.length > 0 ? this.props.hidingGroups.split(",") : [];
 
