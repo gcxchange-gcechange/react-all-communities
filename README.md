@@ -2,10 +2,11 @@
 
 ## Summary
 
--   This webpart generates all of the Office 365 groups that have been created in the SharePoint site
+- This webpart generates all of the Office 365 groups that have been created in the SharePoint site
 - Option to show all groups based on the selected letter or # (numbers)
 - Able to choose how many groups to display in the property pane
 - Ability to sort cards alphabetically or date the group was created
+- Able to change the language (English/French) in the propery pane
 
 ### webpart
 ![Grid Demo](./src/webparts/reactAllGroups/assets/All_Communities.png)
@@ -23,11 +24,8 @@ List of api permission that need to be approve by a sharepoint admin.
 
 ## Version 
 
-Used SharePoint Framework Webpart or Sharepoint Framework Extension 
-
-![SPFx 1.11](https://img.shields.io/badge/SPFx-1.11-green.svg)
-
-![Node.js v10](https://img.shields.io/badge/Node.js-10.22.0-green.svg)
+![SPFX](https://img.shields.io/badge/SPFX-1.17.4-green.svg)
+![Node.js](https://img.shields.io/badge/Node.js-v16.3+-green.svg)
 
 ## Applies to
 
