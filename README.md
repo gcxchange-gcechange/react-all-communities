@@ -16,11 +16,10 @@
 
 
 ## Prerequisites
-
-This web part connects to [this function app](https://github.com/gcxchange-gcechange/appsvc-fnc-dev-userstats).
+None.
 
 ## API permission
-List of api permission that need to be approve by a sharepoint admin.
+Microsoft Graph - User.ReadBasic.All
 
 ## Version 
 
