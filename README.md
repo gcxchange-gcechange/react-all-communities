@@ -1,10 +1,18 @@
-# Name of the application
+# All communities
 
 ## Summary
 
-Short description of what the webpart do. Give the basic information and feature of the app. 
+-This webpart generates all of the Office 365 groups that have been created in the SharePoint site
+-Option to show all groups based on the selected letter or # (numbers)
+-Able to choose how many groups to display in the property pane
+-Ability to sort cards alphabetically or date the group was created
 
-_Adding a visualisation is possible. Need to keep in mind that it should only reflect what is provide in the short description. Plus, an short description of the image or animation need to be provide in the alt._
+### webpart
+![Grid Demo](./src/webparts/reactAllGroups/assets/All_Communities.png)
+
+### property pane:
+![Property Pane Demo](./src/webparts/reactAllGroups/assets/PropertyPane_AllComm.png)
+
 
 ## Prerequisites
 
