@@ -6,7 +6,8 @@
 - Option to show all groups based on the selected letter or # (numbers)
 - Able to choose how many groups to display in the property pane
 - Ability to sort cards alphabetically or date the group was created
-- Able to change the language (English/French) in the propery pane
+- Able to change the language (English/French) in the property pane
+- Able to hide any group by entering the group id in the property pane
 
 ### webpart
 ![Grid Demo](./src/webparts/reactAllGroups/assets/All_Communities.png)
@@ -37,8 +38,12 @@ Microsoft Graph - User.ReadBasic.All
 
 Version|Date|Comments
 -------|----|--------
-1.0|Dec 9, 2021|Initial release
-1.1|March 25, 2022|Next release
+1.0|September 13, 2019|Initial release
+1.1|June 1, 2020| Updated to SPFX 1.10.0
+1.2|July 8, 2020| Added Grid Layout
+1.3|October 18, 2023| Updated to SPFX 1.17.4
+
+
 
 ## Minimal Path to Awesome
 
