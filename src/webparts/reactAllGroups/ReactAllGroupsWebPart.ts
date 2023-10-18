@@ -8,8 +8,6 @@ import { ReactAllGroups, IReactAllGroupsProps } from './components';
 import { ThemeProvider, ThemeChangedEventArgs, IReadonlyTheme } from '@microsoft/sp-component-base';
 import { SelectLanguage } from "./components/SelectLanguage";
 
-
-
 export interface IReactAllGroupsWebPartProps {
   layout: string;
   prefLang: string;
@@ -34,6 +32,9 @@ export default class ReactAllGroupsWebPart extends BaseClientSideWebPart<IReactA
   }
 
   public render(): void {
+    this.strings = SelectLanguage(this.properties.prefLang);
+    this.context.propertyPane.refresh();
+
     const element: React.ReactElement<IReactAllGroupsProps > = React.createElement(
       ReactAllGroups,
       {

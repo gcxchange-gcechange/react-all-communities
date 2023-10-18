@@ -293,7 +293,7 @@ export class ReactAllGroups extends React.Component<
       myData = this.state.groups.sort((a,b) => (a.displayName.toLowerCase() > b.displayName.toLowerCase() ? 1 : -1 ));
     }
 
-    let pagedItems: any[] = this.state.groups;
+    let pagedItems: any[] = this.state.groups.slice();
         console.log("PgItems",pagedItems.length);
 
     // total the groups that are not status code 403
