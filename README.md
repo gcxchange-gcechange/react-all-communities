@@ -39,11 +39,9 @@ Microsoft Graph - User.ReadBasic.All
 Version|Date|Comments
 -------|----|--------
 1.0|September 13, 2019|Initial release
-1.1|June 1, 2020| Updated to SPFX 1.10.0
+1.1|June 1, 2020| Upgraded to SPFX 1.10.0
 1.2|July 8, 2020| Added Grid Layout
-1.3|October 18, 2023| Updated to SPFX 1.17.4
-
-
+1.3|October 18, 2023| Upgraded to SPFX 1.17.4
 
 ## Minimal Path to Awesome
 
@@ -51,17 +49,19 @@ Version|Date|Comments
 - Ensure that you are at the solution folder
 - In the command-line run:
   - **npm install**
-  - **gulp serve**
-- You will need to add your client id and azure function to the `clientId` and `url` classs members at the top of the filename.tsx file.
 - To debug in the front end:
   - go to the `serve.json` file and update `initialPage` to `https://domain-name.sharepoint.com/_layouts/15/workbench.aspx`
-  - Run the command **gulp serve**
-- To deploy: in the command-line run
+  - In the command-line run:
+    - **npm install**
+- To deploy:
+  in the command-line run
+  - **gulp clean**
   - **gulp bundle --ship**
   - **gulp package-solution --ship**
 - Add the webpart to your tenant app store
 - Approve the web API permissions
-
+- Add the Webpart to a page
+- Modify the property pane according to your requirements
 ## Disclaimer
 
 **THIS CODE IS PROVIDED *AS IS* WITHOUT WARRANTY OF ANY KIND, EITHER EXPRESS OR IMPLIED, INCLUDING ANY IMPLIED WARRANTIES OF FITNESS FOR A PARTICULAR PURPOSE, MERCHANTABILITY, OR NON-INFRINGEMENT.**
