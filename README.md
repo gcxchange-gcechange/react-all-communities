@@ -54,10 +54,10 @@ Version|Date|Comments
   - In the command-line run:
     - **npm install**
 - To deploy:
-  in the command-line run
-  - **gulp clean**
-  - **gulp bundle --ship**
-  - **gulp package-solution --ship**
+  - in the command-line run
+    - **gulp clean**
+    - **gulp bundle --ship**
+    - **gulp package-solution --ship**
 - Add the webpart to your tenant app store
 - Approve the web API permissions
 - Add the Webpart to a page
