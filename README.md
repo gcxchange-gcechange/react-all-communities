@@ -54,7 +54,7 @@ Version|Date|Comments
   - In the command-line run:
     - **npm install**
 - To deploy:
-  - in the command-line run
+  - In the command-line run:
     - **gulp clean**
     - **gulp bundle --ship**
     - **gulp package-solution --ship**
