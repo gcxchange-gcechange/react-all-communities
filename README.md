@@ -2,8 +2,8 @@
 
 ## Summary
 
-- This webpart generates all of the Office 365 groups that have been created in the SharePoint site
-- Option to show all groups based on the selected letter or # (numbers)
+- The webpart shows all SharePoint teams sites
+- Able to show all groups based on the selected letter or # (numbers)
 - Able to choose how many groups to display in the property pane
 - Ability to sort cards alphabetically or date the group was created
 - Able to change the language (English/French) in the property pane
