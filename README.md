@@ -1,157 +1,67 @@
----
-page_type: sample
-products:
-- office-sp
-languages:
-- javascript
-- typescript
-extensions:
-  contentType: samples
-  technologies:
-  - SharePoint Framework
-  platforms:
-  - React
-  createdDate: 6/1/2020 12:00:00 AM
----
-
-copy of: https://github.com/pnp/sp-dev-fx-webparts/blob/master/samples/react-my-groups
-
-# My Groups
-## Update
-- Option to show all groups based on the selected letter or # (numbers)
-- You can choose how many groups to display in the property pane.
-- Ability to sort cards alphabetically or date the group was created.
-- French language icluded.
+# All communities
 
 ## Summary
 
-Using Microsoft Graph, this webpart generates all of the Office 365 groups that have been created in the SharePoint site.
+- The webpart shows all SharePoint teams sites
+- Able to show all groups based on the selected letter or # (numbers)
+- Able to choose how many groups to display in the property pane
+- Ability to sort cards alphabetically or date the group was created
+- Able to change the language (English/French) in the property pane
+- Able to hide any group by entering the group id in the property pane
 
-
+### webpart
 ![Grid Demo](./src/webparts/reactAllGroups/assets/All_Communities.png)
 
-
-You can customize paging and sorting of items through the settings in the property pane:
+### property pane:
 ![Property Pane Demo](./src/webparts/reactAllGroups/assets/PropertyPane_AllComm.png)
 
-## Compability
 
-![SPFx 1.10.0](https://img.shields.io/badge/SPFx-1.10.0-green.svg)
-![Node.js](https://img.shields.io/badge/Node.js-v10-green.svg)
+## Prerequisites
+None.
+
+## API permission
+Microsoft Graph - User.ReadBasic.All
+
+## Version 
+
+![SPFX](https://img.shields.io/badge/SPFX-1.17.4-green.svg)
+![Node.js](https://img.shields.io/badge/Node.js-v16.3+-green.svg)
 
 ## Applies to
 
-* [SharePoint Framework](https://docs.microsoft.com/sharepoint/dev/spfx/sharepoint-framework-overview)
+- [SharePoint Framework](https://aka.ms/spfx)
+- [Microsoft 365 tenant](https://docs.microsoft.com/en-us/sharepoint/dev/spfx/set-up-your-developer-tenant)
 
-
-## Solution
-
-Solution|Author(s)
---------|---------
-react-my-groups | Zach Roberts
+> Get your own free development tenant by subscribing to [Microsoft 365 developer program](http://aka.ms/o365devprogram)
 
 ## Version history
 
 Version|Date|Comments
 -------|----|--------
 1.0|September 13, 2019|Initial release
-1.1|June 1, 2020| Updated to SPFX 1.10.0
+1.1|June 1, 2020| Upgraded to SPFX 1.10.0
 1.2|July 8, 2020| Added Grid Layout
-
-## Disclaimer
-
-**THIS CODE IS PROVIDED *AS IS* WITHOUT WARRANTY OF ANY KIND, EITHER EXPRESS OR IMPLIED, INCLUDING ANY IMPLIED WARRANTIES OF FITNESS FOR A PARTICULAR PURPOSE, MERCHANTABILITY, OR NON-INFRINGEMENT.**
-
----
+1.3|October 18, 2023| Upgraded to SPFX 1.17.4
 
 ## Minimal Path to Awesome
 
-* Clone this repository
-* in the command line run:
-  * `npm install`
-  * `gulp bundle --ship`
-  * `gulp package-solution --ship`
-* Add the package to your app catalog
-* Approve the Graph API permissions in the SharePoint admin center
-* Add the webpart to your page
-
-
-## Features
-
-This web part lists all of the group sites created in the SharePoint site.
-
-<img src="https://telemetry.sharepointpnp.com/sp-dev-fx-webparts/samples/react-my-groups" />
-
----
-
-
-copie de: https://github.com/pnp/sp-dev-fx-webparts/blob/master/samples/react-my-groups
-
-# Mes groupes
-## Mise à jour
-- Ajout de l'option de voir tous les groupes en fonction de la lettre ou du # (chiffres) sélectionnés.
-- Vous pouvez choisir le nombre de groupes à afficher dans les paramètres.
-- Il est possible de trier les groupes par date de création ou par ordre alphabétique.
-- Le français a été ajouté.
-
-
-## Résumé
-
-À l’aide de Microsoft Graph, ce composant WebPart affiche tous les sites de groupe créés dans le site SharePoint.
-
-
-![Grid Demo](./src/webparts/reactAllGroups/assets/All_Communities.png)
-
-
-Vous pouvez personnaliser la pagination et le tri des éléments à l’aide des paramètres de la fenêtre des propriétés :
-![Property Pane Demo](./src/webparts/reactAllGroups/assets/PropertyPane_AllComm.png)
-
-## Compabilité
-
-![1.10.0](https://img.shields.io/badge/SPFx-1.10.0-green.svg)
-![Node.js](https://img.shields.io/badge/Node.js-v10-green.svg)
-
-
-## S’applique à ce qui suit :
-
-* [SharePoint Framework](https://docs.microsoft.com/sharepoint/dev/spfx/sharepoint-framework-overview)
-
-
-## Solution
-
-Solution|Autheur(s)
---------|---------
-react-my-groups | Zach Roberts
-
-## Historique des versions
-
-Version|Date|Commentaires
--------|----|--------
-1.0|13 septembre 2019|Version initiale
-1.1|1er  juin 2020| Mise à jour vers SPFX 1.10.0
-1.2|8 juillet 2020| Ajout de la disposition de grille
-
+- Clone this repository
+- Ensure that you are at the solution folder
+- In the command-line run:
+  - **npm install**
+- To debug in the front end:
+  - go to the `serve.json` file and update `initialPage` to `https://domain-name.sharepoint.com/_layouts/15/workbench.aspx`
+  - In the command-line run:
+    - **npm install**
+- To deploy:
+  - In the command-line run:
+    - **gulp clean**
+    - **gulp bundle --ship**
+    - **gulp package-solution --ship**
+- Add the webpart to your tenant app store
+- Approve the web API permissions
+- Add the Webpart to a page
+- Modify the property pane according to your requirements
 ## Disclaimer
 
-**LE PRÉSENT CODE EST FOURNI *TEL QUEL* SANS GARANTIE D’AUCUNE SORTE, EXPRESSE OU IMPLICITE, Y COMPRIS LES GARANTIES IMPLICITES D’ADAPTATION À UN USAGE PARTICULIER, DE QUALITÉ MARCHANDE OU D’ABSENCE DE CONTREFAÇON.**
-
----
-
-## Chemin minimal vers l’excellence
-
-* Clonez ce dépôt
-* dans l’exécution de ligne de commande :
-  * `npm install`
-  * `gulp bundle --ship`
-  * `gulp package-solution --ship`
-* Ajoutez la trousse à votre catalogue d’applications.
-* Approuvez les autorisations du Graph API dans le centre d’administration SharePoint.
-* Ajoutez le composant WebPart à votre page.
-
-
-## Fonctionnalités
-
-Ce composant WebPart répertorie tous les sites de groupe créés dans le site SharePoint.
-
-<img src="https://telemetry.sharepointpnp.com/sp-dev-fx-webparts/samples/react-my-groups" />
-
+**THIS CODE IS PROVIDED *AS IS* WITHOUT WARRANTY OF ANY KIND, EITHER EXPRESS OR IMPLIED, INCLUDING ANY IMPLIED WARRANTIES OF FITNESS FOR A PARTICULAR PURPOSE, MERCHANTABILITY, OR NON-INFRINGEMENT.**
