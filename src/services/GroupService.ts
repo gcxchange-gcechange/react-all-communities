@@ -1,7 +1,7 @@
 import { MSGraphClientV3 } from "@microsoft/sp-http";
 import * as MicrosoftGraph from "@microsoft/microsoft-graph-types";
 import { WebPartContext } from "@microsoft/sp-webpart-base";
-import { IGroup } from "../models";
+// import { IGroup } from "../models";
 
 
 
@@ -12,13 +12,14 @@ export class GroupServiceManager {
     this.context = context;
   }
 
+
   public getGroupsBatch(letter: string): Promise<MicrosoftGraph.Group[]> {
 
     let apiTxt: string = "";
 
     if (letter === "#") {
       apiTxt =
-        "/groups?$filter=groupTypes/any(c:c+eq+'Unified') and startsWith(displayName,'1') or startswith(displayName,'2') or startswith(displayName,'3') or startswith(displayName,'4')or startswith(displayName,'5') or startswith(displayName,'6') or startswith(displayName,'7') or startswith(displayName,'8') or startswith(displayName,'9')&$top=999";
+        "/groups?$filter=groupTypes/any(c:c+eq+'Unified') and startsWith(displayName,'1') or startswith(displayName,'2') or startswith(displayName,'3') or startswith(displayName,'4')or startswith(displayName,'5') or startswith(displayName,'6') or startswith(displayName,'7') or startswith(displayName,'8') or startswith(displayName,'9')&$select=id,displayName, createdDateTime,description&$top=999";
     } else {
       apiTxt = `/groups?$filter=groupTypes/any(c:c+eq+'Unified') and startsWith(displayName,'${letter}')&$select=id,displayName, createdDateTime,description&$top=999`;
     }
@@ -79,19 +80,25 @@ export class GroupServiceManager {
     });
   }
 
-  public getGroupLinksBatch(groups: any): Promise<any> {
+  public getGroupDetailsBatch(group: any): Promise<any> {
     const requestBody = {
       requests: [
         {
           id: "1",
           method: "GET",
-          url: `/groups/${groups.id}/sites/root/`,
+          url: `/groups/${group.id}/sites/root/?select=id,webUrl`,
         },
         {
           id: "2",
           method: "GET",
-          url: `/groups/${groups.id}/members/$count?ConsistencyLevel=eventual`
-        }
+          url: `/groups/${group.id}/members/$count?ConsistencyLevel=eventual`
+        },
+        {
+          id: "3",
+          method: "GET",
+          url: `/groups/${group.id}/photos/48x48/$value`
+        },
+
       ],
     };
     return new Promise((resolve, reject) => {
@@ -108,13 +115,14 @@ export class GroupServiceManager {
                 const responseContent = {};
 
                 responseObject.responses.forEach((response) => {
+
                   if (response.status === 200) {
                     responseContent[response.id] = response.body;
-                  } else if (response.status === 403) {
+                  } else if (response.status === 403 || response.status === 404) {
                     return null;
                   }
                 });
-                //console.log("RES", responseContent);
+
                 resolve(responseContent);
               });
           });
@@ -125,24 +133,6 @@ export class GroupServiceManager {
     });
   }
 
-  public getGroupThumbnails(groups: IGroup): Promise<any> {
-    return new Promise<any>((resolve, reject) => {
-      try {
-        this.context.msGraphClientFactory
-          .getClient('3')
-          .then((client: MSGraphClientV3) => {
-            client
-              .api(`/groups/${groups.id}/photos/48x48/$value`)
-              .get((error: any, group: any, rawResponse: any) => {
-                resolve(window.URL.createObjectURL(group));
-              });
-          });
-      } catch (error) {
-        console.error(error);
-        reject(error);
-      }
-    });
-  }
 
   public pageViewsBatch(groups: any): Promise<any> {
     const requestBody = {
