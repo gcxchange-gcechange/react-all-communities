@@ -77,11 +77,11 @@ export class ReactAllGroups extends React.Component<
         groups: groupData
       });
 
-      this._getGroupsLinks(groupData);
+      this._getGroupsDetails(groupData);
     });
   }
 
-  public _getGroupsLinks = (groups: any): void => {
+  public _getGroupsDetails = (groups: any): void => {
 
     let groupsCompleted = 0;
     const totalGroups = groups.length;
@@ -91,9 +91,10 @@ export class ReactAllGroups extends React.Component<
     }
 
     groups.map((groupItem) =>
-      GroupService.getGroupLinksBatch(groupItem)
+      GroupService.getGroupDetailsBatch(groupItem)
         .then((groupUrl) => {
           groupsCompleted++;
+
 
           if (
             groupUrl[1] &&
@@ -109,13 +110,14 @@ export class ReactAllGroups extends React.Component<
                       siteId: groupUrl[1].id,
                       modified: groupUrl[1].lastModifiedDateTime,
                       members: groupUrl[2],
+                      thumbnail: "data:image/jpeg;base64," + groupUrl[3]
+
                     }
                   : group
               ),
             }));
 
           } else {
-
             const index = this.state.groups
               .map((g) => g.id)
               .indexOf(groupItem.id);
@@ -128,8 +130,9 @@ export class ReactAllGroups extends React.Component<
           }
 
           if (groupsCompleted >= totalGroups) {
-            this._getGroupThumbnails(this.state.groups);
-            // console.log(this.state.groups);
+            this._setLoading(false);
+
+           this._pageViews(this.state.groups);
           }
 
         })
@@ -139,37 +142,9 @@ export class ReactAllGroups extends React.Component<
           });
         })
     );
+
   }
 
-  public _getGroupThumbnails = (groups: any): void => {
-
-    let groupsCompleted = 0;
-    const totalGroups = groups.length;
-
-    if (totalGroups === 0) {
-      this._setLoading(false);
-    }
-
-    groups.map((groupItem) =>
-      GroupService.getGroupThumbnails(groupItem).then((grouptb) => {
-        groupsCompleted++;
-
-        //set group color:
-        this.setState((prevState) => ({
-          groups: prevState.groups.map((group) =>
-            group.id === groupItem.id
-              ? { ...group, thumbnail: grouptb, color: "#0078d4" }
-              : group
-          ),
-        }));
-
-        if (groupsCompleted >= totalGroups) {
-          this._setLoading(false);
-        }
-      })
-    );
-    this._pageViews(this.state.groups);
-  }
 
   public _pageViews = (groups: any): void => {
     groups.map((item) =>
@@ -275,16 +250,16 @@ export class ReactAllGroups extends React.Component<
 
   public render(): React.ReactElement<IReactAllGroupsProps> {
     //Sorting in the Control panel
-    let myData = [];
+
 
     if ( this.props.sort === "DateCreation ") {
-      myData = this.state.groups.sort ((a, b) => (a.createdDateTime < b.createdDateTime ? 1: -1));
+      this.state.groups.sort ((a, b) => (a.createdDateTime < b.createdDateTime ? 1: -1));
     } else if ( this.props.sort === "Alphabetical") {
-      myData = this.state.groups.sort((a,b) => (a.displayName.toLowerCase() > b.displayName.toLowerCase() ? 1 : -1 ));
+      this.state.groups.sort((a,b) => (a.displayName.toLowerCase() > b.displayName.toLowerCase() ? 1 : -1 ));
     }
 
     let pagedItems: any[] = this.state.groups;
-        console.log("PgItems",pagedItems.length);
+        // console.log("PgItems",pagedItems.length);
 
     // total the groups that are not status code 403
     const totalItems: any[] = this.state.groups;
@@ -301,7 +276,7 @@ export class ReactAllGroups extends React.Component<
 
     const numberOfItems: number = totalItems.length;
     // console.log("#total Item for specific letter",numberOfItems);
-    let showPages: boolean = false;
+    // let showPages: boolean = false;
 
     //slider events
     const  maxEvents: number = this.props.numberPerPage;
@@ -314,7 +289,7 @@ export class ReactAllGroups extends React.Component<
       const pageEndAt: number = (maxEvents * currentPage);
 
       pagedItems = pagedItems.slice(pageStartAt, pageEndAt);
-      showPages = true;
+      // showPages = true;
     }
 
     return (
