@@ -1,4 +1,3 @@
-import {  ISize } from 'office-ui-fabric-react/lib/Utilities';
 import { IListProps } from 'office-ui-fabric-react/lib/List';
 
 export interface IGridLayoutProps {

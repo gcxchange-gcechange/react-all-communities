@@ -12,7 +12,18 @@
         "resource": "Microsoft Graph",
         "scope": "Group.Read.All"
       }
-    ]
+    ],
+    "metadata": {
+      "shortDescription": {
+        "default": "react-my-groups description"
+      },
+      "longDescription": {
+        "default": "react-my-groups description"
+      },
+      "screenshotPaths": [],
+      "videoUrl": "",
+      "categories": []
+    }
   },
   "paths": {
     "zippedPackage": "solution/All-Communities.sppkg"

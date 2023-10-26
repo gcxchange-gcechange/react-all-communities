@@ -3,15 +3,12 @@ import styles from "./ReactAllGroups.module.scss";
 import { IReactAllGroupsProps } from "./IReactAllGroupsProps";
 import GroupService from "../../../../services/GroupService";
 import { IReactAllGroupsState } from "./IReactAllGroupsState";
-import { IGroup } from "../../../../models";
-import { FocusZone, Spinner } from "office-ui-fabric-react";
+import { Spinner } from "office-ui-fabric-react";
 import { GridLayout } from "../GridList";
 import { SelectLanguage } from "../SelectLanguage";
-import { Icon } from "office-ui-fabric-react/lib/Icon";
-import { Stack, Image, IImageProps, ImageFit } from "office-ui-fabric-react";
+import { Stack, IImageProps } from "office-ui-fabric-react";
 import { AZNavigation } from "../AZNavigation/AZNavigation";
 import { Paging } from "../paging";
-import { forEach } from "lodash";
 
 
 export class ReactAllGroups extends React.Component<
@@ -41,7 +38,7 @@ export class ReactAllGroups extends React.Component<
 
 
   //Selected Letter by user
-  public handleClickEvent = (letter: string) => {
+  public handleClickEvent = (letter: string):any => {
     this.setState(
       {
         selectedLetter: this.props.selectedLetter,
@@ -69,8 +66,8 @@ export class ReactAllGroups extends React.Component<
       let n= groupData.length;
       console.log("n", hidingGroups);
       for (let index = 0; index < n; index++) {
-        let group:any = groupData[index];
-        if(hidingGroups.indexOf(group.id) != -1) {
+        const group:any = groupData[index];
+        if(hidingGroups.indexOf(group.id) !== -1) {
           groupData.splice(index, 1);
           n = n -1;
           index = index -1 ;
@@ -87,9 +84,9 @@ export class ReactAllGroups extends React.Component<
   public _getGroupsLinks = (groups: any): void => {
 
     let groupsCompleted = 0;
-    let totalGroups = groups.length;
+    const totalGroups = groups.length;
 
-    if (totalGroups == 0) {
+    if (totalGroups === 0) {
       this._setLoading(false);
     }
 
@@ -119,11 +116,11 @@ export class ReactAllGroups extends React.Component<
 
           } else {
 
-            let index = this.state.groups
+            const index = this.state.groups
               .map((g) => g.id)
               .indexOf(groupItem.id);
 
-            let groupsCopy = JSON.parse(JSON.stringify(this.state.groups));
+            const groupsCopy = JSON.parse(JSON.stringify(this.state.groups));
             groupsCopy.splice(index, 1);
             this.setState({
               groups: groupsCopy,
@@ -147,9 +144,9 @@ export class ReactAllGroups extends React.Component<
   public _getGroupThumbnails = (groups: any): void => {
 
     let groupsCompleted = 0;
-    let totalGroups = groups.length;
+    const totalGroups = groups.length;
 
-    if (totalGroups == 0) {
+    if (totalGroups === 0) {
       this._setLoading(false);
     }
 
@@ -188,7 +185,7 @@ export class ReactAllGroups extends React.Component<
     );
   }
 
-  private _setLoading(state: boolean) {
+  private _setLoading(state: boolean):void {
     this.setState({
       isLoading: state,
     });
@@ -199,7 +196,7 @@ export class ReactAllGroups extends React.Component<
   private _onRenderGridItem = (item: any, index: any): JSX.Element => {
 
     return (
-    <a href={item.url} target="_blank">
+    <a href={item.url} target="_blank" rel="noreferrer">
       <div className={styles.siteCard} id={index}>
 
           <div className={styles.cardBanner} />
@@ -290,7 +287,7 @@ export class ReactAllGroups extends React.Component<
         console.log("PgItems",pagedItems.length);
 
     // total the groups that are not status code 403
-    let totalItems: any[] = this.state.groups;
+    const totalItems: any[] = this.state.groups;
 
      //No Results Image props
      const imageProps: Partial<IImageProps> = {
@@ -307,7 +304,7 @@ export class ReactAllGroups extends React.Component<
     let showPages: boolean = false;
 
     //slider events
-    let  maxEvents: number = this.props.numberPerPage;
+    const  maxEvents: number = this.props.numberPerPage;
     // console.log("maxEvents",maxEvents);
     const { currentPage } = this.state;
 
@@ -406,7 +403,7 @@ export class ReactAllGroups extends React.Component<
                     <h4 className={styles.margin0} >
                       Sorry.
                       <br />
-                      We couldn't find the community you were looking for.
+                      We couldn&apos;t find the community you were looking for.
                     </h4>
                     <p className={styles.margin0}>
                       Either the community does not exist or it has a different

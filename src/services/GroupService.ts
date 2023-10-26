@@ -1,7 +1,7 @@
-import { MSGraphClient } from "@microsoft/sp-http";
+import { MSGraphClientV3 } from "@microsoft/sp-http";
 import * as MicrosoftGraph from "@microsoft/microsoft-graph-types";
 import { WebPartContext } from "@microsoft/sp-webpart-base";
-import { IGroup, IGroupCollection } from "../models";
+import { IGroup } from "../models";
 
 
 
@@ -23,7 +23,7 @@ export class GroupServiceManager {
       apiTxt = `/groups?$filter=groupTypes/any(c:c+eq+'Unified') and startsWith(displayName,'${letter}')&$select=id,displayName, createdDateTime,description&$top=999`;
     }
 
-    let requestBody = {
+    const requestBody = {
       requests: [
         {
           id: "1",
@@ -37,23 +37,23 @@ export class GroupServiceManager {
     return new Promise((resolve, reject) => {
       try{
         this.context.msGraphClientFactory
-          .getClient()
-          .then((client: MSGraphClient) => {
+          .getClient('3')
+          .then((client: MSGraphClientV3):void => {
             client
               .api(`/$batch`)
               .post(requestBody, (error: any, responseObject: any) => {
 
-                let responseResults:any[] = [];
+                const responseResults:any[] = [];
 
                 responseResults.push(...responseObject.responses[0].body.value);
 
-                let link = responseObject.responses[0].body["@odata.nextLink"];
+                const link = responseObject.responses[0].body["@odata.nextLink"];
 
                 if (error) {
                   Promise.reject(error);
                 } else if (link) {
 
-                  const handleNextPage = (url: string) => {
+                  const handleNextPage = (url: string):any => {
                     client.api(url).get((error:any, response2: any) => {
                       const nextLink = response2["@odata.nextLink"];
 
@@ -80,7 +80,7 @@ export class GroupServiceManager {
   }
 
   public getGroupLinksBatch(groups: any): Promise<any> {
-    let requestBody = {
+    const requestBody = {
       requests: [
         {
           id: "1",
@@ -97,15 +97,15 @@ export class GroupServiceManager {
     return new Promise((resolve, reject) => {
       try {
         this.context.msGraphClientFactory
-          .getClient()
-          .then((client: MSGraphClient) => {
+          .getClient('3')
+          .then((client: MSGraphClientV3):void => {
             client
               .api(`/$batch`)
               .post(requestBody, (error: any, responseObject: any) => {
                 if (error) {
                   Promise.reject(error);
                 }
-                let responseContent = {};
+                const responseContent = {};
 
                 responseObject.responses.forEach((response) => {
                   if (response.status === 200) {
@@ -125,17 +125,14 @@ export class GroupServiceManager {
     });
   }
 
-
-
   public getGroupThumbnails(groups: IGroup): Promise<any> {
     return new Promise<any>((resolve, reject) => {
       try {
         this.context.msGraphClientFactory
-          .getClient()
-          .then((client: MSGraphClient) => {
+          .getClient('3')
+          .then((client: MSGraphClientV3) => {
             client
               .api(`/groups/${groups.id}/photos/48x48/$value`)
-              .responseType("blob")
               .get((error: any, group: any, rawResponse: any) => {
                 resolve(window.URL.createObjectURL(group));
               });
@@ -148,7 +145,7 @@ export class GroupServiceManager {
   }
 
   public pageViewsBatch(groups: any): Promise<any> {
-    let requestBody = {
+    const requestBody = {
       requests: [
         {
           id: "1",
@@ -161,8 +158,8 @@ export class GroupServiceManager {
     return new Promise<any>(( resolve, reject ) => {
       try{
         this.context.msGraphClientFactory
-          .getClient()
-          .then((client: MSGraphClient) => {
+          .getClient('3')
+          .then((client: MSGraphClientV3) => {
             client
             .api(`/$batch`)
             .post(requestBody, (error: any, responseObject: any) => {

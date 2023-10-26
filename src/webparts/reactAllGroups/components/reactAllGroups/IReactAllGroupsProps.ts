@@ -1,4 +1,3 @@
-import { SPHttpClient } from '@microsoft/sp-http';
 import { IReadonlyTheme } from '@microsoft/sp-component-base';
 
 export interface IReactAllGroupsProps {

@@ -1,6 +1,5 @@
 import * as React from 'react';
-import { css } from '@uifabric/utilities/lib/css';
-import { ActionButton, DefaultButton, IButtonProps, IButtonStyles, PrimaryButton } from 'office-ui-fabric-react/lib/Button';
+import { ActionButton, DefaultButton, IButtonProps, IButtonStyles } from 'office-ui-fabric-react/lib/Button';
 import { Icon } from 'office-ui-fabric-react/lib/Icon';
 
 import { IPagingProps, IPagingState } from "./index";
@@ -119,9 +118,7 @@ export class Paging extends React.Component<IPagingProps, IPagingState> {
                     }}
                     disabled={nextDisabled}
                     onClick={this._goToLastPage}
-                    ariaLabel={lastButtonLabel}>
-
-              </ActionButton>
+                    ariaLabel={lastButtonLabel} />
             </Stack>
         );
     }
@@ -180,8 +177,8 @@ export class Paging extends React.Component<IPagingProps, IPagingState> {
     private _getNumberOfPages(): number[] {
         const { numberOfItems, itemsCountPerPage} = this.props;
 
-        let numPages: number = Math.ceil(numberOfItems / itemsCountPerPage);
-        let numbers: number[] = [];
+        const numPages: number = Math.ceil(numberOfItems / itemsCountPerPage);
+        const numbers: number[] = [];
         for (let i = 0; i < numPages; i++) {
         numbers.push(i + 1);
         }

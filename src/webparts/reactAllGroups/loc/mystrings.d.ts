@@ -1,4 +1,15 @@
 declare interface IReactAllGroupsWebPartStrings {
+  hidingYeti: string;
+  noResults: string;
+  goToPage: string;
+  currentPage: string;
+  lastPage: string;
+  firstPage: string;
+  pagPrev: string;
+  pagNext: string;
+  loadingState: string;
+  userLang: string;
+  altImgLogo: string;
   PropertyPaneDescription: string;
   BasicGroupName: string;
   DescriptionFieldLabel: string;
