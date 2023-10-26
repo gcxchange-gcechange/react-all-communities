@@ -1,7 +1,7 @@
 import * as React from 'react';
 import { IAZNavigationProps} from './IAZNavigationProps';
 import  styles from './AZNavigation.module.scss';
-import { IPivotStyles, IStyleSet, PivotLinkFormat} from 'office-ui-fabric-react';
+import { IPivotStyles, PivotLinkFormat} from 'office-ui-fabric-react';
 import { Pivot, PivotItem} from 'office-ui-fabric-react';
 import { SelectLanguage } from '../SelectLanguage';
 
@@ -23,26 +23,29 @@ export class AZNavigation extends React.Component<IAZNavigationProps> {
 
     //Create # symbol array
       const numberArray = ():any => {
-        return Array.apply(null, {length:1}).map((num: any, index: number) => String.fromCharCode(35 + index));
+
+       return Array.from({length:1}).map((num: any, index: number) => String.fromCharCode(35 + index));
+
       };
       const numSym  = numberArray();
 
+
     // Create the A-Z Array
     const arrayAtoZ = ():any => {
-      return Array.apply(null, {length:26}).map((num: any, index: number) => String.fromCharCode(65 + index));
+
+      return Array.from({length:26}).map((num: any, index: number) => String.fromCharCode(65 + index));
     };
 
     const abcChars = arrayAtoZ();
 
     // Combine both ABC and # symbol arrays
 
-
     const combinedIndex = [...abcChars, ...numSym ];
 
+    //Define alphabet styling for the letters
 
-    //Change the styles for the letters
-    const pivotStyles: Partial<IStyleSet<IPivotStyles>> ={
-        link:{
+    const pivotStyles: Partial<IPivotStyles> = {
+      link:{
         backgroundColor:'#e3e1e1',
       },
 
@@ -54,7 +57,7 @@ export class AZNavigation extends React.Component<IAZNavigationProps> {
       linkIsSelected:{
         color: 'white'
       }
-    };
+    }
 
     return (
       <Pivot styles={pivotStyles} className={styles.letter} onLinkClick={this._handleClick} selectedKey={this.props.selectedLetter}  linkFormat={PivotLinkFormat.tabs} linkSize={1}>
