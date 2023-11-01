@@ -9,7 +9,6 @@ declare interface IReactAllGroupsWebPartStrings {
   seeAllOff: string;
   setSortOpt: string;
   dateCreation: string;
-  compactIcon: string;
   setLayoutOpt: string;
   gridIcon: string;
   compactIcon: string;
@@ -30,7 +29,9 @@ declare interface IReactAllGroupsWebPartStrings {
   currentPage:string;
   goToPage:string;
   hidingYeti:string;
+  seeAllLabel:string;
 }
+
 
 declare module 'ReactAllGroupsWebPartStrings' {
   const strings: IReactAllGroupsWebPartStrings;

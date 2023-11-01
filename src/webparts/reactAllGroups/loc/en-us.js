@@ -5,7 +5,6 @@ define([], function() {
     "BasicGroupName": "Group Name",
     "DescriptionFieldLabel": "Description Field",
     "altImgLogo":"Logo of",
-    "seeAll" : "See all",
     "seeAllLabel": "See all of my communities",
     "seeAllToggle": "This webpart is for the see all page",
     "seeAllOn" :"Yes",
@@ -19,7 +18,6 @@ define([], function() {
     "alphabetical": "Alphabetical",
     "dateCreation" : "Creation date",
     "loadingState" : "Loading",
-    "ListIcon" : "List",
     "pagPrev" : "Previous",
     "pagNext" : "Next",
     "firstPage" : "First",
@@ -33,6 +31,5 @@ define([], function() {
     "created": "Created",
     "lastModified": "Last modified",
     "hidingYeti": "Hiding yeti"
-
   }
 });
