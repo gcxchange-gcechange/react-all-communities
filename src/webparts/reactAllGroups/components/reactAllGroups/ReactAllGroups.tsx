@@ -3,15 +3,12 @@ import styles from "./ReactAllGroups.module.scss";
 import { IReactAllGroupsProps } from "./IReactAllGroupsProps";
 import GroupService from "../../../../services/GroupService";
 import { IReactAllGroupsState } from "./IReactAllGroupsState";
-import { IGroup } from "../../../../models";
-import { FocusZone, Spinner } from "office-ui-fabric-react";
+import { Spinner } from "office-ui-fabric-react";
 import { GridLayout } from "../GridList";
 import { SelectLanguage } from "../SelectLanguage";
-import { Icon } from "office-ui-fabric-react/lib/Icon";
-import { Stack, Image, IImageProps, ImageFit } from "office-ui-fabric-react";
+import { Stack, IImageProps } from "office-ui-fabric-react";
 import { AZNavigation } from "../AZNavigation/AZNavigation";
 import { Paging } from "../paging";
-import { forEach } from "lodash";
 
 
 export class ReactAllGroups extends React.Component<
@@ -48,7 +45,7 @@ export class ReactAllGroups extends React.Component<
 
 
   //Selected Letter by user
-  public handleClickEvent = (letter: string) => {
+  public handleClickEvent = (letter: string):any => {
     this.setState(
       {
         selectedLetter: this.props.selectedLetter,
@@ -76,8 +73,8 @@ export class ReactAllGroups extends React.Component<
       let n= groupData.length;
       console.log("n", hidingGroups);
       for (let index = 0; index < n; index++) {
-        let group:any = groupData[index];
-        if(hidingGroups.indexOf(group.id) != -1) {
+        const group:any = groupData[index];
+        if(hidingGroups.indexOf(group.id) !== -1) {
           groupData.splice(index, 1);
           n = n -1;
           index = index -1 ;
@@ -87,23 +84,24 @@ export class ReactAllGroups extends React.Component<
         groups: groupData
       });
 
-      this._getGroupsLinks(groupData);
+      this._getGroupsDetails(groupData);
     });
   }
 
-  public _getGroupsLinks = (groups: any): void => {
+  public _getGroupsDetails = (groups: any): void => {
 
     let groupsCompleted = 0;
-    let totalGroups = groups.length;
+    const totalGroups = groups.length;
 
-    if (totalGroups == 0) {
+    if (totalGroups === 0) {
       this._setLoading(false);
     }
 
     groups.map((groupItem) =>
-      GroupService.getGroupLinksBatch(groupItem)
+      GroupService.getGroupDetailsBatch(groupItem)
         .then((groupUrl) => {
           groupsCompleted++;
+
 
           if (
             groupUrl[1] &&
@@ -119,18 +117,19 @@ export class ReactAllGroups extends React.Component<
                       siteId: groupUrl[1].id,
                       modified: groupUrl[1].lastModifiedDateTime,
                       members: groupUrl[2],
+                      thumbnail: "data:image/jpeg;base64," + groupUrl[3]
+
                     }
                   : group
               ),
             }));
 
           } else {
-
-            let index = this.state.groups
+            const index = this.state.groups
               .map((g) => g.id)
               .indexOf(groupItem.id);
 
-            let groupsCopy = JSON.parse(JSON.stringify(this.state.groups));
+            const groupsCopy = JSON.parse(JSON.stringify(this.state.groups));
             groupsCopy.splice(index, 1);
             this.setState({
               groups: groupsCopy,
@@ -138,8 +137,9 @@ export class ReactAllGroups extends React.Component<
           }
 
           if (groupsCompleted >= totalGroups) {
-            this._getGroupThumbnails(this.state.groups);
-            // console.log(this.state.groups);
+            this._setLoading(false);
+
+           this._pageViews(this.state.groups);
           }
 
         })
@@ -149,37 +149,9 @@ export class ReactAllGroups extends React.Component<
           });
         })
     );
+
   }
 
-  public _getGroupThumbnails = (groups: any): void => {
-
-    let groupsCompleted = 0;
-    let totalGroups = groups.length;
-
-    if (totalGroups == 0) {
-      this._setLoading(false);
-    }
-
-    groups.map((groupItem) =>
-      GroupService.getGroupThumbnails(groupItem).then((grouptb) => {
-        groupsCompleted++;
-
-        //set group color:
-        this.setState((prevState) => ({
-          groups: prevState.groups.map((group) =>
-            group.id === groupItem.id
-              ? { ...group, thumbnail: grouptb, color: "#0078d4" }
-              : group
-          ),
-        }));
-
-        if (groupsCompleted >= totalGroups) {
-          this._setLoading(false);
-        }
-      })
-    );
-    this._pageViews(this.state.groups);
-  }
 
   public _pageViews = (groups: any): void => {
     groups.map((item) =>
@@ -195,7 +167,7 @@ export class ReactAllGroups extends React.Component<
     );
   }
 
-  private _setLoading(state: boolean) {
+  private _setLoading(state: boolean):void {
     this.setState({
       isLoading: state,
     });
@@ -206,7 +178,7 @@ export class ReactAllGroups extends React.Component<
   private _onRenderGridItem = (item: any, index: any): JSX.Element => {
 
     return (
-    <a href={item.url} target="_blank">
+    <a href={item.url} target="_blank" rel="noreferrer">
       <div className={styles.siteCard} id={index}>
 
           <div className={styles.cardBanner} />
@@ -285,19 +257,19 @@ export class ReactAllGroups extends React.Component<
 
   public render(): React.ReactElement<IReactAllGroupsProps> {
     //Sorting in the Control panel
-    let myData = [];
+
 
     if ( this.props.sort === "DateCreation ") {
-      myData = this.state.groups.sort ((a, b) => (a.createdDateTime < b.createdDateTime ? 1: -1));
+      this.state.groups.sort ((a, b) => (a.createdDateTime < b.createdDateTime ? 1: -1));
     } else if ( this.props.sort === "Alphabetical") {
-      myData = this.state.groups.sort((a,b) => (a.displayName.toLowerCase() > b.displayName.toLowerCase() ? 1 : -1 ));
+      this.state.groups.sort((a,b) => (a.displayName.toLowerCase() > b.displayName.toLowerCase() ? 1 : -1 ));
     }
 
     let pagedItems: any[] = this.state.groups.slice();
         console.log("PgItems",pagedItems.length);
 
     // total the groups that are not status code 403
-    let totalItems: any[] = this.state.groups;
+    const totalItems: any[] = this.state.groups;
 
      //No Results Image props
      const imageProps: Partial<IImageProps> = {
@@ -311,10 +283,10 @@ export class ReactAllGroups extends React.Component<
 
     const numberOfItems: number = totalItems.length;
     // console.log("#total Item for specific letter",numberOfItems);
-    let showPages: boolean = false;
+    // let showPages: boolean = false;
 
     //slider events
-    let  maxEvents: number = this.props.numberPerPage;
+    const  maxEvents: number = this.props.numberPerPage;
     // console.log("maxEvents",maxEvents);
     const { currentPage } = this.state;
 
@@ -324,7 +296,7 @@ export class ReactAllGroups extends React.Component<
       const pageEndAt: number = (maxEvents * currentPage);
 
       pagedItems = pagedItems.slice(pageStartAt, pageEndAt);
-      showPages = true;
+      // showPages = true;
     }
 
     return (
@@ -413,7 +385,7 @@ export class ReactAllGroups extends React.Component<
                     <h4 className={styles.margin0} >
                       Sorry.
                       <br />
-                      We couldn't find the community you were looking for.
+                      We couldn&apos;t find the community you were looking for.
                     </h4>
                     <p className={styles.margin0}>
                       Either the community does not exist or it has a different

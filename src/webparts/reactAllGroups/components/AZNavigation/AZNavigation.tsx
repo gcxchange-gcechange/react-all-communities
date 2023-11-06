@@ -1,9 +1,8 @@
 import * as React from 'react';
 import { IAZNavigationProps} from './IAZNavigationProps';
 import  styles from './AZNavigation.module.scss';
-import { htmlElementProperties, IPivotStyles, IStyleSet, Label, PivotLinkFormat, PivotLinkSize} from 'office-ui-fabric-react';
+import { IPivotStyles, PivotLinkFormat} from 'office-ui-fabric-react';
 import { Pivot, PivotItem} from 'office-ui-fabric-react';
-import * as strings from 'ReactAllGroupsWebPartStrings';
 import { SelectLanguage } from '../SelectLanguage';
 
 
@@ -23,27 +22,30 @@ export class AZNavigation extends React.Component<IAZNavigationProps> {
 
 
     //Create # symbol array
-      let numberArray = () => {
-        return Array.apply(null, {length:1}).map((num: any, index: number) => String.fromCharCode(35 + index));
+      const numberArray = ():any => {
+
+       return Array.from({length:1}).map((num: any, index: number) => String.fromCharCode(35 + index));
+
       };
-      let numSym  = numberArray();
+      const numSym  = numberArray();
+
 
     // Create the A-Z Array
-    let arrayAtoZ = () => {
-      return Array.apply(null, {length:26}).map((num: any, index: number) => String.fromCharCode(65 + index));
+    const arrayAtoZ = ():any => {
+
+      return Array.from({length:26}).map((num: any, index: number) => String.fromCharCode(65 + index));
     };
 
-    let abcChars = arrayAtoZ();
+    const abcChars = arrayAtoZ();
 
     // Combine both ABC and # symbol arrays
 
-
     const combinedIndex = [...abcChars, ...numSym ];
 
+    //Define alphabet styling for the letters
 
-    //Change the styles for the letters
-    const pivotStyles: Partial<IStyleSet<IPivotStyles>> ={
-        link:{
+    const pivotStyles: Partial<IPivotStyles> = {
+      link:{
         backgroundColor:'#e3e1e1',
       },
 
@@ -55,13 +57,14 @@ export class AZNavigation extends React.Component<IAZNavigationProps> {
       linkIsSelected:{
         color: 'white'
       }
-    };
+    }
 
     return (
       <Pivot styles={pivotStyles} className={styles.letter} onLinkClick={this._handleClick} selectedKey={this.props.selectedLetter}  linkFormat={PivotLinkFormat.tabs} linkSize={1}>
-        {combinedIndex.map((letter) => {
+        {combinedIndex.map((letter,index) => {
              return (
                <PivotItem
+                 key={index}
                  itemKey={letter}
                  headerText={letter}
                  headerButtonProps={{'data-title': `${letter}`}}

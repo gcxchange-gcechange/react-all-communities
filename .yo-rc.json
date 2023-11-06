@@ -1,11 +1,20 @@
 {
   "@microsoft/generator-sharepoint": {
+    "plusBeta": false,
     "isCreatingSolution": true,
-    "environment": "spo",
-    "version": "1.10.0",
+    "nodeVersion": "16.15.1",
+    "sdksVersions": {
+      "@microsoft/microsoft-graph-client": "3.0.2",
+      "@microsoft/teams-js": "2.9.1"
+    },
+    "version": "1.17.4",
     "libraryName": "All-Communities",
     "libraryId": "ee52dd3d-51d0-44e4-bc47-98bfdd06b00f",
+    "environment": "spo",
     "packageManager": "npm",
+    "solutionName": "All-Communities",
+    "solutionShortDescription": "All-Communities description",
+    "skipFeatureDeployment": true,
     "isDomainIsolated": false,
     "componentType": "webpart"
   }
