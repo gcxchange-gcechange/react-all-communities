@@ -15,32 +15,19 @@ export class AZNavigation extends React.Component<IAZNavigationProps> {
     this.props.onClickEvent(item.props.headerText);
   }
 
-
-
-
   public render(): React.ReactElement<IAZNavigationProps> {
-
-
-    //Create # symbol array
-      const numberArray = ():any => {
-
-       return Array.from({length:1}).map((num: any, index: number) => String.fromCharCode(35 + index));
-
-      };
-      const numSym  = numberArray();
-
 
     // Create the A-Z Array
     const arrayAtoZ = ():any => {
-
-      return Array.from({length:26}).map((num: any, index: number) => String.fromCharCode(65 + index));
+      const navitems: string[] = [];
+      for (let i = 65; i < 91; i++) {
+        navitems.push(String.fromCharCode(i));
+      }
+      navitems.push(String.fromCharCode(35));
+      return navitems;
     };
 
-    const abcChars = arrayAtoZ();
-
-    // Combine both ABC and # symbol arrays
-
-    const combinedIndex = [...abcChars, ...numSym ];
+    const combinedIndex = arrayAtoZ();
 
     //Define alphabet styling for the letters
 

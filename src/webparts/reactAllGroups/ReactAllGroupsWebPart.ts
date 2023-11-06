@@ -5,7 +5,7 @@ import { BaseClientSideWebPart } from "@microsoft/sp-webpart-base";
 import { IPropertyPaneConfiguration, PropertyPaneTextField, PropertyPaneChoiceGroup, PropertyPaneDropdown, PropertyPaneSlider } from "@microsoft/sp-property-pane";
 import GroupService from '../../services/GroupService';
 import { ReactAllGroups, IReactAllGroupsProps } from './components';
-import { ThemeProvider, ThemeChangedEventArgs, IReadonlyTheme } from '@microsoft/sp-component-base';
+import {IReadonlyTheme } from '@microsoft/sp-component-base';
 import { SelectLanguage } from "./components/SelectLanguage";
 
 export interface IReactAllGroupsWebPartProps {
@@ -22,11 +22,10 @@ export interface IReactAllGroupsWebPartProps {
 
 export default class ReactAllGroupsWebPart extends BaseClientSideWebPart<IReactAllGroupsWebPartProps> {
 
-  private _themeProvider: ThemeProvider;
   private _themeVariant: IReadonlyTheme;
   private strings: IReactAllGroupsWebPartStrings;
 
-  public updateWebPart= async () => {
+  public updateWebPart= async ():Promise<void> =>{
     this.context.propertyPane.refresh();
     this.render();
   }

@@ -33,12 +33,12 @@ export class ReactAllGroups extends React.Component<
 
   public strings = SelectLanguage(this.props.prefLang);
 
-  public async componentDidUpdate (prevProps:IReactAllGroupsProps){
+  public async componentDidUpdate (prevProps:IReactAllGroupsProps):Promise<void>{
     if (prevProps.prefLang !== this.props.prefLang) {
       this.strings = SelectLanguage(this.props.prefLang);
-      await this.props.updateWebPart();
+      this.props.updateWebPart();
     }
-  };
+  }
 
 //split the hidingGroups and split them by the comma
   // public hidingGroups: String[] = this.props.hidingGroups && this.props.hidingGroups.length > 0 ? this.props.hidingGroups.split(",") : [];
@@ -355,7 +355,7 @@ export class ReactAllGroups extends React.Component<
               {this.strings.userLang === "fr-fr" ? (
                 <div
                   className={styles.noResultsText}
-                  aria-label={this.strings.noResultsFR}
+                  aria-label={this.strings.noResults}
                   tabIndex={0}
                 >
                   <h4 className={styles.margin0}>
@@ -378,7 +378,7 @@ export class ReactAllGroups extends React.Component<
                 <>
                   <div
                     className={styles.noResultsText}
-                    aria-label={this.strings.noResultsEN}
+                    aria-label={this.strings.noResults}
                     tabIndex={0}
 
                     >
