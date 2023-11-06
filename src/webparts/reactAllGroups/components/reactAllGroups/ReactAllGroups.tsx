@@ -33,6 +33,13 @@ export class ReactAllGroups extends React.Component<
 
   public strings = SelectLanguage(this.props.prefLang);
 
+  public async componentDidUpdate (prevProps:IReactAllGroupsProps):Promise<void>{
+    if (prevProps.prefLang !== this.props.prefLang) {
+      this.strings = SelectLanguage(this.props.prefLang);
+      this.props.updateWebPart();
+    }
+  }
+
 //split the hidingGroups and split them by the comma
   // public hidingGroups: String[] = this.props.hidingGroups && this.props.hidingGroups.length > 0 ? this.props.hidingGroups.split(",") : [];
 
@@ -203,7 +210,7 @@ export class ReactAllGroups extends React.Component<
             <div className={styles.footerItem}>
               <p className={styles.bold700} aria-label={this.strings.created}>{this.strings.created}</p>
               <p className={styles.pl5}>
-                {this.strings.userLang === "FR"
+                {this.strings.userLang === "fr-fr"
                   ? new Date(item.createdDateTime).toLocaleDateString("fr-CA")
                   : new Date(item.createdDateTime).toLocaleDateString("en-CA")}
               </p>
@@ -223,12 +230,12 @@ export class ReactAllGroups extends React.Component<
               <p
                 className={styles.pl5}
                 aria-label={
-                  this.strings.userLang === "FR"
+                  this.strings.userLang === "fr-fr"
                     ? new Date(item.modified).toLocaleDateString("fr-CA")
                     : new Date(item.modified).toLocaleDateString("en-CA")
                 }
               >
-                {this.strings.userLang === "FR"
+                {this.strings.userLang === "fr-fr"
                   ? new Date(item.modified).toLocaleDateString("fr-CA")
                   : new Date(item.modified).toLocaleDateString("en-CA")}
               </p>
@@ -258,8 +265,8 @@ export class ReactAllGroups extends React.Component<
       this.state.groups.sort((a,b) => (a.displayName.toLowerCase() > b.displayName.toLowerCase() ? 1 : -1 ));
     }
 
-    let pagedItems: any[] = this.state.groups;
-        // console.log("PgItems",pagedItems.length);
+    let pagedItems: any[] = this.state.groups.slice();
+        console.log("PgItems",pagedItems.length);
 
     // total the groups that are not status code 403
     const totalItems: any[] = this.state.groups;
@@ -345,10 +352,10 @@ export class ReactAllGroups extends React.Component<
           ) : (
             <Stack  as='div' horizontal reversed  verticalAlign="center" tabIndex={0} aria-label={this.strings.noResults}>
 
-              {this.strings.userLang === "FR" ? (
+              {this.strings.userLang === "fr-fr" ? (
                 <div
                   className={styles.noResultsText}
-                  aria-label={this.strings.noResultsFR}
+                  aria-label={this.strings.noResults}
                   tabIndex={0}
                 >
                   <h4 className={styles.margin0}>
@@ -371,7 +378,7 @@ export class ReactAllGroups extends React.Component<
                 <>
                   <div
                     className={styles.noResultsText}
-                    aria-label={this.strings.noResultsEN}
+                    aria-label={this.strings.noResults}
                     tabIndex={0}
 
                     >

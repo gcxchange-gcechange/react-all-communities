@@ -1,6 +1,6 @@
 define([], function() {
   return {
-    "userLang": "FR",
+    "userLang": "fr-fr",
     "PropertyPaneDescription": "Description",
     "BasicGroupName": "Group Name",
     "DescriptionFieldLabel": "Description Field",
@@ -17,12 +17,9 @@ define([], function() {
     "compactIcon": "Compacte",
     "dateCreation": "Date de création",
     "alphabetical": "Alphabétique",
-    "showmore": "Montrer plus",
-    "showless": "Montrer moins",
     "groups": "collectivités",
-    "seeAll": "Afficher tout",
     "seeAllLabel": "Afficher toutes mes collectivités",
-    "ListIcon": "Liste",
+    "listIcon": "Liste",
     "seeAllToggle": "Ce webpart est pour la page Afficher tout",
     "seeAllOn": "Oui",
     "seeAllOff": "Non",
@@ -36,3 +33,4 @@ define([], function() {
     "goToPage": "Aller à la page"
   }
 });
+

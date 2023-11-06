@@ -10,4 +10,5 @@ export interface IReactAllGroupsProps {
   prefLang: string;
   selectedLetter: string;
   hidingGroups: string;
+  updateWebPart: ()=>void;
 }

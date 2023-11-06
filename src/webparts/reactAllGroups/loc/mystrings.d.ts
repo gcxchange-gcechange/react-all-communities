@@ -1,15 +1,5 @@
 declare interface IReactAllGroupsWebPartStrings {
-  hidingYeti: string;
-  noResults: string;
-  goToPage: string;
-  currentPage: string;
-  lastPage: string;
-  firstPage: string;
-  pagPrev: string;
-  pagNext: string;
-  loadingState: string;
-  userLang: string;
-  altImgLogo: string;
+  userLang:string;
   PropertyPaneDescription: string;
   BasicGroupName: string;
   DescriptionFieldLabel: string;
@@ -19,21 +9,29 @@ declare interface IReactAllGroupsWebPartStrings {
   seeAllOff: string;
   setSortOpt: string;
   dateCreation: string;
-  compactIcon: string;
   setLayoutOpt: string;
   gridIcon: string;
   compactIcon: string;
   listIcon: string;
   groups: string;
   alphabetical: string;
-  noResultsEN: string;
-  noResultsFR: string;
+  noResults: string;
   members:string;
   siteViews:string;
   created: string;
   lastModified: string;
-
+  altImgLogo:string;
+  loadingState:string;
+  pagNext:string;
+  pagPrev:string;
+  firstPage:string;
+  lastPage:string;
+  currentPage:string;
+  goToPage:string;
+  hidingYeti:string;
+  seeAllLabel:string;
 }
+
 
 declare module 'ReactAllGroupsWebPartStrings' {
   const strings: IReactAllGroupsWebPartStrings;
