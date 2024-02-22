@@ -86,7 +86,7 @@ export class GroupServiceManager {
         {
           id: "1",
           method: "GET",
-          url: `/groups/${group.id}/sites/root/?select=id,webUrl`,
+          url: `/groups/${group.id}/sites/root/`,
         },
         {
           id: "2",
