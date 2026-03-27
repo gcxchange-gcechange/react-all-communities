@@ -28,7 +28,7 @@
       "dom",
       "es2015.collection",
       "es2015.promise",
-      "ES2016",
+      "ES2016"
     ]
   },
   "include": [
@@ -36,3 +36,4 @@
     "src/**/*.tsx"
   ]
 }
+
